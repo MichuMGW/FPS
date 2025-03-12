@@ -1,0 +1,47 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3gno6dkvx40u"]
+
+[ext_resource type="Script" uid="uid://bacf5wvv2cn0i" path="res://scripts/menu/GameMenuScene.cs" id="1_jfskg"]
+
+[node name="GameMenuScene" type="Control" node_paths=PackedStringArray("continueButton", "settingsButton", "exitButton")]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jfskg")
+continueButton = NodePath("VBoxContainer/ContinueButton")
+settingsButton = NodePath("VBoxContainer/SettingsButton")
+exitButton = NodePath("VBoxContainer/QuitButton")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -25.0
+offset_right = 50.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="ContinueButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+text = "Continue"
+
+[node name="SettingsButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+text = "Settings"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+text = "Exit"

@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2p7ca7cg4o5w"]
+
+[ext_resource type="Script" uid="uid://53d404f0wsc5" path="res://scripts/WaveManager.cs" id="1_8fe1o"]
+
+[node name="WaveManager" type="Node" node_paths=PackedStringArray("spawnTimer", "waveBreakTimer")]
+script = ExtResource("1_8fe1o")
+spawnTimer = NodePath("SpawnTimer")
+waveBreakTimer = NodePath("WaveBreakTimer")
+
+[node name="WaveBreakTimer" type="Timer" parent="."]
+
+[node name="SpawnTimer" type="Timer" parent="."]

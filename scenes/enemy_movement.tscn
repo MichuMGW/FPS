@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dcjp3y2tpbtwn"]
+
+[ext_resource type="Script" uid="uid://pqkjmpuinpqu" path="res://scripts/EnemyMovement.cs" id="1_kiojx"]
+
+[node name="EnemyMovement" type="Node" node_paths=PackedStringArray("enemy", "navAgent")]
+script = ExtResource("1_kiojx")
+enemy = NodePath("")
+navAgent = NodePath("")

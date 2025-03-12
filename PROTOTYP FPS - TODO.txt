@@ -1,0 +1,3 @@
+Na przyszłość:
+	należy stworzyć globalną klasę, która będzie przechowywać statystyki gracza,
+	np. obrażenia, rozmiar pocisku, prędkość pocisku, przeszywanie itp.

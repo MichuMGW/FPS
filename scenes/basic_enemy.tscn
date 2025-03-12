@@ -1,0 +1,44 @@
+[gd_scene load_steps=11 format=3 uid="uid://dgoantgxsbika"]
+
+[ext_resource type="PackedScene" uid="uid://djce71rtuhem1" path="res://scenes/experience_point_drop_component.tscn" id="1_wm70f"]
+[ext_resource type="PackedScene" uid="uid://by8xwputf81xn" path="res://scenes/experience_point.tscn" id="2_ve544"]
+[ext_resource type="PackedScene" uid="uid://cmfdoxh40cyda" path="res://scenes/enemy_navigation_agent_3d.tscn" id="3_ve544"]
+[ext_resource type="PackedScene" uid="uid://dcjp3y2tpbtwn" path="res://scenes/enemy_movement.tscn" id="4_qhw0p"]
+[ext_resource type="PackedScene" uid="uid://chm725r72rhva" path="res://scenes/health_component.tscn" id="5_n365g"]
+[ext_resource type="PackedScene" uid="uid://ohont2tgys4v" path="res://scenes/hurtbox_component.tscn" id="6_cij6a"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m3p60"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_te8us"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wd17u"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cuegt"]
+
+[node name="BasicEnemy" type="CharacterBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_m3p60")
+mesh = SubResource("CapsuleMesh_te8us")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_wd17u")
+
+[node name="ExperiencePointDropComponent" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("1_wm70f")]
+experiencePoint = ExtResource("2_ve544")
+healthComponent = NodePath("../HealthComponent")
+
+[node name="EnemyNavigationAgent3D" parent="." instance=ExtResource("3_ve544")]
+
+[node name="EnemyMovement" parent="." node_paths=PackedStringArray("enemy", "navAgent") instance=ExtResource("4_qhw0p")]
+enemy = NodePath("..")
+navAgent = NodePath("../EnemyNavigationAgent3D")
+
+[node name="HealthComponent" parent="." instance=ExtResource("5_n365g")]
+
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("6_cij6a")]
+healthComponent = NodePath("../HealthComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent"]
+shape = SubResource("CapsuleShape3D_cuegt")

@@ -1,0 +1,88 @@
+[gd_scene load_steps=5 format=3 uid="uid://brlh274tvb4oi"]
+
+[ext_resource type="Script" uid="uid://cyrns6m2woqgp" path="res://scripts/MainMenuUi.cs" id="1_l6cm7"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vue75"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_l6cm7"]
+sky_material = SubResource("ProceduralSkyMaterial_vue75")
+
+[sub_resource type="Environment" id="Environment_ekxnf"]
+background_mode = 2
+sky = SubResource("Sky_l6cm7")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="MainMenu" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ekxnf")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+
+[node name="MainMenuUI" type="Control" parent="Camera3D" node_paths=PackedStringArray("startButton", "settingsButton", "quitButton")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l6cm7")
+startButton = NodePath("VBoxContainer/PlayButton")
+settingsButton = NodePath("VBoxContainer/SettingsButton")
+quitButton = NodePath("VBoxContainer/QuitButton")
+
+[node name="Label" type="Label" parent="Camera3D/MainMenuUI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -32.0
+offset_top = 84.0
+offset_right = 32.0
+offset_bottom = 107.0
+grow_horizontal = 2
+text = "Test FPS"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Camera3D/MainMenuUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -25.0
+offset_right = 50.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="PlayButton" type="Button" parent="Camera3D/MainMenuUI/VBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Play"
+
+[node name="SettingsButton" type="Button" parent="Camera3D/MainMenuUI/VBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Settings"
+
+[node name="QuitButton" type="Button" parent="Camera3D/MainMenuUI/VBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Quit"

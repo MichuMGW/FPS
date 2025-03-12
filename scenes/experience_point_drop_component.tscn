@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://djce71rtuhem1"]
+
+[ext_resource type="Script" uid="uid://c6j8hnijepq45" path="res://ExperiencePointDropComponent.cs" id="1_ewmfd"]
+
+[node name="ExperiencePointDropComponent" type="Node"]
+script = ExtResource("1_ewmfd")

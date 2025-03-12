@@ -1,0 +1,55 @@
+[gd_scene load_steps=12 format=3 uid="uid://bk6tdhnmg66pp"]
+
+[ext_resource type="PackedScene" uid="uid://djce71rtuhem1" path="res://scenes/experience_point_drop_component.tscn" id="1_nqoy7"]
+[ext_resource type="PackedScene" uid="uid://by8xwputf81xn" path="res://scenes/experience_point.tscn" id="2_2ls4a"]
+[ext_resource type="PackedScene" uid="uid://cmfdoxh40cyda" path="res://scenes/enemy_navigation_agent_3d.tscn" id="3_w150n"]
+[ext_resource type="PackedScene" uid="uid://dcjp3y2tpbtwn" path="res://scenes/enemy_movement.tscn" id="4_dvjff"]
+[ext_resource type="PackedScene" uid="uid://chm725r72rhva" path="res://scenes/health_component.tscn" id="5_6r77u"]
+[ext_resource type="PackedScene" uid="uid://ohont2tgys4v" path="res://scenes/hurtbox_component.tscn" id="6_g3aa2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_11j8y"]
+albedo_color = Color(1, 0, 1, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_xk0lc"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_t2vsf"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hka7w"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_sqyvq"]
+size = Vector3(0.1, 0.1, 2)
+
+[node name="RangedEnemy" type="CharacterBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
+material_override = SubResource("StandardMaterial3D_11j8y")
+mesh = SubResource("CapsuleMesh_xk0lc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+visible = false
+shape = SubResource("CapsuleShape3D_t2vsf")
+
+[node name="ExperiencePointDropComponent" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("1_nqoy7")]
+experiencePoint = ExtResource("2_2ls4a")
+healthComponent = NodePath("../HealthComponent")
+
+[node name="EnemyNavigationAgent3D" parent="." instance=ExtResource("3_w150n")]
+
+[node name="EnemyMovement" parent="." node_paths=PackedStringArray("enemy", "navAgent") instance=ExtResource("4_dvjff")]
+enemy = NodePath("..")
+navAgent = NodePath("../EnemyNavigationAgent3D")
+
+[node name="HealthComponent" parent="." instance=ExtResource("5_6r77u")]
+
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("6_g3aa2")]
+visible = false
+healthComponent = NodePath("../HealthComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent"]
+shape = SubResource("SphereShape3D_hka7w")
+
+[node name="Spear" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Spear"]
+mesh = SubResource("BoxMesh_sqyvq")
