@@ -1,0 +1,71 @@
+[gd_scene load_steps=8 format=3 uid="uid://dj4vku1212nte"]
+
+[ext_resource type="PackedScene" uid="uid://xng3w0ck0x1s" path="res://scenes/hitbox_component.tscn" id="1_7nm2w"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_38b0s"]
+radius = 2.0
+height = 4.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ku4ay"]
+albedo_color = Color(0.780392, 0.431373, 0.145098, 0.27451)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wv6q1"]
+radius = 2.0
+
+[sub_resource type="Animation" id="Animation_7nm2w"]
+resource_name = "Explode"
+tracks/0/type = "scale_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.8, 0.8, 0.8, 0.2, 1, 1, 1, 1, 0.866667, 1, 0.1, 0.1, 0.1, 1, 1, 0.01, 0.01, 0.01)
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_wmftq"]
+length = 0.001
+tracks/0/type = "scale_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 1, 1, 1)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wmftq"]
+_data = {
+&"Explode": SubResource("Animation_7nm2w"),
+&"RESET": SubResource("Animation_wmftq")
+}
+
+[node name="FireExplosion" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_38b0s")
+surface_material_override/0 = SubResource("StandardMaterial3D_ku4ay")
+
+[node name="HitboxComponent" parent="." instance=ExtResource("1_7nm2w")]
+damage = 50
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent"]
+shape = SubResource("SphereShape3D_wv6q1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_wmftq")
+}
+autoplay = "Explode"

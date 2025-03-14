@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://mympbdtdffqg"]
+
+[ext_resource type="Script" uid="uid://tcmlvmhebq6h" path="res://scripts/spells/projectile_spells/Projectile.cs" id="1_1gl40"]
+[ext_resource type="PackedScene" uid="uid://xng3w0ck0x1s" path="res://scenes/hitbox_component.tscn" id="2_cb14k"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_q3m7n"]
+radius = 0.25
+height = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_softn"]
+albedo_color = Color(0.904478, 0.351064, 0.0612536, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_q3m7n"]
+radius = 0.25
+
+[node name="Projectile" type="Node3D"]
+script = ExtResource("1_1gl40")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_q3m7n")
+surface_material_override/0 = SubResource("StandardMaterial3D_softn")
+
+[node name="HitboxComponent" parent="." instance=ExtResource("2_cb14k")]
+damage = 50
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent"]
+shape = SubResource("SphereShape3D_q3m7n")

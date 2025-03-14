@@ -3,7 +3,7 @@ using System;
 
 public partial class Projectile : Node3D
 {
-	[Export] public float Speed = 20f;
+	[Export] public float Speed;
 	public Vector3 Velocity;
 
     public override void _PhysicsProcess(double delta)

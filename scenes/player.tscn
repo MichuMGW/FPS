@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://b32e4s8pjtxat"]
+[gd_scene load_steps=9 format=3 uid="uid://b32e4s8pjtxat"]
 
 [ext_resource type="Script" uid="uid://ccmx85wnmq6w7" path="res://scripts/PlayerMovement.cs" id="1_2d0pk"]
 [ext_resource type="Script" uid="uid://w1ua5btfpb6t" path="res://scripts/CameraMovement.cs" id="2_r8r1j"]
+[ext_resource type="Texture2D" uid="uid://ojhvqyxwb1tx" path="res://crosshair.png" id="3_dqkch"]
 [ext_resource type="Script" uid="uid://beqijbhsnt08o" path="res://scripts/spells/SpellCastManager.cs" id="4_dqkch"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_mex5a"]
@@ -14,6 +15,8 @@ radius = 10.0
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qhqgy"]
 
 [node name="Player" type="CharacterBody3D" groups=["player"]]
+collision_layer = 2
+collision_mask = 5
 
 [node name="PlayerMovement" type="Node" parent="." node_paths=PackedStringArray("player", "camera")]
 script = ExtResource("1_2d0pk")
@@ -33,13 +36,33 @@ body = NodePath("..")
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
 
+[node name="RayCast3D" type="RayCast3D" parent="Head/Camera3D"]
+target_position = Vector3(0, 0, -25)
+collision_mask = 5
+
+[node name="TextureRect" type="TextureRect" parent="Head/Camera3D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_dqkch")
+
 [node name="PickupRadiusArea" type="Area3D" parent="."]
+collision_layer = 2
 collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PickupRadiusArea"]
 shape = SubResource("SphereShape3D_qhqgy")
 
 [node name="PickupArea" type="Area3D" parent="."]
+collision_layer = 2
 collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PickupArea"]

@@ -9,7 +9,8 @@ public partial class SpellCastManager : Node
     
     public override void _Ready()
     {
-        spells.Add(new ProjectileSpell());
+        spells.Add(new ProjectileSpell("Fireball", 50, 2.0f, 10, "res://scenes/projectile.tscn", 20f));
+        spells.Add(new ExplosionSpell("Fire Explosion", 100, 2.0f, 50, "res://scenes/fire_explosion.tscn"));
     }
 
     public override void _Input(InputEvent @event)
@@ -29,7 +30,7 @@ public partial class SpellCastManager : Node
 		}
 
         if(Input.IsActionJustPressed("NextSpell")){
-            if(spells.Count == currentSpell){
+            if(spells.Count - 1 == currentSpell){
                 currentSpell = 0;
             }
             else {
