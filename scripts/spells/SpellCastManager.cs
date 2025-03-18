@@ -6,16 +6,27 @@ public partial class SpellCastManager : Node
 {
 	public List<Spell> spells = new List<Spell>();
     public int currentSpell = 0;
+    private bool isHoldingCast = false;
     
     public override void _Ready()
     {
-        spells.Add(new ProjectileSpell("Fireball", 50, 2.0f, 10, "res://scenes/projectile.tscn", 20f));
-        spells.Add(new ExplosionSpell("Fire Explosion", 100, 2.0f, 50, "res://scenes/fire_explosion.tscn"));
-    }
+        //TODO: Zaklęcia powinny być dodawane zależnie od ich odblokowania, zdobycia - pobierane z innej listy
+        //Spróbować rozwiązać bez dodawania kolejnych węzłów
+        CharacterBody3D player = GetOwner<CharacterBody3D>();
 
-    public override void _Input(InputEvent @event)
-    {
+        var projectileSpell = new ProjectileSpell("Fireball", 50, 2.0f, 10, "res://scenes/projectile.tscn", 20f);
+        spells.Add(projectileSpell);
+        player.CallDeferred("add_child",projectileSpell);
+
+        var explosionSpell = new ExplosionSpell("Fire Explosion", 100, 2.0f, 50, "res://scenes/fire_explosion.tscn");
+        spells.Add(explosionSpell);
+        player.CallDeferred("add_child",explosionSpell);
+
         
+
+        // spells.Add(new ExplosionSpell("Fire Explosion", 100, 2.0f, 50, "res://scenes/fire_explosion.tscn"));
+
+
     }
 
     public override void _Process(double delta)
@@ -26,8 +37,22 @@ public partial class SpellCastManager : Node
 			CharacterBody3D player = GetOwner<CharacterBody3D>();
 			Node3D playerCamera = player.GetNode<Camera3D>("Head/Camera3D");
 			var spell = spells[currentSpell];
-			spell.Cast(player.GlobalTransform.Origin, -playerCamera.GlobalTransform.Basis.Z, player);
+			spell.StartCasting(player.GlobalTransform.Origin, -playerCamera.GlobalTransform.Basis.Z, player);
+            isHoldingCast = true;
 		}
+
+        if (Input.IsActionPressed("CastSpell") && isHoldingCast){
+            var spell = spells[currentSpell];
+            spell.HoldCasting(delta);
+        }
+
+        if (Input.IsActionJustReleased("CastSpell")){
+            CharacterBody3D player = GetOwner<CharacterBody3D>();
+			Node3D playerCamera = player.GetNode<Camera3D>("Head/Camera3D");
+			var spell = spells[currentSpell];
+			spell.EndCasting(player.GlobalTransform.Origin, -playerCamera.GlobalTransform.Basis.Z, player);
+            isHoldingCast = false;
+        }
 
         if(Input.IsActionJustPressed("NextSpell")){
             if(spells.Count - 1 == currentSpell){
@@ -45,6 +70,9 @@ public partial class SpellCastManager : Node
                 currentSpell--;
             }
         }
+        
+
+        
         //INPUTS
     }
 }

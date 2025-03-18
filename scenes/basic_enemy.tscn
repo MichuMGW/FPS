@@ -32,6 +32,7 @@ experiencePoint = ExtResource("2_ve544")
 healthComponent = NodePath("../HealthComponent")
 
 [node name="EnemyNavigationAgent3D" parent="." instance=ExtResource("3_ve544")]
+debug_enabled = false
 
 [node name="EnemyMovement" parent="." node_paths=PackedStringArray("enemy", "navAgent") instance=ExtResource("4_qhw0p")]
 enemy = NodePath("..")

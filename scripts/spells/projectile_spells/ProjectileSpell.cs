@@ -9,7 +9,7 @@ public partial class ProjectileSpell : Spell
 	{
 		this.ProjectileSpeed = ProjectileSpeed; 
 	}
-    public override void Cast(Vector3 position, Vector3 direction, Node3D caster)
+    public override void StartCasting(Vector3 position, Vector3 direction, Node3D caster)
     {
         //Pocisk zostaje strzworzony na pozycji position, porusza się w kierunku direction, a casterem jest obiekt rzucający zaklęcie
 		if (SpellScene == null){
@@ -22,6 +22,16 @@ public partial class ProjectileSpell : Spell
 		projectileInstance.Speed = ProjectileSpeed;
 		projectileInstance.GlobalTransform = caster.GlobalTransform;
 		projectileInstance.Velocity = direction * projectileInstance.Speed;
+    }
+
+	public override void HoldCasting(double delta)
+    {
+        return;
+    }
+
+    public override void EndCasting(Vector3 position, Vector3 direction, Node3D caster)
+    {
+        return;
     }
 
 }

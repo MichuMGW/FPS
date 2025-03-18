@@ -1,6 +1,6 @@
 using Godot;
 
-public abstract partial class Spell : Node
+public abstract partial class Spell : Node3D, ICastable
 {
 	public string SpellName {get; protected set;}
 	public float SpellDamage {get; protected set;}
@@ -16,5 +16,7 @@ public abstract partial class Spell : Node
 		this.ManaCost = ManaCost;
 		SpellScene = GD.Load(SpellScenePath) as PackedScene;
 	}
-	public abstract void Cast(Vector3 position, Vector3 direction, Node3D caster);
+	public abstract void StartCasting(Vector3 position, Vector3 direction, Node3D caster);
+	public abstract void HoldCasting(double delta);
+	public abstract void EndCasting(Vector3 position, Vector3 direction, Node3D caster);
 }

@@ -1,15 +1,30 @@
 using Godot;
 using System;
 
-public partial class PlayerCast : Node
+public partial class ProjetileCast : State
 {
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-	}
+	public SpellCastManager spm;
+    public override void Enter()
+    {
+		SpellCastManager spm = GetParent() as SpellCastManager;
+        CharacterBody3D player = GetOwner<CharacterBody3D>();
+		Node3D playerCamera = player.GetNode<Camera3D>("Head/Camera3D");
+		var spell = spm.spells[spm.currentSpell];
+		spell.StartCasting(player.GlobalTransform.Origin, -playerCamera.GlobalTransform.Basis.Z, player);
+    }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+    public override void Exit()
+    {
+        
+    }
+
+    public override void Physics_Update(double delta)
+    {
+        
+    }
+
+    public override void Update(double delta)
+    {
+        
+    }
 }
