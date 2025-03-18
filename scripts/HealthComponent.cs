@@ -20,7 +20,8 @@ public partial class HealthComponent : Node
 	public void TakeDamage(float damage)
 	{
 		currentHealth -= damage;
-		if (currentHealth <= 0)
+		currentHealth = Mathf.Max(0, currentHealth);
+		if (currentHealth == 0)
 		{
 			EmitSignal(nameof(EntityDied));
 			Owner.QueueFree();
