@@ -55,7 +55,7 @@ public partial class Projectile : CharacterBody3D
     public override void _PhysicsProcess(double delta)
     {
         // Symulacja grawitacji
-        Velocity += new Vector3(0, Gravity * (float)delta, 0);
+        //Velocity += new Vector3(0, Gravity * (float)delta, 0);
 
         // Przesunięcie pocisku i sprawdzenie kolizji
         KinematicCollision3D collision = MoveAndCollide(Velocity * (float)delta);

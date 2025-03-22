@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b32e4s8pjtxat"]
+[gd_scene load_steps=10 format=3 uid="uid://b32e4s8pjtxat"]
 
 [ext_resource type="Script" uid="uid://ccmx85wnmq6w7" path="res://scripts/PlayerMovement.cs" id="1_2d0pk"]
 [ext_resource type="Script" uid="uid://w1ua5btfpb6t" path="res://scripts/CameraMovement.cs" id="2_r8r1j"]
@@ -9,116 +9,14 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4ia83"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_qhqgy"]
-radius = 10.0
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qhqgy"]
-
 [sub_resource type="SphereMesh" id="SphereMesh_dqkch"]
 radius = 0.2
 height = 0.4
 
-[sub_resource type="Animation" id="Animation_smehm"]
-resource_name = "CastExplosion"
-loop_mode = 1
-step = 0.1
-tracks/0/type = "position_3d"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("LeftHand")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, -0.6, 0.6, -0.9, 0.1, 1, -0.61, 0.6, -0.9, 0.2, 1, -0.6, 0.6, -0.9, 0.3, 1, -0.61, 0.6, -0.9, 0.4, 1, -0.6, 0.6, -0.9, 0.5, 1, -0.61, 0.6, -0.9, 0.6, 1, -0.6, 0.6, -0.9, 0.7, 1, -0.61, 0.6, -0.9, 0.78, 1, -0.6, 0.6, -0.9, 0.88, 1, -0.61, 0.6, -0.9, 0.98, 1, -0.6, 0.6, -0.9)
-tracks/1/type = "position_3d"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("RightHand")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = PackedFloat32Array(0, 1, 0.6, 0.6, -0.9, 0.1, 1, 0.61, 0.6, -0.9, 0.2, 1, 0.6, 0.6, -0.9, 0.3, 1, 0.61, 0.6, -0.9, 0.4, 1, 0.6, 0.6, -0.9, 0.5, 1, 0.61, 0.6, -0.9, 0.6, 1, 0.6, 0.6, -0.9, 0.7, 1, 0.61, 0.6, -0.9, 0.78, 1, 0.6, 0.6, -0.9, 0.88, 1, 0.61, 0.6, -0.9, 0.98, 1, 0.6, 0.6, -0.9)
+[sub_resource type="SphereShape3D" id="SphereShape3D_qhqgy"]
+radius = 10.0
 
-[sub_resource type="Animation" id="Animation_ur7pv"]
-resource_name = "CasExplosion_Release"
-step = 0.1
-tracks/0/type = "position_3d"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("LeftHand")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, -0.6, 0.6, -0.9, 0.2, 1, -0.9, 0.9, -1, 0.4, 1, -0.91, 0.91, -1, 0.65, 1, -0.9, 0.9, -1, 1, 1, -0.6, 0.6, -0.9)
-tracks/1/type = "position_3d"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("RightHand")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = PackedFloat32Array(0, 1, 0.6, 0.6, -0.9, 0.2, 1, 0.9, 0.9, -1, 0.4, 1, 0.91, 0.91, -1, 0.65, 1, 0.9, 0.9, -1, 1, 1, 0.6, 0.6, -0.9)
-
-[sub_resource type="Animation" id="Animation_qlg0r"]
-resource_name = "CastProjectile"
-length = 0.5
-step = 0.1
-tracks/0/type = "position_3d"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("LeftHand")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, -0.6, 0.5, -0.7, 0.1, 1, -0.6, 0.5, -0.9, 0.5, 1, -0.6, 0.5, -0.7)
-tracks/1/type = "position_3d"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("RightHand")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = PackedFloat32Array(0, 1, 0.6, 0.5, -0.7, 0.1, 1, 0.6, 0.5, -0.9, 0.5, 1, 0.6, 0.5, -0.7)
-
-[sub_resource type="Animation" id="Animation_fjrip"]
-resource_name = "Idle"
-length = 2.0
-loop_mode = 1
-step = 0.1
-tracks/0/type = "position_3d"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("LeftHand")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, -0.6, 0.5, -0.7, 1, 1, -0.6, 0.553803, -0.7, 2, 1, -0.6, 0.5, -0.7)
-tracks/1/type = "position_3d"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("RightHand")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = PackedFloat32Array(0, 1, 0.6, 0.5, -0.7, 1, 1, 0.6, 0.553803, -0.7, 2, 1, 0.6, 0.5, -0.7)
-
-[sub_resource type="Animation" id="Animation_tuyoq"]
-length = 0.001
-tracks/0/type = "position_3d"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("LeftHand")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, -0.6, 0.5, -0.7)
-tracks/1/type = "position_3d"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("RightHand")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = PackedFloat32Array(0, 1, 0.6, 0.5, -0.7)
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_y4r1p"]
-_data = {
-&"CastExplosion_Load": SubResource("Animation_smehm"),
-&"CastExplosion_Release": SubResource("Animation_ur7pv"),
-&"CastProjectile": SubResource("Animation_qlg0r"),
-&"Idle": SubResource("Animation_fjrip"),
-&"RESET": SubResource("Animation_tuyoq")
-}
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qhqgy"]
 
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 collision_layer = 2
@@ -160,6 +58,16 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_dqkch")
 
+[node name="LeftHand" type="MeshInstance3D" parent="Head/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, -0.6, -0.9)
+mesh = SubResource("SphereMesh_dqkch")
+skeleton = NodePath("../../../SpellCastManager")
+
+[node name="RightHand" type="MeshInstance3D" parent="Head/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, -0.6, -0.9)
+mesh = SubResource("SphereMesh_dqkch")
+skeleton = NodePath("../../../SpellCastManager")
+
 [node name="PickupRadiusArea" type="Area3D" parent="."]
 collision_layer = 2
 collision_mask = 0
@@ -176,17 +84,3 @@ shape = SubResource("CapsuleShape3D_qhqgy")
 
 [node name="SpellCastManager" type="Node3D" parent="."]
 script = ExtResource("4_dqkch")
-
-[node name="LeftHand" type="MeshInstance3D" parent="SpellCastManager"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0.5, -0.7)
-mesh = SubResource("SphereMesh_dqkch")
-
-[node name="RightHand" type="MeshInstance3D" parent="SpellCastManager"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0.5, -0.7)
-mesh = SubResource("SphereMesh_dqkch")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("../SpellCastManager")
-libraries = {
-&"": SubResource("AnimationLibrary_y4r1p")
-}

@@ -17,7 +17,7 @@ public partial class ExperiencePointDropComponent : Node
 		var spawnPoint = (Owner as Node3D).GlobalPosition;
 		var experiencePointInstance = experiencePoint.Instantiate() as Node3D;
 		
-		GetTree().Root.AddChild(experiencePointInstance);
+		GetTree().Root.GetNode("MainScene").AddChild(experiencePointInstance);
 		experiencePointInstance.GlobalPosition = spawnPoint;
 	}
 

@@ -10,8 +10,8 @@ public partial class ExplosionSpell : Spell {
     private SphereMesh sphereMesh;
     private bool isCasting = false;
 
-    public ExplosionSpell(string SpellName, float SpellDamage, float SpellCooldown, float ManaCost, string SpellScenePath)
-        : base(SpellName, SpellDamage, SpellCooldown, ManaCost, SpellScenePath)
+    public ExplosionSpell(string SpellName, float SpellDamage, float SpellCooldown, float ManaCost, Element SpellElement, string SpellScenePath)
+        : base(SpellName, SpellDamage, SpellCooldown, ManaCost, SpellElement, SpellScenePath)
     {}
 
     public override void _Ready()
@@ -37,17 +37,15 @@ public partial class ExplosionSpell : Spell {
         // Tworzymy wskaźnik sfery
         CreateIndicator();
         // Dodajemy sferę do świata gry
-        caster.AddChild(indicatorSphere);
+        caster.Owner.GetParent().AddChild(indicatorSphere);
+        GD.Print(caster.Owner.Name);
 
-        raycast = caster.GetNode<RayCast3D>("Head/Camera3D/RayCast3D");
+        raycast = caster.Owner.GetNode<RayCast3D>("Head/Camera3D/RayCast3D");
+        GD.Print(raycast.Name);
         isCasting = true;
         indicatorSphere.Visible = true;
         ExplosionRadius = 1.0f;
 
-        //DO USUNIĘCIA
-        var animation = caster.GetNode<AnimationPlayer>("AnimationPlayer");
-        animation.Play("CastExplosion_Load");
-        //KONIEC
     }
 
     public override void HoldCasting(double delta)
@@ -75,19 +73,13 @@ public partial class ExplosionSpell : Spell {
 
     public override void EndCasting(Vector3 position, Vector3 direction, Node3D caster)
     {
-        //DO USUNIĘCIA
-        var animation = caster.GetNode<AnimationPlayer>("AnimationPlayer");
-        animation.Play("Idle");
-        //KONIEC
-
         isCasting = false;
         indicatorSphere.Visible = false;
 
         if (raycast.IsColliding())
         {
-            animation.Play("CastExplosion_Release");
             var explosionInstance = SpellScene.Instantiate() as Node3D;
-            caster.GetParent().AddChild(explosionInstance);
+            caster.Owner.GetParent().AddChild(explosionInstance);
             explosionInstance.GlobalPosition = raycast.GetCollisionPoint();
 
             //Increase radius
@@ -100,4 +92,8 @@ public partial class ExplosionSpell : Spell {
         indicatorSphere.QueueFree();
     }
 
+    public override void HoldCasting(Vector3 position, Vector3 direction, Node3D caster, double delta)
+    {
+        throw new System.NotImplementedException();
+    }
 }
