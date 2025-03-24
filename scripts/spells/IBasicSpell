@@ -1,0 +1,7 @@
+using System;
+using Godot;
+
+public interface IBasicSpell{
+    void StartCasting(Vector3 position, Vector3 direction, Node3D caster);
+    void EndCasting(Vector3 position, Vector3 direction, Node3D caster);
+}
