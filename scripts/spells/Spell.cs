@@ -18,11 +18,10 @@ public abstract partial class Spell : Node3D, ICastable
 		this.SpellElement = SpellElement;
 		SpellScene = GD.Load(SpellScenePath) as PackedScene;
 	}
-	public abstract void StartCasting(Vector3 position, Vector3 direction, Node3D caster);
-	
-    public abstract void HoldCasting(double delta);
-	public abstract void HoldCasting(Vector3 position, Vector3 direction, Node3D caster, double delta);
-	public abstract void EndCasting(Vector3 position, Vector3 direction, Node3D caster);
 
+    public abstract void StartCasting(Vector3 position, Vector3 direction, Node3D caster);
+    public abstract void HoldCasting(double delta);
+    public abstract void HoldCasting(Vector3 position, Vector3 direction, Node3D caster, double delta);
+    public abstract void EndCasting(Vector3 position, Vector3 direction, Node3D caster);
 
 }

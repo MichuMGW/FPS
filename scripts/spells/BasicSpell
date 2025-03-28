@@ -1,0 +1,8 @@
+using System;
+using Godot;
+
+//BasicSpell class - basic spells are considered spells that are casted by clicking mouse buttons
+public abstract partial class BasicSpell : Spell, IBasicSpell
+{
+    
+}

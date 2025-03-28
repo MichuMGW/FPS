@@ -1,9 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://b32e4s8pjtxat"]
+[gd_scene load_steps=13 format=3 uid="uid://b32e4s8pjtxat"]
 
 [ext_resource type="Script" uid="uid://ccmx85wnmq6w7" path="res://scripts/PlayerMovement.cs" id="1_2d0pk"]
+[ext_resource type="Script" uid="uid://delqxrwl6x6vk" path="res://scripts/states/player/PlayerStateMachine.cs" id="1_tuyoq"]
+[ext_resource type="Script" uid="uid://ctu5g3l63t2pt" path="res://scripts/states/player/PlayerIdle.cs" id="2_fjrip"]
 [ext_resource type="Script" uid="uid://w1ua5btfpb6t" path="res://scripts/CameraMovement.cs" id="2_r8r1j"]
 [ext_resource type="Texture2D" uid="uid://ojhvqyxwb1tx" path="res://crosshair.png" id="3_dqkch"]
 [ext_resource type="Script" uid="uid://beqijbhsnt08o" path="res://scripts/spells/SpellCastManager.cs" id="4_dqkch"]
+[ext_resource type="Script" uid="uid://cwqsonsoalyuf" path="res://scripts/states/player/CastingProjectileSpell.cs" id="4_fjrip"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_mex5a"]
 
@@ -21,6 +24,21 @@ radius = 10.0
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 collision_layer = 2
 collision_mask = 5
+
+[node name="SpellCastManager" type="Node3D" parent="."]
+script = ExtResource("4_dqkch")
+
+[node name="LeftSpellTimer" type="Timer" parent="SpellCastManager"]
+
+[node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("initialState")]
+script = ExtResource("1_tuyoq")
+initialState = NodePath("PlayerIdle")
+
+[node name="PlayerIdle" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("2_fjrip")
+
+[node name="CastingProjectileSpell" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("4_fjrip")
 
 [node name="PlayerMovement" type="Node" parent="." node_paths=PackedStringArray("player", "camera")]
 script = ExtResource("1_2d0pk")
@@ -81,6 +99,3 @@ collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PickupArea"]
 shape = SubResource("CapsuleShape3D_qhqgy")
-
-[node name="SpellCastManager" type="Node3D" parent="."]
-script = ExtResource("4_dqkch")

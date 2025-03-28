@@ -12,6 +12,7 @@ public partial class StateMachine : Node
     {
         foreach(State child in GetChildren()){
             if (child is State){
+                GD.Print("Adding child state: " + child.Name);
                 states[child.Name] = child;
                 child.Transitioned += OnChildTransition;
             }
@@ -19,6 +20,7 @@ public partial class StateMachine : Node
 
         if (initialState != null){
             initialState.Enter();
+            currentState = initialState;
         }
     }
 
