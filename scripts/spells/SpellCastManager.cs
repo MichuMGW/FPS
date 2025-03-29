@@ -14,17 +14,18 @@ public partial class SpellCastManager : Node
     //Zamienić w przyszłości na kolekcje dla ułatwienia
     public Dictionary<string, Spell> Spells {get; set;} //Currently equiped spells
     public Dictionary<string, Timer> CooldownTimers {get; set;}
+    public (Element, Element) CurrentElements {get; set;}
 
     public override void _Ready()
     {
         //TODO: Zaklęcia powinny być dodawane zależnie od ich odblokowania, zdobycia - pobierane z innej listy
         playerCamera = Owner.GetNode<Camera3D>("Head/Camera3D");
 
-        var projectileSpell = new ProjectileSpell("Fireball", 50, 0.5f, 10, Element.Fire,"res://scenes/spells/basic_spells/projectile.tscn", 20f);
-        LeftHand = new SpellHand(projectileSpell, Owner.GetNode<MeshInstance3D>("Head/Camera3D/LeftHand"));
-        // player.CallDeferred("add_child",projectileSpell);
+        var mainSpell = new ProjectileSpell(GD.Load<ProjectileSpellResource>(SpellResourcePath.Fireball), (Element.Fire, Element.Fire));
+        LeftHand = new SpellHand(mainSpell, Owner.GetNode<MeshInstance3D>("Head/Camera3D/LeftHand"));
 
-        var explosionSpell = new ExplosionSpell("Fire Explosion", 100, 2.0f, 50, Element.Fire, "res://scenes/spells/fire_explosion.tscn");
+
+        var explosionSpell = new ExplosionSpell("Fire Explosion", 100, 2.0f, 50, (Element.Fire, Element.Fire), "res://scenes/spells/fire_explosion.tscn");
         RightHand = new SpellHand(explosionSpell, Owner.GetNode<MeshInstance3D>("Head/Camera3D/RightHand"));
 
         CooldownTimers = new Dictionary<string, Timer>{
@@ -138,6 +139,14 @@ public partial class SpellCastManager : Node
         };
         this.AddChild(timer);
         return timer;
+    }
+
+    public void setElements(Element left, Element right){
+        CurrentElements = (left, right);
+    }
+
+    public void InitializeSpells(){
+
     }
 
 }

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ProjectileSpellResource" load_steps=3 format=3 uid="uid://n1g2rjha5q2c"]
+
+[ext_resource type="PackedScene" uid="uid://cwh8ty8k77yjr" path="res://scenes/spells/basic_spells/projectile.tscn" id="1_nt450"]
+[ext_resource type="Script" uid="uid://8y238qyvv7h5" path="res://resources/projectile_spells/ProjectileSpellResource.cs" id="2_jsnoc"]
+
+[resource]
+script = ExtResource("2_jsnoc")
+ProjectileSpeed = 40.0
+ProjectileSpread = 0.0
+ProjectileRange = 10.0
+SpellName = "Fireball"
+SpellDamage = 30.0
+SpellCooldown = 0.05
+ManaCost = 5.0
+SpellScene = ExtResource("1_nt450")
+metadata/_custom_type_script = "uid://8y238qyvv7h5"

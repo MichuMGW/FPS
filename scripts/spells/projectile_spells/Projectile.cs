@@ -43,13 +43,16 @@ using System;
 
 public partial class Projectile : CharacterBody3D
 {
-    [Export] public float Speed; // Początkowa prędkość
-    [Export] public float Gravity = -2f; // Grawitacja
-    [Export] public float Damage = 50f; // Obrażenia
+    public (Element, Element) Elements {get; set;} //Żywioły zaklęcia
+    public float Gravity {get; set;} // Grawitacja
+    public float Damage {get; set;} // Obrażenia
+    public float Range {get; set;} // Zasięg pocisku
+    public Vector3 direction;
+    public Vector3 startPosition;
 
     public override void _Ready()
     {
-        Velocity = -Transform.Basis.Z * Speed;
+        
     }
 
     public override void _PhysicsProcess(double delta)
@@ -59,6 +62,11 @@ public partial class Projectile : CharacterBody3D
 
         // Przesunięcie pocisku i sprawdzenie kolizji
         KinematicCollision3D collision = MoveAndCollide(Velocity * (float)delta);
+
+        if (startPosition.DistanceTo(GlobalTransform.Origin) > Range){
+            //TODO: Add animation
+            QueueFree();
+        }
         
         if (collision != null)
         {
@@ -69,6 +77,9 @@ public partial class Projectile : CharacterBody3D
                 // Jeśli trafi w postać, zadaj obrażenia
                 var healthComponent = characterBody.GetNodeOrNull<HealthComponent>("HealthComponent");
                 healthComponent?.TakeDamage(Damage);
+
+                var statusComponent = characterBody.GetNodeOrNull<StatusComponent>("StatusComponent");
+                statusComponent?.ApplyStatusEffect(Elements.Item1, Elements.Item2);
             }
 
             // Pocisk znika po kolizji

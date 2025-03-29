@@ -1,5 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://dgoantgxsbika"]
+[gd_scene load_steps=12 format=3 uid="uid://dgoantgxsbika"]
 
+[ext_resource type="Script" uid="uid://duw1pby1ks1ka" path="res://scripts/components/StatusComponent.cs" id="1_qhw0p"]
 [ext_resource type="PackedScene" uid="uid://djce71rtuhem1" path="res://scenes/experience_point_drop_component.tscn" id="1_wm70f"]
 [ext_resource type="PackedScene" uid="uid://by8xwputf81xn" path="res://scenes/experience_point.tscn" id="2_ve544"]
 [ext_resource type="PackedScene" uid="uid://cmfdoxh40cyda" path="res://scenes/enemy_navigation_agent_3d.tscn" id="3_ve544"]
@@ -26,6 +27,9 @@ mesh = SubResource("CapsuleMesh_te8us")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_wd17u")
+
+[node name="StatusComponent" type="Node" parent="."]
+script = ExtResource("1_qhw0p")
 
 [node name="ExperiencePointDropComponent" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("1_wm70f")]
 experiencePoint = ExtResource("2_ve544")

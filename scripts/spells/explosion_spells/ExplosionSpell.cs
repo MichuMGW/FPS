@@ -10,7 +10,7 @@ public partial class ExplosionSpell : Spell {
     private SphereMesh sphereMesh;
     private bool isCasting = false;
 
-    public ExplosionSpell(string SpellName, float SpellDamage, float SpellCooldown, float ManaCost, Element SpellElement, string SpellScenePath)
+    public ExplosionSpell(string SpellName, float SpellDamage, float SpellCooldown, float ManaCost, (Element, Element) SpellElement, string SpellScenePath)
         : base(SpellName, SpellDamage, SpellCooldown, ManaCost, SpellElement, SpellScenePath)
     {}
 
