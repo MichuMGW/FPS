@@ -3,8 +3,8 @@ using System;
 
 public partial class HurtboxComponent : Area3D
 {
-	[Export]
-	public HealthComponent healthComponent;
+	
+	[Export] public HealthComponent healthComponent;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{

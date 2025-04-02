@@ -31,6 +31,14 @@ shape = SubResource("CapsuleShape3D_wd17u")
 [node name="StatusComponent" type="Node" parent="."]
 script = ExtResource("1_qhw0p")
 
+[node name="OnFireTimer" type="Timer" parent="StatusComponent"]
+
+[node name="Slowed" type="Timer" parent="StatusComponent"]
+
+[node name="Stunned" type="Timer" parent="StatusComponent"]
+
+[node name="Frozen" type="Timer" parent="StatusComponent"]
+
 [node name="ExperiencePointDropComponent" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("1_wm70f")]
 experiencePoint = ExtResource("2_ve544")
 healthComponent = NodePath("../HealthComponent")
@@ -43,6 +51,7 @@ enemy = NodePath("..")
 navAgent = NodePath("../EnemyNavigationAgent3D")
 
 [node name="HealthComponent" parent="." instance=ExtResource("5_n365g")]
+maxHealth = 50000.0
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("6_cij6a")]
 healthComponent = NodePath("../HealthComponent")
