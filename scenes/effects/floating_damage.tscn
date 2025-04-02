@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://otriyn1kjsvx"]
+
+[ext_resource type="Script" uid="uid://bojjnj0kki4o7" path="res://scripts/ui/effects/FloatingDamage.cs" id="1_oeer6"]
+
+[node name="FloatingDamage" type="Node3D"]
+script = ExtResource("1_oeer6")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1.29557, 0, 0, 0, 1.29557, 0, 0, 0, 1.29557, 0, 0, 0)
+pixel_size = 0.001
+billboard = 1
+no_depth_test = true
+fixed_size = true
+text = "10
+"
