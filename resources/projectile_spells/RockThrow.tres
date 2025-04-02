@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ProjectileSpellResource" load_steps=2 format=3 uid="uid://c0w6aty1o38lu"]
+
+[ext_resource type="Script" uid="uid://8y238qyvv7h5" path="res://resources/projectile_spells/ProjectileSpellResource.cs" id="1_n1ieb"]
+
+[resource]
+script = ExtResource("1_n1ieb")
+ProjectileSpeed = 0.0
+ProjectileSpread = 0.0
+ProjectileRange = 0.0
+SpellName = ""
+SpellDamage = 0.0
+SpellCooldown = 0.0
+SpellRange = 0.0
+ManaCost = 0.0
+metadata/_custom_type_script = "uid://8y238qyvv7h5"

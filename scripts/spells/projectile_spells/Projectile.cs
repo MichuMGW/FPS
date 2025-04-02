@@ -77,6 +77,7 @@ public partial class Projectile : CharacterBody3D
                 // Jeśli trafi w postać, zadaj obrażenia
                 var healthComponent = characterBody.GetNodeOrNull<HealthComponent>("HealthComponent");
                 healthComponent?.TakeDamage(Damage);
+                healthComponent?.ShowDamage(collision.GetPosition() ,Damage);
 
                 var statusComponent = characterBody.GetNodeOrNull<StatusComponent>("StatusComponent");
                 statusComponent?.ApplyStatusEffect(Elements.Item1, Elements.Item2);

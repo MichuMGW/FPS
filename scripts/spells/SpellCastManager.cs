@@ -134,7 +134,7 @@ public partial class SpellCastManager : Node
         timer.OneShot = true;
         timer.WaitTime = spell.SpellCooldown;
         timer.Timeout += () => {
-            GD.Print($"{spell.SpellName} cooldown finished");
+            // GD.Print($"{spell.SpellName} cooldown finished");
             timer.Stop();
         };
         this.AddChild(timer);

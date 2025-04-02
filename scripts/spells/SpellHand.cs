@@ -6,13 +6,13 @@ public partial class SpellHand : Node {
     public MeshInstance3D handMesh;
     public bool isHoldingCast = false;
     public bool isOnCooldown = false;
-    public Camera3D playerCamera;
+    public RayCast3D raycast;
     public SpellHand(Spell spell, MeshInstance3D handMesh){
         this.spell = spell;
         this.handMesh = handMesh;
 
-        playerCamera = handMesh.GetParent() as Camera3D;
-        if (playerCamera == null) {
+        raycast = handMesh.GetParent().GetNode<RayCast3D>("RayCast3D");
+        if (raycast == null) {
             GD.Print("Player camera not found in SpellHand constructor");
         }
         // cooldownTimer.OneShot = true;
@@ -20,8 +20,17 @@ public partial class SpellHand : Node {
         // cooldownTimer.Timeout += OnCooldownTimeout;
     }
     public void StartCasting(){
+        
         if (isOnCooldown) return;
-        spell.StartCasting(handMesh.GlobalTransform.Origin, -playerCamera.GlobalTransform.Basis.Z, handMesh);
+        Vector3 direction;
+        if (raycast.IsColliding()) {
+            direction = raycast.GetCollisionPoint() - handMesh.GlobalTransform.Origin;
+            direction = direction.Normalized();
+        } else {
+            var targetPosition = raycast.GlobalTransform.Origin + (-raycast.GlobalTransform.Basis.Z * spell.SpellRange);
+            direction = (targetPosition - handMesh.GlobalTransform.Origin).Normalized();
+        }
+        spell.StartCasting(handMesh.GlobalTransform.Origin, direction, handMesh);
         // StartCooldown();
         //Tutaj można dodać animację dla początku castowania spella
     }
