@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://xng3w0ck0x1s"]
 
-[ext_resource type="Script" uid="uid://dt4uqh6eqc02c" path="res://scripts/HitboxComponent.cs" id="1_0rji1"]
+[ext_resource type="Script" uid="uid://dt4uqh6eqc02c" path="res://scripts/components/HitboxComponent.cs" id="1_0rji1"]
 
 [node name="HitboxComponent" type="Area3D" node_paths=PackedStringArray("animationPlayer")]
 collision_layer = 4

@@ -3,26 +3,14 @@ using System;
 
 public partial class PlayerMovement : Node
 {
-    [Export]
-    public CharacterBody3D player;
-    [Export]
-    public Camera3D camera;
-
-    [Export]
-    float walkSpeed = 10.0f;
-    float sprintSpeed = 20.0f;
-    [Export]
-    float jumpForce = 10.0f;
-
-    public override void _Ready()
-    {
-        
-    }
+    [Export] public CharacterBody3D player;
+    [Export] float walkSpeed = 10.0f;
+    [Export] float sprintSpeed = 20.0f;
+    [Export] float jumpForce = 10.0f;
 
     public override void _Process(double delta)
     {
         Move((float)delta);
-        
         player.MoveAndSlide();
     }
 
@@ -46,13 +34,6 @@ public partial class PlayerMovement : Node
         moveDirection = moveDirection.Normalized();
         float speed = Input.IsActionPressed("Sprint") ? sprintSpeed : walkSpeed;
         player.Velocity = new Vector3(moveDirection.X * speed, player.Velocity.Y, moveDirection.Z * speed);
-
-        //Camera FOV change
-        if(Input.IsActionPressed("Sprint")){
-            camera.Fov = Mathf.Lerp(camera.Fov, 75, 0.1f);
-        } else {
-            camera.Fov = Mathf.Lerp(camera.Fov, 60, 0.1f);
-        }
 
         if(player.IsOnFloor()){
             if(Input.IsActionPressed("Jump")){

@@ -3,7 +3,7 @@ using System;
 
 public partial class EnemyNavigationAgent : NavigationAgent3D
 {
-    public Vector3 calculatePath(CharacterBody3D player, CharacterBody3D enemy)
+    public Vector3 CalculatePath(CharacterBody3D player, CharacterBody3D enemy)
     {
         if (player == null)
         {

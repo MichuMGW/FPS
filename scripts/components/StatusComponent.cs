@@ -6,20 +6,12 @@ public partial class StatusComponent : Node
 {
 	//Można tu dodać float duration do sygnału
 	// [Signal] public delegate void ApplyStatusEffectEventHandler(Element firstElement, Element secondElement);
-	[Signal] public delegate void OnFireEventHandler();
-	[Signal] public delegate void OnSlowedEventHandler();
-	[Signal] public delegate void OnStunnedEventHandler();
-	[Signal] public delegate void OnFrozenEventHandler();
-	[Signal] public delegate void OnFireTimeoutEventHandler();
-	[Signal] public delegate void OnSlowedTimeoutEventHandler();
-	[Signal] public delegate void OnStunnedTimeoutEventHandler();
-	[Signal] public delegate void OnFrozenTimeoutEventHandler();
+	[Signal] public delegate void OnFireEventHandler(bool isOnFire);
+	[Signal] public delegate void OnSlowedEventHandler(bool isSlowed);
+	[Signal] public delegate void OnStunnedEventHandler(bool isStunned);
+	[Signal] public delegate void OnFrozenEventHandler(bool isFrozen);
 	//TODO: Jakbym chciał dodać animacje przy spaleniu
 	//[Signal] public delegate void OnBurnedEventHandler();
-	public bool IsOnFire {get; set;} = false;
-	public bool IsSlowed {get; set;} = false;
-	public bool IsStunned {get; set;} = false;
-	public bool IsFrozen {get; set;} = false;
 	public Timer FireTimer {get; set;}
 	public Timer SlowTimer {get; set;}
 	public Timer StunTimer {get; set;}
@@ -28,10 +20,7 @@ public partial class StatusComponent : Node
 	// private Dictionary statusTimers;
 	public override void _Ready()
 	{
-		FireTimer = GetNodeOrNull<Timer>("FireTimer");
-		SlowTimer = GetNodeOrNull<Timer>("SlowTimer");
-		StunTimer = GetNodeOrNull<Timer>("StunTimer");
-		FreezeTimer = GetNodeOrNull<Timer>("FreezeTimer");
+		InitializeTimers();
 		// statusTimers = new Dictionary();
 		// foreach (Timer child in GetChildren()){
 		// 	if (child is Timer){
@@ -61,45 +50,46 @@ public partial class StatusComponent : Node
 	}
 
 	private void InitializeTimers(){
-		FireTimer = GetNodeOrNull<Timer>("FireTimer");
-		SlowTimer = GetNodeOrNull<Timer>("SlowTimer");
-		StunTimer = GetNodeOrNull<Timer>("StunTimer");
-		FreezeTimer = GetNodeOrNull<Timer>("FreezeTimer");
+		FireTimer = GetNode<Timer>("FireTimer");
+		SlowTimer = GetNode<Timer>("SlowTimer");
+		StunTimer = GetNode<Timer>("StunTimer");
+		FreezeTimer = GetNode<Timer>("FreezeTimer");
 
 		FireTimer.Timeout += () => {
-			IsOnFire = false;
-			EmitSignal(nameof(OnFireTimeout));
+			GD.Print("Off fire");
+			EmitSignal(nameof(OnFire), false);
+			
 		};
 
 		SlowTimer.Timeout += () => {
-			IsSlowed = false;
-			EmitSignal(nameof(OnSlowedTimeout));
+
+			EmitSignal(nameof(OnSlowed), false);
 		};
 
 		StunTimer.Timeout += () => {
-			IsStunned = false;
-			EmitSignal(nameof(OnStunnedTimeout));
+
+			EmitSignal(nameof(OnStunned), false);
 		};
 
 		FreezeTimer.Timeout += () => {
-			IsFrozen = false;
-			EmitSignal(nameof(OnFrozenTimeout));
+
+			EmitSignal(nameof(OnFrozen), false);
 		};
 	}
 
 	public void ApplyStatusEffect(Element firstElement, Element secondElement){
 		if (firstElement == Element.Fire || secondElement == Element.Fire){
-			IsOnFire = true;
-			EmitSignal(nameof(OnFire));
+			EmitSignal(nameof(OnFire), true);
+			FireTimer.Start();
 			GD.Print("On Fire");
 		}
 		if (firstElement == Element.Water || secondElement == Element.Water){
-			IsSlowed = true;
+			EmitSignal(nameof(OnSlowed), true);
 			GD.Print("Slowed");
 		}
 		if (firstElement == Element.Earth || secondElement == Element.Earth){
 			//dodać obsługę stunów
-			IsStunned = true;
+			EmitSignal(nameof(OnStunned), true);
 			GD.Print("Stunned");
 		}
 	}

@@ -52,8 +52,8 @@ public partial class SpellCastManager : Node
 
     }
 
-    public override void _Process(double delta)
-    {
+    // public override void _Process(double delta)
+    // {
         // //var spell = spells[currentSpell];  
         // //INPUTS - LEFT HAND
         // if (Input.IsActionPressed("CastLeftSpell") && CanCast(leftSpell)){    // && cooldownTimers[spell.SpellName].IsStopped()
@@ -116,7 +116,7 @@ public partial class SpellCastManager : Node
 
         
         //INPUTS
-    }
+    // }
     public void SetCooldown(Spell spell, float time){
         CooldownTimers[spell.SpellName].WaitTime = time;
     }

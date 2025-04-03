@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ohont2tgys4v"]
 
-[ext_resource type="Script" uid="uid://dx6fqqutff3hq" path="res://scripts/HurtboxComponent.cs" id="1_n3p7i"]
+[ext_resource type="Script" uid="uid://dx6fqqutff3hq" path="res://scripts/components/HurtboxComponent.cs" id="1_n3p7i"]
 
 [node name="HurtboxComponent" type="Area3D" node_paths=PackedStringArray("healthComponent")]
 collision_layer = 0

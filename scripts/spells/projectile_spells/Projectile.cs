@@ -50,11 +50,6 @@ public partial class Projectile : CharacterBody3D
     public Vector3 direction;
     public Vector3 startPosition;
 
-    public override void _Ready()
-    {
-        
-    }
-
     public override void _PhysicsProcess(double delta)
     {
         // Symulacja grawitacji
@@ -75,12 +70,16 @@ public partial class Projectile : CharacterBody3D
             if (hitObject is CharacterBody3D characterBody)
             {
                 // Jeśli trafi w postać, zadaj obrażenia
-                var healthComponent = characterBody.GetNodeOrNull<HealthComponent>("HealthComponent");
-                healthComponent?.TakeDamage(Damage);
-                healthComponent?.ShowDamage(collision.GetPosition() ,Damage);
+                var enemy = characterBody as Enemy;
+                enemy.Health.TakeDamage(Damage);
+                enemy.Health.ShowDamage(collision.GetPosition(), Damage);
+                enemy.Status.ApplyStatusEffect(Elements.Item1, Elements.Item2);
+                // var healthComponent = characterBody.GetNodeOrNull<HealthComponent>("HealthComponent");
+                // healthComponent?.TakeDamage(Damage);
+                // healthComponent?.ShowDamage(collision.GetPosition() ,Damage);
 
-                var statusComponent = characterBody.GetNodeOrNull<StatusComponent>("StatusComponent");
-                statusComponent?.ApplyStatusEffect(Elements.Item1, Elements.Item2);
+                // var statusComponent = characterBody.GetNodeOrNull<StatusComponent>("StatusComponent");
+                // statusComponent?.ApplyStatusEffect(Elements.Item1, Elements.Item2);
             }
 
             // Pocisk znika po kolizji
