@@ -41,7 +41,6 @@ script = ExtResource("1_qhw0p")
 one_shot = true
 
 [node name="SlowTimer" type="Timer" parent="StatusComponent"]
-wait_time = 5.0
 one_shot = true
 
 [node name="StunTimer" type="Timer" parent="StatusComponent"]
@@ -65,6 +64,9 @@ navAgent = NodePath("../EnemyNavigationAgent3D")
 
 [node name="HealthComponent" parent="." instance=ExtResource("5_n365g")]
 maxHealth = 50000.0
+
+[node name="FireDamageTimer" type="Timer" parent="HealthComponent"]
+wait_time = 0.4
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("6_cij6a")]
 healthComponent = NodePath("../HealthComponent")

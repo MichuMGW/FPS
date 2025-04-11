@@ -6,11 +6,11 @@
 [resource]
 script = ExtResource("2_jsnoc")
 ProjectileSpeed = 40.0
-ProjectileSpread = 0.0
+ProjectileSpread = 1.0
 ProjectileRange = 50.0
 SpellName = "Fireball"
 SpellDamage = 30.0
-SpellCooldown = 0.05
+SpellCooldown = 0.5
 SpellRange = 50.0
 ManaCost = 5.0
 SpellScene = ExtResource("1_nt450")

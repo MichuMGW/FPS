@@ -8,14 +8,11 @@
 [ext_resource type="Script" uid="uid://beqijbhsnt08o" path="res://scripts/spells/SpellCastManager.cs" id="4_dqkch"]
 [ext_resource type="Script" uid="uid://cwqsonsoalyuf" path="res://scripts/states/player/CastingProjectileSpell.cs" id="4_fjrip"]
 [ext_resource type="Script" uid="uid://w1ua5btfpb6t" path="res://scripts/components/CameraMovement.cs" id="7_smehm"]
+[ext_resource type="PackedScene" uid="uid://drm1tjn6fkmp5" path="res://scenes/player/arms/arms.tscn" id="9_ur7pv"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_mex5a"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4ia83"]
-
-[sub_resource type="SphereMesh" id="SphereMesh_dqkch"]
-radius = 0.2
-height = 0.4
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_qhqgy"]
 radius = 10.0
@@ -84,15 +81,8 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_dqkch")
 
-[node name="LeftHand" type="MeshInstance3D" parent="Head/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, -0.4, -1.1)
-mesh = SubResource("SphereMesh_dqkch")
-skeleton = NodePath("../../../SpellCastManager")
-
-[node name="RightHand" type="MeshInstance3D" parent="Head/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, -0.6, -0.9)
-mesh = SubResource("SphereMesh_dqkch")
-skeleton = NodePath("../../../SpellCastManager")
+[node name="Arms" parent="Head/Camera3D" instance=ExtResource("9_ur7pv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
 
 [node name="PickupRadiusArea" type="Area3D" parent="."]
 collision_layer = 2

@@ -31,7 +31,9 @@ public partial class FloatingDamage : Node3D
 		damageLabel.Text = damage.ToString();
 	}
 
-	public void ShowDamage(float damage){
+	public void ShowDamage(float damage, Color color){
+		SetDamage(damage);
+		damageLabel.Modulate = color;
 		double offsetX = GD.RandRange(-0.5f, 0.5f);
 		double offsetZ = GD.RandRange(-0.5f, 0.5f);
 		Position += new Vector3((float)offsetX, 0, (float)offsetZ);

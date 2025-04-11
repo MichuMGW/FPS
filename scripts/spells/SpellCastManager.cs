@@ -21,34 +21,30 @@ public partial class SpellCastManager : Node
         //TODO: Zaklęcia powinny być dodawane zależnie od ich odblokowania, zdobycia - pobierane z innej listy
         playerCamera = Owner.GetNode<Camera3D>("Head/Camera3D");
 
-        var mainSpell = new ProjectileSpell(GD.Load<ProjectileSpellResource>(SpellResourcePath.Fireball), (Element.Fire, Element.Fire));
-        LeftHand = new SpellHand(mainSpell, Owner.GetNode<MeshInstance3D>("Head/Camera3D/LeftHand"));
+        var mainSpell = new ProjectileSpell(GD.Load<ProjectileSpellResource>(SpellResourcePath.Fireball), (Element.Fire, Element.Water));
+        var test = Owner.GetNode<Node3D>("Head/Camera3D/Arms/Skeleton3D/LeftHandAttachment/LeftHand");
+        if(test == null){
+            GD.Print("Left hand not found");
+        }
+        if(mainSpell == null){
+            GD.Print("Main spell not found");
+        }
+        var raycast = Owner.GetNode<RayCast3D>("Head/Camera3D/RayCast3D");
+        LeftHand = new SpellHand(mainSpell, test);
+        
+
+        GD.Print("DZIALA");
 
 
-        var explosionSpell = new ExplosionSpell("Fire Explosion", 100, 2.0f, 50, (Element.Fire, Element.Fire), "res://scenes/spells/fire_explosion.tscn");
-        RightHand = new SpellHand(explosionSpell, Owner.GetNode<MeshInstance3D>("Head/Camera3D/RightHand"));
+        // var explosionSpell = new ExplosionSpell("Fire Explosion", 100, 2.0f, 50, (Element.Fire, Element.Fire), "res://scenes/spells/fire_explosion.tscn");
+        // RightHand = new SpellHand(explosionSpell, Owner.GetNode<MeshInstance3D>("Head/Camera3D/RightHand"));
 
         CooldownTimers = new Dictionary<string, Timer>{
-            {LeftHand.spell.SpellName, InitializeTimer(LeftHand.spell)},
-            {RightHand.spell.SpellName, InitializeTimer(RightHand.spell)}
+            {LeftHand.spell.SpellName, InitializeTimer(LeftHand.spell)}
+            // {RightHand.spell.SpellName, InitializeTimer(RightHand.spell)}
             //TODO: DODAĆ SPECJALNE SPELLE I PRZENIEŚĆ TO DO FUNKCJI
             //DODAĆ SŁOWNIK SPELLI??
         };
-
-
-
-        //player.CallDeferred("add_child",explosionSpell);
-
-        // foreach(var spell in leftSpells.Concat<Spell>(rightSpells)){
-        //     Timer timer = new Timer();
-        //     timer.OneShot = true;
-        //     this.AddChild(timer);
-        //     cooldownTimers[spell] = timer;
-        //     GD.Print(spell.SpellName);
-        //     GD.Print("Timer added");
-        // }
-
-        // spells.Add(new ExplosionSpell("Fire Explosion", 100, 2.0f, 50, "res://scenes/fire_explosion.tscn"));
 
     }
 

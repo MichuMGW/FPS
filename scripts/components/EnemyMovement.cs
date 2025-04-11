@@ -3,21 +3,26 @@ using System;
 
 public partial class EnemyMovement : Node
 {
-    [Export] public CharacterBody3D enemy;
+    [Export] public Enemy enemy;
     public CharacterBody3D player;
     [Export] public EnemyNavigationAgent navAgent;
-    public float speed = 5.0f;
-    public float gravity = -9.8f;
+    private float baseSpeed = 5.0f;
+    private float currentSpeed;
+    private float gravity = -9.8f;
 
     public override void _Ready()
     {
         player = GetTree().GetFirstNodeInGroup("player") as CharacterBody3D;
+        currentSpeed = baseSpeed;
+
+        enemy.Status.OnSlowStarted += OnSlowStarted;
+        enemy.Status.OnSlowEnded += OnSlowEnded;
     }
 
-    public override void _Process(double delta)
+    public override void _PhysicsProcess(double delta)
     {
         Vector3 newVelocity = navAgent.CalculatePath(player, enemy);
-        enemy.Velocity = newVelocity * speed;
+        enemy.Velocity = newVelocity * currentSpeed;
         // Apply gravity
         if (!enemy.IsOnFloor()){
             enemy.Velocity += new Vector3(enemy.Velocity.X, gravity * (float)delta, enemy.Velocity.Z);
@@ -27,5 +32,15 @@ public partial class EnemyMovement : Node
         }
         enemy.MoveAndSlide();
     }
+
+    private void OnSlowStarted(float slowAmount){
+        currentSpeed = baseSpeed * slowAmount;
+    }
+
+    private void OnSlowEnded(){
+        GD.Print("SLOW ENDED");
+        currentSpeed = baseSpeed;
+    }
+
 
 }

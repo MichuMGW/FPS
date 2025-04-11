@@ -6,11 +6,14 @@ public partial class HealthComponent : Node
 	[Signal] public delegate void EntityDiedEventHandler();
 
 	[Export] public float maxHealth = 100f;
+	private bool isCurrentlyOnFire = false;
 	private PackedScene floatingDamageScene;
 	public float currentHealth;
 	public bool isDead = false;
 	public Enemy enemy;
 	public Timer FireDamageTimer;
+	private float fireDamage = 0f;
+
 
 	public override void _Ready()
 	{
@@ -19,27 +22,44 @@ public partial class HealthComponent : Node
 
 		//TEST
 		enemy = GetParent<Enemy>();
-		enemy.Status.OnFire += EnemyOnFire;
+		enemy.Status.OnFireStarted += EnemyOnFire;
+		enemy.Status.OnFireEnded += EnemyOffFire;
 		//TEST
+
+		FireDamageTimer = GetNode<Timer>("FireDamageTimer");
+		FireDamageTimer.Timeout += OnFireDamageTimeout;
 	}
 
-	public void EnemyOnFire(bool isOnFire){
-		if (isOnFire){
-			GD.Print("ON FIRE");
-			Timer FireDamageTimer = new Timer();
-			FireDamageTimer.Name = "FireDamageTimer";
-			FireDamageTimer.WaitTime = 0.5f; //Zmienić na pobieranie wartości od ziomka
-			FireDamageTimer.OneShot = false;
-			FireDamageTimer.Autostart = true;
-			FireDamageTimer.Timeout += () => {
-				TakeDamage(10);
-				ShowDamage(enemy.GlobalPosition, 10);
-			};
-			AddChild(FireDamageTimer);
-		} else {
-			GD.Print("OFF FIRE");
-			GetNode<Timer>("FireDamageTimer").QueueFree();
+	// public void EnemyOnFire(bool OnFire){
+	// 	if (OnFire && !isCurrentlyOnFire){
+	// 		isCurrentlyOnFire = true;
+	// 		FireDamageTimer.Start();
+	// 		GD.Print("ON FIRE");
+			
+	// 	} else if (!OnFire) {
+	// 		isCurrentlyOnFire = false;
+	// 		FireDamageTimer.Stop();
+	// 		GD.Print("OFF FIRE");
+			
+	// 	}
+	// }
+	private void OnFireDamageTimeout(){
+		TakeDamage(fireDamage);
+		ShowDamage(enemy.GlobalPosition, 10, new Color(1, 0, 0));
+	}
+
+	public void EnemyOnFire(float damage){
+		if (!isCurrentlyOnFire){
+			isCurrentlyOnFire = true;
+			fireDamage = damage;
+			//DODAĆ DURATION I MOŻLIWOŚĆ JEGO ZMIANY
+			FireDamageTimer.Start();
 		}
+	}
+
+	private void EnemyOffFire(){
+		isCurrentlyOnFire = false;
+		FireDamageTimer.Stop();
 	}
 
 	public void TakeDamage(float damage)
@@ -58,11 +78,10 @@ public partial class HealthComponent : Node
 		currentHealth = Mathf.Min(maxHealth, currentHealth);
 	}
 
-	public void ShowDamage(Vector3 position, float damage){
+	public void ShowDamage(Vector3 position, float damage, Color color){
 		var floatingDamage = (FloatingDamage)floatingDamageScene.Instantiate();
 		GetTree().CurrentScene.AddChild(floatingDamage);
-		floatingDamage.SetDamage(damage);
 		floatingDamage.GlobalPosition = position;
-		floatingDamage.ShowDamage(damage);
+		floatingDamage.ShowDamage(damage, color);
 	}
 }

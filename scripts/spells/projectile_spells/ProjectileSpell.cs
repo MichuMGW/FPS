@@ -25,11 +25,12 @@ public partial class ProjectileSpell : Spell
 			return;
 		}
 		var projectileInstance = (Projectile)SpellScene.Instantiate();
-		caster.Owner.GetParent().AddChild(projectileInstance);
+		caster.GetTree().CurrentScene.AddChild(projectileInstance);
 		projectileInstance.Elements = SpellElements;
 		projectileInstance.Damage = SpellDamage;
 		projectileInstance.Range = SpellRange;
 		projectileInstance.GlobalTransform = caster.GlobalTransform;
+		projectileInstance.Scale = new Vector3(1, 1, 1);
 		projectileInstance.startPosition = caster.GlobalTransform.Origin;
 		
 		//Projectile Spread
@@ -51,7 +52,7 @@ public partial class ProjectileSpell : Spell
     {
         return;
     }
-	    public override void EndCasting(Vector3 position, Vector3 direction, Node3D caster)
+	public override void EndCasting(Vector3 position, Vector3 direction, Node3D caster)
     {
         return;
     }
