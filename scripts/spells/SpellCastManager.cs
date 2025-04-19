@@ -22,15 +22,14 @@ public partial class SpellCastManager : Node
         playerCamera = Owner.GetNode<Camera3D>("Head/Camera3D");
 
         var mainSpell = new ProjectileSpell(GD.Load<ProjectileSpellResource>(SpellResourcePath.Fireball), (Element.Fire, Element.Water));
-        var test = Owner.GetNode<Node3D>("Head/Camera3D/Arms/Skeleton3D/LeftHandAttachment/LeftHand");
-        if(test == null){
+        var hand = Owner.GetNode<Node3D>("Head/Camera3D/Arms/Skeleton3D/LeftHandAttachment/LeftHand");
+        if(hand == null){
             GD.Print("Left hand not found");
         }
         if(mainSpell == null){
             GD.Print("Main spell not found");
         }
-        var raycast = Owner.GetNode<RayCast3D>("Head/Camera3D/RayCast3D");
-        LeftHand = new SpellHand(mainSpell, test);
+        LeftHand = new SpellHand(mainSpell, hand);
         
 
         GD.Print("DZIALA");

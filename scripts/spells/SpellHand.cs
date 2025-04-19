@@ -13,7 +13,7 @@ public partial class SpellHand : Node {
         this.hand = hand;
         var player = hand.GetTree().GetFirstNodeInGroup("player") as Player;
         raycast = player.GetNode<RayCast3D>("Head/Camera3D/RayCast3D");
-        // this.animationPlayer = hand.GetNode<AnimationPlayer>("AnimationPlayer");
+        animationPlayer = player.GetNode<AnimationPlayer>("Head/Camera3D/Arms/AnimationPlayer");
         // raycast = hand.GetNode<RayCast3D>("RayCast3D");
         if (raycast == null) {
             GD.Print("Player raycast not found in SpellHand constructor");

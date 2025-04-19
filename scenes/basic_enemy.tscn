@@ -63,7 +63,6 @@ enemy = NodePath("..")
 navAgent = NodePath("../EnemyNavigationAgent3D")
 
 [node name="HealthComponent" parent="." instance=ExtResource("5_n365g")]
-maxHealth = 50000.0
 
 [node name="FireDamageTimer" type="Timer" parent="HealthComponent"]
 wait_time = 0.4

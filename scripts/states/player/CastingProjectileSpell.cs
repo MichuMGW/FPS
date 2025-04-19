@@ -7,6 +7,11 @@ public partial class CastingProjectileSpell : State
     private AnimationPlayer animationPlayer;
     private AnimationTree animTree;
     private AnimationNodeStateMachinePlayback animState;
+
+    private float spellCooldown;
+    private float animLength;
+    private float playbackSpeed;
+
     public override void Enter()
     {
         scm = Owner.GetNode<SpellCastManager>("SpellCastManager");
@@ -15,10 +20,15 @@ public partial class CastingProjectileSpell : State
 		GD.Print("Casting left spell");
 
         animTree = scm.GetParent().GetNode<AnimationTree>("Head/Camera3D/Arms/AnimationTree");
-        animState = (AnimationNodeStateMachinePlayback)animTree.Get("parameters/playback");
-        
+        animState = (AnimationNodeStateMachinePlayback)animTree.Get("parameters/playback"); 
+
         animTree.Active = true;
         animState.Travel("LRaise");
+
+        spellCooldown = scm.LeftHand.spell.SpellCooldown;
+        animLength = animationPlayer.GetAnimation("LCastProjectile1").Length;
+        playbackSpeed = animLength / spellCooldown;
+        // animTree.Set("parameters/LCastProjectile1/TimeScale/scale", playbackSpeed);
     }
 
     public override void Exit()
@@ -41,7 +51,10 @@ public partial class CastingProjectileSpell : State
         if(Input.IsActionPressed("CastLeftSpell")){
 			SpellHand leftHand = scm.LeftHand;
 			if (!scm.isOnCooldown(leftHand.spell)){
-                animState.Travel("LCastProjectile1");
+                GD.Print("Setting anim speed scale to: " + playbackSpeed);
+                
+                // animState.Travel("LCastProjectile1");
+                animState.Travel("LHoldCastProjectile");
                 // animationPlayer.Play("CastFireball");
 				leftHand.StartCasting();
 				scm.StartCooldown(leftHand.spell);

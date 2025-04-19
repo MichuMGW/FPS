@@ -48,6 +48,9 @@ public partial class PlayerIdle : State
                     // case BeamSpell beamSpell:
                     //     leftHand.StartCasting();
                     //     break;
+                    case MeleeSpell meleeSpell:
+                        EmitSignal(nameof(Transitioned), this, "CastingMeleeSpell");
+                        break;
 
                 }
                 // if (leftHand.spell is ProjectileSpell){

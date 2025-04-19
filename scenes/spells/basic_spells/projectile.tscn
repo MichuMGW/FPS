@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cwh8ty8k77yjr"]
+[gd_scene load_steps=8 format=3 uid="uid://cwh8ty8k77yjr"]
 
 [ext_resource type="Script" uid="uid://tcmlvmhebq6h" path="res://scripts/spells/projectile_spells/Projectile.cs" id="1_16kxs"]
 
@@ -12,6 +12,33 @@ albedo_color = Color(0.904478, 0.351064, 0.0612536, 1)
 [sub_resource type="SphereShape3D" id="SphereShape3D_q3m7n"]
 radius = 0.3
 
+[sub_resource type="Animation" id="Animation_v8c04"]
+length = 0.001
+tracks/0/type = "scale_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_16kxs"]
+resource_name = "Start"
+length = 0.05
+tracks/0/type = "scale_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 0.0333333, 1, 1, 1, 1)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3gb1b"]
+_data = {
+&"RESET": SubResource("Animation_v8c04"),
+&"Start": SubResource("Animation_16kxs")
+}
+
 [node name="Projectile" type="CharacterBody3D"]
 collision_layer = 0
 collision_mask = 5
@@ -23,3 +50,9 @@ surface_material_override/0 = SubResource("StandardMaterial3D_softn")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_q3m7n")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_3gb1b")
+}
+autoplay = "Start"
