@@ -21,7 +21,10 @@ public partial class SpellCastManager : Node
         //TODO: Zaklęcia powinny być dodawane zależnie od ich odblokowania, zdobycia - pobierane z innej listy
         playerCamera = Owner.GetNode<Camera3D>("Head/Camera3D");
 
-        var mainSpell = new ProjectileSpell(GD.Load<ProjectileSpellResource>(SpellResourcePath.Fireball), (Element.Fire, Element.Water));
+        // var mainSpell = new ProjectileSpell(GD.Load<ProjectileSpellResource>(SpellResourcePath.Fireball), (Element.Fire, Element.Water));
+        //TEST
+        var mainSpell = new MeleeSpell(GD.Load<MeleeSpellResource>("res://resources/melee_spells/test_melee.tres"), (Element.Fire, Element.Water));
+        //KONIEC TEST
         var hand = Owner.GetNode<Node3D>("Head/Camera3D/Arms/Skeleton3D/LeftHandAttachment/LeftHand");
         if(hand == null){
             GD.Print("Left hand not found");

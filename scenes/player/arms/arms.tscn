@@ -1,6 +1,7 @@
-[gd_scene load_steps=28 format=3 uid="uid://drm1tjn6fkmp5"]
+[gd_scene load_steps=40 format=3 uid="uid://drm1tjn6fkmp5"]
 
 [ext_resource type="PackedScene" uid="uid://bjs7bqphul262" path="res://models/arms/Arms.glb" id="1_ht3vf"]
+[ext_resource type="Script" uid="uid://d05im6w48ss6j" path="res://scripts/player/animations/ArmsAnimationPlayer.cs" id="2_11d55"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ht3vf"]
 emission_shape = 1
@@ -38,6 +39,9 @@ node_connections = [&"TimeScale", 0, &"Animation", &"output", 0, &"TimeScale"]
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cfsns"]
 animation = &"LIdle"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8qy54"]
+animation = &"LIdleMelee"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_11d55"]
 animation = &"LMeleeAttack1"
 
@@ -46,6 +50,15 @@ animation = &"LMeleeAttack2"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yh3yt"]
 animation = &"LMeleeAttack3"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_klrhv"]
+animation = &"LMeleeAttackWhitdraw1"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vrt8y"]
+animation = &"LMeleeAttackWhitdraw2"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_x1mk7"]
+animation = &"LMeleeAttackWhitdraw3"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_oiiiq"]
 animation = &"LRaise"
@@ -94,37 +107,63 @@ point_count = 3
 xfade_time = 0.2
 xfade_curve = SubResource("Curve_oiiiq")
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vrt8y"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3ahwi"]
 switch_mode = 2
-advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_klrhv"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uiccx"]
 switch_mode = 2
-advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2d1v6"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kgu28"]
+xfade_time = 0.2
 switch_mode = 2
-advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_iyyug"]
+xfade_time = 0.1
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_11d55"]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5jbp2"]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6amn2"]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tq30m"]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_j506j"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cfsns"]
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_3ahwi"]
 states/End/position = Vector2(1137, 136)
 states/LHoldCastProjectile/node = SubResource("AnimationNodeBlendTree_cfsns")
-states/LHoldCastProjectile/position = Vector2(535, 46)
+states/LHoldCastProjectile/position = Vector2(720, 100)
 states/LIdle/node = SubResource("AnimationNodeAnimation_cfsns")
 states/LIdle/position = Vector2(199, 100)
+states/LIdleMelee/node = SubResource("AnimationNodeAnimation_8qy54")
+states/LIdleMelee/position = Vector2(199, -3)
 states/LMeleeAttack1/node = SubResource("AnimationNodeAnimation_11d55")
-states/LMeleeAttack1/position = Vector2(199, 186)
+states/LMeleeAttack1/position = Vector2(199, -122)
 states/LMeleeAttack2/node = SubResource("AnimationNodeAnimation_nfgok")
-states/LMeleeAttack2/position = Vector2(309, 281)
+states/LMeleeAttack2/position = Vector2(199, -230)
 states/LMeleeAttack3/node = SubResource("AnimationNodeAnimation_yh3yt")
-states/LMeleeAttack3/position = Vector2(199, 391)
+states/LMeleeAttack3/position = Vector2(199, -344)
+states/LMeleeAttackWhitdraw1/node = SubResource("AnimationNodeAnimation_klrhv")
+states/LMeleeAttackWhitdraw1/position = Vector2(410, -122)
+states/LMeleeAttackWhitdraw2/node = SubResource("AnimationNodeAnimation_vrt8y")
+states/LMeleeAttackWhitdraw2/position = Vector2(410, -225)
+states/LMeleeAttackWhitdraw3/node = SubResource("AnimationNodeAnimation_x1mk7")
+states/LMeleeAttackWhitdraw3/position = Vector2(410, -344)
 states/LRaise/node = SubResource("AnimationNodeAnimation_oiiiq")
-states/LRaise/position = Vector2(338, 46)
+states/LRaise/position = Vector2(523, 100)
 states/LWhitdraw/node = SubResource("AnimationNodeAnimation_l2sa2")
-states/LWhitdraw/position = Vector2(535, 222)
+states/LWhitdraw/position = Vector2(720, 276)
 states/Start/position = Vector2(52, 100)
-transitions = ["Start", "LIdle", SubResource("AnimationNodeStateMachineTransition_x1mk7"), "LIdle", "LRaise", SubResource("AnimationNodeStateMachineTransition_8qy54"), "LWhitdraw", "LIdle", SubResource("AnimationNodeStateMachineTransition_ht3vf"), "LRaise", "LHoldCastProjectile", SubResource("AnimationNodeStateMachineTransition_oiiiq"), "LHoldCastProjectile", "LWhitdraw", SubResource("AnimationNodeStateMachineTransition_l2sa2"), "LWhitdraw", "LHoldCastProjectile", SubResource("AnimationNodeStateMachineTransition_nfgok"), "LMeleeAttack1", "LMeleeAttack2", SubResource("AnimationNodeStateMachineTransition_vrt8y"), "LMeleeAttack2", "LMeleeAttack3", SubResource("AnimationNodeStateMachineTransition_klrhv"), "LMeleeAttack3", "LMeleeAttack1", SubResource("AnimationNodeStateMachineTransition_2d1v6")]
-graph_offset = Vector2(-240, 127)
+transitions = ["Start", "LIdle", SubResource("AnimationNodeStateMachineTransition_x1mk7"), "LIdle", "LRaise", SubResource("AnimationNodeStateMachineTransition_8qy54"), "LWhitdraw", "LIdle", SubResource("AnimationNodeStateMachineTransition_ht3vf"), "LRaise", "LHoldCastProjectile", SubResource("AnimationNodeStateMachineTransition_oiiiq"), "LHoldCastProjectile", "LWhitdraw", SubResource("AnimationNodeStateMachineTransition_l2sa2"), "LWhitdraw", "LHoldCastProjectile", SubResource("AnimationNodeStateMachineTransition_nfgok"), "LMeleeAttack1", "LMeleeAttack2", SubResource("AnimationNodeStateMachineTransition_3ahwi"), "LMeleeAttack2", "LMeleeAttack3", SubResource("AnimationNodeStateMachineTransition_uiccx"), "LMeleeAttack2", "LMeleeAttackWhitdraw2", SubResource("AnimationNodeStateMachineTransition_kgu28"), "LMeleeAttack3", "LMeleeAttackWhitdraw3", SubResource("AnimationNodeStateMachineTransition_iyyug"), "LMeleeAttack1", "LMeleeAttackWhitdraw1", SubResource("AnimationNodeStateMachineTransition_11d55"), "LMeleeAttackWhitdraw3", "LIdleMelee", SubResource("AnimationNodeStateMachineTransition_5jbp2"), "LMeleeAttackWhitdraw2", "LIdleMelee", SubResource("AnimationNodeStateMachineTransition_6amn2"), "LMeleeAttackWhitdraw1", "LIdleMelee", SubResource("AnimationNodeStateMachineTransition_tq30m"), "LIdleMelee", "LMeleeAttack1", SubResource("AnimationNodeStateMachineTransition_j506j"), "LIdle", "LIdleMelee", SubResource("AnimationNodeStateMachineTransition_cfsns")]
+graph_offset = Vector2(-223, -412)
 
 [node name="Arms" instance=ExtResource("1_ht3vf")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
@@ -155,8 +194,10 @@ bone_idx = 89
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Skeleton3D/WhipAttachment" index="0"]
 transform = Transform3D(0.0816967, 1.45519e-11, -2.32831e-10, 1.16415e-10, 0.0816967, 1.60185e-09, 6.98492e-10, -2.08161e-09, 0.0816967, 0, 0, 0)
-visible = false
 mesh = SubResource("CapsuleMesh_ht3vf")
+
+[node name="AnimationPlayer" parent="." index="1"]
+script = ExtResource("2_11d55")
 
 [node name="AnimationTree" type="AnimationTree" parent="." index="2"]
 tree_root = SubResource("AnimationNodeStateMachine_3ahwi")

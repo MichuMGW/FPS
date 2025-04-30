@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="MeleeSpellResource" load_steps=2 format=3 uid="uid://dgwnnu4bn4u2d"]
+
+[ext_resource type="Script" uid="uid://rgjlukaidg4" path="res://resources/melee_spells/MeleeSpellResource.cs" id="1_oio4k"]
+
+[resource]
+script = ExtResource("1_oio4k")
+SpellName = "test"
+SpellDamage = 50.0
+SpellCooldown = 0.2
+SpellRange = 10.0
+ManaCost = 2.0
+metadata/_custom_type_script = "uid://rgjlukaidg4"

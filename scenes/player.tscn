@@ -1,12 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://b32e4s8pjtxat"]
+[gd_scene load_steps=15 format=3 uid="uid://b32e4s8pjtxat"]
 
 [ext_resource type="Script" uid="uid://ccmx85wnmq6w7" path="res://scripts/components/PlayerMovement.cs" id="1_2d0pk"]
 [ext_resource type="Script" uid="uid://bvqsv7aht7ijc" path="res://scripts/entity/Player.cs" id="1_fjrip"]
-[ext_resource type="Script" uid="uid://delqxrwl6x6vk" path="res://scripts/states/player/PlayerStateMachine.cs" id="1_tuyoq"]
-[ext_resource type="Script" uid="uid://ctu5g3l63t2pt" path="res://scripts/states/player/PlayerIdle.cs" id="2_fjrip"]
+[ext_resource type="Script" uid="uid://delqxrwl6x6vk" path="res://scripts/player/player_states/PlayerStateMachine.cs" id="1_tuyoq"]
+[ext_resource type="Script" uid="uid://ctu5g3l63t2pt" path="res://scripts/player/player_states/PlayerIdle.cs" id="2_fjrip"]
 [ext_resource type="Texture2D" uid="uid://ojhvqyxwb1tx" path="res://crosshair.png" id="3_dqkch"]
 [ext_resource type="Script" uid="uid://beqijbhsnt08o" path="res://scripts/spells/SpellCastManager.cs" id="4_dqkch"]
-[ext_resource type="Script" uid="uid://cwqsonsoalyuf" path="res://scripts/states/player/CastingProjectileSpell.cs" id="4_fjrip"]
+[ext_resource type="Script" uid="uid://cwqsonsoalyuf" path="res://scripts/player/player_states/CastingProjectileSpell.cs" id="4_fjrip"]
+[ext_resource type="Script" uid="uid://dgv53o10bdqot" path="res://scripts/player/player_states/CastingMeleeSpell.cs" id="6_y4r1p"]
 [ext_resource type="Script" uid="uid://w1ua5btfpb6t" path="res://scripts/components/CameraMovement.cs" id="7_smehm"]
 [ext_resource type="PackedScene" uid="uid://drm1tjn6fkmp5" path="res://scenes/player/arms/arms.tscn" id="9_ur7pv"]
 
@@ -40,6 +41,9 @@ script = ExtResource("2_fjrip")
 
 [node name="CastingProjectileSpell" type="Node" parent="PlayerStateMachine"]
 script = ExtResource("4_fjrip")
+
+[node name="CastingMeleeSpell" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("6_y4r1p")
 
 [node name="PlayerMovement" type="Node" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("1_2d0pk")
