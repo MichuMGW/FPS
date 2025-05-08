@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://ryle276p4c7a"
-path="res://.godot/imported/whip.glb-f6dcf40b376329c95a4498f0413a21ec.scn"
+uid="uid://rqq6uo10asd7"
+path="res://.godot/imported/whip_projectile.glb-0beefc9e21e1e195d9782bd5483087ee.scn"
 
 [deps]
 
-source_file="res://models/melee_spells/water_whip/whip.glb"
-dest_files=["res://.godot/imported/whip.glb-f6dcf40b376329c95a4498f0413a21ec.scn"]
+source_file="res://models/melee_spells/water_whip/whip_projectile.glb"
+dest_files=["res://.godot/imported/whip_projectile.glb-0beefc9e21e1e195d9782bd5483087ee.scn"]
 
 [params]
 

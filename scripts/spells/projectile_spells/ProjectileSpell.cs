@@ -5,7 +5,9 @@ public partial class ProjectileSpell : Spell
 {
 	public float ProjectileSpeed {get; set;}
 	public float ProjectileSpread {get; set;}
+	//Do usunięcia
 	private float cooldownTimer;
+	//Koniec do usunięcia
 	public ProjectileSpell(string SpellName, float SpellDamage, float SpellCooldown, float ManaCost, (Element, Element) SpellElements, string SpellScenePath, float ProjectileSpeed)
 	: base(SpellName,SpellDamage,SpellCooldown,ManaCost,SpellElements,SpellScenePath)
 	{

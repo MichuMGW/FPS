@@ -18,9 +18,25 @@ public partial class ExperiencePoint : Node3D
 
 	public override void _Process(double delta)
 	{
+		// if(isInRadius)
+		// {
+		// 	player = GetTree().GetFirstNodeInGroup("player") as CharacterBody3D;
+		// 	Vector3 direction = (player.GlobalPosition - GlobalPosition).Normalized();
+		// 	speed += speed * (float)delta;
+		// 	Vector3 newVelocity =  direction * speed; 
+		// 	Translate(newVelocity);
+
+		// }
+		MoveTowardsPlayer(delta);
+	}
+	
+	private void MoveTowardsPlayer(double delta){
 		if(isInRadius)
 		{
 			player = GetTree().GetFirstNodeInGroup("player") as CharacterBody3D;
+			if(player == null){
+				return;
+			}
 			Vector3 direction = (player.GlobalPosition - GlobalPosition).Normalized();
 			speed += speed * (float)delta;
 			Vector3 newVelocity =  direction * speed; 

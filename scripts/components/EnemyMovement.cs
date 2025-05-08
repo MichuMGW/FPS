@@ -15,8 +15,8 @@ public partial class EnemyMovement : Node
         player = GetTree().GetFirstNodeInGroup("player") as CharacterBody3D;
         currentSpeed = baseSpeed;
 
-        enemy.Status.OnSlowStarted += OnSlowStarted;
-        enemy.Status.OnSlowEnded += OnSlowEnded;
+        enemy.Status.SlowStarted += OnSlowStarted;
+        enemy.Status.SlowEnded += OnSlowEnded;
     }
 
     public override void _PhysicsProcess(double delta)

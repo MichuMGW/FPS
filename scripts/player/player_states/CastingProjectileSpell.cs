@@ -50,7 +50,7 @@ public partial class CastingProjectileSpell : State
     {
         if(Input.IsActionPressed("CastLeftSpell")){
 			SpellHand leftHand = scm.LeftHand;
-			if (!scm.isOnCooldown(leftHand.spell)){
+			if (!scm.IsOnCooldown(leftHand.spell)){
                 GD.Print("Setting anim speed scale to: " + playbackSpeed);
                 
                 // animState.Travel("LCastProjectile1");

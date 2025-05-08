@@ -22,8 +22,8 @@ public partial class HealthComponent : Node
 
 		//TEST
 		enemy = GetParent<Enemy>();
-		enemy.Status.OnFireStarted += EnemyOnFire;
-		enemy.Status.OnFireEnded += EnemyOffFire;
+		enemy.Status.FireStarted += EnemyOnFire;
+		enemy.Status.FireEnded += EnemyOffFire;
 		//TEST
 
 		FireDamageTimer = GetNode<Timer>("FireDamageTimer");
