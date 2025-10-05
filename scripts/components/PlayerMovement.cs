@@ -4,14 +4,30 @@ using System;
 public partial class PlayerMovement : Node
 {
     [Export] public CharacterBody3D player;
-    [Export] float walkSpeed = 10.0f;
-    [Export] float sprintSpeed = 20.0f;
-    [Export] float jumpForce = 10.0f;
+    // [Export] private float _walkSpeed = 10.0f;
+    // [Export] private float _sprintSpeed = 20.0f;
+    // [Export] private float _jumpForce = 10.0f;
+    private float _walkSpeed;
+    private float _sprintSpeed;
+    private float _jumpForce;
+
+    private PlayerStats _stats;
 
     public override void _Process(double delta)
     {
         Move((float)delta);
         player.MoveAndSlide();
+
+        _stats = GetNode<PlayerStats>("/root/PlayerStats");
+
+        _walkSpeed = _stats.Speed;
+        _sprintSpeed = _stats.Speed * 2;
+        _stats.SpeedChanged += OnSpeedChanged;
+    }
+
+    private void OnSpeedChanged(float value){
+        _walkSpeed = value;
+        _sprintSpeed = value * 2;
     }
 
     private void Move(float delta){
@@ -32,7 +48,7 @@ public partial class PlayerMovement : Node
         }
 
         moveDirection = moveDirection.Normalized();
-        float speed = Input.IsActionPressed("Sprint") ? sprintSpeed : walkSpeed;
+        float speed = Input.IsActionPressed("Sprint") ? _sprintSpeed : _walkSpeed;
         player.Velocity = new Vector3(moveDirection.X * speed, player.Velocity.Y, moveDirection.Z * speed);
 
         if(player.IsOnFloor()){
