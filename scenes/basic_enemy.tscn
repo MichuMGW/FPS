@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://by8xwputf81xn" path="res://scenes/experience_point.tscn" id="2_ve544"]
 [ext_resource type="PackedScene" uid="uid://cmfdoxh40cyda" path="res://scenes/enemy_navigation_agent_3d.tscn" id="3_ve544"]
 [ext_resource type="PackedScene" uid="uid://dcjp3y2tpbtwn" path="res://scenes/enemy_movement.tscn" id="4_qhw0p"]
-[ext_resource type="PackedScene" uid="uid://chm725r72rhva" path="res://scenes/health_component.tscn" id="5_n365g"]
+[ext_resource type="PackedScene" uid="uid://chm725r72rhva" path="res://scenes/enemy_health_component.tscn" id="5_n365g"]
 [ext_resource type="PackedScene" uid="uid://ohont2tgys4v" path="res://scenes/hurtbox_component.tscn" id="6_cij6a"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m3p60"]
@@ -22,7 +22,7 @@ albedo_color = Color(1, 0, 0, 1)
 collision_layer = 5
 collision_mask = 3
 script = ExtResource("1_n365g")
-Health = NodePath("HealthComponent")
+Health = NodePath("EnemyHealthComponent")
 Movement = NodePath("EnemyMovement")
 NavAgent = NodePath("EnemyNavigationAgent3D")
 Status = NodePath("StatusComponent")
@@ -53,7 +53,7 @@ one_shot = true
 
 [node name="ExperiencePointDropComponent" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("1_wm70f")]
 experiencePoint = ExtResource("2_ve544")
-healthComponent = NodePath("../HealthComponent")
+healthComponent = NodePath("../EnemyHealthComponent")
 
 [node name="EnemyNavigationAgent3D" parent="." instance=ExtResource("3_ve544")]
 debug_enabled = false
@@ -62,13 +62,13 @@ debug_enabled = false
 enemy = NodePath("..")
 navAgent = NodePath("../EnemyNavigationAgent3D")
 
-[node name="HealthComponent" parent="." instance=ExtResource("5_n365g")]
+[node name="EnemyHealthComponent" parent="." instance=ExtResource("5_n365g")]
 
-[node name="FireDamageTimer" type="Timer" parent="HealthComponent"]
+[node name="FireDamageTimer" type="Timer" parent="EnemyHealthComponent"]
 wait_time = 0.4
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("6_cij6a")]
-healthComponent = NodePath("../HealthComponent")
+healthComponent = NodePath("../EnemyHealthComponent")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent"]
 shape = SubResource("CapsuleShape3D_cuegt")

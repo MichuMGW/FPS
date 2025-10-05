@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class HealthComponent : Node
+public partial class EnemyHealthComponent : Node
 {
 	[Signal] public delegate void EntityDiedEventHandler();
 
