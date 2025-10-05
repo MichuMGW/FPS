@@ -64,6 +64,8 @@ public partial class WaveManager : Node
 		waveUi.showWaveProgress();
 		waveUi.UpdateWave(currentWave);
 		waveUi.UpdateEnemiesLeft(enemiesLeft);
+		
+		EmitSignal(nameof(WaveStarted), enemiesToSpawn);
 	}
 	public void StopWave()
 	{
@@ -73,7 +75,8 @@ public partial class WaveManager : Node
 
 		waveUi.showWaveEnded();
 		waveUi.UpdateWaveCompleted(currentWave);
-		//emit_signal(nameof(WaveEndedEventHandler));
+		
+		EmitSignal(nameof(WaveEnded));
 	}
 
 	public void OnSpawnTimerTimeout()
