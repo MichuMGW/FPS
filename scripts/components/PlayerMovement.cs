@@ -11,14 +11,14 @@ public partial class PlayerMovement : Node
     private float _sprintSpeed;
     private float _jumpForce;
 
-    private PlayerStats _stats;
+    private PlayerStatsManager _stats;
 
     public override void _Process(double delta)
     {
         Move((float)delta);
         player.MoveAndSlide();
 
-        _stats = GetNode<PlayerStats>("/root/PlayerStats");
+        _stats = GetParent().GetNode<PlayerStatsManager>("PlayerStatsManager");
 
         _walkSpeed = _stats.Speed;
         _sprintSpeed = _stats.Speed * 2;
@@ -53,7 +53,7 @@ public partial class PlayerMovement : Node
 
         if(player.IsOnFloor()){
             if(Input.IsActionPressed("Jump")){
-                player.Velocity = new Vector3(player.Velocity.X, jumpForce, player.Velocity.Z);
+                player.Velocity = new Vector3(player.Velocity.X, _jumpForce, player.Velocity.Z);
             } else {
                 player.Velocity = new Vector3(player.Velocity.X, 0, player.Velocity.Z);
             }

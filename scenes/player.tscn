@@ -1,9 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://b32e4s8pjtxat"]
+[gd_scene load_steps=17 format=3 uid="uid://b32e4s8pjtxat"]
 
 [ext_resource type="Script" uid="uid://ccmx85wnmq6w7" path="res://scripts/components/PlayerMovement.cs" id="1_2d0pk"]
 [ext_resource type="Script" uid="uid://bvqsv7aht7ijc" path="res://scripts/entity/Player.cs" id="1_fjrip"]
 [ext_resource type="Script" uid="uid://delqxrwl6x6vk" path="res://scripts/player/player_states/PlayerStateMachine.cs" id="1_tuyoq"]
+[ext_resource type="Script" uid="uid://js80godb04gs" path="res://scripts/managers/PlayerStatsManager.cs" id="2_d2wvv"]
 [ext_resource type="Script" uid="uid://ctu5g3l63t2pt" path="res://scripts/player/player_states/PlayerIdle.cs" id="2_fjrip"]
+[ext_resource type="Script" uid="uid://d2205pdqo6kg6" path="res://scripts/components/PlayerHealthComponent.cs" id="3_3v2ag"]
 [ext_resource type="Texture2D" uid="uid://ojhvqyxwb1tx" path="res://crosshair.png" id="3_dqkch"]
 [ext_resource type="Script" uid="uid://beqijbhsnt08o" path="res://scripts/spells/SpellCastManager.cs" id="4_dqkch"]
 [ext_resource type="Script" uid="uid://cwqsonsoalyuf" path="res://scripts/player/player_states/CastingProjectileSpell.cs" id="4_fjrip"]
@@ -20,12 +22,19 @@ radius = 10.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qhqgy"]
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("Movement", "SpellCastManager") groups=["player"]]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("PlayerStats", "Movement", "SpellCastManager") groups=["player"]]
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_fjrip")
+PlayerStats = NodePath("PlayerStatsManager")
 Movement = NodePath("PlayerMovement")
 SpellCastManager = NodePath("SpellCastManager")
+
+[node name="PlayerStatsManager" type="Node" parent="."]
+script = ExtResource("2_d2wvv")
+
+[node name="PlayerHealthComponent" type="Node" parent="."]
+script = ExtResource("3_3v2ag")
 
 [node name="SpellCastManager" type="Node" parent="."]
 script = ExtResource("4_dqkch")

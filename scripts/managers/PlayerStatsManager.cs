@@ -1,17 +1,15 @@
 using Godot;
 using System;
 
-public static partial class PlayerStatsManager : Node
+public partial class PlayerStatsManager : Node
 {
     [Signal] public delegate void StatsChangedEventHandler();
     [Signal] public delegate void MaxHealthChangedEventHandler(float value);
-    [Signal] public delegate void ChangedEventHandler(float value);
-    [Signal] public delegate void RangeChangedEventHandler(float value);
     [Signal] public delegate void DamageChangedEventHandler(float value);
+    [Signal] public delegate void RangeChangedEventHandler(float value);
     [Signal] public delegate void SpeedChangedEventHandler(float value);
+    [Signal] public delegate void RadiusChangedEventHandler(float value);
     [Signal] public delegate void SpreadChangedEventHandler(float value);
-
-    
 
     private float _maxHealth;
     private float _range;
@@ -25,9 +23,9 @@ public static partial class PlayerStatsManager : Node
         get => _maxHealth;
         set
         {
-            _maxHealth = EnsureNonNegative(value)
+            _maxHealth = EnsureNonNegative(value);
             EmitSignal(nameof(MaxHealthChanged), value);
-        };
+        }
     }
 
     public float Range
@@ -35,7 +33,7 @@ public static partial class PlayerStatsManager : Node
         get => _range;
         set
         {
-            _range = EnsureNonNegative(value)
+            _range = EnsureNonNegative(value);
             EmitSignal(nameof(RangeChanged), value);
         }
     }
@@ -46,7 +44,7 @@ public static partial class PlayerStatsManager : Node
         set
         {
             _damage = EnsureNonNegative(value);
-            EitSignal(nameof(DamageChanged), value);
+            EmitSignal(nameof(DamageChanged), value);
         }
     }
 
@@ -65,7 +63,7 @@ public static partial class PlayerStatsManager : Node
         get => _radius;
         set
         {
-            radius = EnsureNonNegative(value);
+            _radius = EnsureNonNegative(value);
             EmitSignal(nameof(RadiusChanged), value);
         }
     }
@@ -82,7 +80,8 @@ public static partial class PlayerStatsManager : Node
     
     public override void _Ready()
     {
-        LoadStatsFromResource();
+        var resource = GD.Load<PlayerStatsResource>("res://resources/stats/PlayerStats.tres");
+        LoadStatsFromResource(resource);
 
         //Dodać zwiększenie lvla w expManagerze
         //akcja += ApplyStatsUp
@@ -90,12 +89,14 @@ public static partial class PlayerStatsManager : Node
 
     private void LoadStatsFromResource(PlayerStatsResource res)
     {
-        maxHealth = res.MaxHealth;
-        range = res.Range;
-        damage = res.damage;
-        speed = res.speed;
-        radius = res.radius;
-        spread = res.spread;
+        _maxHealth = res.MaxHealth;
+        _range = res.Range;
+        _damage = res.Damage;
+        _speed = res.Speed;
+        _radius = res.Radius;
+        _spread = res.Spread;
+
+        GD.Print($"{_maxHealth} {_speed}");
     }
 
     private void SetStat(StatsType statsType, float amount)
@@ -108,8 +109,8 @@ public static partial class PlayerStatsManager : Node
             case StatsType.Range:
                 Range = amount;
                 break;
-            case StatsType.Health:
-                Health = amount;
+            case StatsType.MaxHealth:
+                MaxHealth = amount;
                 break;
             case StatsType.Speed:
                 Speed = amount;
@@ -122,7 +123,7 @@ public static partial class PlayerStatsManager : Node
                 break;
         }
 
-        EmitSignal(nameof(StatsChanged), statsType);
+        EmitStatsChangeSignal(statsType);
     }
 
     private void AddStat(StatsType statsType, float amount)
@@ -135,8 +136,8 @@ public static partial class PlayerStatsManager : Node
             case StatsType.Range:
                 Range += amount;
                 break;
-            case StatsType.Health:
-                Health += amount;
+            case StatsType.MaxHealth:
+                MaxHealth += amount;
                 break;
             case StatsType.Speed:
                 Speed += amount;
@@ -149,7 +150,7 @@ public static partial class PlayerStatsManager : Node
                 break;
         }
 
-        EmitSignal(nameof(StatsChanged), statsType);
+        EmitStatsChangeSignal(statsType);
     }
 
     public void ApplyModifier(StatsType statsType, float modifier)
@@ -157,26 +158,51 @@ public static partial class PlayerStatsManager : Node
         switch(statsType)
         {
             case StatsType.Damage:
-                Damage *= amount;
+                Damage *= modifier;
                 break;
             case StatsType.Range:
-                Range *= amount;
+                Range *= modifier;
                 break;
-            case StatsType.Health:
-                Health *= amount;
+            case StatsType.MaxHealth:
+                MaxHealth *= modifier;
                 break;
             case StatsType.Speed:
-                Speed *= amount;
+                Speed *= modifier;
                 break;
             case StatsType.Radius:
-                Radius *= amount;
+                Radius *= modifier;
                 break;
             case StatsType.Spread:
-                Spread *= amount;
+                Spread *= modifier;
                 break;
         }
 
-        EmitSignal(nameof(StatsChanged), statsType);
+        EmitStatsChangeSignal(statsType);
+    }
+
+    private void EmitStatsChangeSignal(StatsType type)
+    {
+        switch (type)
+        {    
+            case StatsType.Damage:
+                EmitSignal(nameof(DamageChanged), Damage);
+                break;
+            case StatsType.Range:
+                EmitSignal(nameof(RangeChanged), Range);
+                break;
+            case StatsType.MaxHealth:
+                EmitSignal(nameof(MaxHealthChanged), MaxHealth);
+                break;
+            case StatsType.Speed:
+                EmitSignal(nameof(SpeedChanged), Speed);
+                break;
+            case StatsType.Radius:
+                EmitSignal(nameof(RadiusChanged), Radius);
+                break;
+            case StatsType.Spread:
+                EmitSignal(nameof(SpreadChanged), Spread);
+                break;
+        }
     }
 
     private float EnsureNonNegative(float value)

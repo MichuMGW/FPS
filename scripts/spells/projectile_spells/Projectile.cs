@@ -18,7 +18,8 @@ public partial class Projectile : CharacterBody3D
         // Przesunięcie pocisku i sprawdzenie kolizji
         KinematicCollision3D collision = MoveAndCollide(Velocity * (float)delta);
 
-        if (startPosition.DistanceTo(GlobalTransform.Origin) > Range){
+        if (startPosition.DistanceTo(GlobalTransform.Origin) > Range)
+        {
             //TODO: Add animation
             QueueFree();
         }
@@ -29,17 +30,10 @@ public partial class Projectile : CharacterBody3D
 
             if (hitObject is CharacterBody3D characterBody)
             {
-                // Jeśli trafi w postać, zadaj obrażenia
                 var enemy = characterBody as Enemy;
                 enemy.Health.TakeDamage(Damage);
                 enemy.Health.ShowDamage(collision.GetPosition(), Damage, new Color(1, 1, 1));
                 enemy.Status.ApplyStatusEffect(Elements.Item1, Elements.Item2);
-                // var healthComponent = characterBody.GetNodeOrNull<HealthComponent>("HealthComponent");
-                // healthComponent?.TakeDamage(Damage);
-                // healthComponent?.ShowDamage(collision.GetPosition() ,Damage);
-
-                // var statusComponent = characterBody.GetNodeOrNull<StatusComponent>("StatusComponent");
-                // statusComponent?.ApplyStatusEffect(Elements.Item1, Elements.Item2);
             }
 
             // Pocisk znika po kolizji

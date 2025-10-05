@@ -3,13 +3,11 @@ using System;
 
 public partial class ExperiencePointDropComponent : Node
 {
-	[Export]
-	public PackedScene experiencePoint;
-	[Export]
-	public HealthComponent healthComponent;
+	[Export] public PackedScene experiencePoint;
 
 	public override void _Ready()
 	{
+		EnemyHealthComponent healthComponent = GetParent().GetNode<EnemyHealthComponent>("EnemyHealthComponent");
 		healthComponent.EntityDied += SpawnExperiencePoint;
 	}
 

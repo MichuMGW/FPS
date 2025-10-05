@@ -2,7 +2,7 @@ public enum StatsType
 {
     Damage,
     Range,
-    Health,
+    MaxHealth,
     Speed,
     Radius,
     Spread

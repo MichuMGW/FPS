@@ -4,19 +4,13 @@ using System;
 public partial class WaveManager : Node
 {
 	//Klasa ma za zadanie zarządzać falami przeciwników.
-	[Signal]
-	public delegate void WaveStartedEventHandler(int enemiesToSpawn);
-	[Signal]
-	public delegate void WaveEndedEventHandler();
+	[Signal] public delegate void WaveStartedEventHandler(int enemiesToSpawn);
+	[Signal] public delegate void WaveEndedEventHandler();
 
-	[Export]
-	Timer spawnTimer;
-	[Export]
-	Timer waveBreakTimer;
-	[Export]
-	PackedScene basicEnemyScene;
-	[Export]
-	WaveUi waveUi;
+	[Export] Timer spawnTimer;
+	[Export] Timer waveBreakTimer;
+	[Export] PackedScene basicEnemyScene;
+	[Export] WaveUi waveUi;
 	SpawnLocationManager spawnLocationManager;
 	
 	int currentWave = 1;
@@ -100,11 +94,12 @@ public partial class WaveManager : Node
 
 	public void SpawnEnemy()
 	{
+		GD.Print("Respie ziutka");
+		var enemyInstance = basicEnemyScene.Instantiate() as Enemy;
 
-		var enemyInstance = basicEnemyScene.Instantiate() as CharacterBody3D;
-
+		GD.Print(enemyInstance.Name);
 		//DODAĆ SKALOWANIE ZDROWIA Z FALĄ
-		HealthComponent healthComponent = enemyInstance.GetNode<HealthComponent>("HealthComponent");
+		EnemyHealthComponent healthComponent = enemyInstance.GetNode<EnemyHealthComponent>("EnemyHealthComponent");
 		healthComponent.EntityDied += OnEnemyDied;
 		
 

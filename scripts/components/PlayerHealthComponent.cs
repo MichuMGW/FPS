@@ -10,7 +10,7 @@ public partial class PlayerHealthComponent : Node
 	// private PackedScene floatingDamageScene;
 	public float currentHealth;
 	// public bool isDead = false;
-	private PlayerStats _stats;
+	private PlayerStatsManager _stats;
 	// public Timer FireDamageTimer;
 	// private float fireDamage = 0f;
 
@@ -18,21 +18,20 @@ public partial class PlayerHealthComponent : Node
 	public override void _Ready()
 	{
 
-        _stats = GetNode<PlayerStats>("/root/PlayerStats");
+        _stats = GetParent().GetNode<PlayerStatsManager>("PlayerStatsManager");
         _stats.MaxHealthChanged += OnMaxHealthChanged;
 
         _maxHealth = _stats.MaxHealth;
 		currentHealth = _maxHealth;
-		floatingDamageScene = GD.Load<PackedScene>("res://scenes/effects/floating_damage.tscn");
 
-		//TEST
-		enemy = GetParent<Enemy>();
-		enemy.Status.FireStarted += EnemyOnFire;
-		enemy.Status.FireEnded += EnemyOffFire;
-		//TEST
+		// //TEST
+		// enemy = GetParent<Enemy>();
+		// enemy.Status.FireStarted += EnemyOnFire;
+		// enemy.Status.FireEnded += EnemyOffFire;
+		// //TEST
 
-		FireDamageTimer = GetNode<Timer>("FireDamageTimer");
-		FireDamageTimer.Timeout += OnFireDamageTimeout;
+		// FireDamageTimer = GetNode<Timer>("FireDamageTimer");
+		// FireDamageTimer.Timeout += OnFireDamageTimeout;
 	}
 
 	// public void EnemyOnFire(bool OnFire){
@@ -51,8 +50,8 @@ public partial class PlayerHealthComponent : Node
 
     private void OnMaxHealthChanged(float value)
     {
-        maxHealth = value;
-        currentHealth = Mathf.Min(currentHealth + value, maxHealth);
+        _maxHealth = value;
+        currentHealth = Mathf.Min(currentHealth + value, _maxHealth);
     }
 
 	// private void OnFireDamageTimeout(){
@@ -87,7 +86,7 @@ public partial class PlayerHealthComponent : Node
 
 	public void Heal(float amount){
 		currentHealth += amount;
-		currentHealth = Mathf.Min(maxHealth, currentHealth);
+		currentHealth = Mathf.Min(_maxHealth, currentHealth);
 	}
 
 	// public void ShowDamage(Vector3 position, float damage, Color color){
