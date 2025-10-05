@@ -23,32 +23,6 @@ public partial class StatusComponent : Node
 	public override void _Ready()
 	{
 		InitializeTimers();
-		// statusTimers = new Dictionary();
-		// foreach (Timer child in GetChildren()){
-		// 	if (child is Timer){
-		// 		statusTimers[child.Name] = child;
-		// 		child.Timeout += () => {
-		// 			if (child.Name == "OnFireTimer"){
-		// 				IsOnFire = false;
-		// 				EmitSignal(nameof(OnFire));
-		// 				GD.Print("Off Fire");
-		// 			}
-		// 			if (child.Name == "OnFrozenTimer"){
-		// 				IsFrozen = false;
-		// 				GD.Print("Unfrozen");
-		// 			}
-		// 			if (child.Name == "OnStunnedTimer"){
-		// 				IsStunned = false;
-		// 				GD.Print("Unstunned");
-		// 			}
-		// 			if (child.Name == "OnSlowedTimer"){
-		// 				IsSlowed = false;
-		// 				GD.Print("Unslowed");
-		// 			}
-		// 		};
-
-		// 	}
-		// }
 	}
 
 	private void InitializeTimers(){

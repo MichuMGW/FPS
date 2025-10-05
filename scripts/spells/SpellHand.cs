@@ -24,8 +24,11 @@ public partial class SpellHand : Node {
     }
     public void StartCasting(){
         
-        if (isOnCooldown) return;
+        if (isOnCooldown) return; //Jeśli spell jest na cooldownie, to nie rzucaj
         Vector3 direction;
+        // Kod umożliwiający rzucenie spella w kierunku, w którym patrzy gracz
+        // Jeśli raycast wykrywa kolizję z obiektem, to spell zostanie rzucony w kierunku kolizji
+        // Jeśli nie, to spell zostanie rzucony w kierunku celownika, na odległość spell.SpellRange
         if (raycast.IsColliding()) {
             direction = (raycast.GetCollisionPoint() - hand.GlobalTransform.Origin).Normalized();
             

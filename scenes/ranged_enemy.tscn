@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://by8xwputf81xn" path="res://scenes/experience_point.tscn" id="2_2ls4a"]
 [ext_resource type="PackedScene" uid="uid://cmfdoxh40cyda" path="res://scenes/enemy_navigation_agent_3d.tscn" id="3_w150n"]
 [ext_resource type="PackedScene" uid="uid://dcjp3y2tpbtwn" path="res://scenes/enemy_movement.tscn" id="4_dvjff"]
-[ext_resource type="PackedScene" uid="uid://chm725r72rhva" path="res://scenes/health_component.tscn" id="5_6r77u"]
+[ext_resource type="PackedScene" uid="uid://chm725r72rhva" path="res://scenes/enemy_health_component.tscn" id="5_6r77u"]
 [ext_resource type="PackedScene" uid="uid://ohont2tgys4v" path="res://scenes/hurtbox_component.tscn" id="6_g3aa2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_11j8y"]
