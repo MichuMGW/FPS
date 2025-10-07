@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ProjectileSpellResource" load_steps=3 format=3 uid="uid://n1g2rjha5q2c"]
 
-[ext_resource type="PackedScene" uid="uid://cwh8ty8k77yjr" path="res://scenes/spells/basic_spells/projectile.tscn" id="1_nt450"]
+[ext_resource type="PackedScene" uid="uid://cwh8ty8k77yjr" path="res://scenes/spells/basic_spells/projectile_spells/projectile.tscn" id="1_nt450"]
 [ext_resource type="Script" uid="uid://8y238qyvv7h5" path="res://resources/projectile_spells/ProjectileSpellResource.cs" id="2_jsnoc"]
 
 [resource]

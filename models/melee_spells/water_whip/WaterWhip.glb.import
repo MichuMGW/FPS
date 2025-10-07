@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://baaahdwdf6pws"
-path="res://.godot/imported/WaterWhip2.glb-3f2d6f640944df47594bac0c007dfd3f.scn"
+path="res://.godot/imported/WaterWhip.glb-0f7fffdfe616f4d64b644755ad04812d.scn"
 
 [deps]
 
-source_file="res://models/melee_spells/water_whip/WaterWhip2.glb"
-dest_files=["res://.godot/imported/WaterWhip2.glb-3f2d6f640944df47594bac0c007dfd3f.scn"]
+source_file="res://models/melee_spells/water_whip/WaterWhip.glb"
+dest_files=["res://.godot/imported/WaterWhip.glb-0f7fffdfe616f4d64b644755ad04812d.scn"]
 
 [params]
 

@@ -22,9 +22,7 @@ public partial class SpellCastManager : Node
         playerCamera = Owner.GetNode<Camera3D>("Head/Camera3D");
 
         // var mainSpell = new ProjectileSpell(GD.Load<ProjectileSpellResource>(SpellResourcePath.Fireball), (Element.Fire, Element.Water));
-        //TEST MELEE
-        // var mainSpell = new MeleeSpell(GD.Load<MeleeSpellResource>("res://resources/melee_spells/test_melee.tres"), (Element.Fire, Element.Water));
-        // //KONIEC TEST
+
         // var hand = Owner.GetNode<Node3D>("Head/Camera3D/Arms/Skeleton3D/LeftHandAttachment/LeftHand");
         // if(hand == null){
         //     GD.Print("Left hand not found");
@@ -33,8 +31,11 @@ public partial class SpellCastManager : Node
         //     GD.Print("Main spell not found");
         // }
         // LeftHand = new SpellHand(mainSpell, hand);
-
-        var mainSpell = new ProjectileSpell(GD.Load<ProjectileSpellResource>(SpellResourcePath.Fireball), (Element.Fire, Element.Water));
+        
+        //TEST MELEE
+        var mainSpell = new MeleeSpell(GD.Load<MeleeSpellResource>("res://resources/melee_spells/test_melee.tres"), (Element.Fire, Element.Water));
+        // //KONIEC TEST
+        // var mainSpell = new ProjectileSpell(GD.Load<ProjectileSpellResource>(SpellResourcePath.Fireball), (Element.Fire, Element.Water));
         //KONIEC TEST
         var hand = Owner.GetNode<Node3D>("Head/Camera3D/Arms/Skeleton3D/LeftHandAttachment/LeftHand");
         if(hand == null){
