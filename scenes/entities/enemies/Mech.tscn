@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://dsy504x2ofm0n"]
+
+[ext_resource type="PackedScene" uid="uid://b63shw0jao7f1" path="res://Assets/models/enemies/mech.glb" id="1_l00so"]
+[ext_resource type="Texture2D" uid="uid://i73qawyt65f6" path="res://Assets/textures/entities/enemies/mech/Mech Color.png" id="2_54jsq"]
+[ext_resource type="Texture2D" uid="uid://c32aucm2oxamy" path="res://Assets/textures/entities/enemies/mech/Mech Displacement.png" id="3_bklu3"]
+[ext_resource type="Texture2D" uid="uid://bj8pn6skhllmg" path="res://Assets/textures/entities/enemies/mech/Mech Normal.png" id="4_qptip"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_blpuc"]
+albedo_texture = ExtResource("2_54jsq")
+normal_enabled = true
+normal_texture = ExtResource("4_qptip")
+heightmap_scale = 0.1
+heightmap_texture = ExtResource("3_bklu3")
+
+[node name="Mech" type="CharacterBody3D"]
+
+[node name="Mech" parent="." instance=ExtResource("1_l00so")]
+
+[node name="Skeleton3D" parent="Mech/MechArmature" index="0"]
+bones/0/position = Vector3(0.0017848, 0.570299, 0)
+bones/0/rotation = Quaternion(0, 0, 0, 1)
+bones/1/rotation = Quaternion(0.268007, -7.67404e-27, 5.68431e-26, 0.963417)
+bones/2/position = Vector3(0.306648, 0.785784, -0.187208)
+bones/3/rotation = Quaternion(-2.59964e-08, 2.59857e-08, -0.707107, 0.707107)
+bones/4/position = Vector3(-0.306648, 0.785784, -0.187208)
+bones/5/rotation = Quaternion(-2.59857e-08, -2.59964e-08, 0.707107, 0.707107)
+bones/6/rotation = Quaternion(0.505154, 0.499973, 0.499973, -0.494846)
+bones/7/rotation = Quaternion(0.00151782, -0.00415136, 0.7076, 0.706599)
+bones/8/rotation = Quaternion(-0.956047, -1.32203e-08, -3.98404e-07, 0.293214)
+bones/9/rotation = Quaternion(0.474876, 0.001214, -0.000656381, 0.880052)
+bones/10/rotation = Quaternion(0.927705, 2.73714e-07, 1.35009e-07, -0.373315)
+bones/11/rotation = Quaternion(-0.777467, -2.93459e-07, 1.2512e-07, 0.628923)
+bones/12/rotation = Quaternion(0.505154, -0.499973, -0.499974, -0.494846)
+bones/13/rotation = Quaternion(0.00314413, 0.00576475, -0.706502, 0.707681)
+bones/14/rotation = Quaternion(-0.956047, 1.16095e-08, -7.48437e-07, 0.293214)
+bones/15/rotation = Quaternion(0.474875, 0.00121432, -0.00065627, 0.880052)
+bones/16/rotation = Quaternion(0.927703, 3.99632e-07, -1.38525e-07, -0.373318)
+bones/17/rotation = Quaternion(-0.777466, 2.53686e-07, -6.90933e-07, 0.628925)
+
+[node name="Mech" parent="Mech/MechArmature/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_blpuc")
+
+[editable path="Mech"]

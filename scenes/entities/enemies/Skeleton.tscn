@@ -1,0 +1,26 @@
+[gd_scene load_steps=7 format=3 uid="uid://crf3ekm0kijwl"]
+
+[ext_resource type="PackedScene" uid="uid://drtc68o87at8y" path="res://Assets/models/enemies/skeleton.glb" id="1_15cp8"]
+[ext_resource type="Texture2D" uid="uid://bhw310feyqim5" path="res://Assets/textures/entities/enemies/skeleton/Skeleton Color.png" id="2_pibiy"]
+[ext_resource type="Texture2D" uid="uid://bnttvdhore2fv" path="res://Assets/textures/entities/enemies/skeleton/Skeleton Normal.png" id="3_pwvnv"]
+[ext_resource type="Texture2D" uid="uid://va48fqhvj3qf" path="res://Assets/textures/entities/enemies/skeleton/drewno_tekstura.png" id="4_pibiy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dwmcr"]
+albedo_texture = ExtResource("2_pibiy")
+normal_enabled = true
+normal_texture = ExtResource("3_pwvnv")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pwvnv"]
+albedo_texture = ExtResource("4_pibiy")
+
+[node name="Skeleton" type="CharacterBody3D"]
+
+[node name="skeleton" parent="." instance=ExtResource("1_15cp8")]
+
+[node name="Skeleton_003" parent="skeleton/SkeletonRig/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_dwmcr")
+
+[node name="PriestStaff" parent="skeleton/Staff/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_pwvnv")
+
+[editable path="skeleton"]

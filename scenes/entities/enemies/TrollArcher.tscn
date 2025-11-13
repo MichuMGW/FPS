@@ -1,0 +1,350 @@
+[gd_scene load_steps=29 format=3 uid="uid://bkeed28o4855u"]
+
+[ext_resource type="PackedScene" uid="uid://kssvu80euykd" path="res://Assets/models/enemies/troll_archer.glb" id="1_f0fa2"]
+[ext_resource type="Script" uid="uid://l0f0ftyf5hlc" path="res://scripts/entity/enemy/TrollArcher.cs" id="1_ycys7"]
+[ext_resource type="Texture2D" uid="uid://bknb2fo6qwle6" path="res://Assets/textures/entities/enemies/troll_archer/Body Color.png" id="2_ayqqd"]
+[ext_resource type="Script" uid="uid://6h28lopqfv8t" path="res://scripts/states/StateMachine.cs" id="2_ovpos"]
+[ext_resource type="Script" uid="uid://bvnpsolnqgpni" path="res://scripts/states/TrollArcher/TrollWalk.cs" id="3_5cbm2"]
+[ext_resource type="Texture2D" uid="uid://ccnpnajoeteqi" path="res://Assets/textures/entities/enemies/troll_archer/Body Displacement.png" id="3_iqlwf"]
+[ext_resource type="Texture2D" uid="uid://e3eacmqdr1qa" path="res://Assets/textures/entities/enemies/troll_archer/Body Normal.png" id="4_ycys7"]
+[ext_resource type="Texture2D" uid="uid://dupvkesmtaqk8" path="res://Assets/textures/entities/enemies/troll_archer/TrollPants Color.png" id="5_ovpos"]
+[ext_resource type="Texture2D" uid="uid://c2qxqki4dhxgx" path="res://Assets/textures/entities/enemies/troll_archer/BowAndArrow Color.png" id="6_5cbm2"]
+[ext_resource type="PackedScene" uid="uid://gwkhn3v3fswg" path="res://scenes/components/hitbox_area.tscn" id="9_5cbm2"]
+[ext_resource type="Script" uid="uid://dt4uqh6eqc02c" path="res://scripts/components/HitboxComponent.cs" id="10_ovpos"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hgxrn"]
+albedo_texture = ExtResource("2_ayqqd")
+normal_enabled = true
+normal_texture = ExtResource("4_ycys7")
+heightmap_scale = 0.1
+heightmap_texture = ExtResource("3_iqlwf")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cnbu8"]
+albedo_texture = ExtResource("5_ovpos")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pkcri"]
+albedo_texture = ExtResource("5_ovpos")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_411ac"]
+albedo_texture = ExtResource("5_ovpos")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_co1md"]
+albedo_texture = ExtResource("5_ovpos")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4udf5"]
+albedo_texture = ExtResource("5_ovpos")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hgxrn"]
+size = Vector3(1, 3.2168, 1.01965)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cnbu8"]
+size = Vector3(0.390198, 0.524109, 0.0893555)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pkcri"]
+size = Vector3(1, 1.43945, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_411ac"]
+size = Vector3(1.31097, 1.55286, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_co1md"]
+size = Vector3(1, 1.25208, 0.744812)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4udf5"]
+size = Vector3(1.06238, 2.83215, 0.844727)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qxnty"]
+size = Vector3(0.922668, 3.48547, 1.0625)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p5ev2"]
+size = Vector3(1, 2.47873, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qxnty"]
+albedo_texture = ExtResource("6_5cbm2")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p5ev2"]
+albedo_texture = ExtResource("6_5cbm2")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_um2ui"]
+radius = 0.292198
+height = 2.28983
+
+[node name="TrollArcher" type="CharacterBody3D"]
+script = ExtResource("1_ycys7")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("2_ovpos")
+
+[node name="TrollWalk" type="Node" parent="StateMachine"]
+script = ExtResource("3_5cbm2")
+
+[node name="troll_archer" parent="." instance=ExtResource("1_f0fa2")]
+
+[node name="Skeleton3D" parent="troll_archer/TrollArcherRig" index="0"]
+bones/1/position = Vector3(0, 0.995939, -0.0596836)
+bones/1/rotation = Quaternion(0.088983, -0.701486, 0.088983, 0.701486)
+bones/2/rotation = Quaternion(0.0667417, -0.0047705, -0.0371766, 0.997066)
+bones/3/rotation = Quaternion(-0.0262179, 0.00512422, -0.0244158, 0.999345)
+bones/4/rotation = Quaternion(0.0507654, 0.00771508, -0.0243577, 0.998384)
+bones/5/rotation = Quaternion(0.1032, 0.0040269, 0.00777991, 0.994622)
+bones/6/rotation = Quaternion(-0.181988, 0.330296, -0.185157, 0.90747)
+bones/7/rotation = Quaternion(-0.0105526, 0.347092, -0.151536, 0.925447)
+bones/8/rotation = Quaternion(-0.617738, -0.284972, -0.441948, 0.584699)
+bones/9/rotation = Quaternion(0.10685, 0.843704, -0.445761, 0.279362)
+bones/10/rotation = Quaternion(-0.0146376, 0.0417899, 0.442253, 0.895797)
+bones/11/rotation = Quaternion(-0.0522237, -0.753041, -0.0134722, 0.65576)
+bones/12/rotation = Quaternion(0.344055, 0.624235, -0.388381, 0.584052)
+bones/13/rotation = Quaternion(0.696561, 0.0421243, -0.0888233, 0.710732)
+bones/14/rotation = Quaternion(0.416855, 0.00695863, -0.0691936, 0.906309)
+bones/15/rotation = Quaternion(0.158729, 0.905493, 0.238755, -0.312865)
+bones/16/rotation = Quaternion(0.249787, 0.0484903, -0.0860948, 0.963246)
+bones/17/rotation = Quaternion(0.339056, -0.0264089, -0.196957, 0.919539)
+bones/19/rotation = Quaternion(-0.600102, 0.330113, 0.443547, 0.578073)
+bones/20/rotation = Quaternion(-0.107822, 0.881639, -0.439902, 0.132566)
+bones/21/rotation = Quaternion(0.0800016, 0.0966611, -0.38387, 0.914823)
+bones/22/rotation = Quaternion(-0.144046, 0.833252, -0.136973, 0.515926)
+bones/23/rotation = Quaternion(0.0122687, -0.677594, 0.016365, 0.735152)
+bones/24/rotation = Quaternion(0.0399246, -0.00260283, 0.000205354, 0.999199)
+bones/25/rotation = Quaternion(0.042141, 0.00222963, 0.0176973, 0.998953)
+bones/27/rotation = Quaternion(-0.18014, 0.975344, 0.105873, -0.0710232)
+bones/28/rotation = Quaternion(0.210511, -0.0131897, 0.0674016, 0.975176)
+bones/29/rotation = Quaternion(-0.125996, 0.118516, -0.0473162, 0.983789)
+bones/31/rotation = Quaternion(0.755584, 0.375511, 0.502423, 0.188826)
+bones/31/scale = Vector3(1, 1, 1)
+bones/32/rotation = Quaternion(0.235194, -0.624372, 0.241637, 0.704595)
+bones/33/rotation = Quaternion(0.822163, -0.336538, -0.450142, 0.0903447)
+bones/34/rotation = Quaternion(0.251416, 0.639288, -0.214367, 0.694368)
+bones/35/position = Vector3(-0.000337571, 0.142109, -0.494119)
+bones/35/rotation = Quaternion(0.607459, -0.363547, 0.625214, 0.328533)
+bones/36/rotation = Quaternion(-0.136988, 0.00828272, -0.00171777, 0.990537)
+bones/37/position = Vector3(-0.219159, 0.138108, 0.32066)
+bones/37/rotation = Quaternion(0.625214, -0.328533, 0.60746, 0.363547)
+bones/37/scale = Vector3(1, 1, 1)
+bones/38/rotation = Quaternion(-0.136902, -0.00838852, 0.00173257, 0.990548)
+
+[node name="Body" parent="troll_archer/TrollArcherRig/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_hgxrn")
+
+[node name="Body_001" parent="troll_archer/TrollArcherRig/Skeleton3D" index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_cnbu8")
+
+[node name="Boots" parent="troll_archer/TrollArcherRig/Skeleton3D" index="2"]
+surface_material_override/0 = SubResource("StandardMaterial3D_pkcri")
+
+[node name="Cap_001" parent="troll_archer/TrollArcherRig/Skeleton3D" index="3"]
+surface_material_override/0 = SubResource("StandardMaterial3D_411ac")
+
+[node name="Quiver" parent="troll_archer/TrollArcherRig/Skeleton3D" index="4"]
+surface_material_override/0 = SubResource("StandardMaterial3D_co1md")
+
+[node name="TrollPants" parent="troll_archer/TrollArcherRig/Skeleton3D" index="5"]
+surface_material_override/0 = SubResource("StandardMaterial3D_4udf5")
+
+[node name="UpperArmLeftAttachment" type="BoneAttachment3D" parent="troll_archer/TrollArcherRig/Skeleton3D" index="6"]
+transform = Transform3D(0.792126, 0.33992, -0.506941, 0.0314665, -0.852203, -0.522262, -0.609545, 0.397746, -0.685749, -0.207982, 1.56929, 0.197815)
+bone_name = "upper_arm.L"
+bone_idx = 9
+
+[node name="HitboxArea" parent="troll_archer/TrollArcherRig/Skeleton3D/UpperArmLeftAttachment" instance=ExtResource("9_5cbm2")]
+HitboxType = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="troll_archer/TrollArcherRig/Skeleton3D/UpperArmLeftAttachment/HitboxArea"]
+transform = Transform3D(0.171224, 2.96859e-08, -4.03652e-08, 0, 0.171218, 1.02445e-07, 1.27875e-08, 5.44824e-08, 0.171224, -2.38419e-07, 0.189781, 0.00168264)
+shape = SubResource("BoxShape3D_hgxrn")
+
+[node name="UpperArmRightAttachment" type="BoneAttachment3D" parent="troll_archer/TrollArcherRig/Skeleton3D" index="7"]
+transform = Transform3D(-0.799895, 0.528167, 0.284968, -0.591725, -0.614859, -0.521352, -0.100146, -0.585651, 0.804352, -0.253269, 1.63367, -0.201382)
+bone_name = "upper_arm.R"
+bone_idx = 20
+
+[node name="HitboxArea" parent="troll_archer/TrollArcherRig/Skeleton3D/UpperArmRightAttachment" instance=ExtResource("9_5cbm2")]
+HitboxType = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="troll_archer/TrollArcherRig/Skeleton3D/UpperArmRightAttachment/HitboxArea"]
+transform = Transform3D(0.171225, 2.23517e-08, -5.15138e-08, -2.5332e-07, 0.171218, -1.83645e-08, 3.08501e-09, 5.51227e-08, 0.171218, -2.6077e-07, 0.189781, 0.00168228)
+shape = SubResource("BoxShape3D_hgxrn")
+
+[node name="ForearmLeftAttachment" type="BoneAttachment3D" parent="troll_archer/TrollArcherRig/Skeleton3D" index="8"]
+transform = Transform3D(0.792934, -0.427238, -0.434423, -0.60928, -0.549055, -0.572115, 0.00590733, 0.718333, -0.695672, -0.0548819, 1.18546, 0.376959)
+bone_name = "forearm.L"
+bone_idx = 10
+
+[node name="HitboxArea" parent="troll_archer/TrollArcherRig/Skeleton3D/ForearmLeftAttachment" instance=ExtResource("9_5cbm2")]
+HitboxType = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="troll_archer/TrollArcherRig/Skeleton3D/ForearmLeftAttachment/HitboxArea"]
+transform = Transform3D(0.200837, 3.27826e-07, 1.57394e-07, 1.2666e-07, 1.04345, -1.10641e-06, -2.40485e-07, 1.87708e-06, 0.957553, -0.00738543, 0.264778, -0.00405276)
+shape = SubResource("BoxShape3D_cnbu8")
+
+[node name="ForearmRightAttachment" type="BoneAttachment3D" parent="troll_archer/TrollArcherRig/Skeleton3D" index="9"]
+transform = Transform3D(-0.979898, -0.187861, 0.0671539, 0.140281, -0.888153, -0.437614, 0.141854, -0.419397, 0.896651, -0.0153829, 1.35674, -0.465158)
+bone_name = "forearm.R"
+bone_idx = 21
+
+[node name="HitboxArea" parent="troll_archer/TrollArcherRig/Skeleton3D/ForearmRightAttachment" instance=ExtResource("9_5cbm2")]
+HitboxType = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="troll_archer/TrollArcherRig/Skeleton3D/ForearmRightAttachment/HitboxArea"]
+transform = Transform3D(0.200836, 3.61353e-07, 2.16067e-07, 8.28877e-08, 1.04345, -1.04308e-06, -2.29105e-07, 1.37091e-06, 0.957553, -0.00738552, 0.264778, -0.00405276)
+shape = SubResource("BoxShape3D_cnbu8")
+
+[node name="HeadAttachment" type="BoneAttachment3D" parent="troll_archer/TrollArcherRig/Skeleton3D" index="10"]
+transform = Transform3D(0.987933, 0.15484, 0.00342336, -0.137644, 0.887923, -0.438913, -0.0710014, 0.433145, 0.898522, -0.316366, 1.84843, 0.0748302)
+bone_name = "spine.006"
+bone_idx = 7
+
+[node name="HitboxArea" parent="troll_archer/TrollArcherRig/Skeleton3D/HeadAttachment" instance=ExtResource("9_5cbm2")]
+HitboxType = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="troll_archer/TrollArcherRig/Skeleton3D/HeadAttachment/HitboxArea"]
+transform = Transform3D(0.28463, -9.31323e-10, 7.45058e-09, 0, 0.28463, 0, 7.45058e-09, 0, 0.28463, 5.96046e-08, 0.0625409, 0)
+shape = SubResource("BoxShape3D_pkcri")
+
+[node name="ChestAttachment" type="BoneAttachment3D" parent="troll_archer/TrollArcherRig/Skeleton3D" index="11"]
+transform = Transform3D(0.0734101, -0.416856, -0.906003, -0.154252, 0.892776, -0.423269, 0.9853, 0.170825, 0.00123781, -0.151584, 1.45003, -0.0281836)
+bone_name = "spine.003"
+bone_idx = 4
+
+[node name="HitboxArea" parent="troll_archer/TrollArcherRig/Skeleton3D/ChestAttachment" instance=ExtResource("9_5cbm2")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="troll_archer/TrollArcherRig/Skeleton3D/ChestAttachment/HitboxArea"]
+transform = Transform3D(0.300024, 0, 4.74392e-09, -3.72529e-09, 0.300915, 1.73182e-07, -1.25146e-09, -1.34256e-07, 0.272388, -0.00830448, 0.0829625, 2.98023e-08)
+shape = SubResource("BoxShape3D_411ac")
+
+[node name="AbdomenAttachment" type="BoneAttachment3D" parent="troll_archer/TrollArcherRig/Skeleton3D" index="12"]
+transform = Transform3D(0.0142625, -0.375987, -0.926515, -0.0735399, 0.923706, -0.375978, 0.99719, 0.0734982, -0.0144757, -0.0411376, 1.15548, -0.0596836)
+bone_name = "spine.001"
+bone_idx = 2
+
+[node name="HitboxArea" parent="troll_archer/TrollArcherRig/Skeleton3D/AbdomenAttachment" instance=ExtResource("9_5cbm2")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="troll_archer/TrollArcherRig/Skeleton3D/AbdomenAttachment/HitboxArea"]
+transform = Transform3D(0.300409, -1.86265e-09, 4.65661e-10, -1.86265e-09, 0.300409, -1.25146e-09, -4.65661e-10, 5.87606e-08, 0.300409, 0, 0.0378628, 0.00616986)
+shape = SubResource("BoxShape3D_co1md")
+
+[node name="ThighLeftAttachment" type="BoneAttachment3D" parent="troll_archer/TrollArcherRig/Skeleton3D" index="13"]
+transform = Transform3D(-0.786937, -0.480228, 0.387442, 0.579058, -0.791649, 0.194894, 0.213124, 0.37772, 0.901059, -0.0614084, 1.0143, 0.0464396)
+bone_name = "thigh.L"
+bone_idx = 31
+
+[node name="HitboxArea" parent="troll_archer/TrollArcherRig/Skeleton3D/ThighLeftAttachment" instance=ExtResource("9_5cbm2")]
+HitboxType = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="troll_archer/TrollArcherRig/Skeleton3D/ThighLeftAttachment/HitboxArea"]
+transform = Transform3D(0.202868, -1.30385e-08, 1.11759e-08, 1.86265e-08, 0.202868, 7.45058e-09, 3.72529e-09, 0, 0.202868, 0.00632721, 0.185842, -0.0157499)
+shape = SubResource("BoxShape3D_4udf5")
+
+[node name="ThighRightAttachment" type="BoneAttachment3D" parent="troll_archer/TrollArcherRig/Skeleton3D" index="14"]
+transform = Transform3D(0.81633, -0.248186, 0.521544, -0.444985, -0.845918, 0.293953, 0.368229, -0.472042, -0.800988, -0.0614083, 1.0143, -0.165807)
+bone_name = "thigh.R"
+bone_idx = 33
+
+[node name="HitboxArea" parent="troll_archer/TrollArcherRig/Skeleton3D/ThighRightAttachment" instance=ExtResource("9_5cbm2")]
+HitboxType = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="troll_archer/TrollArcherRig/Skeleton3D/ThighRightAttachment/HitboxArea"]
+transform = Transform3D(0.202868, 0, 0, 7.45058e-09, 0.202868, 0, 7.45058e-09, 0, 0.202868, 0.00632721, 0.185842, -0.01575)
+shape = SubResource("BoxShape3D_4udf5")
+
+[node name="ShinLeftAttachment" type="BoneAttachment3D" parent="troll_archer/TrollArcherRig/Skeleton3D" index="15"]
+transform = Transform3D(0.28097, 0.139566, 0.949517, 0.216527, -0.973073, 0.0789585, 0.934973, 0.183409, -0.303626, -0.290633, 0.636428, 0.226735)
+bone_name = "shin.L"
+bone_idx = 32
+
+[node name="HitboxArea" parent="troll_archer/TrollArcherRig/Skeleton3D/ShinLeftAttachment" instance=ExtResource("9_5cbm2")]
+HitboxType = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="troll_archer/TrollArcherRig/Skeleton3D/ShinLeftAttachment/HitboxArea"]
+transform = Transform3D(0.161084, 0, 2.98023e-08, -1.11759e-08, 0.161084, 2.04891e-08, -2.79397e-07, -9.31323e-10, 0.161084, -0.00397694, 0.200185, -0.00503385)
+shape = SubResource("BoxShape3D_qxnty")
+
+[node name="ShinRightAttachment" type="BoneAttachment3D" parent="troll_archer/TrollArcherRig/Skeleton3D" index="16"]
+transform = Transform3D(-0.451088, 0.350583, 0.820737, -0.353119, -0.914681, 0.196632, 0.819649, -0.201119, 0.536399, -0.179874, 0.610524, -0.391124)
+bone_name = "shin.R"
+bone_idx = 34
+
+[node name="HitboxArea" parent="troll_archer/TrollArcherRig/Skeleton3D/ShinRightAttachment" instance=ExtResource("9_5cbm2")]
+HitboxType = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="troll_archer/TrollArcherRig/Skeleton3D/ShinRightAttachment/HitboxArea"]
+transform = Transform3D(0.161084, 0, 0, 1.86265e-09, 0.161084, 0, 7.45058e-09, 0, 0.161084, -0.00397697, 0.200185, -0.00503388)
+shape = SubResource("BoxShape3D_qxnty")
+
+[node name="FootLeftAttachment" type="BoneAttachment3D" parent="troll_archer/TrollArcherRig/Skeleton3D" index="17"]
+transform = Transform3D(0.0461187, -0.852487, 0.52071, 0.0308743, -0.519799, -0.85373, 0.998459, 0.0554495, 0.00234753, -0.219159, 0.138108, 0.32066)
+bone_name = "foot.L"
+bone_idx = 37
+
+[node name="HitboxArea" parent="troll_archer/TrollArcherRig/Skeleton3D/FootLeftAttachment" instance=ExtResource("9_5cbm2")]
+HitboxType = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="troll_archer/TrollArcherRig/Skeleton3D/FootLeftAttachment/HitboxArea"]
+transform = Transform3D(0.137235, 0.00112305, -0.00367285, 0.000808628, 0.119897, 0.0668747, 0.00375466, -0.0668701, 0.119844, -2.98023e-08, 0.119933, -1.49012e-08)
+shape = SubResource("BoxShape3D_p5ev2")
+
+[node name="FootRightAttachment" type="BoneAttachment3D" parent="troll_archer/TrollArcherRig/Skeleton3D" index="18"]
+transform = Transform3D(-0.0461189, -0.852487, 0.52071, -0.0308743, -0.519799, -0.85373, 0.998458, -0.0554497, -0.00234723, -0.000337571, 0.142109, -0.494119)
+bone_name = "foot.R"
+bone_idx = 35
+
+[node name="HitboxArea" parent="troll_archer/TrollArcherRig/Skeleton3D/FootRightAttachment" instance=ExtResource("9_5cbm2")]
+HitboxType = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="troll_archer/TrollArcherRig/Skeleton3D/FootRightAttachment/HitboxArea"]
+transform = Transform3D(0.137235, 0.00112305, -0.00367285, 0.000808628, 0.119897, 0.0668747, 0.00375466, -0.0668701, 0.119844, -2.98023e-08, 0.119933, -2.23517e-08)
+shape = SubResource("BoxShape3D_p5ev2")
+
+[node name="Skeleton3D" parent="troll_archer/BowRig" index="0"]
+bones/0/position = Vector3(-0.120631, 0.396893, 0.340702)
+bones/0/rotation = Quaternion(-0.0855759, 0.44229, 0.402144, 0.79708)
+bones/1/rotation = Quaternion(3.34695e-08, -2.72414e-07, 0.171406, 0.985201)
+bones/2/rotation = Quaternion(3.81342e-08, -1.33047e-07, -0.1068, 0.994281)
+bones/3/rotation = Quaternion(4.44002e-08, -3.87621e-08, -0.0678453, 0.997696)
+bones/4/rotation = Quaternion(5.13482e-08, -1.75168e-07, 0.00821479, 0.999966)
+bones/5/rotation = Quaternion(-6.91964e-10, -8.66883e-08, -0.135107, 0.990831)
+bones/6/rotation = Quaternion(3.71599e-09, -8.47941e-08, -0.0552323, 0.998474)
+bones/7/rotation = Quaternion(3.30378e-08, -9.5734e-08, -0.00255074, 0.999997)
+bones/8/rotation = Quaternion(-1.26161e-07, -6.33417e-08, -0.194262, 0.98095)
+bones/9/rotation = Quaternion(-7.36189e-08, -1.52249e-07, -0.152117, 0.988362)
+bones/10/rotation = Quaternion(3.38044e-09, 3.55314e-07, -0.0125447, 0.999921)
+bones/12/position = Vector3(0.108286, 0.0207818, -2.81233e-08)
+bones/13/rotation = Quaternion(-2.34559e-07, -2.60538e-08, 0.985201, 0.171405)
+bones/14/rotation = Quaternion(1.84963e-08, 1.06583e-07, 0.106801, 0.99428)
+bones/15/rotation = Quaternion(-4.4226e-09, 4.291e-08, 0.0678456, 0.997696)
+bones/16/rotation = Quaternion(4.35306e-08, 1.30527e-07, -0.00821507, 0.999966)
+bones/17/rotation = Quaternion(-6.62837e-08, 1.19485e-08, 0.135107, 0.990831)
+bones/18/rotation = Quaternion(1.84961e-09, 8.48074e-08, 0.0552315, 0.998474)
+bones/19/rotation = Quaternion(3.9625e-08, 6.90916e-08, 0.00254969, 0.999997)
+bones/20/rotation = Quaternion(-1.35422e-07, -4.95145e-09, 0.194261, 0.98095)
+bones/21/rotation = Quaternion(-4.409e-08, 1.13448e-07, 0.152116, 0.988363)
+bones/22/rotation = Quaternion(-4.74177e-08, -3.89482e-07, 0.0125444, 0.999921)
+bones/24/position = Vector3(0.110681, 0.333717, 8.639e-08)
+bones/25/position = Vector3(0.110681, -0.292154, -1.79182e-08)
+
+[node name="Bow" parent="troll_archer/BowRig/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_qxnty")
+
+[node name="Skeleton3D" parent="troll_archer/ArrowRig" index="0"]
+bones/0/position = Vector3(-38.6817, -4.62867, -32.7806)
+bones/0/rotation = Quaternion(-0.0621401, 0.0575991, -0.41968, 0.903709)
+
+[node name="Arrow" parent="troll_archer/ArrowRig/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_p5ev2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.14732, 0)
+shape = SubResource("CapsuleShape3D_um2ui")
+
+[node name="HealthComponent" type="Node" parent="."]
+
+[node name="MovementComponent" type="Node" parent="."]
+
+[node name="StatusComponent" type="Node" parent="."]
+
+[node name="ExperienceDropComponent" type="Node" parent="."]
+
+[node name="NavigationComponent" type="Node" parent="."]
+
+[node name="HitboxComponent" type="Node" parent="."]
+script = ExtResource("10_ovpos")
+
+[editable path="troll_archer"]
