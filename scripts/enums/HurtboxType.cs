@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public enum HitboxType
+public enum HurtboxType
 {
     Body,
     Head,

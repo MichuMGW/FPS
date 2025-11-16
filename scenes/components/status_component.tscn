@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://hvd2uy3wofl8"]
+
+[ext_resource type="Script" uid="uid://duw1pby1ks1ka" path="res://scripts/components/StatusComponent.cs" id="1_61gah"]
+
+[node name="StatusComponent" type="Node"]
+script = ExtResource("1_61gah")
+
+[node name="FireTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="SlowTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="StunTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="FreezeTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true

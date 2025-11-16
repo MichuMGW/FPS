@@ -1,10 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://df4a8gudyllgr"]
+[gd_scene load_steps=8 format=3 uid="uid://df4a8gudyllgr"]
 
 [ext_resource type="PackedScene" uid="uid://b32e4s8pjtxat" path="res://scenes/player.tscn" id="2_v4olh"]
-[ext_resource type="PackedScene" uid="uid://dgoantgxsbika" path="res://scenes/basic_enemy.tscn" id="3_7ykc4"]
-[ext_resource type="Script" uid="uid://cabcv4rw3oe3t" path="res://scripts/SpawnLocationManager.cs" id="3_pu3yx"]
-[ext_resource type="PackedScene" uid="uid://b2p7ca7cg4o5w" path="res://scenes/wave_manager.tscn" id="4_gubc5"]
 [ext_resource type="PackedScene" uid="uid://c4fn1nnwef2hm" path="res://scenes/ui.tscn" id="5_gubc5"]
+[ext_resource type="PackedScene" uid="uid://bkeed28o4855u" path="res://scenes/entities/enemies/TrollArcher.tscn" id="6_rt2n2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_44jsn"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -86,25 +84,7 @@ size = Vector3(1, 7, 16)
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.5, 4, 24.5)
 size = Vector3(1, 7, 16)
 
-[node name="BasicEnemy" parent="." instance=ExtResource("3_7ykc4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -11)
-
-[node name="SpawnLocationManager" type="Node3D" parent="."]
-script = ExtResource("3_pu3yx")
-
-[node name="Marker3D" type="Marker3D" parent="SpawnLocationManager"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 2, -23)
-
-[node name="Marker3D2" type="Marker3D" parent="SpawnLocationManager"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 2, -23)
-
-[node name="Marker3D3" type="Marker3D" parent="SpawnLocationManager"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 2, 24)
-
-[node name="Marker3D4" type="Marker3D" parent="SpawnLocationManager"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 2, 24)
-
-[node name="WaveManager" parent="." instance=ExtResource("4_gubc5")]
-basicEnemyScene = ExtResource("3_7ykc4")
-
 [node name="UI" parent="." instance=ExtResource("5_gubc5")]
+
+[node name="TrollArcher" parent="." instance=ExtResource("6_rt2n2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.63095, -11.8627)

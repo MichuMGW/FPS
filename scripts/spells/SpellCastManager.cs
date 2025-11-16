@@ -33,9 +33,9 @@ public partial class SpellCastManager : Node
         // LeftHand = new SpellHand(mainSpell, hand);
         
         //TEST MELEE
-        var mainSpell = new MeleeSpell(GD.Load<MeleeSpellResource>("res://resources/melee_spells/test_melee.tres"), (Element.Fire, Element.Water));
+        // var mainSpell = new MeleeSpell(GD.Load<MeleeSpellResource>("res://resources/melee_spells/test_melee.tres"), (Element.Fire, Element.Water));
         // //KONIEC TEST
-        // var mainSpell = new ProjectileSpell(GD.Load<ProjectileSpellResource>(SpellResourcePath.Fireball), (Element.Fire, Element.Water));
+        var mainSpell = new ProjectileSpell(GD.Load<ProjectileSpellResource>(SpellResourcePath.Fireball), (Element.Fire, Element.Water));
         //KONIEC TEST
         var hand = Owner.GetNode<Node3D>("Head/Camera3D/Arms/Skeleton3D/LeftHandAttachment/LeftHand");
         if(hand == null){

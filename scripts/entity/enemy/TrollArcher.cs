@@ -1,23 +1,21 @@
-// using Godot;
-// using System;
+using Godot;
+using System;
 
-// public partial class TrollArcher : CharacterBody3D
-// {
-//     [Export] public HealthComponent Health;
-//     [Export] public MovementComponent Movement;
-//     [Export] public StatusComponent Status;
-//     [Export] public ExperienceDropComponent ExperienceDrop;
-//     [Export] public NavigationComponent Navigation;
-//     [Export] public HitboxComponent Hitbox;
+public partial class TrollArcher : CharacterBody3D
+{
+    //TESTOWE
+    [Export] public Node3D Player;
 
-//     public override void _Ready()
-//     {
-//         Health = GetNode<HealthComponent>("HealthComponent");
-//         Movement = GetNode<MovementComponent>("MovementComponent");
-//         Status = GetNode<StatusComponent>("StatusComponent");
-//         ExperienceDrop = GetNode<ExperienceDropComponent>("ExperienceDropComponent");
-//         Navigation = GetNode<NavigationComponent>("NavigationComponent");
-//         Hitbox = GetNode<HitboxComponent>("HitboxComponent");
-//     }
+    private PathfindComponent _pathfind;
 
-// }
+    public override void _Ready()
+    {
+        _pathfind = GetNode<PathfindComponent>("PathfindComponent");
+
+        if (Player == null)
+            Player = GetTree().GetFirstNodeInGroup("player") as Node3D;
+
+        _pathfind.Target = Player;
+    }
+    //KONIEC TEST
+}

@@ -28,13 +28,13 @@ public partial class Projectile : CharacterBody3D
         {
             Node3D hitObject = (Node3D)collision.GetCollider();
 
-            if (hitObject is CharacterBody3D characterBody)
-            {
-                var enemy = characterBody as Enemy;
-                enemy.Health.TakeDamage(Damage);
-                enemy.Health.ShowDamage(collision.GetPosition(), Damage, new Color(1, 1, 1));
-                enemy.Status.ApplyStatusEffect(Elements.Item1, Elements.Item2);
-            }
+            // if (hitObject is CharacterBody3D characterBody)
+            // {
+            //     var enemy = characterBody as Enemy;
+            //     enemy.Health.TakeDamage(Damage);
+            //     enemy.Health.ShowDamage(collision.GetPosition(), Damage, new Color(1, 1, 1));
+            //     enemy.Status.ApplyStatusEffect(Elements.Item1, Elements.Item2);
+            // }
 
             // Pocisk znika po kolizji
             QueueFree();

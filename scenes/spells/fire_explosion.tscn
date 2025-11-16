@@ -59,7 +59,8 @@ mesh = SubResource("SphereMesh_38b0s")
 surface_material_override/0 = SubResource("StandardMaterial3D_ku4ay")
 
 [node name="HitboxComponent" parent="." instance=ExtResource("1_7nm2w")]
-damage = 50
+armaturePath = null
+RehitCooldownSeconds = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent"]
 shape = SubResource("SphereShape3D_wv6q1")

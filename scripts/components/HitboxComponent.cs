@@ -1,25 +1,19 @@
-using Godot;
-using System;
+// using Godot;
+// using System;
 
-public partial class HitboxComponent : Area3D
-{
-	[Export]
-	public int damage = 10;
-	//CHWILOWE
-	// [Export]
-	// public AnimationPlayer animationPlayer;
+// public partial class HurtboxComponent : Area3D
+// {
+	
+// 	[Export] public EnemyHealthComponent healthComponent;
+// 	// Called when the node enters the scene tree for the first time.
 
-    // public override void _Ready()
-    // {
-    //     Monitorable = false;
-    // }
-    // CHWILOWE
-    // public override void _Input(InputEvent @event)
-    // {
-    //     if (@event is InputEventMouseButton mouseButton && mouseButton.Pressed)
-	// 	{
-	// 		//GD.Print("HitboxComponent clicked");
-	// 		animationPlayer.Play("Attack");
-	// 	}
-    // }
-}
+// 	public void OnAreaEntered(Area3D area){
+// 		if(area is HitboxComponent){
+// 			HitboxComponent hitbox = (HitboxComponent)area;
+// 			healthComponent.TakeDamage(hitbox.damage);
+// 			GD.Print("Enemy took" + hitbox.damage + "damage");
+// 		}
+// 	}
+
+	
+// }
