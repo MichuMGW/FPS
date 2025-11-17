@@ -9,4 +9,5 @@ public partial class PlayerStatsResource : Resource
     [Export] public float Speed;
     [Export] public float Radius;
     [Export] public float Spread;
+    [Export] public float JumpForce;
 }

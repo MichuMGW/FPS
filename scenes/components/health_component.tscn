@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cih3o4ppqnupc"]
+
+[ext_resource type="Script" uid="uid://d32dmvb807nxb" path="res://scripts/components/HealthComponent.cs" id="1_2wcl1"]
+
+[node name="HealthComponent" type="Node" node_paths=PackedStringArray("Hurtbox")]
+script = ExtResource("1_2wcl1")
+Hurtbox = NodePath("")
+
+[node name="FireDamageTimer" type="Timer" parent="."]

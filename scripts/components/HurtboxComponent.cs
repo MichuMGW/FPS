@@ -20,42 +20,45 @@ public partial class HurtboxComponent : Node
 
 		foreach(Node3D node in armature.GetChildren())
 		{
-			if(node is BoneAttachment3D boneAttachment)
+			if(node is BoneAttachment3D boneAttachment && boneAttachment.HasNode("HurtboxArea"))
 			{
 				hurtboxes.Add(boneAttachment.GetNode<HurtboxArea>("HurtboxArea"));
 			}
 		}
 
-		foreach(HurtboxArea hitbox in hurtboxes)
+		foreach(HurtboxArea hurtbox in hurtboxes)
 		{
 			//Body/source to obiekt, który wszedł w HurtboxArea
-			hitbox.AreaEntered += source => OnHurtboxAreaEntered(hitbox, source);
+			hurtbox.BodyEntered += source => OnHurtboxBodyEntered(hurtbox, source);
 		}
 	}
 
-	public void OnHurtboxAreaEntered(HurtboxArea hitbox, Node3D source)
+	public void OnHurtboxBodyEntered(HurtboxArea hurtbox, Node3D source)
 	{
-		// if (source is not IDamageSource damage)
-		// {
-		// 	return;
-		// }
+		GD.Print(source);
+		GD.Print(source.GetType());
 
-		// Node3D rootTarget = GetOwner<Node3D>();
-		// if (!damage.CanHitAgain(rootTarget))
-		// {
-		// 	return;
-		// }
+		if (source is not IDamageSource damage)
+		{
+			return;
+		}
 
-		// damage.RegisterHit(rootTarget);
+		Node3D rootTarget = GetOwner<Node3D>();
+		if (!damage.CanHitAgain(rootTarget))
+		{
+			return;
+		}
+
+		damage.RegisterHit(rootTarget);
 
 		var hitInfo = new HitInfo
 		{
 			Source = source,
-			HitboxType = hitbox.HurtboxType,
-			DamageMultiplier = hitbox.DamageMultiplier,
-			HitPosition = hitbox.GlobalPosition
+			HitboxType = hurtbox.HurtboxType,
+			DamageMultiplier = hurtbox.DamageMultiplier,
+			HitPosition = hurtbox.GlobalPosition
 		};
-
+		GD.PrintErr("HIT");
 		EmitSignal(nameof(Hit), hitInfo);
 	}
 }

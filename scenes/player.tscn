@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b32e4s8pjtxat"]
+[gd_scene load_steps=18 format=3 uid="uid://b32e4s8pjtxat"]
 
 [ext_resource type="Script" uid="uid://ccmx85wnmq6w7" path="res://scripts/components/PlayerMovement.cs" id="1_2d0pk"]
 [ext_resource type="Script" uid="uid://bvqsv7aht7ijc" path="res://scripts/entity/Player.cs" id="1_fjrip"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://dgv53o10bdqot" path="res://scripts/player/player_states/CastingMeleeSpell.cs" id="6_y4r1p"]
 [ext_resource type="Script" uid="uid://w1ua5btfpb6t" path="res://scripts/components/CameraMovement.cs" id="7_smehm"]
 [ext_resource type="PackedScene" uid="uid://drm1tjn6fkmp5" path="res://scenes/player/arms/arms.tscn" id="9_ur7pv"]
+[ext_resource type="Script" uid="uid://dq2drjav5eall" path="res://scripts/player/PlayerAimTarget.cs" id="13_jej6c"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_mex5a"]
 
@@ -22,13 +23,14 @@ radius = 10.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qhqgy"]
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("PlayerStats", "Movement", "SpellCastManager") groups=["player"]]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("PlayerStats", "Movement", "SpellCastManager", "AimTarget") groups=["player"]]
 collision_layer = 2
-collision_mask = 5
+collision_mask = 17
 script = ExtResource("1_fjrip")
 PlayerStats = NodePath("PlayerStatsManager")
 Movement = NodePath("PlayerMovement")
 SpellCastManager = NodePath("SpellCastManager")
+AimTarget = NodePath("PlayerAimTarget")
 
 [node name="PlayerStatsManager" type="Node" parent="."]
 script = ExtResource("2_d2wvv")
@@ -110,3 +112,8 @@ collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PickupArea"]
 shape = SubResource("CapsuleShape3D_qhqgy")
+
+[node name="PlayerAimTarget" type="Node3D" parent="." groups=["player_target"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+top_level = true
+script = ExtResource("13_jej6c")

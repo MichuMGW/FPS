@@ -7,4 +7,5 @@ public partial class Player : CharacterBody3D
     [Export] public PlayerHealthComponent Health {get; set;} //DODAĆ DO SCENY
     [Export] public PlayerMovement Movement {get; set;}
     [Export] public SpellCastManager SpellCastManager {get; set;}
+    [Export] public Node3D AimTarget {get; private set;}
 }

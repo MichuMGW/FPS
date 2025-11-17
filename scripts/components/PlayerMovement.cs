@@ -13,16 +13,20 @@ public partial class PlayerMovement : Node
 
     private PlayerStatsManager _stats;
 
+    public override void _Ready()
+    {
+        _stats = GetParent().GetNode<PlayerStatsManager>("PlayerStatsManager");
+
+        _jumpForce = _stats.JumpForce;
+        _walkSpeed = _stats.Speed;
+        _sprintSpeed = _stats.Speed * 2;
+        _stats.SpeedChanged += OnSpeedChanged;
+    }
+
     public override void _Process(double delta)
     {
         Move((float)delta);
         player.MoveAndSlide();
-
-        _stats = GetParent().GetNode<PlayerStatsManager>("PlayerStatsManager");
-
-        _walkSpeed = _stats.Speed;
-        _sprintSpeed = _stats.Speed * 2;
-        _stats.SpeedChanged += OnSpeedChanged;
     }
 
     private void OnSpeedChanged(float value){

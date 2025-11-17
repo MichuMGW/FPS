@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhvc0370yavkg"]
+
+[ext_resource type="Script" uid="uid://cy0tvly4evegn" path="res://scripts/components/PathfindComponent.cs" id="1_y07gc"]
+
+[node name="PathfindComponent" type="Node" node_paths=PackedStringArray("Agent", "_velocity")]
+script = ExtResource("1_y07gc")
+Agent = NodePath("")
+_velocity = NodePath("")

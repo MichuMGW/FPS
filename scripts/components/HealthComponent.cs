@@ -8,6 +8,7 @@ public partial class HealthComponent : Node
 
 	[Export] public float MaxHealth {get; set;} = 100f;
     [Export] public HurtboxComponent Hurtbox {get; set;}
+	public bool Enabled {get; set; } = true;
 	private bool isCurrentlyOnFire = false;
 	private PackedScene floatingDamageScene;
     private float _currentHealth;
@@ -40,23 +41,22 @@ public partial class HealthComponent : Node
 		CurrentHealth = MaxHealth;
 		floatingDamageScene = GD.Load<PackedScene>("res://scenes/effects/floating_damage.tscn");
 
-		//DEBUG
-		if(Hurtbox is null)
-        {
-            GD.PrintErr("Hurtbox is null");
-        }
-
-		//TEST
-		// enemy = GetParent<Enemy>();
-		// enemy.Status.FireStarted += EnemyOnFire;
-		// enemy.Status.FireEnded += EnemyOffFire;
-		//TEST
-
-        Hurtbox.Hit += OnHit;
-
 		FireDamageTimer = GetNode<Timer>("FireDamageTimer");
-		FireDamageTimer.Timeout += OnFireDamageTimeout;
+
+        SubscribeEvents();
 	}
+
+	private void SubscribeEvents()
+    {
+        Hurtbox.Hit += OnHit;
+		FireDamageTimer.Timeout += OnFireDamageTimeout;
+    }
+
+	private void UnsubscribeEvents()
+    {
+        Hurtbox.Hit -= OnHit;
+		FireDamageTimer.Timeout -= OnFireDamageTimeout;
+    }
 
     public void OnHit(HitInfo hitInfo)
     {
@@ -114,8 +114,8 @@ public partial class HealthComponent : Node
 
     public void Die()
     {
+		UnsubscribeEvents();
         EmitSignal(nameof(EntityDied));
-		Owner.QueueFree();
     }
 
 	public void Heal(float amount){

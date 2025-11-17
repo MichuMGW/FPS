@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://bewno5r8us0l3"]
+
+[ext_resource type="Script" uid="uid://buity0p2jukhc" path="res://scripts/entity/enemy/TrollArcher/ArrowProjectile.cs" id="1_mbbww"]
+[ext_resource type="PackedScene" uid="uid://dg50frt6cbuje" path="res://Assets/models/enemies/TrollArcher/arrow.glb" id="2_wrp3r"]
+[ext_resource type="Texture2D" uid="uid://c2qxqki4dhxgx" path="res://Assets/textures/entities/enemies/troll_archer/BowAndArrow Color.png" id="3_wrp3r"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7fi4b"]
+albedo_texture = ExtResource("3_wrp3r")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wrp3r"]
+radius = 0.0264204
+height = 0.306794
+
+[node name="ArrowProjectile" type="Node3D"]
+script = ExtResource("1_mbbww")
+Speed = 45.0
+
+[node name="arrow" parent="." instance=ExtResource("2_wrp3r")]
+transform = Transform3D(0.999816, 0.000803905, 0.0191806, 0, 0.999123, -0.0418757, -0.0191974, 0.0418679, 0.998939, 0, 0, 0)
+
+[node name="ArrowRig" parent="arrow" index="0"]
+transform = Transform3D(4.02331e-08, 0.0230638, 0, -0.0230638, 4.02331e-08, 0, 0, 0, 0.0230638, 0, 0, 0)
+
+[node name="Arrow" parent="arrow/ArrowRig/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_7fi4b")
+
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="arrow/ArrowRig/Skeleton3D" index="1"]
+transform = Transform3D(0.705822, -0.041644, -0.707165, -0.70823, -0.0202918, -0.70569, 0.0150381, 0.998927, -0.043816, -1.77215e-09, -0.00910187, -1.22304e-09)
+bone_name = "def-base"
+bone_idx = 0
+
+[node name="Area3D" type="Area3D" parent="arrow/ArrowRig/Skeleton3D/BoneAttachment3D"]
+transform = Transform3D(-30.7139, -30.6036, -0.0404541, -0.0474644, -0.00967999, 43.358, -30.6036, 30.7139, -0.0266424, -0.00644621, -0.000184693, -0.0064231)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="arrow/ArrowRig/Skeleton3D/BoneAttachment3D/Area3D"]
+transform = Transform3D(1, 0, 8.76043e-17, -5.42103e-20, -4.37114e-08, -1, 0, 1, -4.37114e-08, -1.56254e-09, 4.33669e-12, 0.850523)
+shape = SubResource("CapsuleShape3D_wrp3r")
+
+[editable path="arrow"]

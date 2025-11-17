@@ -5,5 +5,6 @@ public enum StatsType
     MaxHealth,
     Speed,
     Radius,
-    Spread
+    Spread,
+    JumpForce
 }

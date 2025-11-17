@@ -7,8 +7,10 @@ public partial class VelocityComponent : Node
     [Export] public float Acceleration { get; set; } = 10.0f;
     [Export] public float Deceleration { get; set; } = 14.0f;
     [Export] public float Gravity { get; set; } = 9.8f;
+    [Export] public float RotationSpeed { get; set; } = 8f;
     [Export] public float TerminalVelocity { get; set; } = -50f;
     [Export] public StatusComponent Status { get; set; } 
+    public bool Active {get; set; } = true;
 
     public Vector3 CurrentVelocity { get; private set; } = Vector3.Zero;
     public Vector3 DesiredVelocity { get; private set; } = Vector3.Zero;
@@ -29,12 +31,28 @@ public partial class VelocityComponent : Node
         _baseAcceleration = Acceleration;
         _baseDeceleration = Deceleration;
 
+        SubscribeEvents();
+    }
+
+    private void SubscribeEvents()
+    {
         Status.SlowStarted += OnSlowStarted;
         Status.SlowEnded += OnSlowEnded;
     }
 
+    private void UnubscribeEvents()
+    {
+        Status.SlowStarted -= OnSlowStarted;
+        Status.SlowEnded -= OnSlowEnded;
+    }
+
     public override void _PhysicsProcess(double delta)
     {
+        if (!Active)
+        {
+            return;
+        }
+
         float dt = (float)delta;
 
         if (!DesiredVelocity.IsZeroApprox())
@@ -53,7 +71,6 @@ public partial class VelocityComponent : Node
         finalVelocity.Y = verticalVelocity;
 
         _body.Velocity = finalVelocity;
-        GD.Print(_body.Velocity);
         _body.MoveAndSlide();
     }
 
@@ -66,6 +83,24 @@ public partial class VelocityComponent : Node
             if (verticalVelocity < TerminalVelocity)
                 verticalVelocity = TerminalVelocity;
         }
+    }
+
+    public void RotateTowardsMovement(float delta)
+    {
+        Vector3 vel = CurrentVelocity;
+        vel.Y = 0;
+
+        if (vel.LengthSquared() < 0.001f)
+            return;
+
+        Vector3 desiredDir = vel.Normalized();
+
+        Vector3 currentForward = _body.GlobalTransform.Basis.Z;
+
+        Vector3 newForward = currentForward.Slerp(desiredDir, RotationSpeed * delta).Normalized();
+
+        Vector3 targetPos = _body.GlobalPosition - newForward;
+        _body.LookAt(targetPos, Vector3.Up);
     }
 
     public void SetDesiredDirection(Vector3 direction)

@@ -4,6 +4,7 @@ using System;
 public partial class PlayerStatsManager : Node
 {
     [Signal] public delegate void StatsChangedEventHandler();
+    [Signal] public delegate void JumpForceChangedEventHandler(float value);
     [Signal] public delegate void MaxHealthChangedEventHandler(float value);
     [Signal] public delegate void DamageChangedEventHandler(float value);
     [Signal] public delegate void RangeChangedEventHandler(float value);
@@ -15,6 +16,7 @@ public partial class PlayerStatsManager : Node
     private float _range;
     private float _damage;
     private float _speed;
+    private float _jumpForce;
     private float _radius;
     private float _spread;
 
@@ -77,6 +79,16 @@ public partial class PlayerStatsManager : Node
             EmitSignal(nameof(SpreadChanged), value);
         }
     }
+
+    public float JumpForce
+    {
+        get => _jumpForce;
+        set
+        {
+            _jumpForce = EnsureNonNegative(value);
+            EmitSignal(nameof(JumpForceChanged), value);
+        }
+    }
     
     public override void _Ready()
     {
@@ -95,6 +107,7 @@ public partial class PlayerStatsManager : Node
         _speed = res.Speed;
         _radius = res.Radius;
         _spread = res.Spread;
+        _jumpForce = res.JumpForce;
 
         GD.Print($"{_maxHealth} {_speed}");
     }
@@ -120,6 +133,9 @@ public partial class PlayerStatsManager : Node
                 break;
             case StatsType.Spread:
                 Spread = amount;
+                break;
+            case StatsType.JumpForce:
+                JumpForce = amount;
                 break;
         }
 
@@ -148,6 +164,9 @@ public partial class PlayerStatsManager : Node
             case StatsType.Spread:
                 Spread += amount;
                 break;
+            case StatsType.JumpForce:
+                JumpForce += amount;
+                break;
         }
 
         EmitStatsChangeSignal(statsType);
@@ -174,6 +193,9 @@ public partial class PlayerStatsManager : Node
                 break;
             case StatsType.Spread:
                 Spread *= modifier;
+                break;
+            case StatsType.JumpForce:
+                JumpForce *= modifier;
                 break;
         }
 
@@ -202,6 +224,10 @@ public partial class PlayerStatsManager : Node
             case StatsType.Spread:
                 EmitSignal(nameof(SpreadChanged), Spread);
                 break;
+            case StatsType.JumpForce:
+                EmitSignal(nameof(JumpForceChanged), Spread);
+                break;
+            
         }
     }
 

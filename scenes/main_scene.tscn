@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://df4a8gudyllgr"]
+[gd_scene load_steps=9 format=3 uid="uid://df4a8gudyllgr"]
 
 [ext_resource type="PackedScene" uid="uid://b32e4s8pjtxat" path="res://scenes/player.tscn" id="2_v4olh"]
+[ext_resource type="PackedScene" uid="uid://tgi3qmn8yvf5" path="res://scenes/entities/enemies/Orc.tscn" id="4_gubc5"]
+[ext_resource type="PackedScene" uid="uid://beabf3asbl62a" path="res://scenes/entities/enemies/TrollArcher.tscn" id="4_pu3yx"]
 [ext_resource type="PackedScene" uid="uid://c4fn1nnwef2hm" path="res://scenes/ui.tscn" id="5_gubc5"]
-[ext_resource type="PackedScene" uid="uid://bkeed28o4855u" path="res://scenes/entities/enemies/TrollArcher.tscn" id="6_rt2n2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_44jsn"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -31,7 +32,7 @@ transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("2_v4olh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5935, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.21658, 0)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_pw63i")
@@ -86,5 +87,8 @@ size = Vector3(1, 7, 16)
 
 [node name="UI" parent="." instance=ExtResource("5_gubc5")]
 
-[node name="TrollArcher" parent="." instance=ExtResource("6_rt2n2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.63095, -11.8627)
+[node name="TrollArcher2" parent="." instance=ExtResource("4_pu3yx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.676, -8.11007)
+
+[node name="Orc" parent="." instance=ExtResource("4_gubc5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.16461, 1.12573, -12.7678)

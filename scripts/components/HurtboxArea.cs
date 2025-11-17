@@ -11,10 +11,10 @@ public partial class HurtboxArea : Area3D
     public override void _Ready()
     {
         // AddToGroup("hitbox");
-        AreaEntered += OnAreaEntered;
+        BodyEntered += OnBodyEntered;
     }
 
-    private void OnAreaEntered(Node3D body)
+    private void OnBodyEntered(Node3D body)
     {
         //DEBUG
         GD.Print("Enemy hit on " + HurtboxType.GetName(typeof(HurtboxType), HurtboxType));
