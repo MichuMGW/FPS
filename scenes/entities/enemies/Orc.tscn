@@ -1,15 +1,94 @@
-[gd_scene load_steps=5 format=3 uid="uid://bp6enwwi2ns1h"]
+[gd_scene load_steps=12 format=3 uid="uid://tgi3qmn8yvf5"]
 
+[ext_resource type="Script" uid="uid://d36qtobm17dbo" path="res://scripts/entity/enemy/Orc/Orc.cs" id="1_j7irp"]
 [ext_resource type="PackedScene" uid="uid://2532s3mxhgc6" path="res://Assets/models/enemies/orc.glb" id="1_wxk4a"]
 [ext_resource type="Texture2D" uid="uid://d0t06ciif66w5" path="res://Assets/textures/entities/enemies/orc/OrcMaterial Color.png" id="2_yb7oy"]
 [ext_resource type="Texture2D" uid="uid://bjt6tulrexon6" path="res://Assets/textures/entities/enemies/orc/OrcMaterial Normal.png" id="3_o2ypx"]
+[ext_resource type="PackedScene" uid="uid://cih3o4ppqnupc" path="res://scenes/components/health_component.tscn" id="4_c4vur"]
+[ext_resource type="PackedScene" uid="uid://c5qah0y135ucp" path="res://scenes/components/hurtbox_component.tscn" id="4_yb7oy"]
+[ext_resource type="PackedScene" uid="uid://dhvc0370yavkg" path="res://scenes/components/pathfind_component.tscn" id="6_j7irp"]
+[ext_resource type="PackedScene" uid="uid://hvd2uy3wofl8" path="res://scenes/components/status_component.tscn" id="7_5x8eq"]
+[ext_resource type="PackedScene" uid="uid://hvw6gscvm54u" path="res://scenes/components/velocity_component.tscn" id="8_5lqbp"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lhmf5"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wxk4a"]
 albedo_texture = ExtResource("2_yb7oy")
 normal_enabled = true
 normal_texture = ExtResource("3_o2ypx")
 
-[node name="Orc" instance=ExtResource("1_wxk4a")]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_c4vur"]
+radius = 0.184483
 
-[node name="OrcMesh" parent="OrcArmature/Skeleton3D" index="0"]
-surface_material_override/0 = SubResource("StandardMaterial3D_lhmf5")
+[node name="Orc" type="CharacterBody3D" node_paths=PackedStringArray("VelocityComp", "Pathfind", "Health", "Hurtbox", "Animation")]
+collision_layer = 16
+collision_mask = 19
+script = ExtResource("1_j7irp")
+VelocityComp = NodePath("VelocityComponent")
+Pathfind = NodePath("PathfindComponent")
+Health = NodePath("HealthComponent")
+Hurtbox = NodePath("HurtboxComponent")
+Animation = NodePath("orc/AnimationPlayer")
+ChargeMinDistance = 0.0
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="orc" parent="." instance=ExtResource("1_wxk4a")]
+
+[node name="Skeleton3D" parent="orc/OrcArmature" index="0"]
+bones/1/position = Vector3(-0.635931, 1.4535, -0.432401)
+bones/3/position = Vector3(0.635931, 1.4535, -0.432401)
+bones/3/rotation = Quaternion(0.494115, -0.505817, 0.505816, -0.494115)
+bones/4/position = Vector3(0, -0.0208382, 0)
+bones/5/position = Vector3(-0.00105458, 0.757487, 0.0142846)
+bones/5/rotation = Quaternion(0.333975, -0.0613211, 0.0159103, 0.940451)
+bones/6/rotation = Quaternion(0.0842925, -0.0414856, 0.0400705, 0.99477)
+bones/7/rotation = Quaternion(-0.00323461, -0.370594, 0.176205, 0.911922)
+bones/8/rotation = Quaternion(0.0408834, -0.114697, -0.00378559, 0.992552)
+bones/9/rotation = Quaternion(0.284431, 0.229606, -0.442144, 0.819078)
+bones/10/rotation = Quaternion(-0.239884, 0.018947, -0.0164714, 0.970477)
+bones/11/rotation = Quaternion(-0.0937117, 4.74784e-09, 7.50794e-10, 0.995599)
+bones/12/rotation = Quaternion(0.719895, 0.246548, 0.255601, -0.59635)
+bones/13/rotation = Quaternion(0.251208, 0.437616, -0.661432, 0.554883)
+bones/14/rotation = Quaternion(0.738945, -0.0643728, -0.169532, 0.648904)
+bones/15/rotation = Quaternion(-0.0207541, -0.00377554, -0.0391534, 0.999011)
+bones/17/rotation = Quaternion(-0.000538714, -0.000517296, -0.706234, 0.707978)
+bones/18/rotation = Quaternion(-0.000280049, -0.000195399, -0.581713, 0.813394)
+bones/19/rotation = Quaternion(0.0170762, 0.185775, -0.249895, 0.950131)
+bones/20/rotation = Quaternion(0.63709, -0.374581, -0.427264, -0.520818)
+bones/21/rotation = Quaternion(0.257903, 0.79028, -0.310095, -0.461287)
+bones/22/rotation = Quaternion(0.286229, 0.0237068, 0.0146529, 0.957756)
+bones/23/rotation = Quaternion(-0.0207541, 0.00377555, 0.0391534, 0.999011)
+bones/25/rotation = Quaternion(-0.00074664, -2.73687e-06, 0.0151295, 0.999885)
+bones/26/rotation = Quaternion(-0.000341348, 2.56812e-07, 0.0131254, 0.999914)
+bones/27/rotation = Quaternion(0.00803383, -0.139485, -0.0201109, 0.989987)
+bones/28/rotation = Quaternion(-6.71123e-08, 0.700007, 0.714136, -5.53515e-08)
+bones/30/rotation = Quaternion(0.182122, 0.824119, 0.25904, -0.469636)
+bones/32/rotation = Quaternion(0.73425, 0.028703, -0.0868986, 0.672682)
+bones/33/rotation = Quaternion(0.923969, -0.0469157, -0.0574315, 0.375208)
+bones/34/rotation = Quaternion(-0.337457, 0.0184023, -0.0458049, 0.940046)
+bones/36/rotation = Quaternion(0.947834, 0.0463805, 0.102495, 0.298251)
+bones/37/rotation = Quaternion(0.371333, -0.0517941, -0.0391211, 0.926228)
+bones/38/rotation = Quaternion(-0.757615, -0.0932913, 0.0604928, 0.643161)
+
+[node name="OrcMesh" parent="orc/OrcArmature/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_wxk4a")
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("Hurtbox") instance=ExtResource("4_c4vur")]
+Hurtbox = NodePath("../HurtboxComponent")
+
+[node name="HurtboxComponent" parent="." instance=ExtResource("4_yb7oy")]
+armaturePath = "orc/OrcArmature/Skeleton3D"
+
+[node name="PathfindComponent" parent="." node_paths=PackedStringArray("Agent", "_velocity") instance=ExtResource("6_j7irp")]
+Agent = NodePath("../NavigationAgent3D")
+_velocity = NodePath("../VelocityComponent")
+
+[node name="StatusComponent" parent="." instance=ExtResource("7_5x8eq")]
+
+[node name="VelocityComponent" parent="." node_paths=PackedStringArray("Status") instance=ExtResource("8_5lqbp")]
+Status = NodePath("../StatusComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_c4vur")
+
+[editable path="orc"]
