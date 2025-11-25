@@ -1,0 +1,26 @@
+[gd_scene load_steps=9 format=3 uid="uid://0g67bcwh1wph"]
+
+[ext_resource type="PackedScene" uid="uid://c07in08j0q422" path="res://Assets/models/environment/terrain/landscape4.glb" id="1_tcf16"]
+[ext_resource type="Shader" uid="uid://cvpp0o2xityls" path="res://Assets/textures/environment/terrain/TerrainMixer1.gdshader" id="2_albbg"]
+[ext_resource type="Texture2D" uid="uid://bx4q1oyb4bdct" path="res://Assets/textures/environment/terrain/grass_ground_d_256x256.jpg" id="3_7paek"]
+[ext_resource type="Texture2D" uid="uid://dmmbj0mv7oseq" path="res://Assets/textures/environment/terrain/island_sand_d_128x128.jpg" id="4_apc14"]
+[ext_resource type="Texture2D" uid="uid://cdvasc3gvj13e" path="res://Assets/textures/environment/terrain/desert_mud_d_256x256.jpg" id="5_xv5pt"]
+[ext_resource type="Texture2D" uid="uid://dqffvdnuo0kam" path="res://Assets/textures/environment/terrain/landscape3_terrain_mask_RGB.png" id="6_ot1i7"]
+[ext_resource type="Texture2D" uid="uid://dmwawq71pkotd" path="res://Assets/textures/environment/terrain/grass_rocky_d_256x256.jpg" id="7_nwrav"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4k75l"]
+render_priority = 0
+shader = ExtResource("2_albbg")
+shader_parameter/source_texture_mask = ExtResource("6_ot1i7")
+shader_parameter/source_texture_black = ExtResource("3_7paek")
+shader_parameter/source_texture_red = ExtResource("7_nwrav")
+shader_parameter/source_texture_green = ExtResource("3_7paek")
+shader_parameter/source_texture_green_mixer = ExtResource("5_xv5pt")
+shader_parameter/source_texture_blue = ExtResource("4_apc14")
+shader_parameter/uv_size = 100.0
+shader_parameter/blend_factor = 0.5
+
+[node name="landscape4" instance=ExtResource("1_tcf16")]
+
+[node name="landscape" parent="." index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_4k75l")

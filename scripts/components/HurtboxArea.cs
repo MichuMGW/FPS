@@ -12,11 +12,18 @@ public partial class HurtboxArea : Area3D
     {
         // AddToGroup("hitbox");
         BodyEntered += OnBodyEntered;
+        AreaEntered += OnAreaEntered;
     }
+
+    private void OnAreaEntered(Area3D area)
+    {
+        GD.Print("Enemy hit on " + HurtboxType.GetName(typeof(HurtboxType), HurtboxType) + "-> AREA");
+    }
+
 
     private void OnBodyEntered(Node3D body)
     {
         //DEBUG
-        GD.Print("Enemy hit on " + HurtboxType.GetName(typeof(HurtboxType), HurtboxType));
+        GD.Print("Enemy hit on " + HurtboxType.GetName(typeof(HurtboxType), HurtboxType) + "-> BODY");
     }
 }

@@ -7,7 +7,7 @@ public partial class ExperiencePointDropComponent : Node
 
 	public override void _Ready()
 	{
-		EnemyHealthComponent healthComponent = GetParent().GetNode<EnemyHealthComponent>("EnemyHealthComponent");
+		HealthComponent healthComponent = GetParent().GetNode<HealthComponent>("EnemyHealthComponent");
 		healthComponent.EntityDied += SpawnExperiencePoint;
 	}
 

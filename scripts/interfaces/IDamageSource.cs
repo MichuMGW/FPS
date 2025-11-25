@@ -8,7 +8,7 @@ public interface IDamageSource
     void RegisterHit(Node3D target);
 }
 
-//PRZYKŁADOWA IMOLEMENTACJA SPELLA
+//PRZYKŁADOWA IMPLEMENTACJA SPELLA
 // public class AOEZone : Area3D, IDamageSource
 // {
 //     [Export] public float DamagePerTick = 5f;

@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dj4vku1212nte"]
 
-[ext_resource type="PackedScene" uid="uid://xng3w0ck0x1s" path="res://scenes/hitbox_component.tscn" id="1_7nm2w"]
+[ext_resource type="PackedScene" uid="uid://xng3w0ck0x1s" path="res://scenes/hitbox_component_OLD.tscn" id="1_7nm2w"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_38b0s"]
 radius = 2.0
@@ -59,8 +59,6 @@ mesh = SubResource("SphereMesh_38b0s")
 surface_material_override/0 = SubResource("StandardMaterial3D_ku4ay")
 
 [node name="HitboxComponent" parent="." instance=ExtResource("1_7nm2w")]
-armaturePath = null
-RehitCooldownSeconds = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent"]
 shape = SubResource("SphereShape3D_wv6q1")

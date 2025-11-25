@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cr5ksk7os6mgb"]
+
+[ext_resource type="Texture2D" uid="uid://cym1fjyih08l1" path="res://Assets/textures/decals/Groundmark.png" id="1_ghdf2"]
+[ext_resource type="Script" uid="uid://pu3crgaus7j4" path="res://scripts/effects/GroundmarkDecal.cs" id="2_f6bdc"]
+
+[node name="Decal" type="Decal"]
+size = Vector3(1, 1, 1)
+texture_albedo = ExtResource("1_ghdf2")
+script = ExtResource("2_f6bdc")

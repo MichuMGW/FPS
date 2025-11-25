@@ -1,0 +1,26 @@
+[gd_resource type="ShaderMaterial" load_steps=7 format=3 uid="uid://5jrr036xde8e"]
+
+[ext_resource type="Shader" uid="uid://b0ldqykxci21d" path="res://Assets/effects/shaders/engine_flame.gdshader" id="1_piuth"]
+
+[sub_resource type="Gradient" id="Gradient_6ughi"]
+offsets = PackedFloat32Array(0, 0.174603, 0.563492, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.368627, 0.0431373, 0.0823529, 1, 1, 0.458824, 0.219608, 1, 1, 1, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0wa6u"]
+gradient = SubResource("Gradient_6ughi")
+
+[sub_resource type="Gradient" id="Gradient_vun4o"]
+offsets = PackedFloat32Array(0, 0.198413, 0.551587, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 0.2, 0.2, 1, 1, 0.439216, 0, 1, 1, 1, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0bt3y"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vlsob"]
+color_ramp = SubResource("Gradient_vun4o")
+noise = SubResource("FastNoiseLite_0bt3y")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_piuth")
+shader_parameter/noise = SubResource("NoiseTexture2D_vlsob")
+shader_parameter/gradient = SubResource("GradientTexture1D_0wa6u")

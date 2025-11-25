@@ -50,6 +50,7 @@ public partial class VelocityComponent : Node
     {
         if (!Active)
         {
+            //Można dać w setterze właściwości SetPhysicProcess(value)
             return;
         }
 

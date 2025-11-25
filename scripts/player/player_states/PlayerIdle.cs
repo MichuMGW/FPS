@@ -29,11 +29,11 @@ public partial class PlayerIdle : State
 
     public override void Update(double delta)
     {
-        test += delta;
-        if (test > 1){
-            GD.Print("Test");
-            test = 0;
-        }
+        // test += delta;
+        // if (test > 1){
+        //     GD.Print("Test");
+        //     test = 0;
+        // }
         if (Input.IsActionPressed("CastLeftSpell")){
             //Castowanie spella
             SpellHand leftHand = scm.LeftHand;

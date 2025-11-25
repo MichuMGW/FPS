@@ -16,7 +16,7 @@ public class OrcChaseState : IState
 
         _owner.Pathfind.Active = true;
         _owner.VelocityComp.MaxSpeed = _owner.ChaseSpeed;
-        _owner.Animation.Play("Orc_SlowRun");
+        _owner.Animation.Play("Orc_SlowRun",0.3f);
     }
 
     public void Exit()

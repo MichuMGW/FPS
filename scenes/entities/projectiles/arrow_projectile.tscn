@@ -1,15 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://bewno5r8us0l3"]
+[gd_scene load_steps=7 format=3 uid="uid://bewno5r8us0l3"]
 
 [ext_resource type="Script" uid="uid://buity0p2jukhc" path="res://scripts/entity/enemy/TrollArcher/ArrowProjectile.cs" id="1_mbbww"]
-[ext_resource type="PackedScene" uid="uid://dg50frt6cbuje" path="res://Assets/models/enemies/TrollArcher/arrow.glb" id="2_wrp3r"]
+[ext_resource type="PackedScene" uid="uid://dg50frt6cbuje" path="res://Assets/models/enemies/TrollArcher/arrow(old).glb" id="2_wrp3r"]
 [ext_resource type="Texture2D" uid="uid://c2qxqki4dhxgx" path="res://Assets/textures/entities/enemies/troll_archer/BowAndArrow Color.png" id="3_wrp3r"]
+[ext_resource type="PackedScene" uid="uid://c2wcxah80nn20" path="res://scenes/components/hitbox_component.tscn" id="4_7fi4b"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7fi4b"]
 albedo_texture = ExtResource("3_wrp3r")
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wrp3r"]
-radius = 0.0264204
-height = 0.306794
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ctf8c"]
+radius = 0.0454893
+height = 0.688274
 
 [node name="ArrowProjectile" type="Node3D"]
 script = ExtResource("1_mbbww")
@@ -29,11 +30,14 @@ transform = Transform3D(0.705822, -0.041644, -0.707165, -0.70823, -0.0202918, -0
 bone_name = "def-base"
 bone_idx = 0
 
-[node name="Area3D" type="Area3D" parent="arrow/ArrowRig/Skeleton3D/BoneAttachment3D"]
-transform = Transform3D(-30.7139, -30.6036, -0.0404541, -0.0474644, -0.00967999, 43.358, -30.6036, 30.7139, -0.0266424, -0.00644621, -0.000184693, -0.0064231)
+[node name="HitboxComponent" parent="." instance=ExtResource("4_7fi4b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.692041)
+collision_layer = 64
+collision_mask = 4
+Damage = 50.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="arrow/ArrowRig/Skeleton3D/BoneAttachment3D/Area3D"]
-transform = Transform3D(1, 0, 8.76043e-17, -5.42103e-20, -4.37114e-08, -1, 0, 1, -4.37114e-08, -1.56254e-09, 4.33669e-12, 0.850523)
-shape = SubResource("CapsuleShape3D_wrp3r")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_ctf8c")
 
 [editable path="arrow"]

@@ -11,16 +11,12 @@ public class OrcDeadState : IState
     {
         _owner.Pathfind.Active = false;
         _owner.VelocityComp.Active = false;
-        _owner.Animation.Play("Orc_Die");
+        _owner.Animation.Play("Orc_Die", 0.3f);
 
         if (_owner.Hurtbox != null)
         {
             // najprostsze wyłączenie – skoro nie masz flagi Enabled:
-            foreach (var hb in _owner.Hurtbox.hurtboxes)
-            {
-                hb.SetDeferred("monitoring", false);
-                hb.SetDeferred("monitorable", false);
-            }
+            _owner.Hurtbox.Active = false;
         }
 
         // tu animacja śmierci

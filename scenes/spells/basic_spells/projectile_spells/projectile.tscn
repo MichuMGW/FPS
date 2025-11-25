@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://cwh8ty8k77yjr"]
+[gd_scene load_steps=9 format=3 uid="uid://cwh8ty8k77yjr"]
 
 [ext_resource type="Script" uid="uid://tcmlvmhebq6h" path="res://scripts/spells/projectile_spells/Projectile.cs" id="1_16kxs"]
+[ext_resource type="PackedScene" uid="uid://c2wcxah80nn20" path="res://scenes/components/hitbox_component.tscn" id="2_vowtn"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_q3m7n"]
 radius = 0.25
@@ -40,7 +41,7 @@ _data = {
 radius = 0.3
 
 [node name="Projectile" type="CharacterBody3D"]
-collision_layer = 8
+collision_layer = 0
 script = ExtResource("1_16kxs")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -53,13 +54,13 @@ libraries = {
 }
 autoplay = "Start"
 
-[node name="Area3D" type="Area3D" parent="."]
-collision_layer = 8
-collision_mask = 0
-monitoring = false
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_q3m7n")
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+[node name="HitboxComponent" parent="." instance=ExtResource("2_vowtn")]
+collision_layer = 8
+collision_mask = 32
+RehitCooldownSeconds = 0.5
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="HitboxComponent"]
 shape = SubResource("SphereShape3D_q3m7n")

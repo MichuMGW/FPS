@@ -1,64 +1,50 @@
 using Godot;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 
-//Komponent obsługujący hitboxy bytu. Korzysta z HurtboxArea, które zczytują trafienia dla konkretnych kości.
-public partial class HurtboxComponent : Node
+// Bazowy komponent od przyjmowania obrażeń.
+public abstract partial class HurtboxComponent : Node
 {
-	[Signal] public delegate void HitEventHandler(HitInfo hitInfo);
-	public List<HurtboxArea> hurtboxes {get; set;}
-	private readonly Dictionary<Node3D, double> _lastHitTimeBySource = new();
-	[Export] string armaturePath {get; set;}
-	//ZMIENIĆ JAK BĘDĘ ROBIŁ BEAM SPELLE TO ZMIENIĆ NA MNIEJSZĄ WARTOŚĆ
-	[Export] public float RehitCooldownSeconds { get; set; } = 0f;
+    [Signal] public delegate void HitEventHandler(HitInfo hitInfo);
 
-	public override void _Ready()
-	{
-		hurtboxes = new List<HurtboxArea>();
-		var armature = GetParent().GetNode<Skeleton3D>(armaturePath);
+    [Export] public float RehitCooldownSeconds { get; set; } = 0f;
+	private bool _active;
+	public bool Active
+    {
+        get => _active;
+		set
+        {
+            _active = value;
+			SetHurtboxesMonitoring(value);
+			SetHutboxesMonitorable(value);
+        }
+    }
+    protected void ProcessHit(HurtboxArea hurtbox, Node3D source)
+    {
+        if (source is not IDamageSource damageSource)
+            return;
 
-		foreach(Node3D node in armature.GetChildren())
-		{
-			if(node is BoneAttachment3D boneAttachment && boneAttachment.HasNode("HurtboxArea"))
-			{
-				hurtboxes.Add(boneAttachment.GetNode<HurtboxArea>("HurtboxArea"));
-			}
-		}
+        var rootTarget = GetOwner<Node3D>();
+        if (rootTarget == null)
+        {
+            GD.PushError($"{Name}: Owner nie jest Node3D, a próbujemy go bić.");
+            return;
+        }
 
-		foreach(HurtboxArea hurtbox in hurtboxes)
-		{
-			//Body/source to obiekt, który wszedł w HurtboxArea
-			hurtbox.BodyEntered += source => OnHurtboxBodyEntered(hurtbox, source);
-		}
-	}
+        if (!damageSource.CanHitAgain(rootTarget))
+            return;
 
-	public void OnHurtboxBodyEntered(HurtboxArea hurtbox, Node3D source)
-	{
-		GD.Print(source);
-		GD.Print(source.GetType());
+        damageSource.RegisterHit(rootTarget);
 
-		if (source is not IDamageSource damage)
-		{
-			return;
-		}
+        var hitInfo = new HitInfo
+        {
+            Source = source,
+            HitboxType = hurtbox.HurtboxType,
+            DamageMultiplier = hurtbox.DamageMultiplier,
+            HitPosition = hurtbox.GlobalPosition
+        };
 
-		Node3D rootTarget = GetOwner<Node3D>();
-		if (!damage.CanHitAgain(rootTarget))
-		{
-			return;
-		}
+        EmitSignal(nameof(Hit), hitInfo);
+    }
 
-		damage.RegisterHit(rootTarget);
-
-		var hitInfo = new HitInfo
-		{
-			Source = source,
-			HitboxType = hurtbox.HurtboxType,
-			DamageMultiplier = hurtbox.DamageMultiplier,
-			HitPosition = hurtbox.GlobalPosition
-		};
-		GD.PrintErr("HIT");
-		EmitSignal(nameof(Hit), hitInfo);
-	}
+	public abstract void SetHurtboxesMonitoring(bool value);
+	public abstract void SetHutboxesMonitorable(bool value);
 }

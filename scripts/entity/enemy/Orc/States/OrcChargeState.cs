@@ -18,8 +18,11 @@ public class OrcChargeState : IState
         _elapsed = 0f;
         _speedLerp = 0f;
 
+        _owner.ChargeHitbox.Monitoring = true;
+
         _owner.Pathfind.Active = false;
-        _owner.Animation.Play("Orc_Charge");
+        _owner.Pathfind.SetPhysicsProcess(false);
+        _owner.Animation.Play("Orc_Charge", 0.5f);
 
         // zapamiętujemy stare przyspieszenie i ustawiamy "cięższe" przyspieszanie do szarży
         _prevAcceleration = _owner.VelocityComp.Acceleration;
@@ -54,9 +57,11 @@ public class OrcChargeState : IState
     {
         // przywracamy normalne przyspieszenie
         _owner.VelocityComp.Acceleration = _prevAcceleration;
-
+        // _owner.Animation.SpeedScale = 1;
+        _owner.ChargeHitbox.SetDeferred("monitoring",false);
         // po szarży nie chcemy dalej mieć SetDesiredDirection w przód
         _owner.VelocityComp.SetDesiredDirection(Vector3.Zero);
+        _owner.Pathfind.SetPhysicsProcess(true);
     }
 
     public void PhysicsUpdate(double delta)
@@ -70,10 +75,10 @@ public class OrcChargeState : IState
             return;
         }
 
+
         // łagodny ramp-up prędkości maksymalnej z ChaseSpeed -> ChargeSpeed
         // ChargeRampSpeed: jak szybko dobijamy do pełnej prędkości szarży
-        const float chargeRampSpeed = 1.5f; // możesz wyciągnąć do [Export] w Orc
-        _speedLerp = Mathf.Clamp(_speedLerp + chargeRampSpeed * dt, 0f, 1f);
+        _speedLerp = Mathf.Clamp(_speedLerp + _owner.ChargeRampSpeed * dt, 0f, 1f);
 
         float currentMaxSpeed = Mathf.Lerp(_owner.ChaseSpeed, _owner.ChargeSpeed, _speedLerp);
         _owner.VelocityComp.MaxSpeed = currentMaxSpeed;

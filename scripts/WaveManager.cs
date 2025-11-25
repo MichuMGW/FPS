@@ -94,29 +94,31 @@ public partial class WaveManager : Node
 
 	public void SpawnEnemy()
 	{
-		GD.Print("Respie ziutka");
-		var enemyInstance = basicEnemyScene.Instantiate() as Enemy;
+		// GD.Print("Respie ziutka");
+		// var enemyInstance = basicEnemyScene.Instantiate() as Enemy;
 
-		GD.Print(enemyInstance.Name);
-		//DODAĆ SKALOWANIE ZDROWIA Z FALĄ
-		EnemyHealthComponent healthComponent = enemyInstance.GetNode<EnemyHealthComponent>("EnemyHealthComponent");
-		healthComponent.EntityDied += OnEnemyDied;
+		// GD.Print(enemyInstance.Name);
+		// //DODAĆ SKALOWANIE ZDROWIA Z FALĄ
+		// HealthComponent healthComponent = enemyInstance.GetNode<HealthComponent>("EnemyHealthComponent");
+		// healthComponent.EntityDied += OnEnemyDied;
 		
 
-		Owner.AddChild(enemyInstance);
-		enemyInstance.GlobalPosition = spawnLocationManager.GetSpawnLocation();
-		enemiesSpawned++;
-		enemiesToSpawn--;
+		// Owner.AddChild(enemyInstance);
+		// enemyInstance.GlobalPosition = spawnLocationManager.GetSpawnLocation();
+		// enemiesSpawned++;
+		// enemiesToSpawn--;
 
-		waveUi.UpdateEnemiesLeft(enemiesLeft);
+		// waveUi.UpdateEnemiesLeft(enemiesLeft);
 	}
 
 	public void OnEnemyDied()
 	{
-		enemiesSpawned--;
-		enemiesLeft--;
-		waveUi.UpdateEnemiesLeft(enemiesLeft);
+		// enemiesSpawned--;
+		// enemiesLeft--;
+		// waveUi.UpdateEnemiesLeft(enemiesLeft);
 
-		GD.Print("Enemy died");
+		// GD.Print("Enemy died");
+
+		// healthComponent.EntityDied -= OnEnemyDied;
 	}
 }

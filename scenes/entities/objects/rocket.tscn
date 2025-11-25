@@ -1,0 +1,80 @@
+[gd_scene load_steps=14 format=3 uid="uid://cskxd7ws222u7"]
+
+[ext_resource type="ArrayMesh" uid="uid://m05gud05ky1u" path="res://Assets/models/objects/rocket.obj" id="1_cde7l"]
+[ext_resource type="Script" uid="uid://bm5rvn7l570ej" path="res://scripts/entity/enemy/Mech/Rocket.cs" id="1_fgcts"]
+[ext_resource type="Texture2D" uid="uid://m0clp7eyimja" path="res://Assets/textures/entities/enemies/mech/rocket/Rocket Color.png" id="2_e1afc"]
+[ext_resource type="PackedScene" uid="uid://cih3o4ppqnupc" path="res://scenes/components/health_component.tscn" id="2_wdagx"]
+[ext_resource type="PackedScene" uid="uid://c8p3t4ghydu4n" path="res://scenes/components/simple_hurtbox_component.tscn" id="3_jc2w5"]
+[ext_resource type="ArrayMesh" uid="uid://ch27bigf78ck" path="res://Assets/effects/meshes/rocket_flame.obj" id="4_fgcts"]
+[ext_resource type="Material" uid="uid://5jrr036xde8e" path="res://Assets/effects/materials/rocket_flame.tres" id="4_u6peu"]
+[ext_resource type="PackedScene" uid="uid://gwkhn3v3fswg" path="res://scenes/components/hurtbox_area.tscn" id="8_bcr53"]
+[ext_resource type="PackedScene" uid="uid://c2wcxah80nn20" path="res://scenes/components/hitbox_component.tscn" id="9_jc2w5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u6peu"]
+albedo_texture = ExtResource("2_e1afc")
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_acm7y"]
+radius = 0.177701
+height = 1.07472
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_jc2w5"]
+radius = 5.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fgcts"]
+radius = 0.0746362
+height = 0.622832
+
+[node name="Rocket" type="CharacterBody3D"]
+collision_layer = 64
+collision_mask = 3
+script = ExtResource("1_fgcts")
+Speed = 15.0
+TurnSpeed = 2.0
+LifeTime = 2.0
+ExplosionRadius = 100.0
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("Hurtbox") instance=ExtResource("2_wdagx")]
+Hurtbox = NodePath("../SimpleHurtboxComponent")
+
+[node name="SimpleHurtboxComponent" parent="." instance=ExtResource("3_jc2w5")]
+_hurtboxPath = NodePath("../HurtboxArea")
+
+[node name="RocketMesh" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_cde7l")
+surface_material_override/0 = SubResource("StandardMaterial3D_u6peu")
+
+[node name="Flame1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.33806, 0, 0, 0, 1.33806, -1.48443e-07, 0, 2.33953e-07, 0.848995, 0, 0, -0.593521)
+mesh = ExtResource("4_fgcts")
+surface_material_override/0 = ExtResource("4_u6peu")
+
+[node name="Flame2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.10847, 0, 0, 0, 1.10847, -1.89253e-07, 0, 1.93812e-07, 1.0824, 0, 0, -0.593521)
+mesh = ExtResource("4_fgcts")
+surface_material_override/0 = ExtResource("4_u6peu")
+
+[node name="Flame3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.739994, 0, 0, 0, 0.739994, -1.93322e-07, 0, 1.29385e-07, 1.10567, 0, 0, -0.627998)
+mesh = ExtResource("4_fgcts")
+surface_material_override/0 = ExtResource("4_u6peu")
+
+[node name="HurtboxArea" parent="." instance=ExtResource("8_bcr53")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxArea"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_acm7y")
+
+[node name="HitboxComponent" parent="." instance=ExtResource("9_jc2w5")]
+collision_layer = 64
+collision_mask = 0
+OneShot = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent"]
+shape = SubResource("SphereShape3D_jc2w5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0.18858)
+shape = SubResource("CapsuleShape3D_fgcts")

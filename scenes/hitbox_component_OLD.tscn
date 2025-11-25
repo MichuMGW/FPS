@@ -2,9 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dt4uqh6eqc02c" path="res://scripts/components/HitboxComponent.cs" id="1_0rji1"]
 
-[node name="HitboxComponent" type="Area3D" node_paths=PackedStringArray("animationPlayer")]
+[node name="HitboxComponent" type="Area3D"]
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_0rji1")
-damage = 100
-animationPlayer = NodePath("")

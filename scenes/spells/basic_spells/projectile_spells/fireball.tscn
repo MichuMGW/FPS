@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://mympbdtdffqg"]
 
 [ext_resource type="Script" uid="uid://tcmlvmhebq6h" path="res://scripts/spells/projectile_spells/Projectile.cs" id="1_1gl40"]
-[ext_resource type="PackedScene" uid="uid://xng3w0ck0x1s" path="res://scenes/hitbox_component.tscn" id="2_cb14k"]
+[ext_resource type="PackedScene" uid="uid://xng3w0ck0x1s" path="res://scenes/hitbox_component_OLD.tscn" id="2_cb14k"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_q3m7n"]
 radius = 0.25

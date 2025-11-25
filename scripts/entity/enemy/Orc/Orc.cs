@@ -9,7 +9,6 @@ public partial class Orc : CharacterBody3D
     [Export] public HealthComponent Health;
     [Export] public HurtboxComponent Hurtbox;
     [Export] public Node3D Player;
-    [Export] public AnimationPlayer Animation;
 
     // KONFIG
     [Export] public float ChaseSpeed { get; set; } = 4f;
@@ -17,20 +16,24 @@ public partial class Orc : CharacterBody3D
     [Export] public float ChargeAcceleration { get; set; } = 4f; // coś mniejszego niż standardowe Acceleration
     [Export] public float ChargeCooldown {get; set; } = 3f;
     [Export] public float ChargeSpeed { get; set; } = 12f;
-    [Export] public float ChargeTurnSpeed { get; set; } = 3f;     // jak szybko może skręcać w trakcie szarży
+    [Export] public float ChargeTurnSpeed { get; set; } = 2f;     // jak szybko może skręcać w trakcie szarży
     [Export] public float MaxChargeTime { get; set; } = 2.5f;     // max czas szarży
     [Export] public float ObstacleCheckDistance { get; set; } = 3f;
 
     [Export] public float ChargeMinDistance { get; set; } = 6f;   // min dystans żeby miało sens szarżować
     [Export] public float ChargeMaxDistance { get; set; } = 18f;  // max dystans do szarży
     [Export] public float ChargeFovDotThreshold { get; set; } = 0.5f; // ~60° kąt widzenia
+    // łagodny ramp-up prędkości maksymalnej z ChaseSpeed -> ChargeSpeed
+    // ChargeRampSpeed: jak szybko dobijamy do pełnej prędkości szarży
+    [Export] public float ChargeRampSpeed {get; private set; } = 2f;
+    [Export] public float ChargeDamage { get; set; } = 20f;
+    [Export] public float ChargeKnockbackForce { get; set; } = 15f;
 
-    // maska do raycastów "czy widzę gracza"
     [Export] public uint LineOfSightMask { get; set; } = (PhysicsLayers.TERRAIN) | (PhysicsLayers.PLAYER_BODY); 
-    // 0 – świat, 1 – gracz (dobierz do swojego projektu)
 
-    // maska przeszkód do wykrywania ściany przed szarżą
     [Export] public uint ObstacleMask { get; set; } = PhysicsLayers.TERRAIN; // np. WorldStatic
+    public AnimationPlayer Animation;
+    public Area3D ChargeHitbox;
 
     private IState _currentState;
     private Dictionary<OrcStateId, IState> _states;
@@ -39,15 +42,13 @@ public partial class Orc : CharacterBody3D
 
     public override void _Ready()
     {
-        VelocityComp ??= GetNode<VelocityComponent>("VelocityComponent");
-        Pathfind ??= GetNode<PathfindComponent>("PathfindComponent");
-        Health ??= GetNode<HealthComponent>("HealthComponent");
-        Hurtbox ??= Health.Hurtbox;
-        Player = GetTree().GetFirstNodeInGroup("player") as Node3D;
+        FindNodes();
+        SetAliveStateCollisions();
 
         BaseAcceleration = VelocityComp.Acceleration;
 
         Health.EntityDied += OnEntityDied;
+        ChargeHitbox.BodyEntered += OnChargeHitboxBodyEntered;
 
         _states = new Dictionary<OrcStateId, IState>
         {
@@ -58,6 +59,18 @@ public partial class Orc : CharacterBody3D
         };
 
         ChangeState(OrcStateId.Chase);
+    }
+
+    private void FindNodes()
+    {
+        VelocityComp = GetNode<VelocityComponent>("VelocityComponent");
+        Pathfind = GetNode<PathfindComponent>("PathfindComponent");
+        Health = GetNode<HealthComponent>("HealthComponent");
+        Hurtbox = Health.Hurtbox;
+        Animation = GetNode<AnimationPlayer>("orc/AnimationPlayer");
+        ChargeHitbox = GetNode<Area3D>("ChargeHitbox");
+
+        Player = GetTree().GetFirstNodeInGroup("player") as Node3D;
     }
 
     public override void _PhysicsProcess(double delta)
@@ -83,86 +96,37 @@ public partial class Orc : CharacterBody3D
 
     private void OnEntityDied()
     {
+        SetDeadStateCollisions();
         ChangeState(OrcStateId.Dead);
     }
-    // public VelocityComponent VelocityComp {get; private set; }
-    // public PathfindComponent Pathfind {get; private set; }
-    // public HealthComponent Health {get; private set; }
-    // public HurtboxComponent Hurtbox {get; private set; }
 
-    // public Node3D Player {get; private set; }
-    // public Node3D PlayerAimTarget {get; private set; }
+    private void OnChargeHitboxBodyEntered(Node3D body)
+    {
+        if (body is Player player)
+        {
+            // Kierunek knockbacku
+            Vector3 dir = (player.GlobalPosition - GlobalPosition);
+            dir.Y = 0.01f; //lot w pionie
+            dir = dir.Normalized();
 
-    // private Dictionary<OrcStateId, IState> _states;
-    // private IState _currentState;
-    // private OrcStateId _currentId;
-    
-    // public override void _Ready()
-    // {
-    //     FindNodes();
-    //     SetAliveStateCollisions();
+            // 2) Zadaj obrażenia graczowi
+            // player.Health.TakeDamage(ChargeDamage);
 
-    //     Health.EntityDied += OnDied;
+            player.Knockback.ApplyKnockback(dir * ChargeKnockbackForce);
 
-    //     _states = new()
-    //     {
-    //         // { OrcStateId.Idle,  new OrcIdleState(this) },
-    //         { OrcStateId.Chase, new OrcChaseState(this) },
-    //         { OrcStateId.Charge, new OrcChargeState(this) },
-    //         { OrcStateId.Stop, new OrcStopState(this) },
-    //         { OrcStateId.Dead,  new OrcDeadState(this) },
-    //     };
+            ChangeState(OrcStateId.Stop);
 
-    //     ChangeState(OrcStateId.Chase);
-    // }
-    // private void OnDied()
-    // {
-    //     SetDeadStateCollisions();
+        }
+    }
 
-    //     Pathfind.Active = false;
-    //     VelocityComp.Active = false;
+    private void SetAliveStateCollisions()
+    {
+        CollisionLayer = PhysicsLayers.ENEMY_BODY;
+        CollisionMask = PhysicsLayers.ENEMY_BODY | PhysicsLayers.PLAYER_BODY | PhysicsLayers.TERRAIN;
+    }
+    private void SetDeadStateCollisions()
+    {
+        CollisionMask = PhysicsLayers.TERRAIN;
+    }
 
-    //     ChangeState(OrcStateId.Dead);
-    // }
-
-    // public void ChangeState(OrcStateId newId)
-    // {
-    //     if (newId == _currentId) return;
-
-    //     Arrow.Visible = false;
-    //     _currentState?.Exit();
-    //     _currentId = newId;
-    //     _currentState = _states[newId];
-    //     _currentState.Enter();
-    // }
-
-    // public override void _Process(double delta)
-    // {
-    //     _currentState?.Update(delta);
-    // }
-
-    // public override void _PhysicsProcess(double delta)
-    // {
-    //     _currentState?.PhysicsUpdate(delta);
-    // }
-
-    // private void FindNodes()
-    // {
-    //     VelocityComp = GetNode<VelocityComponent>("VelocityComponent");
-    //     Pathfind = GetNode<PathfindComponent>("PathfindComponent");
-    //     Health = GetNode<HealthComponent>("HealthComponent");
-
-    //     Player = GetTree().GetFirstNodeInGroup("player") as Node3D;
-    //     PlayerAimTarget = GetTree().GetFirstNodeInGroup("player_target") as Node3D;
-    // }
-
-    // private void SetAliveStateCollisions()
-    // {
-    //     CollisionLayer = PhysicsLayers.ENEMY_BODY;
-    //     CollisionMask = PhysicsLayers.ENEMY_BODY | PhysicsLayers.PLAYER_BODY | PhysicsLayers.TERRAIN;
-    // }
-    // private void SetDeadStateCollisions()
-    // {
-    //     CollisionMask = PhysicsLayers.TERRAIN;
-    // }
 }

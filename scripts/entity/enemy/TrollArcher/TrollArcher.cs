@@ -56,11 +56,22 @@ public partial class TrollArcher : CharacterBody3D
         ChangeState(TrollStateId.Chase);
     }
 
+    public override void _Process(double delta)
+    {
+        _currentState?.Update(delta);
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        _currentState?.PhysicsUpdate(delta);
+    }
+
     private void FindNodes()
     {   
         VelocityComp = GetNode<VelocityComponent>("VelocityComponent");
         Pathfind = GetNode<PathfindComponent>("PathfindComponent");
         Health = GetNode<HealthComponent>("HealthComponent");
+        Hurtbox = GetNode<HurtboxComponent>("SkeletalHurtboxComponent"); //SPRAWDZIĆ CZY NIC SIE NIE ROZJEZDZA PRZEZ KLASE;
 
         TrollAnimation = GetNode<AnimationPlayer>("troll_archer/AnimationPlayer");
         BowAnimation = GetNode<AnimationPlayer>("troll_archer/TrollArcherRig/Skeleton3D/LeftHandAttachment/bow/AnimationPlayer");
@@ -128,16 +139,6 @@ public partial class TrollArcher : CharacterBody3D
         _currentId = newId;
         _currentState = _states[newId];
         _currentState.Enter();
-    }
-
-    public override void _Process(double delta)
-    {
-        _currentState?.Update(delta);
-    }
-
-    public override void _PhysicsProcess(double delta)
-    {
-        _currentState?.PhysicsUpdate(delta);
     }
 
     public void SetSpineLookAtPlayer()

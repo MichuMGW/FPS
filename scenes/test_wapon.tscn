@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dn6qrr8su75v5"]
 
-[ext_resource type="PackedScene" uid="uid://xng3w0ck0x1s" path="res://scenes/hitbox_component.tscn" id="1_gxj2p"]
+[ext_resource type="PackedScene" uid="uid://xng3w0ck0x1s" path="res://scenes/hitbox_component_OLD.tscn" id="1_gxj2p"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_g2els"]
 size = Vector3(0.1, 1, 0.1)

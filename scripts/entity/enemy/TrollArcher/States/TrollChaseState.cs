@@ -12,7 +12,7 @@ public partial class TrollChaseState : IState
     {
         _owner.Pathfind.Active = true;
         _owner.Pathfind.SetPlayerAsTarget();
-        _owner.TrollAnimation.Play("Troll_Walk", 0.5);
+        _owner.TrollAnimation.Play("Troll_Walk", 0.5f);
     }
 
     public void Exit()
@@ -25,7 +25,6 @@ public partial class TrollChaseState : IState
         float distanceToPlayer = _owner.GlobalPosition.DistanceTo(_owner.Player.GlobalPosition);
         _owner.VelocityComp.RotateTowardsMovement((float)delta);
 
-        // Jeśli gracz jest wystarczająco blisko – przechodzimy do stanu strzelania
         if (distanceToPlayer <= _owner.ShootDistance)
         {
             _owner.ChangeState(TrollStateId.Draw);

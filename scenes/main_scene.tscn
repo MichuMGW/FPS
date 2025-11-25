@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://df4a8gudyllgr"]
 
 [ext_resource type="PackedScene" uid="uid://b32e4s8pjtxat" path="res://scenes/player.tscn" id="2_v4olh"]
-[ext_resource type="PackedScene" uid="uid://tgi3qmn8yvf5" path="res://scenes/entities/enemies/Orc.tscn" id="4_gubc5"]
+[ext_resource type="PackedScene" uid="uid://dsy504x2ofm0n" path="res://scenes/entities/enemies/Mech.tscn" id="4_gubc5"]
 [ext_resource type="PackedScene" uid="uid://beabf3asbl62a" path="res://scenes/entities/enemies/TrollArcher.tscn" id="4_pu3yx"]
 [ext_resource type="PackedScene" uid="uid://c4fn1nnwef2hm" path="res://scenes/ui.tscn" id="5_gubc5"]
 
@@ -32,14 +32,14 @@ transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("2_v4olh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.21658, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.21658, -1.86347)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_pw63i")
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="NavigationRegion3D"]
 use_collision = true
-collision_mask = 6
+collision_mask = 275
 
 [node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
@@ -60,10 +60,6 @@ size = Vector3(1, 25, 50)
 [node name="CSGBox3D9" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.23517e-08, 13, -24.5)
 size = Vector3(1, 25, 50)
-
-[node name="CSGBox3D12" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
-transform = Transform3D(-4.37114e-08, 0, 1, 1, -4.37114e-08, 4.37114e-08, 4.37114e-08, 1, 1.91069e-15, 2.23517e-08, 26, 0)
-size = Vector3(1, 50, 50)
 
 [node name="CSGBox3D10" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.23517e-08, 13, 24.5)
@@ -87,8 +83,8 @@ size = Vector3(1, 7, 16)
 
 [node name="UI" parent="." instance=ExtResource("5_gubc5")]
 
-[node name="TrollArcher2" parent="." instance=ExtResource("4_pu3yx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.676, -8.11007)
+[node name="TrollArcher" parent="." instance=ExtResource("4_pu3yx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.7274, 0.669619, -8.98802)
 
-[node name="Orc" parent="." instance=ExtResource("4_gubc5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.16461, 1.12573, -12.7678)
+[node name="Mech" parent="." instance=ExtResource("4_gubc5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.143322, 0.636191, -9.28458)

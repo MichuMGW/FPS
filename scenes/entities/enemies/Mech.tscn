@@ -1,9 +1,36 @@
-[gd_scene load_steps=6 format=3 uid="uid://dsy504x2ofm0n"]
+[gd_scene load_steps=92 format=3 uid="uid://dsy504x2ofm0n"]
 
+[ext_resource type="Script" uid="uid://b3dqbkjkxa0yx" path="res://scripts/entity/enemy/Mech/Mech.cs" id="1_4egvb"]
 [ext_resource type="PackedScene" uid="uid://b63shw0jao7f1" path="res://Assets/models/enemies/mech.glb" id="1_l00so"]
+[ext_resource type="PackedScene" uid="uid://cih3o4ppqnupc" path="res://scenes/components/health_component.tscn" id="2_7s435"]
 [ext_resource type="Texture2D" uid="uid://i73qawyt65f6" path="res://Assets/textures/entities/enemies/mech/Mech Color.png" id="2_54jsq"]
+[ext_resource type="PackedScene" uid="uid://xfch3j1ascui" path="res://scenes/entities/objects/bullet.tscn" id="2_pw1ia"]
 [ext_resource type="Texture2D" uid="uid://c32aucm2oxamy" path="res://Assets/textures/entities/enemies/mech/Mech Displacement.png" id="3_bklu3"]
+[ext_resource type="PackedScene" uid="uid://cr5ksk7os6mgb" path="res://scenes/effects/decals/GroundmarkDecal.tscn" id="3_kqfwb"]
+[ext_resource type="PackedScene" uid="uid://cskxd7ws222u7" path="res://scenes/entities/objects/rocket.tscn" id="3_n5ocl"]
 [ext_resource type="Texture2D" uid="uid://bj8pn6skhllmg" path="res://Assets/textures/entities/enemies/mech/Mech Normal.png" id="4_qptip"]
+[ext_resource type="PackedScene" uid="uid://dhvc0370yavkg" path="res://scenes/components/pathfind_component.tscn" id="4_xainl"]
+[ext_resource type="PackedScene" uid="uid://dasekhirly362" path="res://scenes/components/skeletal_hurtbox_component.tscn" id="6_n5ocl"]
+[ext_resource type="PackedScene" uid="uid://hvd2uy3wofl8" path="res://scenes/components/status_component.tscn" id="6_u1ljx"]
+[ext_resource type="PackedScene" uid="uid://hvw6gscvm54u" path="res://scenes/components/velocity_component.tscn" id="7_ll0vx"]
+[ext_resource type="Animation" uid="uid://dqwesx2ykr236" path="res://Assets/Animations/Enemies/Mech/Mech_CrouchBeforeJump.res" id="11_n87kn"]
+[ext_resource type="Animation" uid="uid://xtp7cq1d5er" path="res://Assets/Animations/Enemies/Mech/Mech_CrouchToShoot.res" id="12_6pqxc"]
+[ext_resource type="Animation" uid="uid://bmljnhfcegf64" path="res://Assets/Animations/Enemies/Mech/Mech_Die.res" id="13_y13g3"]
+[ext_resource type="Animation" uid="uid://dfb6py1wlnpn7" path="res://Assets/Animations/Enemies/Mech/Mech_Jump.res" id="14_4tj1r"]
+[ext_resource type="Animation" uid="uid://bed4sjtxn8v4n" path="res://Assets/Animations/Enemies/Mech/Mech_Land.res" id="15_pw1ia"]
+[ext_resource type="Animation" uid="uid://b8tb3kx5ldkim" path="res://Assets/Animations/Enemies/Mech/Mech_ShootBothFast.res" id="16_5aooi"]
+[ext_resource type="Animation" uid="uid://ci68do83fs3st" path="res://Assets/Animations/Enemies/Mech/Mech_ShootBothSlow.res" id="17_kqfwb"]
+[ext_resource type="Animation" uid="uid://dj6byimkt1cd0" path="res://Assets/Animations/Enemies/Mech/Mech_ShootLFast.res" id="18_n5ocl"]
+[ext_resource type="Animation" uid="uid://c666gdw5p0yw6" path="res://Assets/Animations/Enemies/Mech/Mech_ShootLSlow.res" id="19_aivtk"]
+[ext_resource type="Animation" uid="uid://xj8v56ush3x6" path="res://Assets/Animations/Enemies/Mech/Mech_ShootRFast.res" id="20_dogrm"]
+[ext_resource type="Animation" uid="uid://bqpfrdpvk2r6m" path="res://Assets/Animations/Enemies/Mech/Mech_ShootRSlow.res" id="21_jnx08"]
+[ext_resource type="Animation" uid="uid://duu2mdq46mss5" path="res://Assets/Animations/Enemies/Mech/Mech_Spin.res" id="22_xdc72"]
+[ext_resource type="Animation" uid="uid://0g1awyvtmwmr" path="res://Assets/Animations/Enemies/Mech/Mech_Walk.res" id="23_y2nai"]
+[ext_resource type="Animation" uid="uid://ugjcys75xkth" path="res://Assets/Animations/Enemies/Mech/Mech_Idle.res" id="24_t0e52"]
+[ext_resource type="Animation" uid="uid://b0onbmhv0c7of" path="res://Assets/Animations/Enemies/Mech/Mech_BurstShooting.res" id="25_6pqxc"]
+[ext_resource type="Animation" uid="uid://di87ypeadvscc" path="res://Assets/Animations/Enemies/Mech/Mech_SpinLeft.res" id="26_4tj1r"]
+[ext_resource type="Animation" uid="uid://cfnap6727go6e" path="res://Assets/Animations/Enemies/Mech/Mech_SpinRight.res" id="27_pw1ia"]
+[ext_resource type="ArrayMesh" uid="uid://dnjoxfwhwulqs" path="res://Assets/models/objects/sm_debree1.obj" id="29_5aooi"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_blpuc"]
 albedo_texture = ExtResource("2_54jsq")
@@ -12,32 +39,392 @@ normal_texture = ExtResource("4_qptip")
 heightmap_scale = 0.1
 heightmap_texture = ExtResource("3_bklu3")
 
-[node name="Mech" type="CharacterBody3D"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1v78q"]
+_data = {
+&"Mech_BurstShooting": ExtResource("25_6pqxc"),
+&"Mech_CrouchBeforeJump": ExtResource("11_n87kn"),
+&"Mech_CrouchToShoot": ExtResource("12_6pqxc"),
+&"Mech_Die": ExtResource("13_y13g3"),
+&"Mech_Idle": ExtResource("24_t0e52"),
+&"Mech_Jump": ExtResource("14_4tj1r"),
+&"Mech_Land": ExtResource("15_pw1ia"),
+&"Mech_ShootBothFast": ExtResource("16_5aooi"),
+&"Mech_ShootBothSlow": ExtResource("17_kqfwb"),
+&"Mech_ShootLFast": ExtResource("18_n5ocl"),
+&"Mech_ShootLSlow": ExtResource("19_aivtk"),
+&"Mech_ShootRFast": ExtResource("20_dogrm"),
+&"Mech_ShootRSlow": ExtResource("21_jnx08"),
+&"Mech_Spin": ExtResource("22_xdc72"),
+&"Mech_SpinLeft": ExtResource("26_4tj1r"),
+&"Mech_SpinRight": ExtResource("27_pw1ia"),
+&"Mech_Walk": ExtResource("23_y2nai")
+}
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_n87kn"]
+filters = ["MechArmature/Skeleton3D:Arm.L", "MechArmature/Skeleton3D:Arm.R", "MechArmature/Skeleton3D:Head", "MechArmature/Skeleton3D:Shoulder.L", "MechArmature/Skeleton3D:Shoulder.R"]
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_njyhw"]
+filters = ["MechArmature/Skeleton3D:Arm.L", "MechArmature/Skeleton3D:Arm.R", "MechArmature/Skeleton3D:Head", "MechArmature/Skeleton3D:Shoulder.L", "MechArmature/Skeleton3D:Shoulder.R"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4egvb"]
+animation = &"Mech_CrouchBeforeJump"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7s435"]
+animation = &"Mech_CrouchToShoot"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_omly6"]
+animation = &"Mech_Die"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_n87kn"]
+animation = &"Mech_Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xainl"]
+animation = &"Mech_Jump"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_g3fm1"]
+animation = &"Mech_Land"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xdc72"]
+animation = &"Mech_SpinLeft"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pw1ia"]
+animation = &"Mech_SpinRight"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_u1ljx"]
+animation = &"Mech_Walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_v78xy"]
+xfade_time = 0.3
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dm5w7"]
+xfade_time = 0.3
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_n87kn"]
+xfade_time = 0.7
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_y13g3"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4tj1r"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pw1ia"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5aooi"]
+xfade_time = 0.3
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6pqxc"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_aivtk"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_y2nai"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_t0e52"]
+xfade_time = 1.0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xdc72"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1v78q"]
+xfade_time = 1.0
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_pw1ia"]
+states/Mech_CrouchBeforeJump/node = SubResource("AnimationNodeAnimation_4egvb")
+states/Mech_CrouchBeforeJump/position = Vector2(556, 247)
+states/Mech_CrouchToShoot/node = SubResource("AnimationNodeAnimation_7s435")
+states/Mech_CrouchToShoot/position = Vector2(556, 76)
+states/Mech_Die/node = SubResource("AnimationNodeAnimation_omly6")
+states/Mech_Die/position = Vector2(533, 2)
+states/Mech_Idle/node = SubResource("AnimationNodeAnimation_n87kn")
+states/Mech_Idle/position = Vector2(187, 92)
+states/Mech_Jump/node = SubResource("AnimationNodeAnimation_xainl")
+states/Mech_Jump/position = Vector2(343, 247)
+states/Mech_Land/node = SubResource("AnimationNodeAnimation_g3fm1")
+states/Mech_Land/position = Vector2(120, 247)
+states/Mech_SpinLeft/node = SubResource("AnimationNodeAnimation_xdc72")
+states/Mech_SpinLeft/position = Vector2(556, 158)
+states/Mech_SpinRight/node = SubResource("AnimationNodeAnimation_pw1ia")
+states/Mech_SpinRight/position = Vector2(724, 158)
+states/Mech_Walk/node = SubResource("AnimationNodeAnimation_u1ljx")
+states/Mech_Walk/position = Vector2(333, 92)
+states/Start/position = Vector2(64, 92)
+transitions = ["Mech_Walk", "Mech_CrouchBeforeJump", SubResource("AnimationNodeStateMachineTransition_v78xy"), "Mech_Walk", "Mech_CrouchToShoot", SubResource("AnimationNodeStateMachineTransition_dm5w7"), "Mech_Land", "Mech_Walk", SubResource("AnimationNodeStateMachineTransition_n87kn"), "Mech_Walk", "Mech_Die", SubResource("AnimationNodeStateMachineTransition_y13g3"), "Mech_Die", "End", SubResource("AnimationNodeStateMachineTransition_4tj1r"), "Start", "Mech_Idle", SubResource("AnimationNodeStateMachineTransition_pw1ia"), "Mech_Idle", "Mech_Walk", SubResource("AnimationNodeStateMachineTransition_5aooi"), "Mech_CrouchBeforeJump", "Mech_Jump", SubResource("AnimationNodeStateMachineTransition_6pqxc"), "Mech_Jump", "Mech_Land", SubResource("AnimationNodeStateMachineTransition_aivtk"), "Mech_CrouchToShoot", "Mech_SpinLeft", SubResource("AnimationNodeStateMachineTransition_y2nai"), "Mech_SpinLeft", "Mech_Walk", SubResource("AnimationNodeStateMachineTransition_t0e52"), "Mech_CrouchToShoot", "Mech_SpinRight", SubResource("AnimationNodeStateMachineTransition_xdc72"), "Mech_SpinRight", "Mech_Walk", SubResource("AnimationNodeStateMachineTransition_1v78q")]
+graph_offset = Vector2(12, -92)
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4tj1r"]
+animation = &"Mech_BurstShooting"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fupvd"]
+animation = &"Mech_Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5aooi"]
+animation = &"Mech_ShootBothFast"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kqfwb"]
+animation = &"Mech_ShootBothSlow"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_n5ocl"]
+animation = &"Mech_ShootLFast"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_aivtk"]
+animation = &"Mech_ShootLSlow"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dogrm"]
+animation = &"Mech_ShootRFast"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jnx08"]
+animation = &"Mech_ShootRSlow"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_psorh"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ynuag"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dje1y"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_swsfe"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0o487"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1ugqx"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nlhvi"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mcke4"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cnskm"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_epdwo"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pu68k"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gol5v"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pyooq"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_y76tx"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dogrm"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jnx08"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kqfwb"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_n5ocl"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_xdc72"]
+states/End/position = Vector2(222, -36)
+states/Mech_BurstShooting/node = SubResource("AnimationNodeAnimation_4tj1r")
+states/Mech_BurstShooting/position = Vector2(228, 307)
+states/Mech_Idle/node = SubResource("AnimationNodeAnimation_fupvd")
+states/Mech_Idle/position = Vector2(222, 114)
+states/Mech_ShootBothFast/node = SubResource("AnimationNodeAnimation_5aooi")
+states/Mech_ShootBothFast/position = Vector2(484, -41)
+states/Mech_ShootBothSlow/node = SubResource("AnimationNodeAnimation_kqfwb")
+states/Mech_ShootBothSlow/position = Vector2(484, 37)
+states/Mech_ShootLFast/node = SubResource("AnimationNodeAnimation_n5ocl")
+states/Mech_ShootLFast/position = Vector2(484, 111)
+states/Mech_ShootLSlow/node = SubResource("AnimationNodeAnimation_aivtk")
+states/Mech_ShootLSlow/position = Vector2(484, 249)
+states/Mech_ShootRFast/node = SubResource("AnimationNodeAnimation_dogrm")
+states/Mech_ShootRFast/position = Vector2(484, 181)
+states/Mech_ShootRSlow/node = SubResource("AnimationNodeAnimation_jnx08")
+states/Mech_ShootRSlow/position = Vector2(484, 338)
+states/Start/position = Vector2(94, 114)
+transitions = ["Start", "Mech_Idle", SubResource("AnimationNodeStateMachineTransition_psorh"), "Mech_Idle", "Mech_ShootBothFast", SubResource("AnimationNodeStateMachineTransition_ynuag"), "Mech_Idle", "Mech_ShootBothSlow", SubResource("AnimationNodeStateMachineTransition_dje1y"), "Mech_Idle", "Mech_ShootLFast", SubResource("AnimationNodeStateMachineTransition_swsfe"), "Mech_Idle", "Mech_ShootLSlow", SubResource("AnimationNodeStateMachineTransition_0o487"), "Mech_Idle", "Mech_ShootRFast", SubResource("AnimationNodeStateMachineTransition_1ugqx"), "Mech_Idle", "Mech_ShootRSlow", SubResource("AnimationNodeStateMachineTransition_nlhvi"), "Mech_ShootBothFast", "Mech_Idle", SubResource("AnimationNodeStateMachineTransition_mcke4"), "Mech_ShootBothSlow", "Mech_Idle", SubResource("AnimationNodeStateMachineTransition_cnskm"), "Mech_ShootLFast", "Mech_Idle", SubResource("AnimationNodeStateMachineTransition_epdwo"), "Mech_ShootLSlow", "Mech_Idle", SubResource("AnimationNodeStateMachineTransition_pu68k"), "Mech_ShootRFast", "Mech_Idle", SubResource("AnimationNodeStateMachineTransition_gol5v"), "Mech_ShootRSlow", "Mech_Idle", SubResource("AnimationNodeStateMachineTransition_pyooq"), "Mech_Idle", "End", SubResource("AnimationNodeStateMachineTransition_y76tx"), "Mech_ShootRFast", "Mech_ShootLSlow", SubResource("AnimationNodeStateMachineTransition_dogrm"), "Mech_ShootLSlow", "Mech_ShootRFast", SubResource("AnimationNodeStateMachineTransition_jnx08"), "Mech_Idle", "Mech_BurstShooting", SubResource("AnimationNodeStateMachineTransition_kqfwb"), "Mech_BurstShooting", "Mech_Idle", SubResource("AnimationNodeStateMachineTransition_n5ocl")]
+graph_offset = Vector2(-55, -2)
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_y2nai"]
+nodes/Add2/node = SubResource("AnimationNodeAdd2_n87kn")
+nodes/Add2/position = Vector2(500, 120)
+nodes/FinalBlend/node = SubResource("AnimationNodeBlend2_njyhw")
+nodes/FinalBlend/position = Vector2(900, 40)
+nodes/Locomotion/node = SubResource("AnimationNodeStateMachine_pw1ia")
+nodes/Locomotion/position = Vector2(120, 40)
+nodes/UpperBody/node = SubResource("AnimationNodeStateMachine_xdc72")
+nodes/UpperBody/position = Vector2(120, 280)
+nodes/output/position = Vector2(720, 140)
+node_connections = [&"Add2", 0, &"Locomotion", &"Add2", 1, &"UpperBody", &"output", 0, &"Add2"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_54jsq"]
+radius = 1.37313
+height = 3.67986
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kqfwb"]
+albedo_color = Color(0.219608, 0.168627, 0.129412, 1)
+
+[sub_resource type="Curve" id="Curve_5aooi"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.093985, 0.632653), -2.24224, -2.24224, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_kqfwb"]
+curve = SubResource("Curve_5aooi")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_n5ocl"]
+particle_flag_rotate_y = true
+emission_shape = 1
+emission_sphere_radius = 0.3
+angle_min = -180.0
+angle_max = 180.0
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+radial_velocity_min = 0.999978
+radial_velocity_max = 50.0
+radial_velocity_curve = SubResource("CurveTexture_kqfwb")
+gravity = Vector3(0, -25, 0)
+linear_accel_min = 5.0
+linear_accel_max = 10.0
+scale_min = 0.3
+collision_mode = 1
+collision_friction = 0.8
+collision_bounce = 0.3
+
+[node name="Mech" type="CharacterBody3D" node_paths=PackedStringArray("LeftArmLookAt", "RightArmLookAt", "HeadLookAt")]
+script = ExtResource("1_4egvb")
+BulletScene = ExtResource("2_pw1ia")
+RocketScene = ExtResource("3_n5ocl")
+LandingDecalScene = ExtResource("3_kqfwb")
+LeftArmLookAt = NodePath("Mech/MechArmature/Skeleton3D/ArmLeftLookAt")
+RightArmLookAt = NodePath("Mech/MechArmature/Skeleton3D/ArmRightLookAt")
+HeadLookAt = NodePath("Mech/MechArmature/Skeleton3D/HeadLookAt")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("Hurtbox") instance=ExtResource("2_7s435")]
+Hurtbox = NodePath("../SkeletalHurtboxComponent")
+
+[node name="SkeletalHurtboxComponent" parent="." instance=ExtResource("6_n5ocl")]
+_armaturePath = "Mech/MechArmature/Skeleton3D"
+
+[node name="PathfindComponent" parent="." node_paths=PackedStringArray("Agent", "_velocity") instance=ExtResource("4_xainl")]
+Agent = NodePath("../NavigationAgent3D")
+_velocity = NodePath("../VelocityComponent")
+
+[node name="StatusComponent" parent="." instance=ExtResource("6_u1ljx")]
+
+[node name="VelocityComponent" parent="." node_paths=PackedStringArray("Status") instance=ExtResource("7_ll0vx")]
+Status = NodePath("../StatusComponent")
 
 [node name="Mech" parent="." instance=ExtResource("1_l00so")]
 
-[node name="Skeleton3D" parent="Mech/MechArmature" index="0"]
-bones/0/position = Vector3(0.0017848, 0.570299, 0)
-bones/0/rotation = Quaternion(0, 0, 0, 1)
-bones/1/rotation = Quaternion(0.268007, -7.67404e-27, 5.68431e-26, 0.963417)
-bones/2/position = Vector3(0.306648, 0.785784, -0.187208)
-bones/3/rotation = Quaternion(-2.59964e-08, 2.59857e-08, -0.707107, 0.707107)
-bones/4/position = Vector3(-0.306648, 0.785784, -0.187208)
-bones/5/rotation = Quaternion(-2.59857e-08, -2.59964e-08, 0.707107, 0.707107)
-bones/6/rotation = Quaternion(0.505154, 0.499973, 0.499973, -0.494846)
-bones/7/rotation = Quaternion(0.00151782, -0.00415136, 0.7076, 0.706599)
-bones/8/rotation = Quaternion(-0.956047, -1.32203e-08, -3.98404e-07, 0.293214)
-bones/9/rotation = Quaternion(0.474876, 0.001214, -0.000656381, 0.880052)
-bones/10/rotation = Quaternion(0.927705, 2.73714e-07, 1.35009e-07, -0.373315)
-bones/11/rotation = Quaternion(-0.777467, -2.93459e-07, 1.2512e-07, 0.628923)
-bones/12/rotation = Quaternion(0.505154, -0.499973, -0.499974, -0.494846)
-bones/13/rotation = Quaternion(0.00314413, 0.00576475, -0.706502, 0.707681)
-bones/14/rotation = Quaternion(-0.956047, 1.16095e-08, -7.48437e-07, 0.293214)
-bones/15/rotation = Quaternion(0.474875, 0.00121432, -0.00065627, 0.880052)
-bones/16/rotation = Quaternion(0.927703, 3.99632e-07, -1.38525e-07, -0.373318)
-bones/17/rotation = Quaternion(-0.777466, 2.53686e-07, -6.90933e-07, 0.628925)
-
 [node name="Mech" parent="Mech/MechArmature/Skeleton3D" index="0"]
 surface_material_override/0 = SubResource("StandardMaterial3D_blpuc")
+
+[node name="HeadLookAt" type="LookAtModifier3D" parent="Mech/MechArmature/Skeleton3D" index="1"]
+active = false
+bone_name = "Head"
+bone = 1
+use_secondary_rotation = false
+duration = 2.0
+ease_type = 2
+use_angle_limitation = true
+symmetry_limitation = true
+primary_limit_angle = 3.14159
+primary_damp_threshold = 1.0
+
+[node name="ArmLeftLookAt" type="LookAtModifier3D" parent="Mech/MechArmature/Skeleton3D" index="2"]
+bone_name = "Shoulder.L"
+bone = 2
+forward_axis = 0
+primary_rotation_axis = 2
+duration = 2.0
+ease_type = 3
+use_angle_limitation = true
+symmetry_limitation = false
+primary_positive_limit_angle = 1.0472
+primary_positive_damp_threshold = 1.0
+primary_negative_limit_angle = 0.349066
+primary_negative_damp_threshold = 1.0
+secondary_positive_limit_angle = 1.0472
+secondary_positive_damp_threshold = 1.0
+secondary_negative_limit_angle = 1.0472
+secondary_negative_damp_threshold = 1.0
+
+[node name="ArmRightLookAt" type="LookAtModifier3D" parent="Mech/MechArmature/Skeleton3D" index="3"]
+bone_name = "Shoulder.R"
+bone = 4
+forward_axis = 1
+primary_rotation_axis = 2
+duration = 2.0
+transition_type = 5
+ease_type = 1
+use_angle_limitation = true
+symmetry_limitation = false
+primary_positive_limit_angle = 0.349066
+primary_positive_damp_threshold = 1.0
+primary_negative_limit_angle = 1.0472
+primary_negative_damp_threshold = 1.0
+secondary_positive_limit_angle = 1.0472
+secondary_positive_damp_threshold = 1.0
+secondary_negative_limit_angle = 1.0472
+secondary_negative_damp_threshold = 1.0
+
+[node name="ArmLeftAttachment" type="BoneAttachment3D" parent="Mech/MechArmature/Skeleton3D" index="4"]
+transform = Transform3D(-1, 0, 0, 0, -4.37114e-08, 1, 0, 1, 4.37114e-08, 0.886403, 3.17528, -0.187208)
+bone_name = "Arm.L"
+bone_idx = 3
+
+[node name="LeftBarrel" type="Node3D" parent="Mech/MechArmature/Skeleton3D/ArmLeftAttachment"]
+transform = Transform3D(1, 0, 3.39406e-30, 6.31089e-30, 1, 0, 0, -7.10543e-15, 1, 0, 3.06991, -0.137459)
+
+[node name="LeftBarrelForward" type="Node3D" parent="Mech/MechArmature/Skeleton3D/ArmLeftAttachment"]
+transform = Transform3D(1, 7.45058e-09, 0, 0, 1, -9.31323e-10, 0, -9.31323e-10, 1, -0.102785, 4.38464, -0.124697)
+
+[node name="LeftLauncher" type="Node3D" parent="Mech/MechArmature/Skeleton3D/ArmLeftAttachment"]
+transform = Transform3D(1, 2.23517e-08, 5.82077e-11, 2.23517e-08, 1, -2.79397e-09, 2.32831e-10, 0, 1, -0.523062, 1.13063, 0.0109742)
+
+[node name="ArmRightAttachment" type="BoneAttachment3D" parent="Mech/MechArmature/Skeleton3D" index="5"]
+transform = Transform3D(-1, 0, 0, 0, -4.37114e-08, 1, 0, 1, 4.37114e-08, -0.886403, 3.17528, -0.187208)
+bone_name = "Arm.R"
+bone_idx = 5
+
+[node name="RightBarrel" type="Node3D" parent="Mech/MechArmature/Skeleton3D/ArmRightAttachment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, -7.10543e-15, 1, 0, 3.06991, -0.137459)
+
+[node name="RightBarrelForward" type="Node3D" parent="Mech/MechArmature/Skeleton3D/ArmRightAttachment"]
+transform = Transform3D(1, 7.45058e-09, 0, 0, 1, -9.31323e-10, 0, -9.31323e-10, 1, -0.102785, 4.38464, -0.124698)
+
+[node name="RightLauncher" type="Node3D" parent="Mech/MechArmature/Skeleton3D/ArmRightAttachment"]
+transform = Transform3D(1, 7.45058e-08, 2.32831e-10, 7.45058e-08, 1, -9.31323e-09, 8.14907e-10, 0, 1, 0.523763, 1.12919, 0.0185974)
+
+[node name="AnimationPlayer" parent="Mech" index="1"]
+libraries = {
+&"": SubResource("AnimationLibrary_1v78q")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="Mech"]
+tree_root = SubResource("AnimationNodeBlendTree_y2nai")
+anim_player = NodePath("../AnimationPlayer")
+parameters/Add2/add_amount = 1.0
+parameters/FinalBlend/blend_amount = 0.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8235, 0)
+shape = SubResource("CapsuleShape3D_54jsq")
+
+[node name="Debrees" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_kqfwb")
+emitting = false
+amount = 40
+lifetime = 4.0
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_n5ocl")
+draw_pass_1 = ExtResource("29_5aooi")
+
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+visible = false
+size = Vector3(30, 2, 30)
 
 [editable path="Mech"]

@@ -11,6 +11,7 @@ public partial class TrollDeadState : IState
     public void Enter()
     {
         _owner.DisableSpineLookAtTarget();
+        _owner.Hurtbox.Active = false;
         RotateTowardPlayer();
 
         _owner.Bow.Visible = false;
@@ -22,7 +23,7 @@ public partial class TrollDeadState : IState
         var bowAnimation = bowInstance.GetNode<AnimationPlayer>("bow/AnimationPlayer");
 
         bowAnimation.Play("Troll_Die");
-        _owner.TrollAnimation.Play("Troll_Die");
+        _owner.TrollAnimation.Play("Troll_Die", 0.3f);
     }
 
     public void Exit()

@@ -8,6 +8,18 @@ public partial class PathfindComponent : Node
     [Export] private VelocityComponent _velocity;
 
     public Node3D Target { get; set; }
+    // private bool _active;
+    // public bool Active {
+    //     get
+    //     {
+    //         return _active;
+    //     }
+    //     set
+    //     {
+    //         _active = value;
+    //         SetPhysicsProcess(value);
+    //     } 
+    // }
     public bool Active { get; set; }
     private CharacterBody3D _body; //Można tutaj dać [Export] i podpiąć w edytorze
 
