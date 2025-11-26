@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://17cuce08kbdu"]
+[gd_scene load_steps=5 format=4 uid="uid://0he3rv3q6bs8"]
 
-[ext_resource type="Texture2D" uid="uid://c2pevudjkgcup" path="res://assets/plants/fern_1_fern.png" id="1_4u0sk"]
+[ext_resource type="Texture2D" uid="uid://c2pevudjkgcup" path="res://Assets/models/environment/foliage/plants/fern_1_fern.png" id="1_4u0sk"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_edt81"]
 resource_name = "fern"
@@ -16,12 +16,12 @@ _surfaces = [{
 "aabb": AABB(-0.5, -0.433013, -1, 1, 0.866026, 1.00001),
 "format": 34896613377,
 "index_count": 18,
-"index_data": PackedByteArray(0, 0, 3, 0, 1, 0, 0, 0, 2, 0, 3, 0, 4, 0, 7, 0, 5, 0, 4, 0, 6, 0, 7, 0, 8, 0, 11, 0, 9, 0, 8, 0, 10, 0, 11, 0),
+"index_data": PackedByteArray("AAADAAEAAAACAAMABAAHAAUABAAGAAcACAALAAkACAAKAAsA"),
 "name": "fern",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 12,
-"vertex_data": PackedByteArray(0, 0, 255, 127, 254, 255, 0, 0, 255, 255, 255, 127, 254, 255, 0, 0, 0, 0, 255, 127, 0, 0, 0, 0, 255, 255, 255, 127, 0, 0, 0, 0, 255, 191, 254, 255, 254, 255, 0, 0, 255, 63, 0, 0, 254, 255, 0, 0, 255, 191, 254, 255, 0, 0, 0, 0, 255, 63, 0, 0, 0, 0, 0, 0, 255, 191, 0, 0, 254, 255, 0, 0, 255, 63, 255, 255, 254, 255, 0, 0, 255, 191, 0, 0, 0, 0, 0, 0, 255, 63, 254, 255, 0, 0, 0, 0)
+"vertex_data": PackedByteArray("AAD/f/7/AAD///9//v8AAAAA/38AAAAA////fwAAAAD/v/7//v8AAP8/AAD+/wAA/7/+/wAAAAD/PwAAAAAAAP+/AAD+/wAA/z////7/AAD/vwAAAAAAAP8//v8AAAAA")
 }]
 blend_shape_mode = 0
 
@@ -29,16 +29,16 @@ blend_shape_mode = 0
 resource_name = "fern_2_Plane_015"
 _surfaces = [{
 "aabb": AABB(-0.5, -0.433013, -1, 1, 0.866026, 1.00001),
-"attribute_data": PackedByteArray(0, 0, 255, 255, 255, 255, 255, 255, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 255, 255, 255, 255, 255, 255, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 255, 255, 255, 255, 255, 255, 0, 0, 0, 0, 255, 255, 0, 0),
+"attribute_data": PackedByteArray("AAD///////8AAAAA//8AAAAA////////AAAAAP//AAAAAP///////wAAAAD//wAA"),
 "format": 34896613399,
 "index_count": 18,
-"index_data": PackedByteArray(0, 0, 3, 0, 1, 0, 0, 0, 2, 0, 3, 0, 4, 0, 7, 0, 5, 0, 4, 0, 6, 0, 7, 0, 8, 0, 11, 0, 9, 0, 8, 0, 10, 0, 11, 0),
+"index_data": PackedByteArray("AAADAAEAAAACAAMABAAHAAUABAAGAAcACAALAAkACAAKAAsA"),
 "material": SubResource("StandardMaterial3D_edt81"),
 "name": "fern",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 12,
-"vertex_data": PackedByteArray(0, 0, 255, 127, 254, 255, 255, 191, 255, 255, 255, 127, 254, 255, 255, 191, 0, 0, 255, 127, 0, 0, 255, 191, 255, 255, 255, 127, 0, 0, 255, 191, 255, 191, 254, 255, 254, 255, 140, 226, 255, 63, 0, 0, 254, 255, 140, 226, 255, 191, 254, 255, 0, 0, 140, 226, 255, 63, 0, 0, 0, 0, 140, 226, 255, 191, 0, 0, 254, 255, 140, 226, 255, 63, 255, 255, 254, 255, 140, 226, 255, 191, 0, 0, 0, 0, 140, 226, 255, 63, 254, 255, 0, 0, 140, 226, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 171, 156, 85, 78, 171, 156, 85, 78, 171, 156, 85, 78, 171, 156, 85, 78, 85, 206, 82, 227, 85, 206, 82, 227, 85, 206, 82, 227, 85, 206, 82, 227)
+"vertex_data": PackedByteArray("AAD/f/7//7////9//v//vwAA/38AAP+/////fwAA/7//v/7//v+M4v8/AAD+/4zi/7/+/wAAjOL/PwAAAACM4v+/AAD+/4zi/z////7/jOL/vwAAAACM4v8//v8AAIzi////f////3////9/////f6ucVU6rnFVOq5xVTqucVU5VzlLjVc5S41XOUuNVzlLj")
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_ab5y3")

@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=4 uid="uid://bic5opvn57ipw"]
 
-[ext_resource type="Texture2D" uid="uid://fdpk8r5jw1yj" path="res://assets/trees/tree_2_vegetation_tree_bark_64x64_80.png" id="2_n1vma"]
-[ext_resource type="Texture2D" uid="uid://cw278bli3wc6k" path="res://assets/trees/tree_2_tree_branch_2_128x128.png" id="3_mr4h5"]
+[ext_resource type="Texture2D" uid="uid://fdpk8r5jw1yj" path="res://Assets/models/environment/foliage/trees/tree_2_vegetation_tree_bark_64x64_80.png" id="2_n1vma"]
+[ext_resource type="Texture2D" uid="uid://cw278bli3wc6k" path="res://Assets/models/environment/foliage/trees/tree_2_tree_branch_2_128x128.png" id="3_mr4h5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1hm03"]
 resource_name = "Material.004"

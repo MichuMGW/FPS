@@ -284,7 +284,7 @@ public partial class Mech : CharacterBody3D
             // priorytet: Gun częściej niż Rocket
             if (CanUseGun())
             {
-                // szansa na rakietę zamiast guna
+                // szansa na rakietę zamiast pocisków
                 float roll = _rng.Randf();
                 if (CanUseRocket() && roll < 0.25f)
                     ChangeAttackState(MechAttackStateId.RocketVolley);

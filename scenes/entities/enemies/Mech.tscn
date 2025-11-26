@@ -1,4 +1,4 @@
-[gd_scene load_steps=92 format=3 uid="uid://dsy504x2ofm0n"]
+[gd_scene load_steps=91 format=3 uid="uid://dsy504x2ofm0n"]
 
 [ext_resource type="Script" uid="uid://b3dqbkjkxa0yx" path="res://scripts/entity/enemy/Mech/Mech.cs" id="1_4egvb"]
 [ext_resource type="PackedScene" uid="uid://b63shw0jao7f1" path="res://Assets/models/enemies/mech.glb" id="1_l00so"]
@@ -61,9 +61,6 @@ _data = {
 }
 
 [sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_n87kn"]
-filters = ["MechArmature/Skeleton3D:Arm.L", "MechArmature/Skeleton3D:Arm.R", "MechArmature/Skeleton3D:Head", "MechArmature/Skeleton3D:Shoulder.L", "MechArmature/Skeleton3D:Shoulder.R"]
-
-[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_njyhw"]
 filters = ["MechArmature/Skeleton3D:Arm.L", "MechArmature/Skeleton3D:Arm.R", "MechArmature/Skeleton3D:Head", "MechArmature/Skeleton3D:Shoulder.L", "MechArmature/Skeleton3D:Shoulder.R"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4egvb"]
@@ -245,8 +242,6 @@ graph_offset = Vector2(-55, -2)
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_y2nai"]
 nodes/Add2/node = SubResource("AnimationNodeAdd2_n87kn")
 nodes/Add2/position = Vector2(500, 120)
-nodes/FinalBlend/node = SubResource("AnimationNodeBlend2_njyhw")
-nodes/FinalBlend/position = Vector2(900, 40)
 nodes/Locomotion/node = SubResource("AnimationNodeStateMachine_pw1ia")
 nodes/Locomotion/position = Vector2(120, 40)
 nodes/UpperBody/node = SubResource("AnimationNodeStateMachine_xdc72")
@@ -316,6 +311,28 @@ Status = NodePath("../StatusComponent")
 
 [node name="Mech" parent="." instance=ExtResource("1_l00so")]
 
+[node name="Skeleton3D" parent="Mech/MechArmature" index="0"]
+bones/0/position = Vector3(0, 0.641346, 0)
+bones/2/position = Vector3(0.306648, 0.785784, -0.187208)
+bones/3/rotation = Quaternion(-1.54543e-08, 1.54543e-08, -0.707107, 0.707107)
+bones/4/position = Vector3(-0.306648, 0.785784, -0.187208)
+bones/5/rotation = Quaternion(-1.54543e-08, -1.54543e-08, 0.707107, 0.707107)
+bones/6/rotation = Quaternion(0.505154, 0.499973, 0.499973, -0.494846)
+bones/7/rotation = Quaternion(-0.0181149, -0.025398, 0.706613, 0.706912)
+bones/8/rotation = Quaternion(-0.946523, -1.11122e-08, -8.12762e-08, 0.322637)
+bones/9/rotation = Quaternion(0.473105, -2.96274e-08, 8.22554e-09, 0.881006)
+bones/10/rotation = Quaternion(0.906124, -1.11269e-07, -4.11638e-08, -0.423012)
+bones/11/position = Vector3(-7.82438e-08, 0.472846, -0.167727)
+bones/11/rotation = Quaternion(-0.721631, -1.52652e-07, 2.47092e-08, 0.692278)
+bones/12/rotation = Quaternion(0.505154, -0.499973, -0.499974, -0.494846)
+bones/13/position = Vector3(-0.189372, 0.462268, 0.242407)
+bones/13/rotation = Quaternion(-0.0181155, 0.0253986, -0.706613, 0.706912)
+bones/14/rotation = Quaternion(-0.946523, 1.10222e-08, 8.13633e-08, 0.322637)
+bones/15/rotation = Quaternion(0.473106, -1.88723e-08, -3.94433e-08, 0.881006)
+bones/16/rotation = Quaternion(0.906124, -2.36976e-07, -8.12745e-08, -0.423013)
+bones/17/position = Vector3(1.57614e-07, 0.472846, -0.167727)
+bones/17/rotation = Quaternion(-0.72163, -1.20787e-08, -3.87512e-07, 0.692279)
+
 [node name="Mech" parent="Mech/MechArmature/Skeleton3D" index="0"]
 surface_material_override/0 = SubResource("StandardMaterial3D_blpuc")
 
@@ -369,7 +386,7 @@ secondary_negative_limit_angle = 1.0472
 secondary_negative_damp_threshold = 1.0
 
 [node name="ArmLeftAttachment" type="BoneAttachment3D" parent="Mech/MechArmature/Skeleton3D" index="4"]
-transform = Transform3D(-1, 0, 0, 0, -4.37114e-08, 1, 0, 1, 4.37114e-08, 0.886403, 3.17528, -0.187208)
+transform = Transform3D(-1, 0, 0, 0, -4.37114e-08, 1, 0, 1, 4.37114e-08, 0.886403, 2.04861, -0.187208)
 bone_name = "Arm.L"
 bone_idx = 3
 
@@ -383,7 +400,7 @@ transform = Transform3D(1, 7.45058e-09, 0, 0, 1, -9.31323e-10, 0, -9.31323e-10, 
 transform = Transform3D(1, 2.23517e-08, 5.82077e-11, 2.23517e-08, 1, -2.79397e-09, 2.32831e-10, 0, 1, -0.523062, 1.13063, 0.0109742)
 
 [node name="ArmRightAttachment" type="BoneAttachment3D" parent="Mech/MechArmature/Skeleton3D" index="5"]
-transform = Transform3D(-1, 0, 0, 0, -4.37114e-08, 1, 0, 1, 4.37114e-08, -0.886403, 3.17528, -0.187208)
+transform = Transform3D(-1, 0, 0, 0, -4.37114e-08, 1, 0, 1, 4.37114e-08, -0.886403, 2.04861, -0.187208)
 bone_name = "Arm.R"
 bone_idx = 5
 
@@ -405,7 +422,6 @@ libraries = {
 tree_root = SubResource("AnimationNodeBlendTree_y2nai")
 anim_player = NodePath("../AnimationPlayer")
 parameters/Add2/add_amount = 1.0
-parameters/FinalBlend/blend_amount = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8235, 0)

@@ -9,7 +9,7 @@ size = Vector3(0.04, 0.04, 1)
 albedo_color = Color(1, 1, 0.403922, 1)
 emission_enabled = true
 emission = Color(1, 1, 0, 1)
-emission_energy_multiplier = 3.0
+emission_energy_multiplier = 10.0
 
 [node name="Bullet" type="Node3D"]
 script = ExtResource("1_4elk3")
