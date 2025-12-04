@@ -7,8 +7,8 @@ public partial class SkeletonSummoner : CharacterBody3D
     [Export] public PackedScene SkeletonScene {get; private set;}
     [Export] public int QuantityToSpawn {get; set; } = 3;
     // rozmiar "bańki" sprawdzającej, czy nie wchodzimy w ścianę / innego moba
-    [Export] public float SpawnCheckRadius { get; set; } = 0.6f;
-    [Export] public float MinSummonRadius { get; set; } = 2.0f;
+    [Export] public float SpawnCheckRadius { get; set; } = 0.5f;
+    [Export] public float MinSummonRadius { get; set; } = 1.0f;
     [Export] public float MaxSummonRadius { get; set; } = 4.0f;
      // wysokość z której rzucamy raycast w dół
     [Export] public float RaycastHeight { get; set; } = 5.0f;
@@ -74,6 +74,7 @@ public partial class SkeletonSummoner : CharacterBody3D
 
     public void SummonSkeletons()
     {
+        GD.Print("[Summoner] Summoning skeletons...");
         if (SkeletonScene == null)
         {
             GD.PrintErr("MinionScene is null on SummonerEnemy!");

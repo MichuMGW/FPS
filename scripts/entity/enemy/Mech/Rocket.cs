@@ -244,8 +244,6 @@ public partial class Rocket : CharacterBody3D
 
         _hitbox.Active = true;
 
-        // Tu możesz zgasić mesh rakiety / odpalić particle itd.
-
         // Po ExplosionDuration sprzątamy całą scenę rakiety (wraz z hitboxem)
         GD.Print("EXPLODE");
         GetTree().CreateTimer(ExplosionDuration).Timeout += () =>

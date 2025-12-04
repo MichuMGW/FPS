@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://tgi3qmn8yvf5"]
+[gd_scene load_steps=20 format=3 uid="uid://bp6enwwi2ns1h"]
 
 [ext_resource type="Script" uid="uid://d36qtobm17dbo" path="res://scripts/entity/enemy/Orc/Orc.cs" id="1_j7irp"]
 [ext_resource type="PackedScene" uid="uid://2532s3mxhgc6" path="res://Assets/models/enemies/orc.glb" id="1_wxk4a"]
@@ -51,6 +51,21 @@ Health = NodePath("HealthComponent")
 Hurtbox = NodePath("SkeletalHurtboxComponent")
 ChargeMinDistance = 0.0
 ChargeKnockbackForce = 40.0
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("Hurtbox") instance=ExtResource("4_c4vur")]
+Hurtbox = NodePath("../SkeletalHurtboxComponent")
+
+[node name="SkeletalHurtboxComponent" parent="." instance=ExtResource("7_5lqbp")]
+_armaturePath = "orc/OrcArmature/Skeleton3D"
+
+[node name="PathfindComponent" parent="." node_paths=PackedStringArray("Agent", "_velocity") instance=ExtResource("6_j7irp")]
+Agent = NodePath("../NavigationAgent3D")
+_velocity = NodePath("../VelocityComponent")
+
+[node name="StatusComponent" parent="." instance=ExtResource("7_5x8eq")]
+
+[node name="VelocityComponent" parent="." node_paths=PackedStringArray("Status") instance=ExtResource("8_5lqbp")]
+Status = NodePath("../StatusComponent")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
@@ -205,21 +220,6 @@ bone_idx = 22
 [node name="CollisionShape3D" type="CollisionShape3D" parent="orc/OrcArmature/Skeleton3D/ForearmRightAttachment/HurtboxArea"]
 transform = Transform3D(1, 0, -1.49012e-08, 0, 1, -2.98023e-07, -2.23517e-07, 3.57628e-07, 0.999999, -0.00361133, 0.20651, 0.0294112)
 shape = SubResource("BoxShape3D_nhwux")
-
-[node name="HealthComponent" parent="." node_paths=PackedStringArray("Hurtbox") instance=ExtResource("4_c4vur")]
-Hurtbox = NodePath("../SkeletalHurtboxComponent")
-
-[node name="SkeletalHurtboxComponent" parent="." instance=ExtResource("7_5lqbp")]
-_armaturePath = "orc/OrcArmature/Skeleton3D"
-
-[node name="PathfindComponent" parent="." node_paths=PackedStringArray("Agent", "_velocity") instance=ExtResource("6_j7irp")]
-Agent = NodePath("../NavigationAgent3D")
-_velocity = NodePath("../VelocityComponent")
-
-[node name="StatusComponent" parent="." instance=ExtResource("7_5x8eq")]
-
-[node name="VelocityComponent" parent="." node_paths=PackedStringArray("Status") instance=ExtResource("8_5lqbp")]
-Status = NodePath("../StatusComponent")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)

@@ -98,8 +98,8 @@ public partial class Mech : CharacterBody3D
         // ChangeSuperState(MechSuperStateId.Normal);
         // ChangeMoveState(MechMoveStateId.ChasePlayer);
         // ChangeAttackState(MechAttackStateId.None);
-        ChangeMoveState(MechMoveStateId.Idle);
-        ChangeAttackState(MechAttackStateId.RocketVolley);
+        ChangeMoveState(MechMoveStateId.ChasePlayer);
+        ChangeAttackState(MechAttackStateId.None);
         ChangeSuperState(MechSuperStateId.Normal);
     }
 
@@ -290,7 +290,7 @@ public partial class Mech : CharacterBody3D
                     ChangeAttackState(MechAttackStateId.RocketVolley);
                 else
                     // ChangeAttackState(MechAttackStateId.GunBurst);
-                    ChangeAttackState(MechAttackStateId.RocketVolley);
+                    ChangeAttackState(MechAttackStateId.GunBurst);
             }
         }
     }

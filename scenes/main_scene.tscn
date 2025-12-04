@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://df4a8gudyllgr"]
+[gd_scene load_steps=8 format=3 uid="uid://df4a8gudyllgr"]
 
 [ext_resource type="PackedScene" uid="uid://b32e4s8pjtxat" path="res://scenes/player.tscn" id="2_v4olh"]
 [ext_resource type="PackedScene" uid="uid://dsy504x2ofm0n" path="res://scenes/entities/enemies/Mech.tscn" id="4_gubc5"]
-[ext_resource type="PackedScene" uid="uid://beabf3asbl62a" path="res://scenes/entities/enemies/TrollArcher.tscn" id="4_pu3yx"]
 [ext_resource type="PackedScene" uid="uid://c4fn1nnwef2hm" path="res://scenes/ui.tscn" id="5_gubc5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_44jsn"]
@@ -83,8 +82,4 @@ size = Vector3(1, 7, 16)
 
 [node name="UI" parent="." instance=ExtResource("5_gubc5")]
 
-[node name="TrollArcher" parent="." instance=ExtResource("4_pu3yx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.7274, 0.669619, -8.98802)
-
 [node name="Mech" parent="." instance=ExtResource("4_gubc5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.143322, 0.636191, -9.28458)

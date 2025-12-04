@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dw5ay5wq1lq5f"]
+[gd_scene load_steps=20 format=3 uid="uid://crf3ekm0kijwl"]
 
 [ext_resource type="PackedScene" uid="uid://drtc68o87at8y" path="res://Assets/models/enemies/skeleton.glb" id="1_15cp8"]
 [ext_resource type="Script" uid="uid://bf4risfyy0n5o" path="res://scripts/entity/enemy/Skeleton/Skeleton.cs" id="1_nlrb0"]
@@ -48,9 +48,11 @@ script = ExtResource("1_nlrb0")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
-[node name="HealthComponent" parent="." instance=ExtResource("2_v6i2b")]
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("Hurtbox") instance=ExtResource("2_v6i2b")]
+Hurtbox = NodePath("../SkeletalHurtboxComponent")
 
 [node name="SkeletalHurtboxComponent" parent="." instance=ExtResource("3_ktnt5")]
+_armaturePath = "skeleton/SkeletonRig/Skeleton3D"
 
 [node name="PathfindComponent" parent="." node_paths=PackedStringArray("Agent", "_velocity") instance=ExtResource("4_ktnt5")]
 Agent = NodePath("../NavigationAgent3D")
