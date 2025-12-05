@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://crf3ekm0kijwl"]
+[gd_scene load_steps=7 format=3 uid="uid://c02fqaopbf45h"]
 
 [ext_resource type="PackedScene" uid="uid://drtc68o87at8y" path="res://Assets/models/enemies/skeleton.glb" id="1_aefks"]
 [ext_resource type="Texture2D" uid="uid://bhw310feyqim5" path="res://Assets/textures/entities/enemies/skeleton/Skeleton Color.png" id="2_hukom"]

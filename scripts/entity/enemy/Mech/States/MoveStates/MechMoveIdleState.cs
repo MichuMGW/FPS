@@ -13,7 +13,6 @@ public class MechMoveIdleState : IState
     {
         _owner.Pathfind.Active = false;
         _owner.VelocityComp.SetDesiredDirection(Vector3.Zero);
-        // _owner.VelocityComp.DecelerateToZero(0.1f);
         _owner.PlayLocomotion("Mech_Idle");
     }
 

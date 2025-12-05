@@ -16,7 +16,7 @@ public class OrcChaseState : IState
 
         _owner.Pathfind.Active = true;
         _owner.VelocityComp.MaxSpeed = _owner.ChaseSpeed;
-        _owner.Animation.Play("Orc_SlowRun",0.3f);
+        _owner.Animation.Play("Orc_SlowRun", 0.3f);
     }
 
     public void Exit()
@@ -60,22 +60,20 @@ public class OrcChaseState : IState
         if (horizontalToPlayer.LengthSquared() < 0.001f)
             return false;
 
-        // FOV – czy gracz jest mniej więcej przed Orciem
+        // FOV - czy gracz jest mniej więcej przed Orciem
         Vector3 desiredDir = horizontalToPlayer.Normalized();
-        Vector3 forward = _owner.GlobalTransform.Basis.Z; // zależnie od modelu, czasem +Z
+        Vector3 forward = _owner.GlobalTransform.Basis.Z;
 
         float dot = desiredDir.Dot(forward);
         if (dot < _owner.ChargeFovDotThreshold)
             return false;
 
-        // Line of Sight – raycast do gracza
+        // Sprawdzenie, czy gracz znajduje się w prostej linii z pozycji przeciwnika
         var space = _owner.GetWorld3D().DirectSpaceState;
         Vector3 from = _owner.GlobalPosition + Vector3.Up * 1f;
         Vector3 to = _owner.Player.GlobalPosition + Vector3.Up * 1f;
-
         var query = PhysicsRayQueryParameters3D.Create(from, to);
         query.Exclude = new Godot.Collections.Array<Rid> { _owner.GetRid() };
-        
         query.CollisionMask = _owner.LineOfSightMask; // świat + gracz
 
         var result = space.IntersectRay(query);
@@ -86,7 +84,6 @@ public class OrcChaseState : IState
         if (collider == null)
             return false;
 
-        // jeśli pierwszym trafieniem jest gracz -> mamy czystą linię
         return collider.IsInGroup("player");
     }
 }

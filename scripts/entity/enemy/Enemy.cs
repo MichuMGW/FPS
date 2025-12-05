@@ -63,7 +63,7 @@ public abstract partial class Enemy<TState> : CharacterBody3D where TState : Enu
 
     protected virtual void OnEntityDied()
     {
-        // Domyślnie próbujemy przejść do Dead, jeżeli istnieje
+
         if (_states.ContainsKey((TState)(object)Enum.Parse(typeof(TState), "Dead")))
         {
             ChangeState((TState)(object)Enum.Parse(typeof(TState), "Dead"));

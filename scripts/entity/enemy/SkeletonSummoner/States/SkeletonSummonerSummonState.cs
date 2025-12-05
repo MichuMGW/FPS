@@ -11,7 +11,7 @@ public class SkeletonSummonerSummonState : IState
 
     public void Enter()
     {
-        //Podpowiedz z copilota, pewnie tak bede robił dźwięki
+        // TODO: Implementacja dźwięków za pośrednictwem AudioManager
         // GetTree().CallGroup("AudioManager", "PlaySound", "SkeletonSummon");
         _owner.GetTree().CreateTimer(0.6f).Timeout += _owner.SummonSkeletons;
         _owner.Animation.Play("SkeletonSummoner_Summon", 0.3f);

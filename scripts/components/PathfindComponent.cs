@@ -8,20 +8,8 @@ public partial class PathfindComponent : Node
     [Export] private VelocityComponent _velocity;
 
     public Node3D Target { get; set; }
-    // private bool _active;
-    // public bool Active {
-    //     get
-    //     {
-    //         return _active;
-    //     }
-    //     set
-    //     {
-    //         _active = value;
-    //         SetPhysicsProcess(value);
-    //     } 
-    // }
     public bool Active { get; set; }
-    private CharacterBody3D _body; //Można tutaj dać [Export] i podpiąć w edytorze
+    private CharacterBody3D _body;
 
     public override void _Ready()
     {
@@ -43,14 +31,12 @@ public partial class PathfindComponent : Node
 
         Agent.TargetPosition = Target.GlobalPosition;
 
-        // jeżeli jesteśmy już blisko celu – hamujemy
         if (_body.GlobalPosition.DistanceTo(Agent.TargetPosition) <= TargetReachedThreshold)
         {
             _velocity.SetDesiredDirection(Vector3.Zero);
             return;
         }
 
-        // następny punkt ścieżki
         Vector3 nextPathPoint = Agent.GetNextPathPosition();
         Vector3 toNext = nextPathPoint - _body.GlobalPosition;
         toNext.Y = 0;

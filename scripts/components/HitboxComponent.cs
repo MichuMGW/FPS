@@ -4,7 +4,8 @@ using System.Collections.Generic;
 public partial class HitboxComponent : Area3D, IDamageSource
 {
     [Export] public float Damage { get; set; } = 20f;
-    [Export] public Element DamageType { get; set; } = Element.Fire;
+    [Export] public Element DamageType { get; set; } = Element.None;
+    // Czas między kolejnymi obrażeniami pochodzącymi od tego samego źródła
     [Export] public float RehitCooldownSeconds { get; set; } = 0f;
     [Export] public bool OneShot { get; set; } = false;
     private bool _active;
@@ -16,7 +17,6 @@ public partial class HitboxComponent : Area3D, IDamageSource
             _active = value;
             SetDeferred("monitoring", value);
             SetDeferred("monitorable", value);
-            // SetPhysicsProcess(value);
         }
     } 
 

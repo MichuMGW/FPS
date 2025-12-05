@@ -10,6 +10,8 @@ public partial class Skeleton : CharacterBody3D
     public HurtboxComponent Hurtbox {get; private set; }
     public AnimationPlayer Animation {get; private set; }
     public Node3D Player {get; private set; }
+
+    //TODO: Zastąpić AttackHitbox -> HitboxComponent
     public Area3D AttackHitbox {get; set;}
     public float AttackDistance {get; set;} = 2f;
     [Export] public float Speed {get; set;} = 10f;
@@ -27,7 +29,6 @@ public partial class Skeleton : CharacterBody3D
         VelocityComp.MaxSpeed = Speed;
 
         Health.EntityDied += OnEntityDied;
-        AttackHitbox.AreaEntered += OnAttackHitboxAreaEntered;
 
         _states = new Dictionary<SkeletonStateId, IState>
         {
@@ -39,12 +40,6 @@ public partial class Skeleton : CharacterBody3D
 
         ChangeState(SkeletonStateId.Spawn);
     }
-
-    private void OnAttackHitboxAreaEntered(Area3D area)
-    {
-        //Obsługa obrażeń u gracza. Można to wjebac jako hitoxComponent
-    }
-
 
     private void FindNodes()
     {
@@ -89,19 +84,17 @@ public partial class Skeleton : CharacterBody3D
     {
         if (!Animation.HasAnimation(animName))
         {
-            GD.PrintErr($"Animation {animName} not found!");
             return;
         }
 
         Animation.Play(animName, 0.3f);
 
-        // Losowa faza animacji (offset w czasie)
         float length = Animation.GetAnimation(animName).Length;
         if(randomizeTime) {
             var randomTime = _rng.RandfRange(0f, length);
             Animation.Seek(randomTime, true);
         }
-        // Różnica w prędkości
+
         Animation.SpeedScale = _rng.RandfRange(0.9f, 1.1f);
     }
 

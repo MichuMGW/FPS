@@ -9,7 +9,7 @@ public class MechAttackNoneState : IState
         _owner = owner;
     }
 
-    public void Enter() { GD.Print("Enter ATTACK_NONE State"); }
+    public void Enter() { }
 
     public void Exit() { }
 

@@ -39,10 +39,7 @@ public partial class TrollDeadState : IState
         _owner.LookAt(targetPos, Vector3.Up, true);
     }
 
-    public void PhysicsUpdate(double delta)
-    {
-        //Tutaj dodać kod który będzie usuwał ciało zależnie od odległości od gracza
-    }
+    public void PhysicsUpdate(double delta){}
 
     public void Update(double delta){}
 }

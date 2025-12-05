@@ -61,7 +61,7 @@ public partial class StatusComponent : Node
 			GD.Print("Slowed");
 		}
 		if (firstElement == Element.Earth || secondElement == Element.Earth){
-			//dodać obsługę stunów
+			//TODO: dodać obsługę ogłuszeń
 			EmitSignal(nameof(Stunned), true);
 			GD.Print("Stunned");
 		}

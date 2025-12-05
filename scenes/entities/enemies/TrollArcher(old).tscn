@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bkeed28o4855u"]
+[gd_scene load_steps=32 format=3 uid="uid://bh2k0aaoumxde"]
 
 [ext_resource type="PackedScene" uid="uid://kssvu80euykd" path="res://Assets/models/enemies/troll_archer.glb" id="1_f0fa2"]
 [ext_resource type="Script" uid="uid://c8sricxnxcwy5" path="res://scripts/entity/enemy/TrollArcher/TrollArcher.cs" id="1_pkcri"]

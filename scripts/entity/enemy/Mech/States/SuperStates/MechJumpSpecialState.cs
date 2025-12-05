@@ -111,7 +111,7 @@ public class MechJumpSpecialState : IState
                     _owner.LookAt(_owner.Player.GlobalPosition, Vector3.Up, true);
 
                     _owner.PlayLocomotion("Mech_Land");
-                    _owner.DebreesPrtcl.Emitting = true;
+                    _owner.DebreesParticles.Emitting = true;
                     SpawnDecal();
                 }
                 break;
@@ -143,12 +143,9 @@ public class MechJumpSpecialState : IState
         var tween = _owner.CreateTween();
 
         indicator.GlobalPosition = position;
-        GD.Print("Indicator position: " + indicator.GlobalPosition);
-        GD.Print("Player position: " + _owner.Player.GlobalPosition);
         var newScale = _owner.LandingDamageRadius;
 
         tween.TweenProperty(indicator, "scale", new Vector3(newScale, newScale, newScale), PrepareToLandDuration);
-        // tween.TweenProperty(indicator, "height", _owner.LandingDamageRadius * 2, PrepareToLandDuration);
         tween.TweenCallback(Callable.From(indicator.QueueFree));
     }
 

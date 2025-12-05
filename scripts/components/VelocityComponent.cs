@@ -144,8 +144,8 @@ public partial class VelocityComponent : Node
             _body.Velocity = Vector3.Zero;
     }
 
-    //TA FUNKCJA POWINNA BYĆ W INTERFEJSIE, NP. IStats
-     private void RecalculateStats()
+    //Rozważyć implementacje przy użyciu interfejsu IStats
+    private void RecalculateStats()
     {
         MaxSpeed = _baseMaxSpeed * _slowMultiplier;
 
@@ -153,15 +153,16 @@ public partial class VelocityComponent : Node
         Deceleration = _baseDeceleration * _slowMultiplier;
     }
 
-    //DO WERYFIKACJI
-    private void OnSlowStarted(float slowAmount){
-         slowAmount = Mathf.Clamp(slowAmount, 0f, 1f);
+    //TODO: Zweryfikować czy działa poprawnie po dodaniu wielu efektów spowolnienia
+    private void OnSlowStarted(float slowAmount)
+    {
+        slowAmount = Mathf.Clamp(slowAmount, 0f, 1f);
         _slowMultiplier = 1f - slowAmount;
         RecalculateStats();
     }
 
-    private void OnSlowEnded(){
-        GD.Print("SLOW ENDED");
+    private void OnSlowEnded()
+    {
         _slowMultiplier = 1f;
         RecalculateStats();
     }

@@ -3,7 +3,6 @@ using Godot;
 public class MechRocketVolleyState : IState
 {
     private readonly Mech _owner;
-
     private int _rocketsLeft;
     private float _timer;
     private bool _nextLeft = true;
@@ -18,7 +17,6 @@ public class MechRocketVolleyState : IState
 
     public void Enter()
     {
-        GD.Print("Enter ROCKET State");
         _rocketsLeft = RocketsPerVolley;
         _timer = 0f;
         _owner.ResetRocketCooldown();

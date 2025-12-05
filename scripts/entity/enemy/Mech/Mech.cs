@@ -23,7 +23,7 @@ public partial class Mech : CharacterBody3D
     private Node3D _rightBarrel;
     private Node3D _leftLauncher;
     private Node3D _rightLauncher;
-    public GpuParticles3D DebreesPrtcl {get; set; }
+    public GpuParticles3D DebreesParticles {get; set; }
     
     
 
@@ -31,14 +31,14 @@ public partial class Mech : CharacterBody3D
     [Export] public float CircleRadius = 10f;
     [Export] public float CircleAngularSpeed = 1.2f;
 
-    [Export] public float GunAttackCooldown = 2.0f;
-    [Export] public float RocketAttackCooldown = 6.0f;
-    [Export] public float JumpSpecialCooldown = 30.0f;
-    [Export] public float SpinSpecialCooldown = 30.0f;
+    [Export] public float GunCooldown = 2.0f;
+    [Export] public float RocketCooldown = 6.0f;
+    [Export] public float JumpCooldown = 30.0f;
+    [Export] public float SpinCooldown = 30.0f;
 
     [Export] public float LandingDamageRadius = 20.0f;
 
-     // ---------- FSM: SUPER ----------
+     // ---------- FSM: SUPERSTATES ----------
     public MechSuperStateId CurrentSuperStateId { get; private set; }
     private IState _currentSuperState;
     private Dictionary<MechSuperStateId, IState> _superStates;
@@ -53,9 +53,6 @@ public partial class Mech : CharacterBody3D
     private IState _currentAttackState;
     private Dictionary<MechAttackStateId, IState> _attackStates;
 
-
-    // [Export] public float Speed {get; set;} = 10f;
-
     [Export] public LookAtModifier3D LeftArmLookAt { get; set; }
     [Export] public LookAtModifier3D RightArmLookAt { get; set; }
     [Export] public LookAtModifier3D HeadLookAt { get; set; }
@@ -66,14 +63,13 @@ public partial class Mech : CharacterBody3D
         set
         {
             _lookAtActive = value;
-            // SetLookAtModifiers(value);
         }
     }
     [Export] public float LookAtInfluenceSpeed { get; set; } = 4f;
-    private float _gunCooldown;
-    private float _rocketCooldown;
-    private float _jumpCooldown;
-    private float _spinCooldown;
+    private float _currentGunCooldown;
+    private float _currentRocketCooldown;
+    private float _currentJumpCooldown;
+    private float _currentSpinCooldown;
     private RandomNumberGenerator _rng = new();
     public override void _Ready()
     {
@@ -95,9 +91,6 @@ public partial class Mech : CharacterBody3D
         InitializeMoveStates();
         InitializeAttackStates();
 
-        // ChangeSuperState(MechSuperStateId.Normal);
-        // ChangeMoveState(MechMoveStateId.ChasePlayer);
-        // ChangeAttackState(MechAttackStateId.None);
         ChangeMoveState(MechMoveStateId.ChasePlayer);
         ChangeAttackState(MechAttackStateId.None);
         ChangeSuperState(MechSuperStateId.Normal);
@@ -107,10 +100,10 @@ public partial class Mech : CharacterBody3D
     {
         float dt = (float)delta;
 
-        _gunCooldown = MathF.Max(0, _gunCooldown - dt);
-        _rocketCooldown = MathF.Max(0, _rocketCooldown - dt);
-        _jumpCooldown = MathF.Max(0, _jumpCooldown - dt);
-        _spinCooldown = MathF.Max(0, _spinCooldown - dt);
+        _currentGunCooldown = MathF.Max(0, _currentGunCooldown - dt);
+        _currentRocketCooldown = MathF.Max(0, _currentRocketCooldown - dt);
+        _currentJumpCooldown = MathF.Max(0, _currentJumpCooldown - dt);
+        _currentSpinCooldown = MathF.Max(0, _currentSpinCooldown - dt);
 
         _currentSuperState?.Update(delta);
 
@@ -206,7 +199,7 @@ public partial class Mech : CharacterBody3D
         Player = GetTree().GetFirstNodeInGroup("player") as Node3D;
         PlayerAimTarget = GetTree().GetFirstNodeInGroup("player_target") as Node3D;
 
-        DebreesPrtcl = GetNode<GpuParticles3D>("Debrees");
+        DebreesParticles = GetNode<GpuParticles3D>("Debrees");
 
         _leftBarrel = GetNode<Node3D>("Mech/MechArmature/Skeleton3D/ArmLeftAttachment/LeftBarrel");
         _rightBarrel = GetNode<Node3D>("Mech/MechArmature/Skeleton3D/ArmRightAttachment/RightBarrel");
@@ -252,12 +245,26 @@ public partial class Mech : CharacterBody3D
         _currentAttackState.Enter();
     }
 
+    public bool CanUseGun() => _currentGunCooldown <= 0;
+    public bool CanUseRocket() => _currentRocketCooldown <= 0;
+    public void ResetGunCooldown() => _currentGunCooldown = GunCooldown;
+    public void ResetRocketCooldown() => _currentRocketCooldown = RocketCooldown;
+    public void ResetJumpCooldown() => _currentJumpCooldown = JumpCooldown;
+    public void ResetSpinCooldown() => _currentSpinCooldown = SpinCooldown;
+    public void AddAfterSpecialCooldown()
+    {
+        _currentGunCooldown += 2f;
+        _currentRocketCooldown += 2f;
+        _currentJumpCooldown += 6f;
+        _currentSpinCooldown += 6f;
+    }
+
     private void HandleAiDecision(double delta)
     {
         if (Player == null) return;
 
         float distance = GlobalPosition.DistanceTo(Player.GlobalPosition);
-        // Ruch: prosty przykład – bliżej -> krąży, dalej -> goni
+
         if (distance > CircleRadius * 1.3f)
         {
             ChangeMoveState(MechMoveStateId.ChasePlayer);
@@ -271,25 +278,19 @@ public partial class Mech : CharacterBody3D
             ChangeMoveState(MechMoveStateId.CirclePlayer);
         }
 
-        // Ataki podstawowe – jeżeli nic nie robi
         if (CurrentAttackStateId == MechAttackStateId.None)
         {
-            // najpierw sprawdzamy, czy nie odpalić specjali
             TryTriggerSpecials();
 
-            // jeśli mimo wszystko dalej Normal + brak specjali → wybór ataku
             if (CurrentSuperStateId != MechSuperStateId.Normal)
                 return;
 
-            // priorytet: Gun częściej niż Rocket
             if (CanUseGun())
             {
-                // szansa na rakietę zamiast pocisków
                 float roll = _rng.Randf();
                 if (CanUseRocket() && roll < 0.25f)
                     ChangeAttackState(MechAttackStateId.RocketVolley);
                 else
-                    // ChangeAttackState(MechAttackStateId.GunBurst);
                     ChangeAttackState(MechAttackStateId.GunBurst);
             }
         }
@@ -302,35 +303,19 @@ public partial class Mech : CharacterBody3D
 
         float roll = _rng.Randf();
 
-        if (_jumpCooldown <= 0 && roll < 0.10f)
+        if (_currentJumpCooldown <= 0 && roll < 0.10f)
         {
             ChangeSuperState(MechSuperStateId.JumpSpecial);
         }
-        else if (_spinCooldown <= 0 && roll < 0.20f)
+        else if (_currentSpinCooldown <= 0 && roll < 0.20f)
         {
             ChangeSuperState(MechSuperStateId.SpinSpecial);
         }
     }
 
-    public bool CanUseGun() => _gunCooldown <= 0;
-    public bool CanUseRocket() => _rocketCooldown <= 0;
-    public void ResetGunCooldown() => _gunCooldown = GunAttackCooldown;
-    public void ResetRocketCooldown() => _rocketCooldown = RocketAttackCooldown;
-    public void ResetJumpCooldown() => _jumpCooldown = JumpSpecialCooldown;
-    public void ResetSpinCooldown() => _spinCooldown = SpinSpecialCooldown;
-    public void AddAfterSpecialCooldown()
-    {
-        _gunCooldown += 2f;
-        _rocketCooldown += 2f;
-        _jumpCooldown += 6f;
-        _spinCooldown += 6f;
-    }
-
-    // Tu dodasz metody do spawnów pocisków / rakiet / efektów itd.
+    //TODO: Dodać inicjalizację GPUParticles3D przy inicjalizacji pocisku
     public void SpawnGunProjectile(bool fromLeft)
     {
-        GD.Print($"[Mech] Shoot gun, fromLeft={fromLeft}");
-        // TODO: instancja pocisku + GPU particles
         var barrel = fromLeft ? _leftBarrel : _rightBarrel;
 
         var bullet = BulletScene.Instantiate<Bullet>();
@@ -344,9 +329,9 @@ public partial class Mech : CharacterBody3D
         bullet.Initialize(dir);
     }
 
+    //TODO: Dodać inicjalizację GPUParticles3D przy inicjalizacji rakiety
     public void SpawnRocket(bool fromLeft)
     {
-        GD.Print($"[Mech] Shoot ROCKET, fromLeft={fromLeft}");
         var launcher = fromLeft ? _leftBarrel : _rightBarrel;
 
         var rocket = RocketScene.Instantiate<Rocket>();
@@ -393,34 +378,4 @@ public partial class Mech : CharacterBody3D
         LeftArmLookAt.Influence = influenceLerp;
         RightArmLookAt.Influence = influenceLerp;
     }
-
-    public void RotateHeadBone(double delta)
-    {
-        float rotationDegreesPerSecond = 90.0f;
-            float rotationAmount = rotationDegreesPerSecond * (float)delta;
-
-            Quaternion currentRotation = _skeleton.GetBonePoseRotation(_headBoneIndex);
-            
-            Quaternion deltaRotation = Quaternion.FromEuler(new Vector3(
-                0, 
-                Mathf.DegToRad(rotationAmount), // Obrót wokół osi Y
-                0
-            ));
-
-            // 3. Połącz obecną rotację z dodatkowym obrotem (deltaRotation)
-            // Mnożenie kwaternionów to kompozycja obrotów.
-            Quaternion newRotation = currentRotation * deltaRotation;
-
-            // 4. Zastosuj nową rotację pozie kości
-            _skeleton.SetBonePoseRotation(_headBoneIndex, newRotation);
-    }
-
-    // public void ClearTorsoSpinOverride()
-    // {
-    //     if (_skeleton == null || _headBoneIndex < 0)
-    //         return;
-
-    //     // wyłączenie override'u
-    //     Skeleton.SetBonePoseRotation(_headBoneIndex, Transform3D.Identity, 0.0f, false);
-    // }
 }

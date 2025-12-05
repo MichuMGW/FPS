@@ -3,10 +3,10 @@ using Godot;
 public class OrcChargeState : IState
 {
     private readonly Orc _owner;
-    private float _elapsed;
-    private Vector3 _chargeDir; // aktualny kierunek szarży
+    private float _timeElapsed;
+    private Vector3 _chargeDir;
     private float _prevAcceleration;
-    private float _speedLerp; // 0..1 – jak bardzo zbliżyliśmy się do pełnej prędkości
+    private float _speedLerp;
 
     public OrcChargeState(Orc owner)
     {
@@ -15,7 +15,7 @@ public class OrcChargeState : IState
 
     public void Enter()
     {
-        _elapsed = 0f;
+        _timeElapsed = 0f;
         _speedLerp = 0f;
 
         _owner.ChargeHitbox.Monitoring = true;
@@ -24,19 +24,19 @@ public class OrcChargeState : IState
         _owner.Pathfind.SetPhysicsProcess(false);
         _owner.Animation.Play("Orc_Charge", 0.5f);
 
-        // zapamiętujemy stare przyspieszenie i ustawiamy "cięższe" przyspieszanie do szarży
+        // Zapamiętanie starego przyspieszenia i ustawienie wartości przyspieszenia dla szarży
         _prevAcceleration = _owner.VelocityComp.Acceleration;
         _owner.VelocityComp.Acceleration = _owner.ChargeAcceleration;
 
-        // na starcie – prędkość maksymalna jak przy biegu
         _owner.VelocityComp.MaxSpeed = _owner.ChaseSpeed;
 
-        // Ustal początkowy kierunek szarży
+        // Ustalenie początkowego kierunku szarży
         Vector3 toPlayer;
+
         if (_owner.Player != null)
             toPlayer = _owner.Player.GlobalPosition - _owner.GlobalPosition;
         else
-            toPlayer = _owner.GlobalTransform.Basis.Z; // fallback: do przodu
+            toPlayer = _owner.GlobalTransform.Basis.Z;
 
         toPlayer.Y = 0;
 
@@ -45,21 +45,18 @@ public class OrcChargeState : IState
         else
             _chargeDir = toPlayer.Normalized();
 
-        // Obracamy orka zgodnie z kierunkiem szarży (tylko poziomo)
         Vector3 lookTarget = _owner.GlobalPosition + _chargeDir;
         _owner.LookAt(lookTarget, Vector3.Up, true);
 
-        // Od razu zaczynamy ruch w tym kierunku
         _owner.VelocityComp.SetDesiredDirection(_chargeDir);
     }
 
     public void Exit()
     {
-        // przywracamy normalne przyspieszenie
         _owner.VelocityComp.Acceleration = _prevAcceleration;
-        // _owner.Animation.SpeedScale = 1;
-        _owner.ChargeHitbox.SetDeferred("monitoring",false);
-        // po szarży nie chcemy dalej mieć SetDesiredDirection w przód
+
+        _owner.ChargeHitbox.SetDeferred("monitoring", false);
+
         _owner.VelocityComp.SetDesiredDirection(Vector3.Zero);
         _owner.Pathfind.SetPhysicsProcess(true);
     }
@@ -67,7 +64,7 @@ public class OrcChargeState : IState
     public void PhysicsUpdate(double delta)
     {
         float dt = (float)delta;
-        _elapsed += dt;
+        _timeElapsed += dt;
 
         if (_owner.Player == null)
         {
@@ -76,14 +73,13 @@ public class OrcChargeState : IState
         }
 
 
-        // łagodny ramp-up prędkości maksymalnej z ChaseSpeed -> ChargeSpeed
-        // ChargeRampSpeed: jak szybko dobijamy do pełnej prędkości szarży
+        // Łagodne przejście z prędkości biegu do prędkości szarży
+        // ChargeRampSpeed decyduje o tym jak szybko przeciwnik osiąga maksymalną prędkość szarży
         _speedLerp = Mathf.Clamp(_speedLerp + _owner.ChargeRampSpeed * dt, 0f, 1f);
 
         float currentMaxSpeed = Mathf.Lerp(_owner.ChaseSpeed, _owner.ChargeSpeed, _speedLerp);
         _owner.VelocityComp.MaxSpeed = currentMaxSpeed;
 
-        // kierunek do gracza w poziomie
         Vector3 toPlayer = _owner.Player.GlobalPosition - _owner.GlobalPosition;
         toPlayer.Y = 0;
 
@@ -91,14 +87,12 @@ public class OrcChargeState : IState
         {
             Vector3 targetDir = toPlayer.Normalized();
 
-            // ograniczony skręt – wolne doginanie kierunku do gracza
+            // Określenie kierunku szarży z ograniczoną skrętnością w kierunku celu
             _chargeDir = _chargeDir.Slerp(targetDir, _owner.ChargeTurnSpeed * dt).Normalized();
 
-            // obrót tylko horyzontalny
             Vector3 lookTarget = _owner.GlobalPosition + _chargeDir;
             _owner.LookAt(lookTarget, Vector3.Up, true);
 
-            // ruch w przód – VelocityComp rozpędza do currentMaxSpeed
             _owner.VelocityComp.SetDesiredDirection(_chargeDir);
         }
 
@@ -112,22 +106,22 @@ public class OrcChargeState : IState
 
     private bool ShouldStopCharge()
     {
-        // 1. Zbyt długo szarżuje
-        if (_elapsed >= _owner.MaxChargeTime)
-            return true; // Tu fajnie jakby dodać przejście do Chase;
+        if (_timeElapsed >= _owner.MaxChargeTime)
+            return true;
 
-        // 2. Zaraz wbije w przeszkodę – patrzymy w KIERUNKU SZARŻY
+        // Dostęp do silnika fizycznego w świecie 3D
         var space = _owner.GetWorld3D().DirectSpaceState;
 
         Vector3 from = _owner.GlobalPosition + Vector3.Up * 0.5f;
         Vector3 forward = _chargeDir; // faktyczny kierunek biegu
         Vector3 to = from + forward * _owner.ObstacleCheckDistance;
 
+        // Stworzenie zapytania sprawdzającego kolizje z obiektami o masce ObstacleMask
         var query = PhysicsRayQueryParameters3D.Create(from, to);
         query.CollisionMask = _owner.ObstacleMask;
         query.Exclude = new Godot.Collections.Array<Rid> { _owner.GetRid() };
-
         var result = space.IntersectRay(query);
+
         return result.Count > 0;
     }
 }

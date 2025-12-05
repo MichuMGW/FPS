@@ -41,11 +41,8 @@ public class TrollDrawState : IState
     {
         if(animName == "Troll_Draw")
         {
-            // _owner.DisableSpineLookAtTarget();
             _drawEndTimer.Start();
             _bodyLookAtTarget = false;
-            // PrepareToShoot();
-            // _owner.ChangeState(TrollStateId.Shoot);
         }
     }
 
@@ -94,7 +91,6 @@ public class TrollDrawState : IState
         _drawEndTimer.QueueFree();
         _aimLockTimer.QueueFree();
         _owner.TrollAnimation.AnimationFinished -= OnAnimationFinished;
-        // throw new System.NotImplementedException();
     }
 
     public void PhysicsUpdate(double delta)
@@ -106,9 +102,6 @@ public class TrollDrawState : IState
         _owner.UpdateSpineLookTarget((float)delta);
     }
 
-    public void Update(double delta)
-    {
-
-    }
+    public void Update(double delta){}
 
 }

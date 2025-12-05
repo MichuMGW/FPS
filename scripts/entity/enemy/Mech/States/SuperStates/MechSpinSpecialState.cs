@@ -14,10 +14,8 @@ public class MechSpinSpecialState : IState
     private float _shotTimer;
     private bool _nextLeft = true;
 
-    private const float Duration = 3.0f;
-    private const float ShotInterval = 0.1f;
-    private const float SpinSpeed = 6f; // rad/s lub coś w okolicy
 
+    private const float ShotInterval = 0.1f;
     private const float CrouchDuration = 3.5f;
     private const float SpinDuration = 4f;
     private bool _spinClockwise; 
@@ -29,7 +27,6 @@ public class MechSpinSpecialState : IState
 
     public void Enter()
     {
-        GD.Print("Enter SPIN State");
         _phase = Phase.Crouch;
         _timer = CrouchDuration;
         _shotTimer = 0f;
@@ -39,9 +36,6 @@ public class MechSpinSpecialState : IState
         _owner.VelocityComp.StopInstantly();
 
         _owner.PlayLocomotion("Mech_CrouchToShoot");
-        // Możesz z AnimationPlayera przejść płynnie do Mech_Spin
-        // albo tu po krótkim czasie zmienić anim:
-        // _owner.PlayUpperBody("Mech_Spin");
     }
 
     public void Exit()
@@ -50,8 +44,6 @@ public class MechSpinSpecialState : IState
         _owner.PlayLocomotion("Mech_Idle");
         _owner.AddAfterSpecialCooldown();
         _owner.ResetSpinCooldown();
-        // _owner.Pathfind.Active = true;
-        // po zakończeniu specjalnego – AI znowu przejmuje ruch/ataki
     }
 
     public void Update(double delta)
@@ -116,7 +108,7 @@ public class MechSpinSpecialState : IState
         toPlayer.Y = 0;
 
         if (toPlayer.IsZeroApprox())
-            return true; // domyślnie w prawo
+            return true;
 
         toPlayer = toPlayer.Normalized();
 
@@ -125,8 +117,5 @@ public class MechSpinSpecialState : IState
         return crossY >= 0;
     }
 
-    public void PhysicsUpdate(double delta)
-    {
-        // _owner.VelocityComp.StopInstantly();
-    }
+    public void PhysicsUpdate(double delta){}
 }

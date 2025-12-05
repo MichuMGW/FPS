@@ -12,8 +12,7 @@ public class MechDeadState : IState
         _owner.Pathfind.Active = false;
         _owner.VelocityComp.Active = false;
         _owner.VelocityComp.StopInstantly();
-
-        _owner.PlayLocomotion("Mech_Die"); // zmień na faktyczną nazwę animacji
+        _owner.PlayLocomotion("Mech_Die");
     }
 
     public void Exit() { }

@@ -18,7 +18,6 @@ public class MechGunBurstState : IState
 
     public void Enter()
     {
-        GD.Print("Enter GUN State");
         _shotsLeft = ShotsPerBurst;
         _timer = 0f;
         _owner.ResetGunCooldown();
@@ -27,7 +26,6 @@ public class MechGunBurstState : IState
     public void Exit()
     {
         _owner.ResetGunCooldown();
-        // nic specjalnego – AI i tak przełączy się z powrotem na None
     }
 
     public void Update(double delta)
@@ -39,6 +37,7 @@ public class MechGunBurstState : IState
         }
 
         _timer -= (float)delta;
+        
         if (_timer <= 0f)
         {
             FireShot();

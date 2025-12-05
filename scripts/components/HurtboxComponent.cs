@@ -25,7 +25,6 @@ public abstract partial class HurtboxComponent : Node
         var rootTarget = GetOwner<Node3D>();
         if (rootTarget == null)
         {
-            GD.PushError($"{Name}: Owner nie jest Node3D, a próbujemy go bić.");
             return;
         }
 

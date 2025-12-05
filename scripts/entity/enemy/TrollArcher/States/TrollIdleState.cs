@@ -8,23 +8,11 @@ public class TrollIdleState : IState
         _owner = owner;
     }
 
-    public void Enter()
-    {
-        
-    }
+    public void Enter(){}
 
-    public void Exit()
-    {
-        
-    }
+    public void Exit(){}
 
-    public void PhysicsUpdate(double delta)
-    {
-        throw new System.NotImplementedException();
-    }
+    public void PhysicsUpdate(double delta){}
 
-    public void Update(double delta)
-    {
-        throw new System.NotImplementedException();
-    }
+    public void Update(double delta){}
 }

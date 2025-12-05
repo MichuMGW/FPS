@@ -40,7 +40,6 @@ public partial class MovementComponent : Node
         }
         else
         {
-            // brak inputu / brak celu -> hamujemy
             DecelerateToZero(dt);
         }
 
@@ -56,7 +55,7 @@ public partial class MovementComponent : Node
             return;
         }
 
-        direction.Y = 0; //ruch po ziemi
+        direction.Y = 0;
         direction = direction.Normalized();
         DesiredVelocity = direction * MaxSpeed;
     }
@@ -88,7 +87,7 @@ public partial class MovementComponent : Node
             _body.Velocity = Vector3.Zero;
     }
 
-    //TA FUNKCJA POWINNA BYĆ W INTERFEJSIE, NP. IStats
+    //Rozważyć implementacje przy użyciu interfejsu IStats
      private void RecalculateStats()
     {
         MaxSpeed = _baseMaxSpeed * _slowMultiplier;
@@ -97,7 +96,7 @@ public partial class MovementComponent : Node
         Deceleration = _baseDeceleration * _slowMultiplier;
     }
 
-    //DO WERYFIKACJI
+    //TODO: Zweryfikować czy działa poprawnie po dodaniu wielu efektów spowolnienia
     private void OnSlowStarted(float slowAmount){
          slowAmount = Mathf.Clamp(slowAmount, 0f, 1f);
         _slowMultiplier = 1f - slowAmount;

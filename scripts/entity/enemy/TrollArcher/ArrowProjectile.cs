@@ -25,16 +25,14 @@ public partial class ArrowProjectile : Node3D
         float dt = (float)delta;
 
         _time += dt;
-        // grawitacja
+
         if (_time > GravityDelay)
         {
             Velocity += Vector3.Down * Gravity * dt;
         }
 
-        // ruch
         GlobalPosition += Velocity * dt;
 
-        // obrót strzały w kierunku lotu
         if (Velocity.LengthSquared() > 0.001f)
         {
             LookAt(GlobalPosition + Velocity, Vector3.Up);

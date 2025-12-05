@@ -71,7 +71,7 @@ public partial class TrollArcher : CharacterBody3D
         VelocityComp = GetNode<VelocityComponent>("VelocityComponent");
         Pathfind = GetNode<PathfindComponent>("PathfindComponent");
         Health = GetNode<HealthComponent>("HealthComponent");
-        Hurtbox = GetNode<HurtboxComponent>("SkeletalHurtboxComponent"); //SPRAWDZIĆ CZY NIC SIE NIE ROZJEZDZA PRZEZ KLASE;
+        Hurtbox = GetNode<HurtboxComponent>("SkeletalHurtboxComponent");
 
         TrollAnimation = GetNode<AnimationPlayer>("troll_archer/AnimationPlayer");
         BowAnimation = GetNode<AnimationPlayer>("troll_archer/TrollArcherRig/Skeleton3D/LeftHandAttachment/bow/AnimationPlayer");

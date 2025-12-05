@@ -9,10 +9,7 @@ public class MechSuperNormalState : IState
         _owner = owner;
     }
 
-    public void Enter()
-    {
-        GD.Print("Enter NORMAL State");
-    }
+    public void Enter() { }
 
     public void Exit() { }
 

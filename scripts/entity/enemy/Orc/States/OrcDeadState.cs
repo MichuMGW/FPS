@@ -13,16 +13,9 @@ public class OrcDeadState : IState
         _owner.VelocityComp.Active = false;
         _owner.Animation.Play("Orc_Die", 0.3f);
 
-        if (_owner.Hurtbox != null)
-        {
-            // najprostsze wyłączenie – skoro nie masz flagi Enabled:
-            _owner.Hurtbox.Active = false;
-        }
+        _owner.Hurtbox.Active = false;
 
-        // tu animacja śmierci
-        // _owner.Animation.Play("Death");
-
-        // po animacji możesz zawołać QueueFree() (np. z AnimationFinished)
+        //TODO: Usunięcie przeciwnika ze sceny po spełnieniu warunku na opuszczenie pola widzenia kamery
     }
 
     public void Exit() { }

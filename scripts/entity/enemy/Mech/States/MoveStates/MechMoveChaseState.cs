@@ -11,7 +11,6 @@ public class MechMoveChaseState : IState
 
     public void Enter()
     {
-        GD.Print("Enter CHASE State");
         _owner.LookAtActive = true;
         _owner.Pathfind.Active = true;
         _owner.Pathfind.SetPlayerAsTarget();
@@ -24,15 +23,10 @@ public class MechMoveChaseState : IState
         _owner.VelocityComp.SetDesiredDirection(Vector3.Zero);
     }
 
-    public void Update(double delta)
-    {
-        // Pathfind sam aktualizuje TargetPosition w swoim _PhysicsProcess
-        // Możesz tu ewentualnie pilnować zmiany celu itp.
-    }
+    public void Update(double delta){}
 
     public void PhysicsUpdate(double delta)
     {
-        // Rota ciała w kierunku ruchu
         _owner.VelocityComp.RotateTowardsMovement((float)delta);
     }
 }

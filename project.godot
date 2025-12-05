@@ -28,6 +28,14 @@ window/size/viewport_height=800
 
 project/assembly_name="3D Shooter - prototyp"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gdUnit4/plugin.cfg")
+
+[gdunit4]
+
+Shortcuts/filesystem/run_test=PackedInt32Array(4194326, 4194328, 4194338)
+
 [input]
 
 MoveForward={

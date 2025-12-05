@@ -12,7 +12,6 @@ public class MechMoveCircleState : IState
 
     public void Enter()
     {
-        GD.Print("Enter CIRCLE State");
         _owner.LookAtActive = true;
         _owner.Pathfind.Active = false;
         _owner.Pathfind.SetPhysicsProcess(false);

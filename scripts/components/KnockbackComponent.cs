@@ -18,10 +18,8 @@ public partial class KnockbackComponent : Node
         if (Body == null)
             return;
 
-        // Dodaj knockback do obecnej prędkości
         Body.Velocity += _knockbackVelocity;
 
-        // Tłumienie knockbacku
         _knockbackVelocity = _knockbackVelocity.Lerp(Vector3.Zero, (float)(Damping * delta));
     }
 }

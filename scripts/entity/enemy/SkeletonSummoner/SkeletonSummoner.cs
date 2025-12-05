@@ -6,11 +6,10 @@ public partial class SkeletonSummoner : CharacterBody3D
 {
     [Export] public PackedScene SkeletonScene {get; private set;}
     [Export] public int QuantityToSpawn {get; set; } = 3;
-    // rozmiar "bańki" sprawdzającej, czy nie wchodzimy w ścianę / innego moba
+    // rozmiar sfery sprawdzającej, czy nie następuje kolizja z terenem/innym przeciwnikiem
     [Export] public float SpawnCheckRadius { get; set; } = 0.5f;
     [Export] public float MinSummonRadius { get; set; } = 1.0f;
     [Export] public float MaxSummonRadius { get; set; } = 4.0f;
-     // wysokość z której rzucamy raycast w dół
     [Export] public float RaycastHeight { get; set; } = 5.0f;
     public HealthComponent Health {get; private set; }
     public HurtboxComponent Hurtbox {get; private set; }
@@ -74,10 +73,9 @@ public partial class SkeletonSummoner : CharacterBody3D
 
     public void SummonSkeletons()
     {
-        GD.Print("[Summoner] Summoning skeletons...");
         if (SkeletonScene == null)
         {
-            GD.PrintErr("MinionScene is null on SummonerEnemy!");
+            GD.PrintErr("SkeletonScene is null");
             return;
         }
 
@@ -89,10 +87,6 @@ public partial class SkeletonSummoner : CharacterBody3D
             if (TryGetValidSummonPosition(out Vector3 spawnPos, maxTriesPerMinion))
             {
                 SpawnSkeleton(spawnPos);
-            }
-            else
-            {
-                GD.Print($"[Summoner] Could not find valid position for minion #{i + 1}");
             }
         }
     }
@@ -110,14 +104,14 @@ public partial class SkeletonSummoner : CharacterBody3D
 
         for (int i = 0; i < maxTries; i++)
         {
-            // 1) losujemy kierunek na płaszczyźnie XZ
+            // Losowanie kierunku na płaszczyźnie XZ
             float angle = _rng.RandfRange(0, Mathf.Tau);
             float radius = _rng.RandfRange(MinSummonRadius, MaxSummonRadius);
 
             Vector3 offset = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * radius;
             Vector3 roughPos = GlobalPosition + offset;
 
-            // 2) raycast z góry w dół, żeby znaleźć prawdziwą ziemię (nierówna mapa)
+            // Raycast z góry w dół, żeby znaleźć kontakt z podłożem
             Vector3 from = roughPos + Vector3.Up * RaycastHeight;
             Vector3 to = roughPos + Vector3.Down * RaycastHeight * 2.0f;
 
@@ -128,13 +122,12 @@ public partial class SkeletonSummoner : CharacterBody3D
 
             if (rayResult.Count == 0)
             {
-                // nic nie trafiliśmy – pewnie w powietrzu / poza mapą
                 continue;
             }
 
             Vector3 groundPos = (Vector3)rayResult["position"];
 
-            // 3) sprawdzamy, czy w tym miejscu jest miejsce na moba
+            // Sprawdzenie, czy w danym miejscu na podłożu jest miejsce na nowego przeciwnika
             if (!HasSpaceForSkeleton(groundPos))
             {
                 continue;
@@ -148,11 +141,12 @@ public partial class SkeletonSummoner : CharacterBody3D
         return false;
     }
 
+    // Metoda sprawdzająca czy w danym miejscu można przywołać przeciwnika.
+    // Tworzy sferę o określonym promieniu i sprawdza, czy nie koliduje ona z innymi obiektami.
     private bool HasSpaceForSkeleton(Vector3 position)
     {
         var spaceState = GetWorld3D().DirectSpaceState;
 
-        // prosty "bubble" check – kula o promieniu SpawnCheckRadius
         var sphereShape = new SphereShape3D
         {
             Radius = SpawnCheckRadius
@@ -165,10 +159,8 @@ public partial class SkeletonSummoner : CharacterBody3D
             CollisionMask = PhysicsLayers.TERRAIN | PhysicsLayers.ENEMY_BODY | PhysicsLayers.PLAYER_BODY
         };
 
-        // sprawdzamy, czy w tej bańce nie ma ścian / innych colliderów
         var intersections = spaceState.IntersectShape(shapeParams, 4); // max 4 wyniki, nieistotne
 
-        // jeśli cokolwiek znaleźliśmy -> miejsce zajęte
         return intersections.Count == 0;
     }
 
