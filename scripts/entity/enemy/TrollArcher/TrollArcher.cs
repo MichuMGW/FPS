@@ -2,11 +2,8 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class TrollArcher : CharacterBody3D
+public partial class TrollArcher : Enemy
 {
-    
-
-    
     [Export] public PackedScene ArrowProjectileScene { get; private set; }
     [Export] public PackedScene BowScene {get; private set; }
     [Export] public float DrawRotationSpeed {get; private set; } = 4f;
@@ -41,6 +38,8 @@ public partial class TrollArcher : CharacterBody3D
     {
         FindNodes();
         SetAliveStateCollisions();
+
+        LoadStatsFromResource("res://resources/stats/enemy_stats/TrollArcherResource.tres");
 
         Health.EntityDied += OnDied;
 
@@ -86,7 +85,18 @@ public partial class TrollArcher : CharacterBody3D
 
         Player = GetTree().GetFirstNodeInGroup("player") as Node3D;
         PlayerAimTarget = GetTree().GetFirstNodeInGroup("player_target") as Node3D;
+    }
 
+     protected override void OnStatsChanged(bool initialLoad)
+    {
+
+            Health.MaxHealth = MaxHealth;
+            if (!initialLoad || Health.CurrentHealth <= 0)
+                Health.CurrentHealth = MaxHealth;
+            else
+                Health.CurrentHealth = Mathf.Min(Health.CurrentHealth, MaxHealth);
+
+            VelocityComp.MaxSpeed = MoveSpeed;
     }
 
     public void RotateHorizontallyTowardsPlayer(float delta)
@@ -170,6 +180,32 @@ public partial class TrollArcher : CharacterBody3D
         {
             AimTarget.GlobalPosition = PlayerAimTarget.GlobalPosition;
         }   
+    }
+
+    private void InitializeArrow()
+    {
+        if (ArrowProjectileScene == null || 
+            ArrowSpawnPoint == null)
+            return;
+
+        var arrow = ArrowProjectileScene.Instantiate<ArrowProjectile>();
+
+        arrow.Damage = Damage;
+        arrow.GlobalTransform = ArrowSpawnPoint.GlobalTransform;
+
+        Vector3 from = ArrowSpawnPoint.GlobalPosition;
+        Vector3 to = AimTarget.GlobalPosition;
+
+        Vector3 dir = (to - from).Normalized();
+
+        arrow.Velocity = dir * arrow.Speed;
+
+        GetTree().CurrentScene.AddChild(arrow);
+    }
+
+    public void ShootArrow()
+    {
+        InitializeArrow();
     }
 }
 

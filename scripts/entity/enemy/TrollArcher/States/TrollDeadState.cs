@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 public partial class TrollDeadState : IState
@@ -24,12 +25,16 @@ public partial class TrollDeadState : IState
 
         bowAnimation.Play("Troll_Die");
         _owner.TrollAnimation.Play("Troll_Die", 0.3f);
+
+        _owner.TrollAnimation.AnimationFinished += OnAnimationFinished;
     }
 
-    public void Exit()
+    private void OnAnimationFinished(StringName animName)
     {
         _owner.QueueFree();
     }
+
+    public void Exit(){ }
 
     private void RotateTowardPlayer()
     {

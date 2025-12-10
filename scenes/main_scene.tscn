@@ -1,8 +1,15 @@
-[gd_scene load_steps=8 format=3 uid="uid://df4a8gudyllgr"]
+[gd_scene load_steps=14 format=3 uid="uid://df4a8gudyllgr"]
 
+[ext_resource type="Script" uid="uid://c2k3g32olfnjh" path="res://scripts/game/GameDirector.cs" id="1_c16ls"]
+[ext_resource type="Script" uid="uid://3hxsu4kxd37j" path="res://scripts/managers/EnemySpawnManager.cs" id="2_18nlu"]
 [ext_resource type="PackedScene" uid="uid://b32e4s8pjtxat" path="res://scenes/player.tscn" id="2_v4olh"]
+[ext_resource type="Texture2D" uid="uid://x0owjhftlf3r" path="res://Assets/textures/environment/terrain/SpawnTerrainMask.png" id="3_18nlu"]
 [ext_resource type="PackedScene" uid="uid://dsy504x2ofm0n" path="res://scenes/entities/enemies/Mech.tscn" id="4_gubc5"]
+[ext_resource type="PackedScene" uid="uid://bkeed28o4855u" path="res://scenes/entities/enemies/TrollArcher.tscn" id="4_pu3yx"]
 [ext_resource type="PackedScene" uid="uid://c4fn1nnwef2hm" path="res://scenes/ui.tscn" id="5_gubc5"]
+[ext_resource type="PackedScene" uid="uid://br85v6rjactsn" path="res://scenes/environment/terrain/terrain.tscn" id="5_rt2n2"]
+[ext_resource type="PackedScene" uid="uid://b7w7abb7e6in2" path="res://scenes/ui/player_hud.tscn" id="9_c1pb6"]
+[ext_resource type="Script" uid="uid://qx1ynm0lrtap" path="res://scripts/ui/PlayerHud.cs" id="10_6wevv"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_44jsn"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -17,11 +24,15 @@ sky = SubResource("Sky_88rcn")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="NavigationMesh" id="NavigationMesh_pw63i"]
-vertices = PackedVector3Array(5, 1, -1, 6, 1, -1.25, 6, 1, -24.5, -24.5, 1, -24.5, -24.5, 1, 0.999998, 5, 1, 0.999998, 21, 1, -7.5, 21.25, 1, -5.75, 24.5, 1, -6, 24.5, 1, -24.5, 7.25, 1, -1, 7.25, 1, 0.499998, 19, 1, 0.249998, 19, 1, -7.25, 19.75, 8, 24.25, 20.25, 8, 24.5, 20.25, 8, -6.5, 21.25, 1, 24.5, 24.5, 1, 24.5, 7, 1, 3.25, 5.25, 1, 3.25, 5, 1, 2.75, 4.75, 1, 23.5, 19, 1, 23.5, -24.5, 1, 24.5, -13, 1, 24.5, -12.75, 1, 23.5)
-polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(3, 0, 4), PackedInt32Array(0, 5, 4), PackedInt32Array(7, 6, 8), PackedInt32Array(8, 6, 9), PackedInt32Array(12, 11, 10), PackedInt32Array(10, 1, 12), PackedInt32Array(12, 1, 13), PackedInt32Array(9, 13, 2), PackedInt32Array(2, 13, 1), PackedInt32Array(9, 6, 13), PackedInt32Array(14, 16, 15), PackedInt32Array(17, 7, 18), PackedInt32Array(18, 7, 8), PackedInt32Array(19, 11, 12), PackedInt32Array(22, 21, 20), PackedInt32Array(22, 20, 19), PackedInt32Array(22, 19, 23), PackedInt32Array(23, 19, 12), PackedInt32Array(25, 24, 26), PackedInt32Array(26, 24, 4), PackedInt32Array(21, 22, 5), PackedInt32Array(5, 22, 26), PackedInt32Array(5, 26, 4)]
-
 [node name="MainScene" type="Node"]
+
+[node name="GameDirector" type="Node" parent="."]
+script = ExtResource("1_c16ls")
+EnemySpawnManagerPath = NodePath("../EnemySpawnManager")
+
+[node name="EnemySpawnManager" type="Node3D" parent="."]
+script = ExtResource("2_18nlu")
+SpawnMaskTexture = ExtResource("3_18nlu")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_yqpde")
@@ -31,55 +42,22 @@ transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("2_v4olh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.21658, -1.86347)
-
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
-navigation_mesh = SubResource("NavigationMesh_pw63i")
-
-[node name="CSGCombiner3D" type="CSGCombiner3D" parent="NavigationRegion3D"]
-use_collision = true
-collision_mask = 275
-
-[node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-size = Vector3(50, 1, 50)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 4, 1)
-size = Vector3(1, 7, 16)
-
-[node name="CSGBox3D8" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.5, 13, 0)
-size = Vector3(1, 25, 50)
-
-[node name="CSGBox3D11" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.5, 13, 0)
-size = Vector3(1, 25, 50)
-
-[node name="CSGBox3D9" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.23517e-08, 13, -24.5)
-size = Vector3(1, 25, 50)
-
-[node name="CSGBox3D10" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.23517e-08, 13, 24.5)
-size = Vector3(1, 25, 50)
-
-[node name="CSGBox3D6" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.2, 6, 4, 1)
-size = Vector3(1, 7, 16)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 4, 17)
-size = Vector3(1, 7, 16)
-
-[node name="CSGBox3D4" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11.5, 4, 24.5)
-size = Vector3(1, 7, 16)
-
-[node name="CSGBox3D5" type="CSGBox3D" parent="NavigationRegion3D/CSGCombiner3D"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.5, 4, 24.5)
-size = Vector3(1, 7, 16)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.43736, -1.86347)
 
 [node name="UI" parent="." instance=ExtResource("5_gubc5")]
 
 [node name="Mech" parent="." instance=ExtResource("4_gubc5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.220778, 0)
+
+[node name="TrollArcher" parent="." instance=ExtResource("4_pu3yx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.15853, 0.220778, 0)
+
+[node name="Terrain" parent="." instance=ExtResource("5_rt2n2")]
+
+[node name="EnemiesRoot" type="Node3D" parent="." groups=["enemies_root"]]
+
+[node name="PlayerHUD" parent="." instance=ExtResource("9_c1pb6")]
+script = ExtResource("10_6wevv")
+
+[editable path="Terrain"]
+[editable path="Terrain/NavigationRegion3D/Terrain"]

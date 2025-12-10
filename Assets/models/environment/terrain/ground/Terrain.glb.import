@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cqv48rsql1iuf"
-path="res://.godot/imported/bridge.glb-896e222d0f2f81014382284a68a2b6a3.scn"
+uid="uid://cijc3w7mun6vs"
+path="res://.godot/imported/Terrain.glb-dc29b1af74bf3db648aa10854e7269b0.scn"
 
 [deps]
 
-source_file="res://Assets/models/environment/obstacles/bridge.glb"
-dest_files=["res://.godot/imported/bridge.glb-896e222d0f2f81014382284a68a2b6a3.scn"]
+source_file="res://Assets/models/environment/terrain/ground/Terrain.glb"
+dest_files=["res://.godot/imported/Terrain.glb-dc29b1af74bf3db648aa10854e7269b0.scn"]
 
 [params]
 

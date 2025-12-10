@@ -1,3 +1,6 @@
+using System;
+using Godot;
+
 public class SkeletonDeadState : IState
 {
     private Skeleton _owner;
@@ -8,8 +11,17 @@ public class SkeletonDeadState : IState
 
     public void Enter()
     {
+        _owner.Hitbox.Active = false;
         _owner.PlayAnimationRandomized("Skeleton_Die");
+
+        _owner.Animation.AnimationFinished += OnAnimationFinished;
     }
+
+    private void OnAnimationFinished(StringName animName)
+    {
+        _owner.QueueFree();
+    }
+
 
     public void Exit()
     {

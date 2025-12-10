@@ -4,16 +4,40 @@ using System;
 public partial class PlayerHealthComponent : Node
 {
 	[Signal] public delegate void EntityDiedEventHandler();
+	[Signal] public delegate void CurrentHealthChangedEventHandler();
+	[Signal] public delegate void HealthChangedEventHandler();
+	[Export] public HurtboxComponent Hurtbox {get; set;}
+	public float MaxHealth {get; set;}
+	private float _currentHealth;
+	public float CurrentHealth {
+        get
+        {
+            return _currentHealth;
+        }
+        set
+        {
+			EmitSignal(nameof(CurrentHealthChanged));
+            if (value <= 0)
+            {
+                _currentHealth = 0;
+                Die();
+            }
+            else if (value > MaxHealth)
+            {
+                _currentHealth = MaxHealth;
+            }
+            else _currentHealth = value;
+        }
+    }
 
-	private float _maxHealth;
-	// private bool isCurrentlyOnFire = false;
-	// private PackedScene floatingDamageScene;
-	public float currentHealth;
-	// public bool isDead = false;
-	private PlayerStatsManager _stats;
-	// public Timer FireDamageTimer;
-	// private float fireDamage = 0f;
+    private void Die()
+    {
+        GD.Print("PLAYER DIED");
+		//DEBUG
+		CurrentHealth = MaxHealth;
+    }
 
+    private PlayerStatsManager _stats;
 
 	public override void _Ready()
 	{
@@ -21,8 +45,10 @@ public partial class PlayerHealthComponent : Node
         _stats = GetParent().GetNode<PlayerStatsManager>("PlayerStatsManager");
         _stats.MaxHealthChanged += OnMaxHealthChanged;
 
-        _maxHealth = _stats.MaxHealth;
-		currentHealth = _maxHealth;
+        MaxHealth = _stats.MaxHealth;
+		CurrentHealth = MaxHealth;
+
+		Hurtbox.Hit += OnHit;
 
 		// //TEST
 		// enemy = GetParent<Enemy>();
@@ -34,24 +60,41 @@ public partial class PlayerHealthComponent : Node
 		// FireDamageTimer.Timeout += OnFireDamageTimeout;
 	}
 
-	// public void EnemyOnFire(bool OnFire){
-	// 	if (OnFire && !isCurrentlyOnFire){
-	// 		isCurrentlyOnFire = true;
-	// 		FireDamageTimer.Start();
-	// 		GD.Print("ON FIRE");
-			
-	// 	} else if (!OnFire) {
-	// 		isCurrentlyOnFire = false;
-	// 		FireDamageTimer.Stop();
-	// 		GD.Print("OFF FIRE");
-			
-	// 	}
-	// }
+    private void OnHit(HitInfo hitInfo)
+    {
+		if (hitInfo.Source is not IDamageSource damageSource)
+            return;
+        
+        float damage = damageSource.GetDamage();
+		damage *= hitInfo.DamageMultiplier;
+
+		Element damageType = damageSource.GetDamageType();
+
+		//TUTAJ MOGĘ DODAĆ RESISTY
+		//np. damage = ApplyResistance(damage, damageType);
+
+		TakeDamage(damage);
+    }
+
+    // public void EnemyOnFire(bool OnFire){
+    // 	if (OnFire && !isCurrentlyOnFire){
+    // 		isCurrentlyOnFire = true;
+    // 		FireDamageTimer.Start();
+    // 		GD.Print("ON FIRE");
+
+    // 	} else if (!OnFire) {
+    // 		isCurrentlyOnFire = false;
+    // 		FireDamageTimer.Stop();
+    // 		GD.Print("OFF FIRE");
+
+    // 	}
+    // }
+
 
     private void OnMaxHealthChanged(float value)
     {
-        _maxHealth = value;
-        currentHealth = Mathf.Min(currentHealth + value, _maxHealth);
+        MaxHealth = value;
+        CurrentHealth = Mathf.Min(CurrentHealth + value, MaxHealth);
     }
 
 	// private void OnFireDamageTimeout(){
@@ -75,18 +118,12 @@ public partial class PlayerHealthComponent : Node
 
 	public void TakeDamage(float damage)
 	{
-		currentHealth -= damage;
-		currentHealth = Mathf.Max(0, currentHealth);
-		if (currentHealth == 0)
-		{
-			EmitSignal(nameof(EntityDied));
-			// Owner.QueueFree();
-		}
+		CurrentHealth -= damage;
 	}
 
 	public void Heal(float amount){
-		currentHealth += amount;
-		currentHealth = Mathf.Min(_maxHealth, currentHealth);
+		CurrentHealth += amount;
+		CurrentHealth = Mathf.Min(MaxHealth, CurrentHealth);
 	}
 
 	// public void ShowDamage(Vector3 position, float damage, Color color){

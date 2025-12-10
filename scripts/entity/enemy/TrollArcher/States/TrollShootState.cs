@@ -17,7 +17,7 @@ public class TrollShootState : IState
         _owner.TrollAnimation.Play("Troll_Shoot");
         _owner.BowAnimation.Play("Troll_Shoot");
 
-        ShootArrow();
+        _owner.ShootArrow();
         SubscribeEvents();   
     }
 
@@ -31,30 +31,6 @@ public class TrollShootState : IState
         _owner.TrollAnimation.AnimationFinished -= OnAnimationFinished;
     }
 
-    private void InitializeArrow()
-    {
-        if (_owner.ArrowProjectileScene == null || 
-            _owner.ArrowSpawnPoint == null)
-            return;
-
-        var arrow = _owner.ArrowProjectileScene.Instantiate<ArrowProjectile>();
-
-        arrow.GlobalTransform = _owner.ArrowSpawnPoint.GlobalTransform;
-
-        Vector3 from = _owner.ArrowSpawnPoint.GlobalPosition;
-        Vector3 to = _owner.AimTarget.GlobalPosition;
-
-        Vector3 dir = (to - from).Normalized();
-
-        arrow.Velocity = dir * arrow.Speed;
-
-        _owner.GetTree().CurrentScene.AddChild(arrow);
-    }
-
-    private void ShootArrow()
-    {
-        InitializeArrow();
-    }
 
     private void OnAnimationFinished(StringName animName)
     {

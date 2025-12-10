@@ -8,11 +8,11 @@ public partial class Skeleton : CharacterBody3D
     public PathfindComponent Pathfind {get; private set; }
     public HealthComponent Health {get; private set; }
     public HurtboxComponent Hurtbox {get; private set; }
+    public HitboxComponent Hitbox { get; set; }
     public AnimationPlayer Animation {get; private set; }
     public Node3D Player {get; private set; }
 
     //TODO: Zastąpić AttackHitbox -> HitboxComponent
-    public Area3D AttackHitbox {get; set;}
     public float AttackDistance {get; set;} = 2f;
     [Export] public float Speed {get; set;} = 10f;
 
@@ -25,7 +25,7 @@ public partial class Skeleton : CharacterBody3D
         FindNodes();
         SetAliveStateCollisions();
 
-        AttackHitbox.Monitoring = false;
+        Hitbox.Monitoring = false;
         VelocityComp.MaxSpeed = Speed;
 
         Health.EntityDied += OnEntityDied;
@@ -47,7 +47,7 @@ public partial class Skeleton : CharacterBody3D
         Pathfind = GetNode<PathfindComponent>("PathfindComponent");
         Health = GetNode<HealthComponent>("HealthComponent");
         Hurtbox = Health.Hurtbox;
-        AttackHitbox = GetNode<Area3D>("AttackHitbox");
+        Hitbox = GetNode<HitboxComponent>("HitboxComponent");
         Animation = GetNode<AnimationPlayer>("skeleton/AnimationPlayer");
         
         Player = GetTree().GetFirstNodeInGroup("player") as Node3D;

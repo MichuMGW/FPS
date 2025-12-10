@@ -101,13 +101,13 @@ public partial class PlayerStatsManager : Node
 
     private void LoadStatsFromResource(PlayerStatsResource res)
     {
-        _maxHealth = res.MaxHealth;
-        _range = res.Range;
-        _damage = res.Damage;
-        _speed = res.Speed;
-        _radius = res.Radius;
-        _spread = res.Spread;
-        _jumpForce = res.JumpForce;
+        MaxHealth = res.MaxHealth;
+        Range = res.Range;
+        Damage = res.Damage;
+        Speed = res.Speed;
+        Radius = res.Radius;
+        Spread = res.Spread;
+        JumpForce = res.JumpForce;
 
         GD.Print($"{_maxHealth} {_speed}");
     }

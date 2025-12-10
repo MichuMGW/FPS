@@ -32,7 +32,7 @@ public partial class HealthComponent : Node
         }
     }
 	public bool isDead = false;
-	public Node3D enemy;
+	public Node3D enemy; //DO WYRZUCENIA
 	public Timer FireDamageTimer;
 	private float fireDamage = 0f;
 

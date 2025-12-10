@@ -24,7 +24,6 @@ public partial class SkeletonAttackState : IState
     public void Exit()
     {
         _owner.Animation.AnimationFinished -= OnAnimationFinished;
-        _owner.AttackHitbox.Monitoring = false;
     }
 
     public void PhysicsUpdate(double delta)

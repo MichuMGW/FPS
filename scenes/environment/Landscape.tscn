@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://0g67bcwh1wph"]
 
-[ext_resource type="PackedScene" uid="uid://c07in08j0q422" path="res://Assets/models/environment/terrain/landscape4.glb" id="1_tcf16"]
-[ext_resource type="Shader" uid="uid://cvpp0o2xityls" path="res://Assets/textures/environment/terrain/TerrainMixer1.gdshader" id="2_albbg"]
+[ext_resource type="PackedScene" uid="uid://c07in08j0q422" path="res://Assets/models/environment/terrain/terrain.glb" id="1_tcf16"]
+[ext_resource type="Shader" uid="uid://cvpp0o2xityls" path="res://Assets/textures/environment/terrain/TerrainMixer.gdshader" id="2_albbg"]
 [ext_resource type="Texture2D" uid="uid://bx4q1oyb4bdct" path="res://Assets/textures/environment/terrain/grass_ground_d_256x256.jpg" id="3_7paek"]
 [ext_resource type="Texture2D" uid="uid://dmmbj0mv7oseq" path="res://Assets/textures/environment/terrain/island_sand_d_128x128.jpg" id="4_apc14"]
 [ext_resource type="Texture2D" uid="uid://cdvasc3gvj13e" path="res://Assets/textures/environment/terrain/desert_mud_d_256x256.jpg" id="5_xv5pt"]

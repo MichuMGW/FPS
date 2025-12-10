@@ -3,10 +3,10 @@ using System;
 
 public partial class GameEvents : Node
 {
-	[Signal]
-	public delegate void ExperiencePointCollectedEventHandler(int currentExperience);
-	[Signal]
-	public delegate void MenuEnabledEventHandler(bool isMenuEnabled);
+	[Signal] public delegate void ExperiencePointCollectedEventHandler(int currentExperience);
+	[Signal] public delegate void MenuEnabledEventHandler(bool isMenuEnabled);
+	[Signal] public delegate void RunEndedEventHandler();
+	[Signal] public delegate void RunTimeUpdatedEventHandler(float elapsed, float total);
 
 	public PackedScene gameMenuScene;
 	public Control gameMenuInstance;

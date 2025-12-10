@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://crf3ekm0kijwl"]
+[gd_scene load_steps=21 format=3 uid="uid://crf3ekm0kijwl"]
 
 [ext_resource type="PackedScene" uid="uid://drtc68o87at8y" path="res://Assets/models/enemies/skeleton.glb" id="1_15cp8"]
 [ext_resource type="Script" uid="uid://bf4risfyy0n5o" path="res://scripts/entity/enemy/Skeleton/Skeleton.cs" id="1_nlrb0"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://hvd2uy3wofl8" path="res://scenes/components/status_component.tscn" id="5_e38pm"]
 [ext_resource type="PackedScene" uid="uid://hvw6gscvm54u" path="res://scenes/components/velocity_component.tscn" id="6_yypc3"]
 [ext_resource type="PackedScene" uid="uid://gwkhn3v3fswg" path="res://scenes/components/hurtbox_area.tscn" id="10_ktnt5"]
+[ext_resource type="PackedScene" uid="uid://c2wcxah80nn20" path="res://scenes/components/hitbox_component.tscn" id="11_e38pm"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h8410"]
 albedo_texture = ExtResource("2_pibiy")
@@ -107,6 +108,7 @@ bones/35/position = Vector3(-0.143303, 0.612297, 0.523633)
 bones/35/rotation = Quaternion(0.692545, -0.142763, 0.142763, 0.692545)
 
 [node name="Skeleton_003" parent="skeleton/SkeletonRig/Skeleton3D" index="0"]
+lod_bias = 0.5
 surface_material_override/0 = SubResource("StandardMaterial3D_h8410")
 
 [node name="HeadAttachment" type="BoneAttachment3D" parent="skeleton/SkeletonRig/Skeleton3D" index="1"]
@@ -225,14 +227,13 @@ visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1.6, 0, 0, 0, 1.6, 0, 0, 0, 1.6, 0, 1.29328, 0)
-visible = false
 shape = SubResource("CapsuleShape3D_h8410")
 
-[node name="AttackHitbox" type="Area3D" parent="."]
+[node name="HitboxComponent" parent="." instance=ExtResource("11_e38pm")]
 collision_layer = 64
 collision_mask = 4
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackHitbox"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00244141, 1.34591, 0.881556)
 shape = SubResource("BoxShape3D_ktnt5")
 

@@ -1,3 +1,6 @@
+using System;
+using Godot;
+
 public class OrcDeadState : IState
 {
     private readonly Orc _owner;
@@ -13,10 +16,15 @@ public class OrcDeadState : IState
         _owner.VelocityComp.Active = false;
         _owner.Animation.Play("Orc_Die", 0.3f);
 
+        _owner.Animation.AnimationFinished += OnAnimationFinished;
         _owner.Hurtbox.Active = false;
-
-        //TODO: Usunięcie przeciwnika ze sceny po spełnieniu warunku na opuszczenie pola widzenia kamery
     }
+
+    private void OnAnimationFinished(StringName animName)
+    {
+        _owner.QueueFree();
+    }
+
 
     public void Exit() { }
 

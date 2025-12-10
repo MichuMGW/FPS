@@ -28,11 +28,12 @@ radius = 10.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fulsm"]
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("PlayerStats", "Movement", "SpellCastManager", "AimTarget", "Knockback") groups=["player"]]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("PlayerStats", "Health", "Movement", "SpellCastManager", "AimTarget", "Knockback") groups=["player"]]
 collision_layer = 2
 collision_mask = 17
 script = ExtResource("1_fjrip")
 PlayerStats = NodePath("PlayerStatsManager")
+Health = NodePath("PlayerHealthComponent")
 Movement = NodePath("PlayerMovement")
 SpellCastManager = NodePath("SpellCastManager")
 AimTarget = NodePath("PlayerAimTarget")
@@ -41,8 +42,9 @@ Knockback = NodePath("KnockbackComponent")
 [node name="PlayerStatsManager" type="Node" parent="."]
 script = ExtResource("2_d2wvv")
 
-[node name="PlayerHealthComponent" type="Node" parent="."]
+[node name="PlayerHealthComponent" type="Node" parent="." node_paths=PackedStringArray("Hurtbox")]
 script = ExtResource("3_3v2ag")
+Hurtbox = NodePath("../SimpleHurtboxComponent")
 
 [node name="SimpleHurtboxComponent" parent="." instance=ExtResource("4_a8ls1")]
 _hurtboxPath = NodePath("../HurtboxArea")
@@ -127,14 +129,14 @@ collision_mask = 0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PickupArea"]
 shape = SubResource("CapsuleShape3D_qhqgy")
 
-[node name="PlayerAimTarget" type="Node3D" parent="." groups=["player_target"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-top_level = true
-script = ExtResource("13_jej6c")
-
 [node name="HurtboxArea" parent="." instance=ExtResource("16_qfm1y")]
 collision_layer = 4
 collision_mask = 64
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxArea"]
 shape = SubResource("CapsuleShape3D_fulsm")
+
+[node name="PlayerAimTarget" type="Node3D" parent="." groups=["player_target"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+top_level = true
+script = ExtResource("13_jej6c")

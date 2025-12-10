@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EnemyStatsResource" load_steps=2 format=3 uid="uid://2ysv4n4o60su"]
+
+[ext_resource type="Script" uid="uid://dgid28tkcx6in" path="res://resources/stats/enemy_stats/EnemyStatsResource.cs" id="1_uyp6t"]
+
+[resource]
+script = ExtResource("1_uyp6t")
+BaseMoveSpeed = 0.0
+BaseMaxHealth = 0.0
+BaseDamage = 0.0
+metadata/_custom_type_script = "uid://dgid28tkcx6in"

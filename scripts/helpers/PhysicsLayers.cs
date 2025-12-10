@@ -11,4 +11,5 @@ public partial class PhysicsLayers : Node
     public const uint ENEMY_HURTBOX = 1 << 5; 
     public const uint ENEMY_HITBOX = 1 << 6;
     public const uint PICKUPS = 1 << 7;
+    public const uint OBSTACLES = 1 << 0; //DO ZMIANY
 }
