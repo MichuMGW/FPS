@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public partial class Projectile : CharacterBody3D
 {
-    public (Element, Element) Elements {get; set;} //Żywioły zaklęcia
+    public Element Element {get; set;} //Żywioły zaklęcia
     // public Element Element {get; set; }
     public float Gravity {get; set;} // Grawitacja
     public float Damage {get; set;} // Obrażenia

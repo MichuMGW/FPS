@@ -39,7 +39,7 @@ public partial class TrollArcher : Enemy
         FindNodes();
         SetAliveStateCollisions();
 
-        LoadStatsFromResource("res://resources/stats/enemy_stats/TrollArcherResource.tres");
+        LoadStatsFromResource("res://resources/stats/enemy_stats/TrollArcherStats.tres");
 
         Health.EntityDied += OnDied;
 

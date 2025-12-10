@@ -3,5 +3,5 @@ using System;
 
 public partial class PlayerStateMachine : StateMachine
 {
-	public SpellCastManager Spm {get; set;}
+	// public SpellCastManager Spm {get; set;}
 }
