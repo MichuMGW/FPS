@@ -1,7 +1,8 @@
 using System.Diagnostics.Tracing;
 using Godot;
 
-public partial class ExplosionSpell : Spell {
+public partial class ExplosionSpell : Node3D
+{
     public float ExplosionRadius { get; set; } = 1.0f;
     public float MaxExplosionRadius { get; set; } = 5.0f;
     public float GrowthRate { get; set; } = 3.0f; // Jak szybko rośnie obszar
@@ -10,9 +11,9 @@ public partial class ExplosionSpell : Spell {
     private SphereMesh sphereMesh;
     private bool isCasting = false;
 
-    public ExplosionSpell(string SpellName, float SpellDamage, float SpellCooldown, float ManaCost, (Element, Element) SpellElement, string SpellScenePath)
-        : base(SpellName, SpellDamage, SpellCooldown, ManaCost, SpellElement, SpellScenePath)
-    {}
+    // public ExplosionSpell(string SpellName, float SpellDamage, float SpellCooldown, float ManaCost, (Element, Element) SpellElement, string SpellScenePath)
+    //     : base(SpellName, SpellDamage, SpellCooldown, ManaCost, SpellElement, SpellScenePath)
+    // {}
 
     public override void _Ready()
     {
@@ -32,7 +33,7 @@ public partial class ExplosionSpell : Spell {
     }
 
 
-    public override void StartCasting(Vector3 position, Vector3 direction, Node3D caster)
+    public void StartCasting(Vector3 position, Vector3 direction, Node3D caster)
     {
         // Tworzymy wskaźnik sfery
         CreateIndicator();
@@ -48,7 +49,7 @@ public partial class ExplosionSpell : Spell {
 
     }
 
-    public override void HoldCasting(double delta)
+    public void HoldCasting(double delta)
     {
         if (!isCasting) return;
 
@@ -71,29 +72,30 @@ public partial class ExplosionSpell : Spell {
         ((SphereMesh)indicatorSphere.Mesh).Height = ExplosionRadius * 2;
     }
 
-    public override void EndCasting(Vector3 position, Vector3 direction, Node3D caster)
-    {
-        isCasting = false;
-        indicatorSphere.Visible = false;
+//     public void EndCasting(Vector3 position, Vector3 direction, Node3D caster)
+//     {
+//         isCasting = false;
+//         indicatorSphere.Visible = false;
 
-        if (raycast.IsColliding())
-        {
-            var explosionInstance = SpellScene.Instantiate() as Node3D;
-            caster.Owner.GetParent().AddChild(explosionInstance);
-            explosionInstance.GlobalPosition = raycast.GetCollisionPoint();
+//         if (raycast.IsColliding())
+//         {
+//             var explosionInstance = SpellScene.Instantiate() as Node3D;
+//             caster.Owner.GetParent().AddChild(explosionInstance);
+//             explosionInstance.GlobalPosition = raycast.GetCollisionPoint();
 
-            //Increase radius
-            var explosionMesh = explosionInstance.GetNode<MeshInstance3D>("MeshInstance3D");
-            var explosionHitbox = explosionInstance.GetNode<CollisionShape3D>("HitboxComponent/CollisionShape3D");
+//             //Increase radius
+//             var explosionMesh = explosionInstance.GetNode<MeshInstance3D>("MeshInstance3D");
+//             var explosionHitbox = explosionInstance.GetNode<CollisionShape3D>("HitboxComponent/CollisionShape3D");
 
-            explosionMesh.Mesh = new SphereMesh {Radius = ExplosionRadius, Height = ExplosionRadius*2};
-            explosionHitbox.Shape = new SphereShape3D {Radius = ExplosionRadius};
-        }
-        indicatorSphere.QueueFree();
-    }
+//             explosionMesh.Mesh = new SphereMesh {Radius = ExplosionRadius, Height = ExplosionRadius*2};
+//             explosionHitbox.Shape = new SphereShape3D {Radius = ExplosionRadius};
+//         }
+//         indicatorSphere.QueueFree();
+//     }
 
-    public override void HoldCasting(Vector3 position, Vector3 direction, Node3D caster, double delta)
-    {
-        throw new System.NotImplementedException();
-    }
+//     public override void HoldCasting(Vector3 position, Vector3 direction, Node3D caster, double delta)
+//     {
+//         throw new System.NotImplementedException();
+//     }
+// }
 }

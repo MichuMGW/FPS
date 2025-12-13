@@ -5,6 +5,7 @@ public enum SpellSlot
 {
     LeftHand,
     RightHand,
+    Dash,
     Shield,
     Buff
 }
@@ -21,7 +22,7 @@ public partial class PlayerSpellController : Node
     private Camera3D _camera;
 
     private readonly Dictionary<SpellSlot, SpellInstance> _equipped = new();
-    private readonly Dictionary<SpellBehaviourType, ISpellBehaviour> _behaviourCache = new();
+    private readonly Dictionary<SpellBehaviourType, ISpellBehaviour> _behaviours = new();
 
     public override void _Ready()
     {
@@ -42,6 +43,7 @@ public partial class PlayerSpellController : Node
     {
         _equipped[SpellSlot.LeftHand] = kit.LeftHandSpell != null ? new SpellInstance(kit.LeftHandSpell)  : null;
         _equipped[SpellSlot.RightHand] = kit.RightHandSpell != null ? new SpellInstance(kit.RightHandSpell) : null;
+        _equipped[SpellSlot.Dash] = kit.DashSpell != null ? new SpellInstance(kit.DashSpell) : null;
         _equipped[SpellSlot.Shield] = kit.ShieldSpell != null ? new SpellInstance(kit.ShieldSpell) : null;
         _equipped[SpellSlot.Buff] = kit.BuffSpell != null ? new SpellInstance(kit.BuffSpell) : null;
     }
@@ -63,10 +65,11 @@ public partial class PlayerSpellController : Node
 
         Node3D muzzle = slot switch
         {
-            SpellSlot.LeftHand  => _leftHand,
+            SpellSlot.LeftHand => _leftHand,
             SpellSlot.RightHand => _rightHand,
-            SpellSlot.Shield    => GetOwner<Node3D>(),
-            SpellSlot.Buff      => GetOwner<Node3D>(),
+            SpellSlot.Dash => GetOwner<Node3D>(),
+            SpellSlot.Shield => GetOwner<Node3D>(),
+            SpellSlot.Buff => GetOwner<Node3D>(),
             _ => GetOwner<Node3D>()
         };
 
@@ -94,7 +97,7 @@ public partial class PlayerSpellController : Node
     {
         var type = def.BehaviourType;
 
-        if (_behaviourCache.TryGetValue(type, out var behaviour))
+        if (_behaviours.TryGetValue(type, out var behaviour))
             return behaviour;
 
         behaviour = type switch
@@ -114,7 +117,7 @@ public partial class PlayerSpellController : Node
             return null;
         }
 
-        _behaviourCache[type] = behaviour;
+        _behaviours[type] = behaviour;
         return behaviour;
     }
 
@@ -132,6 +135,54 @@ public partial class PlayerSpellController : Node
 
         return (targetPos - muzzle.GlobalPosition).Normalized();
     }
+
+    public void CancelCast(SpellSlot slot)
+    {
+        if (!_equipped.TryGetValue(slot, out var instance) || instance == null)
+            return;
+
+        var def = instance.Definition;
+
+        // ten sam behaviour co przy castowaniu
+        var behaviour = GetBehaviourFor(def);
+        if (behaviour == null)
+            return;
+
+        var cancelable = behaviour as ICancelableSpellBehaviour;
+        if (cancelable == null)
+            return;
+
+        Node3D muzzle;
+        switch (slot)
+        {
+            case SpellSlot.LeftHand:
+                muzzle = _leftHand;
+                break;
+            case SpellSlot.RightHand:
+                muzzle = _rightHand;
+                break;
+            default:
+                muzzle = GetOwner<Node3D>();
+                break;
+        }
+
+        // Użyj aktualnego range po statystykach (a nie BaseRange), bo inaczej cancel będzie celował gdzie indziej niż cast
+        var stats = instance.BuildCastStats(StatsManager);
+        Vector3 dir = GetAimDirection(muzzle, stats.Range);
+
+        var ctx = new SpellCastContext
+        {
+            Caster = GetOwner<Node3D>(),
+            Muzzle = muzzle,
+            Direction = dir,
+            Instance = instance,
+            Stats = stats
+        };
+
+        cancelable.Cancel(ctx);
+    }
+
+
 }
 
 

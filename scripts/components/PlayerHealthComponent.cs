@@ -16,17 +16,15 @@ public partial class PlayerHealthComponent : Node
         }
         set
         {
+			float newValue = Mathf.Clamp(value, 0f, MaxHealth);
+			_currentHealth = newValue;
+
 			EmitSignal(nameof(CurrentHealthChanged));
-            if (value <= 0)
+
+            if (_currentHealth <= 0)
             {
-                _currentHealth = 0;
                 Die();
             }
-            else if (value > MaxHealth)
-            {
-                _currentHealth = MaxHealth;
-            }
-            else _currentHealth = value;
         }
     }
 
@@ -43,10 +41,15 @@ public partial class PlayerHealthComponent : Node
 	{
 
         _stats = GetParent().GetNode<PlayerStatsManager>("PlayerStatsManager");
-        _stats.MaxHealthChanged += OnMaxHealthChanged;
 
-        MaxHealth = _stats.MaxHealth;
+        MaxHealth = _stats.GetStat(StatId.MaxHealth);
+		if (MaxHealth <= 0f)
+		{
+			MaxHealth = 1f;
+		}
 		CurrentHealth = MaxHealth;
+
+		_stats.StatChanged += OnStatChanged;
 
 		Hurtbox.Hit += OnHit;
 
@@ -59,6 +62,25 @@ public partial class PlayerHealthComponent : Node
 		// FireDamageTimer = GetNode<Timer>("FireDamageTimer");
 		// FireDamageTimer.Timeout += OnFireDamageTimeout;
 	}
+
+    public override void _ExitTree()
+    {
+         if (_stats != null)
+            _stats.StatChanged -= OnStatChanged;
+
+        if (Hurtbox != null)
+            Hurtbox.Hit -= OnHit;
+    }
+
+
+    private void OnStatChanged(int statId, float newValue, float oldValue)
+    {
+        if ((StatId)statId != StatId.MaxHealth)
+            return;
+
+        OnMaxHealthChanged(newValue, oldValue);
+    }
+
 
     private void OnHit(HitInfo hitInfo)
     {
@@ -91,11 +113,17 @@ public partial class PlayerHealthComponent : Node
     // }
 
 
-    private void OnMaxHealthChanged(float value)
+    private void OnMaxHealthChanged(float newMax, float oldMax)
     {
-        MaxHealth = value;
-        CurrentHealth = Mathf.Min(CurrentHealth + value, MaxHealth);
-    }
+        float previousMax = MaxHealth;
+        MaxHealth = Mathf.Max(1f, newMax);
+
+		float diff = MaxHealth - previousMax;
+        if (diff > 0)
+		{
+			CurrentHealth = Mathf.Min(CurrentHealth + diff, MaxHealth);
+		}
+	}
 
 	// private void OnFireDamageTimeout(){
 	// 	TakeDamage(fireDamage);

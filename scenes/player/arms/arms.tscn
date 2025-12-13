@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://drm1tjn6fkmp5"]
+[gd_scene load_steps=33 format=3 uid="uid://drm1tjn6fkmp5"]
 
 [ext_resource type="PackedScene" uid="uid://bjs7bqphul262" path="res://models/arms/Arms.glb" id="1_ht3vf"]
 [ext_resource type="Script" uid="uid://d05im6w48ss6j" path="res://scripts/player/animations/ArmsAnimationPlayer.cs" id="2_11d55"]
@@ -19,18 +19,8 @@ hue_variation_max = -2.23517e-08
 [sub_resource type="BoxMesh" id="BoxMesh_11d55"]
 size = Vector3(0.05, 0.05, 0.05)
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ht3vf"]
-animation = &"LHoldCastProjectile"
-
-[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_11d55"]
-
-[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_cfsns"]
-nodes/Animation/node = SubResource("AnimationNodeAnimation_ht3vf")
-nodes/Animation/position = Vector2(140, 100)
-nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_11d55")
-nodes/TimeScale/position = Vector2(400, 120)
-nodes/output/position = Vector2(600, 100)
-node_connections = [&"TimeScale", 0, &"Animation", &"output", 0, &"TimeScale"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2d1v6"]
+animation = &"LCastProjectile1"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cfsns"]
 animation = &"LIdle"
@@ -77,32 +67,6 @@ xfade_curve = SubResource("Curve_11d55")
 switch_mode = 2
 advance_mode = 2
 
-[sub_resource type="Curve" id="Curve_ht3vf"]
-_data = [Vector2(0.503496, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_oiiiq"]
-xfade_time = 0.1
-xfade_curve = SubResource("Curve_ht3vf")
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="Curve" id="Curve_cfsns"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_l2sa2"]
-xfade_time = 0.2
-xfade_curve = SubResource("Curve_cfsns")
-
-[sub_resource type="Curve" id="Curve_oiiiq"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nfgok"]
-xfade_time = 0.2
-xfade_curve = SubResource("Curve_oiiiq")
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3ahwi"]
 switch_mode = 2
 
@@ -133,10 +97,14 @@ switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cfsns"]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3qm2w"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pc60f"]
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_3ahwi"]
 states/End/position = Vector2(1137, 136)
-states/LHoldCastProjectile/node = SubResource("AnimationNodeBlendTree_cfsns")
-states/LHoldCastProjectile/position = Vector2(720, 100)
+states/LCastProjectile1/node = SubResource("AnimationNodeAnimation_2d1v6")
+states/LCastProjectile1/position = Vector2(720, 100)
 states/LIdle/node = SubResource("AnimationNodeAnimation_cfsns")
 states/LIdle/position = Vector2(199, 100)
 states/LIdleMelee/node = SubResource("AnimationNodeAnimation_8qy54")
@@ -158,8 +126,8 @@ states/LRaise/position = Vector2(523, 100)
 states/LWhitdraw/node = SubResource("AnimationNodeAnimation_l2sa2")
 states/LWhitdraw/position = Vector2(720, 276)
 states/Start/position = Vector2(52, 100)
-transitions = ["Start", "LIdle", SubResource("AnimationNodeStateMachineTransition_x1mk7"), "LIdle", "LRaise", SubResource("AnimationNodeStateMachineTransition_8qy54"), "LWhitdraw", "LIdle", SubResource("AnimationNodeStateMachineTransition_ht3vf"), "LRaise", "LHoldCastProjectile", SubResource("AnimationNodeStateMachineTransition_oiiiq"), "LHoldCastProjectile", "LWhitdraw", SubResource("AnimationNodeStateMachineTransition_l2sa2"), "LWhitdraw", "LHoldCastProjectile", SubResource("AnimationNodeStateMachineTransition_nfgok"), "LMeleeAttack1", "LMeleeAttack2", SubResource("AnimationNodeStateMachineTransition_3ahwi"), "LMeleeAttack2", "LMeleeAttack3", SubResource("AnimationNodeStateMachineTransition_uiccx"), "LMeleeAttack2", "LMeleeAttackWhitdraw2", SubResource("AnimationNodeStateMachineTransition_kgu28"), "LMeleeAttack3", "LMeleeAttackWhitdraw3", SubResource("AnimationNodeStateMachineTransition_iyyug"), "LMeleeAttack1", "LMeleeAttackWhitdraw1", SubResource("AnimationNodeStateMachineTransition_11d55"), "LMeleeAttackWhitdraw3", "LIdleMelee", SubResource("AnimationNodeStateMachineTransition_5jbp2"), "LMeleeAttackWhitdraw2", "LIdleMelee", SubResource("AnimationNodeStateMachineTransition_6amn2"), "LMeleeAttackWhitdraw1", "LIdleMelee", SubResource("AnimationNodeStateMachineTransition_tq30m"), "LIdleMelee", "LMeleeAttack1", SubResource("AnimationNodeStateMachineTransition_j506j"), "LIdle", "LIdleMelee", SubResource("AnimationNodeStateMachineTransition_cfsns")]
-graph_offset = Vector2(-190, -275)
+transitions = ["Start", "LIdle", SubResource("AnimationNodeStateMachineTransition_x1mk7"), "LIdle", "LRaise", SubResource("AnimationNodeStateMachineTransition_8qy54"), "LWhitdraw", "LIdle", SubResource("AnimationNodeStateMachineTransition_ht3vf"), "LMeleeAttack1", "LMeleeAttack2", SubResource("AnimationNodeStateMachineTransition_3ahwi"), "LMeleeAttack2", "LMeleeAttack3", SubResource("AnimationNodeStateMachineTransition_uiccx"), "LMeleeAttack2", "LMeleeAttackWhitdraw2", SubResource("AnimationNodeStateMachineTransition_kgu28"), "LMeleeAttack3", "LMeleeAttackWhitdraw3", SubResource("AnimationNodeStateMachineTransition_iyyug"), "LMeleeAttack1", "LMeleeAttackWhitdraw1", SubResource("AnimationNodeStateMachineTransition_11d55"), "LMeleeAttackWhitdraw3", "LIdleMelee", SubResource("AnimationNodeStateMachineTransition_5jbp2"), "LMeleeAttackWhitdraw2", "LIdleMelee", SubResource("AnimationNodeStateMachineTransition_6amn2"), "LMeleeAttackWhitdraw1", "LIdleMelee", SubResource("AnimationNodeStateMachineTransition_tq30m"), "LIdleMelee", "LMeleeAttack1", SubResource("AnimationNodeStateMachineTransition_j506j"), "LIdle", "LIdleMelee", SubResource("AnimationNodeStateMachineTransition_cfsns"), "LRaise", "LCastProjectile1", SubResource("AnimationNodeStateMachineTransition_3qm2w"), "LCastProjectile1", "LWhitdraw", SubResource("AnimationNodeStateMachineTransition_pc60f")]
+graph_offset = Vector2(-99, -96)
 
 [node name="Arms" instance=ExtResource("1_ht3vf")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
@@ -194,4 +162,3 @@ script = ExtResource("2_11d55")
 [node name="AnimationTree" type="AnimationTree" parent="." index="2"]
 tree_root = SubResource("AnimationNodeStateMachine_3ahwi")
 anim_player = NodePath("../AnimationPlayer")
-parameters/LHoldCastProjectile/TimeScale/scale = 1.0

@@ -18,6 +18,11 @@ public class SpellInstance
 
     public bool CanCast => CurrentCooldown <= 0f;
 
+    public void AddModifier(ISpellModifier modifier) => _modifiers.Add(modifier);
+
+    public void RemoveModifier(string id) => _modifiers.RemoveAll(m => m.Id == id);
+
+
     public void TickCooldown(float dt)
     {
         if (CurrentCooldown > 0f)
@@ -44,7 +49,7 @@ public class SpellInstance
         };
 
         foreach (var mod in _modifiers)
-            result = mod.Modify(result);
+            result = mod.Modify(result, this, stats);
 
         return result;
     }

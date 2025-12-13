@@ -1,69 +1,124 @@
 using Godot;
-using System;
 
 public partial class PlayerMovement : Node
 {
-    [Export] public CharacterBody3D player;
-    // [Export] private float _walkSpeed = 10.0f;
-    // [Export] private float _sprintSpeed = 20.0f;
-    // [Export] private float _jumpForce = 10.0f;
+    private Player _player; // zamiast CharacterBody3D, bo i tak kontekst
+    [Export] public float SprintMultiplier = 2f;
+
+    [Export(PropertyHint.Range, "0,1,0.01")]
+    public float AirControl = 0.25f; // ile kontroli w powietrzu (0..1)
+
     private float _walkSpeed;
-    private float _sprintSpeed;
     private float _jumpForce;
+    private int _maxJumpCount;
+
+    public int JumpsLeft { get; private set; }
 
     private PlayerStatsManager _stats;
 
     public override void _Ready()
     {
-        _stats = GetParent().GetNode<PlayerStatsManager>("PlayerStatsManager");
-
-        _jumpForce = _stats.JumpForce;
-        _walkSpeed = _stats.Speed;
-        _sprintSpeed = _stats.Speed * 2;
-        _stats.SpeedChanged += OnSpeedChanged;
+        _player = GetOwner<Player>();
     }
 
-    public override void _Process(double delta)
+    public void Initialize()
     {
-        Move((float)delta);
-        player.MoveAndSlide();
+        _stats = _player.Stats;
+        _stats.StatChanged += OnStatChanged;
+
+        PullStats();
+        ResetJumps();
     }
 
-    private void OnSpeedChanged(float value){
-        _walkSpeed = value;
-        _sprintSpeed = value * 2;
+    public override void _ExitTree()
+    {
+        if (_stats != null)
+            _stats.StatChanged -= OnStatChanged;
     }
 
-    private void Move(float delta){
-        
-        Vector3 moveDirection = new Vector3();
+    private void PullStats()
+    {
+        _walkSpeed = _stats.GetStat(StatId.MoveSpeed);
+        _jumpForce = _stats.GetStat(StatId.JumpForce);
+        _maxJumpCount = Mathf.Max(1, Mathf.RoundToInt(_stats.GetStat(StatId.JumpCount)));
+    }
 
-        if(Input.IsActionPressed("MoveForward")){
-            moveDirection += -player.GlobalTransform.Basis.Z;
+    private void OnStatChanged(int statId, float newValue, float oldValue)
+    {
+        switch ((StatId)statId)
+        {
+            case StatId.MoveSpeed:
+            case StatId.JumpForce:
+            case StatId.JumpCount:
+                PullStats();
+                // jeśli jump count się zmienił, a jesteś w powietrzu, nie rób cudów:
+                JumpsLeft = Mathf.Min(JumpsLeft, _maxJumpCount);
+                break;
         }
-        if(Input.IsActionPressed("MoveLeft")){
-            moveDirection += -player.GlobalTransform.Basis.X;
-        }
-        if(Input.IsActionPressed("MoveRight")){
-            moveDirection += player.GlobalTransform.Basis.X;
-        }
-        if(Input.IsActionPressed("MoveBackward")){
-            moveDirection += player.GlobalTransform.Basis.Z;
-        }
+    }
 
-        moveDirection = moveDirection.Normalized();
-        float speed = Input.IsActionPressed("Sprint") ? _sprintSpeed : _walkSpeed;
-        player.Velocity = new Vector3(moveDirection.X * speed, player.Velocity.Y, moveDirection.Z * speed);
+    public void ResetJumps()
+    {
+        JumpsLeft = _maxJumpCount;
+    }
 
-        if(player.IsOnFloor()){
-            if(Input.IsActionPressed("Jump")){
-                player.Velocity = new Vector3(player.Velocity.X, _jumpForce, player.Velocity.Z);
-            } else {
-                player.Velocity = new Vector3(player.Velocity.X, 0, player.Velocity.Z);
-            }
-        } else {
-            player.Velocity += player.GetGravity() * (float)delta;
-        }      
+    public Vector3 ReadMoveInput()
+    {
+        Vector3 dir = Vector3.Zero;
+
+        if (Input.IsActionPressed("MoveForward"))
+            dir += -_player.GlobalTransform.Basis.Z;
+        if (Input.IsActionPressed("MoveLeft"))
+            dir += -_player.GlobalTransform.Basis.X;
+        if (Input.IsActionPressed("MoveRight"))
+            dir += _player.GlobalTransform.Basis.X;
+        if (Input.IsActionPressed("MoveBackward"))
+            dir += _player.GlobalTransform.Basis.Z;
+
+        return dir.Normalized();
+    }
+
+    public float GetTargetSpeed()
+    {
+        float speed = _walkSpeed;
+        if (Input.IsActionPressed("Sprint"))
+            speed *= SprintMultiplier;
+        return speed;
+    }
+
+    public void ApplyGravity(float dt)
+    {
+        if (!_player.IsOnFloor())
+            _player.Velocity += _player.GetGravity() * dt;
+        else
+            _player.Velocity = new Vector3(_player.Velocity.X, 0f, _player.Velocity.Z);
+    }
+
+    public void ApplyGroundMove(Vector3 moveDir, float speed)
+    {
+        _player.Velocity = new Vector3(moveDir.X * speed, _player.Velocity.Y, moveDir.Z * speed);
+    }
+
+    public void ApplyAirMove(Vector3 moveDir, float speed, float dt)
+    {
+        // w powietrzu nie setujemy XZ na sztywno, tylko blendujemy
+        Vector3 current = new Vector3(_player.Velocity.X, 0f, _player.Velocity.Z);
+        Vector3 target  = new Vector3(moveDir.X * speed, 0f, moveDir.Z * speed);
+
+        Vector3 blended = current.Lerp(target, AirControl * dt * 60f); // *60 żeby było stabilne
+        _player.Velocity = new Vector3(blended.X, _player.Velocity.Y, blended.Z);
+    }
+
+    public bool TryJump()
+    {
+        if (!Input.IsActionJustPressed("Jump"))
+            return false;
+
+        if (JumpsLeft <= 0)
+            return false;
+
+        JumpsLeft--;
+        _player.Velocity = new Vector3(_player.Velocity.X, _jumpForce, _player.Velocity.Z);
+        return true;
     }
 }
-
