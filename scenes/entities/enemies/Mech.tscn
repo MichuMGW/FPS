@@ -240,6 +240,7 @@ transitions = ["Start", "Mech_Idle", SubResource("AnimationNodeStateMachineTrans
 graph_offset = Vector2(-55, -2)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_y2nai"]
+graph_offset = Vector2(-49, -40)
 nodes/Add2/node = SubResource("AnimationNodeAdd2_n87kn")
 nodes/Add2/position = Vector2(500, 120)
 nodes/Locomotion/node = SubResource("AnimationNodeStateMachine_pw1ia")

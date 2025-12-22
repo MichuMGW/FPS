@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://df4a8gudyllgr"]
+[gd_scene load_steps=15 format=3 uid="uid://df4a8gudyllgr"]
 
 [ext_resource type="Script" uid="uid://c2k3g32olfnjh" path="res://scripts/game/GameDirector.cs" id="1_c16ls"]
 [ext_resource type="Script" uid="uid://3hxsu4kxd37j" path="res://scripts/managers/EnemySpawnManager.cs" id="2_18nlu"]
+[ext_resource type="Texture2D" uid="uid://dj8dl5e5bt87j" path="res://Assets/textures/environment/sky/night_sky.jpg" id="2_e1cbu"]
 [ext_resource type="PackedScene" uid="uid://b32e4s8pjtxat" path="res://scenes/player.tscn" id="2_v4olh"]
 [ext_resource type="Texture2D" uid="uid://x0owjhftlf3r" path="res://Assets/textures/environment/terrain/SpawnTerrainMask.png" id="3_18nlu"]
 [ext_resource type="PackedScene" uid="uid://dsy504x2ofm0n" path="res://scenes/entities/enemies/Mech.tscn" id="4_gubc5"]
@@ -11,18 +12,18 @@
 [ext_resource type="PackedScene" uid="uid://b7w7abb7e6in2" path="res://scenes/ui/player_hud.tscn" id="9_c1pb6"]
 [ext_resource type="Script" uid="uid://qx1ynm0lrtap" path="res://scripts/ui/PlayerHud.cs" id="10_6wevv"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_44jsn"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_mngbo"]
+panorama = ExtResource("2_e1cbu")
 
-[sub_resource type="Sky" id="Sky_88rcn"]
-sky_material = SubResource("ProceduralSkyMaterial_44jsn")
+[sub_resource type="Sky" id="Sky_4w45t"]
+sky_material = SubResource("PanoramaSkyMaterial_mngbo")
 
-[sub_resource type="Environment" id="Environment_yqpde"]
+[sub_resource type="Environment" id="Environment_r6p65"]
 background_mode = 2
-sky = SubResource("Sky_88rcn")
-tonemap_mode = 2
-glow_enabled = true
+sky = SubResource("Sky_4w45t")
+fog_enabled = true
+fog_light_color = Color(0.0855954, 0.0971605, 0.115342, 1)
+fog_sky_affect = 0.85
 
 [node name="MainScene" type="Node"]
 
@@ -30,16 +31,17 @@ glow_enabled = true
 script = ExtResource("1_c16ls")
 EnemySpawnManagerPath = NodePath("../EnemySpawnManager")
 
+[node name="DirectionalLight3DTEST" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+visible = false
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_r6p65")
+
 [node name="EnemySpawnManager" type="Node3D" parent="."]
 script = ExtResource("2_18nlu")
 SpawnMaskTexture = ExtResource("3_18nlu")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_yqpde")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
-shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("2_v4olh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.43736, -1.86347)

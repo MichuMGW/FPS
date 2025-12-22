@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://bli4valuy8ui4"]
+
+[ext_resource type="Script" uid="uid://7lt18l0jyc48" path="res://scripts/spells/channel_spells/ExplosionAoE.cs" id="1_ursi1"]
+[ext_resource type="PackedScene" uid="uid://c2wcxah80nn20" path="res://scenes/components/hitbox_component.tscn" id="2_v0xbs"]
+[ext_resource type="PackedScene" uid="uid://goh3vkv8vodf" path="res://scenes/effects/vfx/explosion.tscn" id="2_wdg67"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_v0xbs"]
+
+[node name="FireExplosionAoe" type="Node3D"]
+script = ExtResource("1_ursi1")
+ExplosionVfxScene = ExtResource("2_wdg67")
+
+[node name="HitboxComponent" parent="." instance=ExtResource("2_v0xbs")]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent"]
+shape = SubResource("SphereShape3D_v0xbs")
+
+[node name="Node3D" parent="." instance=ExtResource("2_wdg67")]

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dsydo8l5shfc8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tlurc"]
+transparency = 1
+shading_mode = 0
+
+[sub_resource type="SphereMesh" id="SphereMesh_tlurc"]
+material = SubResource("StandardMaterial3D_tlurc")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_tlurc")

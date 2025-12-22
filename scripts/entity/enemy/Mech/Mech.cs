@@ -4,6 +4,13 @@ using System.Collections.Generic;
 
 public partial class Mech : CharacterBody3D
 {
+    private const string L_IS_CHANNEL = "parameters/LeftHand/conditions/l_is_channel";
+    private const string L_SHOOT      = "parameters/LeftHand/conditions/l_shoot";
+    private const string R_IS_CHANNEL = "parameters/RightHand/conditions/r_is_channel";
+    private const string R_IS_CHARGE  = "parameters/RightHand/conditions/r_is_charge";
+    private const string R_RELEASE    = "parameters/RightHand/conditions/r_release";
+    private const string R_SHOOT      = "parameters/RightHand/conditions/r_shoot";
+
     public VelocityComponent VelocityComp {get; private set; }
     public PathfindComponent Pathfind {get; private set; }
     public HealthComponent Health {get; private set; }

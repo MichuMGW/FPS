@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jqxs2ing4i2g"
-path.s3tc="res://.godot/imported/water_noise.png-6afd7c331b11b2c3106e8bddb435dd75.s3tc.ctex"
+uid="uid://cmk5t2fye5j3i"
+path.s3tc="res://.godot/imported/T_VFX_Noi55.png-0c2a0e5716557fea77a359be6acb99e0.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/models/melee_spells/water_whip/water_noise.png"
-dest_files=["res://.godot/imported/water_noise.png-6afd7c331b11b2c3106e8bddb435dd75.s3tc.ctex"]
+source_file="res://Assets/effects/textures/T_VFX_Noi55.png"
+dest_files=["res://.godot/imported/T_VFX_Noi55.png-0c2a0e5716557fea77a359be6acb99e0.s3tc.ctex"]
 
 [params]
 

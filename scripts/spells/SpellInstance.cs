@@ -7,7 +7,6 @@ public class SpellInstance
     public int Level { get; private set; }
     public float CurrentCooldown { get; private set; }
 
-    // ew. per-spell modyfikatory:
     private readonly List<ISpellModifier> _modifiers = new();
 
     public SpellInstance(SpellDefinition def, int level = 1)
@@ -19,9 +18,7 @@ public class SpellInstance
     public bool CanCast => CurrentCooldown <= 0f;
 
     public void AddModifier(ISpellModifier modifier) => _modifiers.Add(modifier);
-
     public void RemoveModifier(string id) => _modifiers.RemoveAll(m => m.Id == id);
-
 
     public void TickCooldown(float dt)
     {
@@ -36,17 +33,45 @@ public class SpellInstance
 
     public SpellCastStats BuildCastStats(PlayerStatsManager stats)
     {
-        // Tutaj łączysz:
-        // - base z definition
-        // - staty gracza (SpellDamageMultiplier itd.)
-        // - modyfikatory z itemów / unik. efektów
-        var result = new SpellCastStats
+        var def = Definition;
+
+        SpellCastStats result = new SpellCastStats
         {
-            Damage = Definition.BaseDamage * stats.GetStat(StatId.SpellDamageMultiplier),
-            Range  = Definition.BaseRange * stats.GetStat(StatId.SpellRangeMultiplier),
-            ProjectileSpeed = Definition.ProjectileSpeed * stats.GetStat(StatId.ProjectileSpeedMultiplier),
-            ManaCost = Definition.BaseManaCost,
+            Damage = def.BaseDamage * stats.GetStat(StatId.SpellDamageMultiplier),
+            Range = def.BaseRange * stats.GetStat(StatId.SpellRangeMultiplier),
+            ManaCost = def.BaseManaCost,
+
+            ProjectileSpeed = 0f,
+            Radius = 0f,
+            Duration = 0f,
+            CritChance = 0f,
+            CritMultiplier = 0f,
+            PierceCount = 0f
         };
+
+        // Typowe “dodatkowe staty” zależne od typu definicji
+        if (def is ProjectileSpellDefinition proj)
+        {
+            result.ProjectileSpeed = proj.ProjectileSpeed * stats.GetStat(StatId.ProjectileSpeedMultiplier);
+        }
+        else if (def is DashSpellDefinition dash)
+        {
+            // możesz wykorzystać ProjectileSpeed jako “speed” w stats, żeby nie mnożyć pól
+            result.ProjectileSpeed = dash.DashSpeed;
+        }
+        else if (def is AreaSpellDefinition area)
+        {
+            result.Radius = area.AuraRadius;
+            result.Duration = area.BaseDuration;
+        }
+        else if (def is BeamSpellDefinition beam)
+        {
+            result.Duration = beam.BaseDuration;
+        }
+        else if (def is ExplosionSpellDefinition)
+        {
+            // radius/duration rosną w trakcie hold, więc tu nic nie musisz
+        }
 
         foreach (var mod in _modifiers)
             result = mod.Modify(result, this, stats);

@@ -9,7 +9,10 @@ public class PlayerPrimaryActionNoneState : IState
         player = playerContext;
     }
 
-    public void Enter() { }
+    public void Enter()
+    {
+        player.PlayLeftArmAnimation("L_Idle");
+    }
     public void Exit() { }
     public void PhysicsUpdate(double delta) { }
 

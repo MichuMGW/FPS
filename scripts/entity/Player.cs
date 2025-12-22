@@ -12,7 +12,11 @@ public partial class Player : CharacterBody3D
     // [Export] public SpellCastManager SpellCastManager {get; set;}
     [Export] public Node3D AimTarget {get; private set;}
     [Export] public KnockbackComponent Knockback { get; private set; }
+
+    public AnimationPlayer Animation {get; private set; }
     public AnimationTree AnimTree { get; private set; }
+    private AnimationNodeStateMachinePlayback _leftSmp;
+    private AnimationNodeStateMachinePlayback _rightSmp;
 
      // ---------- FSM: SUPER ----------
     public PlayerSuperStateId CurrentSuperStateId { get; private set; }
@@ -47,6 +51,7 @@ public partial class Player : CharacterBody3D
 
         Stats.InitializeFromResource(BaseStats);
         InitializeComponents();
+        InitializeAnimationTree();
 
         InitializeSuperStates();
         InitializeMoveStates();
@@ -64,6 +69,27 @@ public partial class Player : CharacterBody3D
     private void InitializeComponents()
     {
         Movement.Initialize();
+    }
+
+    private void InitializeAnimationTree()
+    {
+        AnimTree.Active = true;
+
+        _leftSmp = (AnimationNodeStateMachinePlayback)AnimTree.Get("parameters/LeftHand/playback");
+        _rightSmp = (AnimationNodeStateMachinePlayback)AnimTree.Get("parameters/RightHand/playback");
+
+        PlayLeftArmAnimation("Arms_L_Idle");
+        PlayRightArmAnimation("Arms_R_Idle");
+    }
+
+    public void PlayLeftArmAnimation(string stateName)
+    {
+        _leftSmp?.Travel($"Arms_{stateName}");
+    }
+
+    public void PlayRightArmAnimation(string stateName)
+    {
+        _rightSmp?.Travel($"Arms_{stateName}");
     }
 
     public override void _Process(double delta)
@@ -102,7 +128,9 @@ public partial class Player : CharacterBody3D
         Health = GetNode<PlayerHealthComponent>("PlayerHealthComponent");
         Spells = GetNode<PlayerSpellController>("PlayerSpellController");
         Movement = GetNode<PlayerMovement>("PlayerMovement");
+        
         AnimTree = GetNode<AnimationTree>("Head/Camera3D/Arms/AnimationTree");
+        Animation = GetNode<AnimationPlayer>("Head/Camera3D/Arms/AnimationPlayer");
     }
 
     private void InitializeSuperStates()
@@ -198,3 +226,4 @@ public partial class Player : CharacterBody3D
         ChangeSuperState(PlayerSuperStateId.Stunned);
     }
 }
+

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Godot;
 
@@ -5,9 +6,7 @@ public enum SpellSlot
 {
     LeftHand,
     RightHand,
-    Dash,
-    Shield,
-    Buff
+    Dash
 }
 
 public partial class PlayerSpellController : Node
@@ -22,103 +21,199 @@ public partial class PlayerSpellController : Node
     private Camera3D _camera;
 
     private readonly Dictionary<SpellSlot, SpellInstance> _equipped = new();
+
     private readonly Dictionary<SpellBehaviourType, ISpellBehaviour> _behaviours = new();
+    private readonly Dictionary<SpellBehaviourType, Func<ISpellBehaviour>> _behaviourFactories = new();
+
+    [Export] public ElementKitDefinition StartingKit;
 
     public override void _Ready()
     {
         _leftHand = GetNode<Node3D>(LeftHandPath);
         _rightHand = GetNode<Node3D>(RightHandPath);
         _camera = GetNode<Camera3D>(CameraPath);
+
+        RegisterDefaultBehaviours();
+        EquipKit(StartingKit);
     }
 
     public override void _Process(double delta)
     {
+        float dt = (float)delta;
         foreach (var kv in _equipped)
-        {
-            kv.Value?.TickCooldown((float)delta);
-        }
+            kv.Value?.TickCooldown(dt);
+    }
+
+    private void RegisterDefaultBehaviours()
+    {
+        RegisterBehaviourFactory(SpellBehaviourType.Projectile, () => new ProjectileSpellBehaviour());
+        RegisterBehaviourFactory(SpellBehaviourType.Area, () => new AreaSpellBehaviour());
+        RegisterBehaviourFactory(SpellBehaviourType.Beam, () => new BeamSpellBehaviour());
+        RegisterBehaviourFactory(SpellBehaviourType.Dash, () => new DashSpellBehaviour());
+
+        // Explosion jako osobny behaviour:
+        // (Jeśli nie masz osobnej wartości w enumie, to dodaj. Inaczej będziesz kombinował jak koń pod górę.)
+        RegisterBehaviourFactory(SpellBehaviourType.Explosion, () => new ExplosionSpellBehaviour());
+    }
+
+    public void RegisterBehaviourFactory(SpellBehaviourType type, Func<ISpellBehaviour> factory)
+    {
+        _behaviourFactories[type] = factory;
+        _behaviours.Remove(type); // reset cache dla tego typu
     }
 
     public void EquipKit(ElementKitDefinition kit)
     {
-        _equipped[SpellSlot.LeftHand] = kit.LeftHandSpell != null ? new SpellInstance(kit.LeftHandSpell)  : null;
+        _equipped[SpellSlot.LeftHand] = kit.LeftHandSpell != null ? new SpellInstance(kit.LeftHandSpell) : null;
         _equipped[SpellSlot.RightHand] = kit.RightHandSpell != null ? new SpellInstance(kit.RightHandSpell) : null;
         _equipped[SpellSlot.Dash] = kit.DashSpell != null ? new SpellInstance(kit.DashSpell) : null;
-        _equipped[SpellSlot.Shield] = kit.ShieldSpell != null ? new SpellInstance(kit.ShieldSpell) : null;
-        _equipped[SpellSlot.Buff] = kit.BuffSpell != null ? new SpellInstance(kit.BuffSpell) : null;
     }
 
-    public bool TryCast(SpellSlot slot)
+    public SpellInstance GetInstance(SpellSlot slot)
+        => _equipped.TryGetValue(slot, out var inst) ? inst : null;
+
+    public ISpellBehaviour GetBehaviourForDebug(SpellDefinition def) => GetBehaviourFor(def);
+
+    public ISpellBehaviour GetBehaviourFor(SpellDefinition def)
     {
-        if (!_equipped.TryGetValue(slot, out var spell) || spell == null)
-            return false;
+        var type = def.BehaviourType;
 
-        if (!spell.CanCast)
-            return false;
+        if (_behaviours.TryGetValue(type, out var cached))
+            return cached;
 
-        var def = spell.Definition;
-        var behaviour = GetBehaviourFor(def);
+        if (!_behaviourFactories.TryGetValue(type, out var factory) || factory == null)
+        {
+            GD.PrintErr($"No behaviour factory registered for {type} (spell {def.Id}).");
+            return null;
+        }
+
+        var behaviour = factory.Invoke();
         if (behaviour == null)
-            return false;
+        {
+            GD.PrintErr($"Behaviour factory for {type} returned null (spell {def.Id}).");
+            return null;
+        }
 
-        var stats = spell.BuildCastStats(StatsManager);
+        _behaviours[type] = behaviour;
+        return behaviour;
+    }
+
+    public SpellCastContext BuildContext(SpellSlot slot)
+    {
+        var instance = GetInstance(slot);
+        if (instance == null)
+            return default;
+
+        var stats = instance.BuildCastStats(StatsManager);
 
         Node3D muzzle = slot switch
         {
             SpellSlot.LeftHand => _leftHand,
             SpellSlot.RightHand => _rightHand,
             SpellSlot.Dash => GetOwner<Node3D>(),
-            SpellSlot.Shield => GetOwner<Node3D>(),
-            SpellSlot.Buff => GetOwner<Node3D>(),
             _ => GetOwner<Node3D>()
         };
 
         Vector3 dir = GetAimDirection(muzzle, stats.Range);
 
-        var ctx = new SpellCastContext
+        return new SpellCastContext
         {
             Caster = GetOwner<Node3D>(),
             Muzzle = muzzle,
             Direction = dir,
-            Instance = spell,
-            Stats = stats
+            Slot = slot,
+            Instance = instance,
+            Stats = stats,
+            Charge01 = 0f
         };
+    }
+
+    public bool TryCast(SpellSlot slot, bool applyCooldown = true)
+    {
+        var inst = GetInstance(slot);
+        if (inst == null)
+            return false;
+
+        if (!inst.CanCast)
+            return false;
+
+        var ctx = BuildContext(slot);
+        if (ctx.Caster == null)
+            return false;
+
+        var behaviour = GetBehaviourFor(ctx.Instance.Definition);
+        if (behaviour == null)
+            return false;
 
         behaviour.PerformCast(ctx);
 
-        float cdr = StatsManager.GetStat(StatId.CooldownReduction);
-        float cdrMult = 1f - cdr;
-        spell.PutOnCooldown(cdrMult);
+        if (applyCooldown)
+            ApplyCooldown(inst);
 
         return true;
     }
 
-    private ISpellBehaviour GetBehaviourFor(SpellDefinition def)
+    public bool Press(SpellSlot slot)
     {
-        var type = def.BehaviourType;
+        var ctx = BuildContext(slot);
+        if (ctx.Caster == null)
+            return false;
 
-        if (_behaviours.TryGetValue(type, out var behaviour))
-            return behaviour;
+        var behaviour = GetBehaviourFor(ctx.Instance.Definition);
+        if (behaviour is not IPressSpellBehaviour press)
+            return false;
 
-        behaviour = type switch
-        {
-            SpellBehaviourType.Projectile => new ProjectileSpellBehaviour(),
-            // SpellBehaviourType.Beam => new BeamSpellBehaviour(),
-            // SpellBehaviourType.Area => new AreaSpellBehaviour(),
-            // SpellBehaviourType.Dash => new DashSpellBehaviour(),
-            // SpellBehaviourType.Shield => new ShieldSpellBehaviour(),
-            // SpellBehaviourType.Buff => new BuffSpellBehaviour(),
-            _ => null
-        };
+        press.OnPressed(ctx);
+        return true;
+    }
 
-        if (behaviour == null)
-        {
-            GD.PrintErr($"No behaviour mapped for SpellBehaviourType {type} (spell {def.Id})");
-            return null;
-        }
+    public bool Hold(SpellSlot slot, float dt)
+    {
+        var ctx = BuildContext(slot);
+        if (ctx.Caster == null)
+            return false;
 
-        _behaviours[type] = behaviour;
-        return behaviour;
+        var behaviour = GetBehaviourFor(ctx.Instance.Definition);
+        if (behaviour is not IHoldSpellBehaviour hold)
+            return false;
+
+        hold.OnHeld(ctx, dt);
+        return true;
+    }
+
+    public bool Release(SpellSlot slot)
+    {
+        var ctx = BuildContext(slot);
+        if (ctx.Caster == null)
+            return false;
+
+        var behaviour = GetBehaviourFor(ctx.Instance.Definition);
+        if (behaviour is not IReleaseSpellBehaviour release)
+            return false;
+
+        release.OnReleased(ctx);
+        return true;
+    }
+
+    public bool Cancel(SpellSlot slot)
+    {
+        var ctx = BuildContext(slot);
+        if (ctx.Caster == null)
+            return false;
+
+        var behaviour = GetBehaviourFor(ctx.Instance.Definition);
+        if (behaviour is not ICancelableSpellBehaviour cancel)
+            return false;
+
+        cancel.Cancel(ctx);
+        return true;
+    }
+
+    public void ApplyCooldown(SpellInstance instance)
+    {
+        float cdr = StatsManager.GetStat(StatId.CooldownReduction);
+        float cdrMult = 1f - cdr;
+        instance.PutOnCooldown(cdrMult);
     }
 
     private Vector3 GetAimDirection(Node3D muzzle, float range)
@@ -130,71 +225,13 @@ public partial class PlayerSpellController : Node
             return (hit - muzzle.GlobalPosition).Normalized();
         }
 
-        var targetPos = _camera.GlobalTransform.Origin 
-                        + (-_camera.GlobalTransform.Basis.Z * range);
-
+        var targetPos = _camera.GlobalTransform.Origin + (-_camera.GlobalTransform.Basis.Z * range);
         return (targetPos - muzzle.GlobalPosition).Normalized();
     }
 
-    public void CancelCast(SpellSlot slot)
+    public bool IsCooldownShort(SpellSlot slot)
     {
-        if (!_equipped.TryGetValue(slot, out var instance) || instance == null)
-            return;
-
-        var def = instance.Definition;
-
-        // ten sam behaviour co przy castowaniu
-        var behaviour = GetBehaviourFor(def);
-        if (behaviour == null)
-            return;
-
-        var cancelable = behaviour as ICancelableSpellBehaviour;
-        if (cancelable == null)
-            return;
-
-        Node3D muzzle;
-        switch (slot)
-        {
-            case SpellSlot.LeftHand:
-                muzzle = _leftHand;
-                break;
-            case SpellSlot.RightHand:
-                muzzle = _rightHand;
-                break;
-            default:
-                muzzle = GetOwner<Node3D>();
-                break;
-        }
-
-        // Użyj aktualnego range po statystykach (a nie BaseRange), bo inaczej cancel będzie celował gdzie indziej niż cast
-        var stats = instance.BuildCastStats(StatsManager);
-        Vector3 dir = GetAimDirection(muzzle, stats.Range);
-
-        var ctx = new SpellCastContext
-        {
-            Caster = GetOwner<Node3D>(),
-            Muzzle = muzzle,
-            Direction = dir,
-            Instance = instance,
-            Stats = stats
-        };
-
-        cancelable.Cancel(ctx);
+        var instance = GetInstance(slot);
+        return instance.Definition.BaseCooldown < 0.4f;
     }
-
-
 }
-
-
-// TO WRZUCIMY DO KLASY GRACZA
-// if (Input.IsActionJustPressed("CastLeftSpell"))
-//     _spellController.TryCast(SpellSlot.LeftHand);
-
-// if (Input.IsActionJustPressed("CastRightSpell"))
-//     _spellController.TryCast(SpellSlot.RightHand);
-
-// if (Input.IsActionJustPressed("CastShield"))
-//     _spellController.TryCast(SpellSlot.Shield);
-
-// if (Input.IsActionJustPressed("CastBuff"))
-//     _spellController.TryCast(SpellSlot.Buff);

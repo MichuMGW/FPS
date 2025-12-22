@@ -40,6 +40,11 @@ public partial class KnockbackComponent : Node
         _knockbackVelocity = finalImpulse;
     }
 
+    public void ClearKnockback()
+    {
+        _knockbackVelocity = Vector3.Zero;
+    }
+
     public void PhysicsUpdate(double delta)
     {
         if (Body == null)
