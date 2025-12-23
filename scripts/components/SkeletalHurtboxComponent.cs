@@ -33,7 +33,10 @@ public partial class SkeletalHurtboxComponent : HurtboxComponent
             {
                 var hurtboxArea = boneAttachment.GetNodeOrNull<HurtboxArea>("HurtboxArea");
                 if (hurtboxArea != null)
+                {
+                    SetHurtboxAreaOwner(hurtboxArea);
                     _hurtboxes.Add(hurtboxArea);
+                }
             }
         }
 
@@ -78,4 +81,10 @@ public partial class SkeletalHurtboxComponent : HurtboxComponent
             hurtbox.SetDeferred("monitorable", value);
         }
     }
+
+    public override void SetHurtboxAreaOwner(HurtboxArea hurtboxArea)
+    {
+        hurtboxArea.OwnerHurtboxComponent = this;
+    }
+
 }

@@ -1,3 +1,48 @@
-[gd_scene format=3 uid="uid://cugid01x1bs1t"]
+[gd_scene load_steps=8 format=3 uid="uid://cugid01x1bs1t"]
+
+[ext_resource type="Script" uid="uid://sgi4c8467k8v" path="res://scripts/spells/channel_spells/BeamEmitter.cs" id="1_xt26n"]
+[ext_resource type="Shader" uid="uid://bsvfhw1pjio08" path="res://Assets/effects/shaders/water_beam/water_beam.tres" id="2_n3lfq"]
+[ext_resource type="ArrayMesh" uid="uid://dfsgh7jpiruu7" path="res://Assets/effects/meshes/beam.obj" id="3_qmif7"]
+[ext_resource type="PackedScene" uid="uid://c2wcxah80nn20" path="res://scenes/components/hitbox_component.tscn" id="4_n3lfq"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_n3lfq"]
+height = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5jdic"]
+render_priority = 0
+shader = ExtResource("2_n3lfq")
+shader_parameter/ColorParameter = Color(1, 1, 1, 1)
+shader_parameter/Scale = Vector2(0.2, 0.2)
+shader_parameter/Speed = Vector2(0.1, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_35wbn"]
+shading_mode = 0
+albedo_color = Color(0, 0.552941, 1, 1)
 
 [node name="WaterBeam" type="Node3D"]
+script = ExtResource("1_xt26n")
+RaycastPath = NodePath("")
+
+[node name="HitboxComponent" parent="." instance=ExtResource("4_n3lfq")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+collision_layer = 8
+collision_mask = 32
+RehitCooldownSeconds = 0.2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent"]
+shape = SubResource("CylinderShape3D_n3lfq")
+debug_color = Color(0.773246, 0.442501, 0, 0.42)
+
+[node name="BeamVFX" type="Node3D" parent="."]
+
+[node name="OverlayMesh" type="MeshInstance3D" parent="BeamVFX"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_5jdic")
+mesh = ExtResource("3_qmif7")
+skeleton = NodePath("../..")
+
+[node name="BeamMesh" type="MeshInstance3D" parent="BeamVFX"]
+transform = Transform3D(0.45, 0, 0, 0, 0.45, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_35wbn")
+mesh = ExtResource("3_qmif7")
+skeleton = NodePath("../..")

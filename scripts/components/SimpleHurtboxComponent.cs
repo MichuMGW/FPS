@@ -25,6 +25,7 @@ public partial class SimpleHurtboxComponent : HurtboxComponent
             return;
         }
 
+        SetHurtboxAreaOwner(_hurtbox);
         _hurtbox.BodyEntered += OnBodyEntered;
         _hurtbox.AreaEntered += OnAreaEntered;
     }
@@ -49,4 +50,10 @@ public partial class SimpleHurtboxComponent : HurtboxComponent
     {
         _hurtbox.SetDeferred("monitorable", value);
     }
+
+    public override void SetHurtboxAreaOwner(HurtboxArea hurtboxArea)
+    {
+        hurtboxArea.OwnerHurtboxComponent = this;
+    }
+
 }

@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="ProjectileSpellDefinition" load_steps=3 format=3 uid="uid://cy0q8qc47rjvt"]
+
+[ext_resource type="PackedScene" uid="uid://51635866wcf8" path="res://scenes/spells/basic_spells/projectile_spells/air_slash_scaling.tscn" id="1_cy46q"]
+[ext_resource type="Script" uid="uid://y2naeclibxt3" path="res://resources/spells/definitions/ProjectileSpellDefinition.cs" id="1_g1ve5"]
+
+[resource]
+script = ExtResource("1_g1ve5")
+ProjectileScene = ExtResource("1_cy46q")
+ProjectileSpeed = 8.0
+ProjectileSpread = 0.0
+ProjectilePierce = 1000
+DieOnWorldHit = true
+ScaleOverTime = true
+StartScale = 1.0
+EndScale = 10.0
+ScaleDurationSeconds = 5.0
+ExplodeOnEnemyHit = false
+ExplodeOnWorldHit = false
+ExplosionDamageMultiplier = 1.0
+ExplosionLifetimeSeconds = 0.0
+Id = ""
+DisplayName = ""
+Element = 4
+CastMode = 0
+BehaviourType = 0
+BaseDamage = 5.0
+BaseRange = 20.0
+BaseCooldown = 1.0
+BaseManaCost = 0.0
+EnableRehit = true
+RehitIntervalSeconds = 0.05
+RehitMaxDurationSeconds = 0.0
+metadata/_custom_type_script = "uid://y2naeclibxt3"

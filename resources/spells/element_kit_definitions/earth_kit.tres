@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ElementKitDefinition" load_steps=3 format=3 uid="uid://dpv888n3rhaa4"]
+
+[ext_resource type="Resource" uid="uid://dft3sy88xt386" path="res://resources/spells/spell_definitions/earth_shard.tres" id="1_j71pp"]
+[ext_resource type="Script" uid="uid://b3lgib24dqmon" path="res://resources/spells/ElementKitDefinition.cs" id="1_janfh"]
+
+[resource]
+script = ExtResource("1_janfh")
+Element = 10
+LeftHandSpell = ExtResource("1_j71pp")
+metadata/_custom_type_script = "uid://b3lgib24dqmon"

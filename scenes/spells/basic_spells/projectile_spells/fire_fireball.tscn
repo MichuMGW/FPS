@@ -34,14 +34,14 @@ height = 0.5
 offsets = PackedFloat32Array(0, 0.432584, 0.882023, 0.994382)
 colors = PackedColorArray(1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_nwoxh"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_i0cao"]
 gradient = SubResource("Gradient_i0cao")
 use_hdr = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8th6s"]
 render_priority = 0
 shader = ExtResource("6_8th6s")
-shader_parameter/Color_Texture = SubResource("GradientTexture1D_nwoxh")
+shader_parameter/Color_Texture = SubResource("GradientTexture1D_i0cao")
 shader_parameter/Trail_Speed = Vector2(2.5, 0)
 
 [sub_resource type="QuadMesh" id="QuadMesh_i0cao"]
@@ -89,8 +89,8 @@ HitboxPath = NodePath("HitboxComponent")
 
 [node name="HitboxComponent" parent="." instance=ExtResource("2_5ele2")]
 collision_layer = 8
+collision_mask = 32
 DamageType = 1
-OneShot = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent"]
 shape = SubResource("SphereShape3D_q3m7n")

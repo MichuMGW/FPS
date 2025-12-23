@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="ProjectileSpellDefinition" load_steps=3 format=3 uid="uid://dymh5sqmophp7"]
+[gd_resource type="Resource" script_class="ProjectileSpellDefinition" load_steps=4 format=3 uid="uid://dymh5sqmophp7"]
 
 [ext_resource type="Script" uid="uid://y2naeclibxt3" path="res://resources/spells/definitions/ProjectileSpellDefinition.cs" id="1_1b5q3"]
+[ext_resource type="PackedScene" uid="uid://dj4vku1212nte" path="res://scenes/spells/fire_explosion.tscn" id="1_1fuhn"]
 [ext_resource type="PackedScene" uid="uid://mympbdtdffqg" path="res://scenes/spells/basic_spells/projectile_spells/fire_fireball.tscn" id="1_h0hcc"]
 
 [resource]
@@ -8,6 +9,17 @@ script = ExtResource("1_1b5q3")
 ProjectileScene = ExtResource("1_h0hcc")
 ProjectileSpeed = 20.0
 ProjectileSpread = 0.0
+ProjectilePierce = 2
+DieOnWorldHit = true
+ScaleOverTime = true
+StartScale = 0.05
+EndScale = 1.0
+ScaleDurationSeconds = 0.15
+ExplodeOnEnemyHit = false
+ExplodeOnWorldHit = false
+ExplosionScene = ExtResource("1_1fuhn")
+ExplosionDamageMultiplier = 1.0
+ExplosionLifetimeSeconds = 2.0
 Id = "fire_fireball"
 DisplayName = "Fireball"
 Element = 1
@@ -17,4 +29,7 @@ BaseDamage = 100.0
 BaseRange = 50.0
 BaseCooldown = 1.0
 BaseManaCost = 0.0
+EnableRehit = false
+RehitIntervalSeconds = 0.25
+RehitMaxDurationSeconds = 0.0
 metadata/_custom_type_script = "uid://y2naeclibxt3"

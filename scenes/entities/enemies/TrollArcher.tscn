@@ -81,7 +81,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.14732, 0)
 shape = SubResource("CapsuleShape3D_um2ui")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-debug_enabled = true
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("Hurtbox") instance=ExtResource("4_co1md")]
 Hurtbox = NodePath("../SkeletalHurtboxComponent")
@@ -150,7 +149,6 @@ bone_name = "upper_arm.L"
 bone_idx = 9
 
 [node name="HurtboxArea" parent="troll_archer/TrollArcherRig/Skeleton3D/UpperArmLeftAttachment" instance=ExtResource("13_un2xp")]
-collision_layer = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="troll_archer/TrollArcherRig/Skeleton3D/UpperArmLeftAttachment/HurtboxArea"]
 transform = Transform3D(0.171224, 2.96859e-08, -4.03652e-08, 0, 0.171218, 1.02445e-07, 1.27875e-08, 5.44824e-08, 0.171224, -2.38419e-07, 0.189781, 0.00168264)
@@ -162,7 +160,6 @@ bone_name = "upper_arm.R"
 bone_idx = 20
 
 [node name="HurtboxArea" parent="troll_archer/TrollArcherRig/Skeleton3D/UpperArmRightAttachment" instance=ExtResource("13_un2xp")]
-collision_layer = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="troll_archer/TrollArcherRig/Skeleton3D/UpperArmRightAttachment/HurtboxArea"]
 transform = Transform3D(0.171225, 2.23517e-08, -5.15138e-08, -2.5332e-07, 0.171218, -1.83645e-08, 3.08501e-09, 5.51227e-08, 0.171218, -2.6077e-07, 0.189781, 0.00168228)
@@ -174,7 +171,6 @@ bone_name = "forearm.L"
 bone_idx = 10
 
 [node name="HurtboxArea" parent="troll_archer/TrollArcherRig/Skeleton3D/ForearmLeftAttachment" instance=ExtResource("13_un2xp")]
-collision_layer = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="troll_archer/TrollArcherRig/Skeleton3D/ForearmLeftAttachment/HurtboxArea"]
 transform = Transform3D(0.200837, 3.27826e-07, 1.57394e-07, 1.2666e-07, 1.04345, -1.10641e-06, -2.40485e-07, 1.87708e-06, 0.957553, -0.00738543, 0.264778, -0.00405276)
@@ -186,7 +182,6 @@ bone_name = "forearm.R"
 bone_idx = 21
 
 [node name="HurtboxArea" parent="troll_archer/TrollArcherRig/Skeleton3D/ForearmRightAttachment" instance=ExtResource("13_un2xp")]
-collision_layer = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="troll_archer/TrollArcherRig/Skeleton3D/ForearmRightAttachment/HurtboxArea"]
 transform = Transform3D(0.200836, 3.61353e-07, 2.16067e-07, 8.28877e-08, 1.04345, -1.04308e-06, -2.29105e-07, 1.37091e-06, 0.957553, -0.00738552, 0.264778, -0.00405276)
@@ -198,7 +193,6 @@ bone_name = "spine.006"
 bone_idx = 7
 
 [node name="HurtboxArea" parent="troll_archer/TrollArcherRig/Skeleton3D/HeadAttachment" instance=ExtResource("13_un2xp")]
-collision_layer = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="troll_archer/TrollArcherRig/Skeleton3D/HeadAttachment/HurtboxArea"]
 transform = Transform3D(0.28463, -9.31323e-10, 7.45058e-09, 0, 0.28463, 0, 7.45058e-09, 0, 0.28463, 5.96046e-08, 0.0625409, 0)
@@ -210,7 +204,6 @@ bone_name = "spine.003"
 bone_idx = 4
 
 [node name="HurtboxArea" parent="troll_archer/TrollArcherRig/Skeleton3D/ChestAttachment" instance=ExtResource("13_un2xp")]
-collision_layer = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="troll_archer/TrollArcherRig/Skeleton3D/ChestAttachment/HurtboxArea"]
 transform = Transform3D(0.300024, 0, 4.74392e-09, -3.72529e-09, 0.300915, 1.73182e-07, -1.25146e-09, -1.34256e-07, 0.272388, -0.00830448, 0.0829625, 2.98023e-08)
@@ -222,7 +215,6 @@ bone_name = "spine.001"
 bone_idx = 2
 
 [node name="HurtboxArea" parent="troll_archer/TrollArcherRig/Skeleton3D/AbdomenAttachment" instance=ExtResource("13_un2xp")]
-collision_layer = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="troll_archer/TrollArcherRig/Skeleton3D/AbdomenAttachment/HurtboxArea"]
 transform = Transform3D(0.300409, -1.86265e-09, 4.65661e-10, -1.86265e-09, 0.300409, -1.25146e-09, -4.65661e-10, 5.87606e-08, 0.300409, 0, 0.0378628, 0.00616986)
@@ -234,7 +226,6 @@ bone_name = "thigh.L"
 bone_idx = 31
 
 [node name="HurtboxArea" parent="troll_archer/TrollArcherRig/Skeleton3D/ThighLeftAttachment" instance=ExtResource("13_un2xp")]
-collision_layer = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="troll_archer/TrollArcherRig/Skeleton3D/ThighLeftAttachment/HurtboxArea"]
 transform = Transform3D(0.202868, -1.30385e-08, 1.11759e-08, 1.86265e-08, 0.202868, 7.45058e-09, 3.72529e-09, 0, 0.202868, 0.00632721, 0.185842, -0.0157499)
@@ -246,7 +237,6 @@ bone_name = "thigh.R"
 bone_idx = 33
 
 [node name="HurtboxArea" parent="troll_archer/TrollArcherRig/Skeleton3D/ThighRightAttachment" instance=ExtResource("13_un2xp")]
-collision_layer = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="troll_archer/TrollArcherRig/Skeleton3D/ThighRightAttachment/HurtboxArea"]
 transform = Transform3D(0.202868, 0, 0, 7.45058e-09, 0.202868, 0, 7.45058e-09, 0, 0.202868, 0.00632721, 0.185842, -0.01575)
@@ -258,7 +248,6 @@ bone_name = "shin.L"
 bone_idx = 32
 
 [node name="HurtboxArea" parent="troll_archer/TrollArcherRig/Skeleton3D/ShinLeftAttachment" instance=ExtResource("13_un2xp")]
-collision_layer = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="troll_archer/TrollArcherRig/Skeleton3D/ShinLeftAttachment/HurtboxArea"]
 transform = Transform3D(0.161084, 0, 2.98023e-08, -1.11759e-08, 0.161084, 2.04891e-08, -2.79397e-07, -9.31323e-10, 0.161084, -0.00397694, 0.200185, -0.00503385)
@@ -270,7 +259,6 @@ bone_name = "shin.R"
 bone_idx = 34
 
 [node name="HurtboxArea" parent="troll_archer/TrollArcherRig/Skeleton3D/ShinRightAttachment" instance=ExtResource("13_un2xp")]
-collision_layer = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="troll_archer/TrollArcherRig/Skeleton3D/ShinRightAttachment/HurtboxArea"]
 transform = Transform3D(0.161084, 0, 0, 1.86265e-09, 0.161084, 0, 7.45058e-09, 0, 0.161084, -0.00397697, 0.200185, -0.00503388)
@@ -282,7 +270,6 @@ bone_name = "foot.L"
 bone_idx = 37
 
 [node name="HurtboxArea" parent="troll_archer/TrollArcherRig/Skeleton3D/FootLeftAttachment" instance=ExtResource("13_un2xp")]
-collision_layer = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="troll_archer/TrollArcherRig/Skeleton3D/FootLeftAttachment/HurtboxArea"]
 transform = Transform3D(0.137235, 0.00112305, -0.00367285, 0.000808628, 0.119897, 0.0668747, 0.00375466, -0.0668701, 0.119844, -2.98023e-08, 0.119933, -1.49012e-08)
@@ -294,7 +281,6 @@ bone_name = "foot.R"
 bone_idx = 35
 
 [node name="HurtboxArea" parent="troll_archer/TrollArcherRig/Skeleton3D/FootRightAttachment" instance=ExtResource("13_un2xp")]
-collision_layer = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="troll_archer/TrollArcherRig/Skeleton3D/FootRightAttachment/HurtboxArea"]
 transform = Transform3D(0.137235, 0.00112305, -0.00367285, 0.000808628, 0.119897, 0.0668747, 0.00375466, -0.0668701, 0.119844, -2.98023e-08, 0.119933, -2.23517e-08)

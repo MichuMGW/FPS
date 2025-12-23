@@ -1,107 +1,396 @@
 using Godot;
+using System.Collections.Generic;
 
 public partial class Projectile : CharacterBody3D
 {
-	[Export] public NodePath HitboxPath = "Hitbox";
-	[Export] public float LifeTime = 5f;
+    [Export] public NodePath HitboxPath = "Hitbox";
+    [Export] public NodePath CollisionShapePath = "CollisionShape3D";
+    [Export] public NodePath VisualPath = "Visual"; // jeśli nie masz, zostaw puste i będzie skalował root
 
-	private HitboxComponent hitbox;
-	private Element element;
-	private float damage;
-	private float range;
+    [Export] public float LifeTime = 5f;
 
-	private Vector3 startPosition;
-	private float timeAlive;
-	private bool hasHitSomething;
+    private HitboxComponent _hitbox;
+    private CollisionShape3D _collisionShape;
+    private Node3D _visual;
 
-	public override void _Ready()
-	{
-		hitbox = GetNodeOrNull<HitboxComponent>(HitboxPath);
-		if (hitbox == null)
-		{
-			GD.PrintErr(Name + ": Projectile requires HitboxComponent at path: " + HitboxPath);
-			return;
-		}
+    // core stats
+    private Element _element;
+    private float _damage;
+    private float _range;
+    private Vector3 _startPosition;
+    private float _timeAlive;
 
-		GD.Print($"Projectile scale: {GlobalTransform.Basis.Scale}");
-    var cs = GetNodeOrNull<CollisionShape3D>("CollisionShape3D");
-    if (cs != null)
-        GD.Print($"CollisionShape scale: {cs.GlobalTransform.Basis.Scale}");
+    // pierce
+    private int _remainingPierce;
+    private readonly HashSet<ulong> _piercedTargets = new();
 
-    var parent = GetParentOrNull<Node3D>();
-    if (parent != null)
-        GD.Print($"Parent scale: {parent.GlobalTransform.Basis.Scale}");
+    // rehit (tick damage kiedy pocisk “siedzi” w celu)
+    private bool _rehitEnabled;
+    private float _rehitInterval;
+    private float _rehitAcc;
 
-		// bez lambd, jak prosiłeś
-		hitbox.BodyEntered += OnHitboxBodyEntered;
-		hitbox.AreaEntered += OnHitboxAreaEntered;
-	}
+    // scaling
+    private bool _scaleEnabled;
+    private float _scaleStart;
+    private float _scaleEnd;
+    private float _scaleDuration;
+    private float _scaleT;
 
-	public void Configure(Element projectileElement, float projectileDamage, float projectileRange)
-	{
-		element = projectileElement;
-		damage = projectileDamage;
-		range = projectileRange;
+    // bazowe parametry shape (z inspektora, ale na sklonowanym zasobie)
+    private SphereShape3D _sphere;
+    private CapsuleShape3D _capsule;
+    private BoxShape3D _box;
 
-		if (hitbox != null)
-		{
-			hitbox.Damage = damage;
-			hitbox.DamageType = element;
+    private float _baseSphereRadius;
+    private float _baseCapsuleRadius;
+    private float _baseCapsuleHeight;
+    private Vector3 _baseBoxSize;
 
-			// typowe: pocisk trafia raz i znika
-			hitbox.OneShot = true;
-			hitbox.RehitCooldownSeconds = 0f;
-		}
-	}
+    // explosion
+    private bool _explodeOnEnemy;
+    private bool _explodeOnWorld;
+    private PackedScene _explosionScene;
+    private float _explosionDamageMult;
 
-	public void Launch(Vector3 velocity)
-	{
-		Velocity = velocity;
-		startPosition = GlobalPosition;
-		timeAlive = 0f;
-		hasHitSomething = false;
-	}
+    private bool _dead;
+    private bool _exploded;
 
-	public override void _PhysicsProcess(double delta)
-	{
-		float dt = (float)delta;
+    public override void _Ready()
+    {
+        _hitbox = GetNodeOrNull<HitboxComponent>(HitboxPath);
+        _collisionShape = GetNodeOrNull<CollisionShape3D>(CollisionShapePath);
 
-		timeAlive += dt;
-		if (timeAlive >= LifeTime)
-		{
-			QueueFree();
-			return;
-		}
+        _visual = GetNodeOrNull<Node3D>(VisualPath);
+        if (_visual == null)
+            _visual = this; // fallback: skaluje root
 
-		if (startPosition.DistanceTo(GlobalPosition) > range)
-		{
-			QueueFree();
-			return;
-		}
+        if (_hitbox == null)
+        {
+            GD.PushError($"{Name}: Projectile requires HitboxComponent at '{HitboxPath}'.");
+            _dead = true;
+            return;
+        }
 
-		var collision = MoveAndCollide(Velocity * dt);
-        if (collision != null)
+        if (_collisionShape == null || _collisionShape.Shape == null)
+        {
+            GD.PushWarning($"{Name}: Missing CollisionShape3D/Shape at '{CollisionShapePath}'. Scaling collider will be skipped.");
+        }
+        else
+        {
+            // KLUCZ: duplikujemy zasób shape per instancja, żeby nie “pamiętał” między castami
+            _collisionShape.Shape = (Shape3D)_collisionShape.Shape.Duplicate(true);
+
+            if (_collisionShape.Shape is SphereShape3D s)
+            {
+                _sphere = s;
+                _baseSphereRadius = s.Radius;
+            }
+            else if (_collisionShape.Shape is CapsuleShape3D c)
+            {
+                _capsule = c;
+                _baseCapsuleRadius = c.Radius;
+                _baseCapsuleHeight = c.Height;
+            }
+            else if (_collisionShape.Shape is BoxShape3D b)
+            {
+                _box = b;
+                _baseBoxSize = b.Size;
+            }
+        }
+
+        // bez lambd, jak prosiłeś
+        _hitbox.BodyEntered += OnHitboxBodyEntered;
+        _hitbox.AreaEntered += OnHitboxAreaEntered;
+
+        // hitbox ma sens tylko gdy monitoruje
+        _hitbox.Active = true;
+    }
+
+    // Jedno Configure dla wszystkiego. Spell/modifier może to ustawić jak chce.
+    public void Configure(
+        Element element,
+        float damage,
+        float range,
+        int pierce,
+
+        // rehit
+        bool enableRehit = false,
+        float rehitIntervalSeconds = 0.25f,
+
+        // scaling
+        bool scaleOverTime = false,
+        float startScale = 1f,
+        float endScale = 1f,
+        float scaleDurationSeconds = 0f,
+
+        // explosion
+        PackedScene explosionScene = null,
+        float explosionDamageMultiplier = 1f,
+        bool explodeOnEnemy = false,
+        bool explodeOnWorld = false,
+
+		bool dieOnWorldHit = true,
+		float explosionLifetimeSeconds = 0f
+    )
+    {
+        _element = element;
+        _damage = damage;
+        _range = range;
+
+        _remainingPierce = pierce;
+        _piercedTargets.Clear();
+
+        // hitbox dmg config
+        if (_hitbox != null)
+        {
+            _hitbox.Damage = _damage;
+            _hitbox.DamageType = _element;
+
+            // OneShot musi być false, bo inaczej gating w HitboxComponent uwali kolejne cele/rehit
+            _hitbox.OneShot = !enableRehit;
+
+            // rehit gating robimy przez HitboxComponent
+            _hitbox.RehitCooldownSeconds = enableRehit ? Mathf.Max(0.01f, rehitIntervalSeconds) : 0f;
+        }
+
+        // rehit
+        _rehitEnabled = enableRehit;
+        _rehitInterval = Mathf.Max(0.01f, rehitIntervalSeconds);
+        _rehitAcc = 0f;
+
+        // scaling
+        _scaleEnabled = scaleOverTime;
+        _scaleStart = startScale;
+        _scaleEnd = endScale;
+        _scaleDuration = Mathf.Max(0f, scaleDurationSeconds);
+        _scaleT = 0f;
+
+        if (_scaleEnabled)
+            ApplyScale(_scaleStart);
+
+        // explosion
+        _explosionScene = explosionScene;
+        _explosionDamageMult = explosionDamageMultiplier;
+        _explodeOnEnemy = explodeOnEnemy;
+        _explodeOnWorld = explodeOnWorld;
+
+        _exploded = false;
+    }
+
+    public void Launch(Vector3 velocity)
+    {
+        Velocity = velocity;
+        _startPosition = GlobalPosition;
+        _timeAlive = 0f;
+        _dead = false;
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        if (_dead)
+            return;
+
+        float dt = (float)delta;
+
+        _timeAlive += dt;
+        if (_timeAlive >= LifeTime)
         {
             QueueFree();
+            _dead = true;
+            return;
         }
-	}
 
-	private void OnHitboxBodyEntered(Node body)
-	{
-		if (hasHitSomething)
-			return;
+        if (_startPosition.DistanceTo(GlobalPosition) > _range)
+        {
+            QueueFree();
+            _dead = true;
+            return;
+        }
 
-		// jeśli chcesz ignorować własnego castera, dodaj tu filtr (np. grupa "player")
-		hasHitSomething = true;
-		QueueFree();
-	}
+        // scaling tick
+        if (_scaleEnabled)
+            TickScale(dt);
 
-	private void OnHitboxAreaEntered(Area3D area)
-	{
-		if (hasHitSomething)
-			return;
+        // move + world collision
+        var collision = MoveAndCollide(Velocity * dt);
+        if (collision != null)
+        {
+            if (_explodeOnWorld && !_exploded)
+            {
+                // world hit: wybuch w punkcie kontaktu
+                ExplodeAt(collision.GetPosition());
+                return;
+            }
 
-		hasHitSomething = true;
-		QueueFree();
-	}
+            // jeśli nie wybucha na world, to standardowo kończ (albo możesz odbijać, twoja bajka)
+            QueueFree();
+            _dead = true;
+            return;
+        }
+
+        // rehit tick (polling overlapy)
+        if (_rehitEnabled && !_exploded)
+		{
+			GD.Print("TickRehit");
+            TickRehit(dt);
+		}
+    }
+
+    private void TickScale(float dt)
+    {
+        _scaleT += dt;
+
+        float a = (_scaleDuration <= 0f) ? 1f : Mathf.Clamp(_scaleT / _scaleDuration, 0f, 1f);
+        float s = Mathf.Lerp(_scaleStart, _scaleEnd, a);
+
+        ApplyScale(s);
+    }
+
+    private void ApplyScale(float s)
+    {
+        if (_visual != null)
+            _visual.Scale = Vector3.One * s;
+
+        // collider: skalujemy parametry shape, nie global scale (stabilniej)
+        if (_sphere != null)
+        {
+            _sphere.Radius = _baseSphereRadius * s;
+        }
+        else if (_capsule != null)
+        {
+            _capsule.Radius = _baseCapsuleRadius * s;
+            _capsule.Height = _baseCapsuleHeight * s;
+        }
+        else if (_box != null)
+        {
+            _box.Size = _baseBoxSize * s;
+        }
+    }
+
+    private void TickRehit(float dt)
+    {
+        _rehitAcc += dt;
+        if (_rehitAcc < _rehitInterval)
+            return;
+
+        _rehitAcc -= _rehitInterval;
+
+        if (_hitbox == null || !_hitbox.Monitoring)
+            return;
+
+        var overlapped = _hitbox.GetOverlappingAreas();
+        if (overlapped == null || overlapped.Count == 0)
+            return;
+
+        for (int i = 0; i < overlapped.Count; i++)
+        {
+            if (overlapped[i] is not HurtboxArea hurtbox)
+                continue;
+
+            var ownerComp = hurtbox.OwnerHurtboxComponent;
+            if (ownerComp == null)
+                continue;
+
+            var target = ownerComp.GetOwner<Node3D>();
+            if (target == null)
+                continue;
+
+            // gating per target przez HitboxComponent
+            if (!_hitbox.CanHitAgain(target))
+                continue;
+
+            ownerComp.ReceiveHit(hurtbox, _hitbox, hurtbox.GlobalPosition);
+        }
+    }
+
+    private void OnHitboxBodyEntered(Node body)
+    {
+        // na razie ignoruję: większość twoich trafień idzie AreaEntered przez HurtboxArea
+    }
+
+    private void OnHitboxAreaEntered(Area3D area)
+    {
+        if (_dead || _exploded)
+            return;
+
+        if (area is not HurtboxArea hurtbox)
+            return;
+
+        var ownerComp = hurtbox.OwnerHurtboxComponent;
+        if (ownerComp == null)
+            return;
+
+        var target = ownerComp.GetOwner<Node3D>();
+        if (target == null)
+            return;
+
+        ulong id = target.GetInstanceId();
+
+        // Piercing liczymy per przeciwnik, nie per hurtbox area
+        bool firstTimeThisTarget = _piercedTargets.Add(id);
+
+        // jeśli wybucha na enemy, to wybuch zawsze przy pierwszym kontakcie (inaczej będziesz miał “wybuch spam”)
+        if (_explodeOnEnemy && firstTimeThisTarget)
+        {
+            ExplodeAt(hurtbox.GlobalPosition);
+            return;
+        }
+
+        // jeśli to pierwszy kontakt z tym targetem, zużyj pierce
+        if (firstTimeThisTarget)
+        {
+            _remainingPierce -= 1;
+
+            if (_remainingPierce < 0)
+            {
+                QueueFree();
+                _dead = true;
+            }
+        }
+
+        // Damage “on enter” nie jest wymagany, bo i tak:
+        // - możesz robić dmg przez rehit polling
+        // - albo przeciwnik sam sobie odpala reakcje w ReceiveHit (jeśli chcesz, odpal tu pierwszy hit)
+        // Jeśli chcesz pierwszy hit natychmiast:
+        if (_hitbox != null && _hitbox.CanHitAgain(target))
+        {
+            // _hitbox.RegisterHit(target);
+            ownerComp.ReceiveHit(hurtbox, _hitbox, hurtbox.GlobalPosition);
+
+        }
+    }
+
+    private void ExplodeAt(Vector3 pos)
+    {
+        if (_exploded)
+            return;
+
+        _exploded = true;
+
+        if (_explosionScene != null)
+        {
+            Node n = _explosionScene.Instantiate();
+            if (n is Node3D n3)
+            {
+                GetTree().CurrentScene.AddChild(n3);
+                n3.GlobalPosition = pos;
+
+                // Jeśli scena explosion ma HitboxComponent i chcesz przeskalować dmg:
+                var hb = n3.GetNodeOrNull<HitboxComponent>("HitboxComponent");
+                if (hb != null)
+                {
+                    hb.Damage *= _explosionDamageMult;
+                    hb.DamageType = _element;
+                }
+            }
+            else
+            {
+                n.QueueFree();
+                GD.PushWarning($"{Name}: ExplosionScene root should be Node3D.");
+            }
+        }
+
+        QueueFree();
+        _dead = true;
+    }
 }

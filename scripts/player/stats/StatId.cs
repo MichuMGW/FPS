@@ -8,6 +8,7 @@ public enum StatId
     CooldownReduction,
     JumpForce,
     JumpCount,
+    ProjectilePierce,
 
     KnockbackResistance,   // 0.0 = brak, 1.0 = full immune
     KnockbackMultiplier

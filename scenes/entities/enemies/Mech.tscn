@@ -417,7 +417,6 @@ draw_pass_1 = ExtResource("29_5aooi")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-visible = false
 size = Vector3(30, 2, 30)
 
 [editable path="Mech"]

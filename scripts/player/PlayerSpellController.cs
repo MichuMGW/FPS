@@ -19,6 +19,7 @@ public partial class PlayerSpellController : Node
     private Node3D _leftHand;
     private Node3D _rightHand;
     private Camera3D _camera;
+    private RayCast3D _raycast;
 
     private readonly Dictionary<SpellSlot, SpellInstance> _equipped = new();
 
@@ -32,6 +33,7 @@ public partial class PlayerSpellController : Node
         _leftHand = GetNode<Node3D>(LeftHandPath);
         _rightHand = GetNode<Node3D>(RightHandPath);
         _camera = GetNode<Camera3D>(CameraPath);
+        _raycast = GetTree().GetFirstNodeInGroup("player_ray") as RayCast3D;
 
         RegisterDefaultBehaviours();
         EquipKit(StartingKit);
@@ -114,7 +116,7 @@ public partial class PlayerSpellController : Node
             _ => GetOwner<Node3D>()
         };
 
-        Vector3 dir = GetAimDirection(muzzle, stats.Range);
+        Vector3 dir = GetAimDirection(muzzle);
 
         return new SpellCastContext
         {
@@ -216,17 +218,25 @@ public partial class PlayerSpellController : Node
         instance.PutOnCooldown(cdrMult);
     }
 
-    private Vector3 GetAimDirection(Node3D muzzle, float range)
+    private Vector3 GetAimDirection(Node3D muzzle)
     {
-        var raycast = GetTree().GetFirstNodeInGroup("player_ray") as RayCast3D;
-        if (raycast != null && raycast.IsColliding())
+        if (_raycast != null && _raycast.IsColliding())
         {
-            var hit = raycast.GetCollisionPoint();
-            return (hit - muzzle.GlobalPosition).Normalized();
+            var hit = _raycast.GetCollisionPoint();
+            var toHit = hit - muzzle.GlobalPosition;
+
+            //Czy odległość od gracza jest większa niż 3 jednostki (3^2 = 9)
+            if (toHit.Length() > 9f)
+            {
+                return toHit.Normalized();
+            }
         }
 
-        var targetPos = _camera.GlobalTransform.Origin + (-_camera.GlobalTransform.Basis.Z * range);
-        return (targetPos - muzzle.GlobalPosition).Normalized();
+        var camPos = _camera.GlobalTransform.Origin;
+        var camFwd = -_camera.GlobalTransform.Basis.Z.Normalized();
+
+        var farPoint = camPos + camFwd * 1000f;
+        return (farPoint - muzzle.GlobalPosition).Normalized();
     }
 
     public bool IsCooldownShort(SpellSlot slot)

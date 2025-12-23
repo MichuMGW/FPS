@@ -45,11 +45,21 @@ public class BeamSpellBehaviour : ISpellBehaviour, IHoldSpellBehaviour, ICancela
         float tickRate = Mathf.Max(0.01f, def.TickRate);
         float maxLen = Mathf.Max(1f, ctx.Stats.Range);
 
-        emitter.Configure(def.Element, ctx.Stats.Damage, tickRate, maxLen);
-        emitter.UpdateBeam(ctx.Muzzle, ctx.Direction);
+        emitter.Configure(
+            def.Element,
+            ctx.Stats.Damage,
+            tickRate,
+            maxLen,
+            def.BeamWidth,
+            def.PierceCount
+        );
 
+        emitter.Start();
+
+        emitter.UpdateBeam(ctx.Muzzle, ctx.Direction);
         _active[key] = emitter;
     }
+
 
     public void OnHeld(SpellCastContext ctx, float dt)
     {
@@ -74,6 +84,8 @@ public class BeamSpellBehaviour : ISpellBehaviour, IHoldSpellBehaviour, ICancela
 
         _active.Remove(key);
 
+        emitter.Stop();
+        
         if (GodotObject.IsInstanceValid(emitter))
             emitter.QueueFree();
     }

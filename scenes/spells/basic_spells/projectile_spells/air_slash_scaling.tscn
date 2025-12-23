@@ -1,0 +1,61 @@
+[gd_scene load_steps=10 format=3 uid="uid://51635866wcf8"]
+
+[ext_resource type="Script" uid="uid://tcmlvmhebq6h" path="res://scripts/spells/projectile_spells/Projectile.cs" id="1_ap1wb"]
+[ext_resource type="PackedScene" uid="uid://c2wcxah80nn20" path="res://scenes/components/hitbox_component.tscn" id="2_8oegm"]
+[ext_resource type="Shader" uid="uid://cjo668gjt5k6t" path="res://Assets/effects/shaders/fireball/fireball_trail1_shader.tres" id="3_tbxvf"]
+[ext_resource type="ArrayMesh" uid="uid://cqwmqdwxcdqhb" path="res://Assets/effects/meshes/slash.obj" id="4_glmkj"]
+[ext_resource type="ArrayMesh" uid="uid://dyff68qu7obpv" path="res://Assets/effects/meshes/slash_trail.obj" id="5_48dc4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5543r"]
+size = Vector3(2, 0.133, 0.895191)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8txr6"]
+radius = 0.3
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nd7i6"]
+render_priority = 0
+shader = ExtResource("3_tbxvf")
+shader_parameter/Fire_Color = Color(1, 1, 1, 1)
+shader_parameter/Speed = Vector2(0, -4)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_inf5j"]
+render_priority = 0
+shader = ExtResource("3_tbxvf")
+shader_parameter/Fire_Color = Color(1, 1, 1, 1)
+shader_parameter/Speed = Vector2(0, 6)
+
+[node name="AirSlash" type="CharacterBody3D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_ap1wb")
+HitboxPath = NodePath("HitboxComponent")
+CollisionShapePath = NodePath("HitboxComponent/CollisionShape3D")
+VisualPath = NodePath("ProjectileVfx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.452367)
+shape = SubResource("BoxShape3D_5543r")
+
+[node name="HitboxComponent" parent="." instance=ExtResource("2_8oegm")]
+collision_layer = 8
+collision_mask = 32
+RehitCooldownSeconds = 0.1
+OneShot = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, -0.452367)
+shape = SubResource("CapsuleShape3D_8txr6")
+
+[node name="ProjectileVfx" type="Node3D" parent="."]
+
+[node name="Slash" type="MeshInstance3D" parent="ProjectileVfx"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_nd7i6")
+mesh = ExtResource("4_glmkj")
+skeleton = NodePath("../..")
+
+[node name="SlashTrail" type="MeshInstance3D" parent="ProjectileVfx"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_inf5j")
+mesh = ExtResource("5_48dc4")
+skeleton = NodePath("../..")

@@ -17,10 +17,12 @@ public abstract partial class HurtboxComponent : Node
 			SetHutboxesMonitorable(value);
         }
     }
+
     public void ReceiveHit(HurtboxArea hurtbox, Node3D source, Vector3 hitPosition)
     {
         ProcessHit(hurtbox, source, hitPosition);
     }
+    
     protected void ProcessHit(HurtboxArea hurtbox, Node3D source, Vector3 hitPosition)
     {
         if (source is not IDamageSource damageSource)
@@ -45,7 +47,8 @@ public abstract partial class HurtboxComponent : Node
 
         EmitSignal(nameof(Hit), hitInfo);
     }
-
+    protected void ProcessHit(HurtboxArea hurtbox, Node3D source) => ProcessHit(hurtbox, source, hurtbox.GlobalPosition);
 	public abstract void SetHurtboxesMonitoring(bool value);
 	public abstract void SetHutboxesMonitorable(bool value);
+    public abstract void SetHurtboxAreaOwner(HurtboxArea owner);
 }

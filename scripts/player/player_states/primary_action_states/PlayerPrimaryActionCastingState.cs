@@ -42,7 +42,7 @@ public class PlayerPrimaryActionCastingState : IState
         // Instant / HoldRepeatCooldown: cast od razu
         if (player.Spells.TryCast(slot, applyCooldown: true))
         {
-            if (player.Spells.IsCooldownShort(slot))
+            if (!player.Spells.IsCooldownShort(slot))
             {
                 player.PlayLeftArmAnimation("L_CastProjectile");
             }
@@ -83,8 +83,18 @@ public class PlayerPrimaryActionCastingState : IState
         // Projectile / instant: trzymasz = próbuj recastować gdy cooldown spadnie
         if (def.CastMode == SpellCastMode.HoldRepeatCooldown || def.CastMode == SpellCastMode.Instant)
         {
-            if(player.Spells.TryCast(slot, applyCooldown: true) && !player.Spells.IsCooldownShort(slot))
-                player.PlayLeftArmAnimation("L_CastProjectile");
+            if(player.Spells.TryCast(slot, applyCooldown: true))
+            {
+                if (!player.Spells.IsCooldownShort(slot))
+                {
+                    player.PlayLeftArmAnimation("L_CastProjectile"); 
+                }
+                else
+                {
+                    player.PlayLeftArmAnimation("L_CastChannel");
+                }
+            }
+
             return;
         }
 
@@ -119,7 +129,10 @@ public class PlayerPrimaryActionCastingState : IState
             tickTimer -= tickRate;
 
             // Tick cast bez cooldownu
-            player.Spells.TryCast(slot, applyCooldown: false);
+            if(player.Spells.TryCast(slot, applyCooldown: false))
+            {
+                player.PlayLeftArmAnimation("L_CastChannel");
+            }
         }
     }
 }

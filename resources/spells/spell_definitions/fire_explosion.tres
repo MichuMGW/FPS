@@ -23,4 +23,7 @@ BaseDamage = 50.0
 BaseRange = 20.0
 BaseCooldown = 5.0
 BaseManaCost = 50.0
+EnableRehit = false
+RehitIntervalSeconds = 0.25
+RehitMaxDurationSeconds = 0.0
 metadata/_custom_type_script = "uid://d34h7mks6sosn"

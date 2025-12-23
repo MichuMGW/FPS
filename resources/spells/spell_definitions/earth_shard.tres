@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="ProjectileSpellDefinition" load_steps=3 format=3 uid="uid://dft3sy88xt386"]
+
+[ext_resource type="Script" uid="uid://y2naeclibxt3" path="res://resources/spells/definitions/ProjectileSpellDefinition.cs" id="1_elsg5"]
+[ext_resource type="PackedScene" uid="uid://b2tk82srnjwut" path="res://scenes/spells/basic_spells/projectile_spells/earth_shard.tscn" id="1_ly7m8"]
+
+[resource]
+script = ExtResource("1_elsg5")
+ProjectileScene = ExtResource("1_ly7m8")
+ProjectileSpeed = 30.0
+ProjectileSpread = 10.0
+ProjectilePierce = 0
+Id = ""
+DisplayName = ""
+Element = 10
+CastMode = 1
+BehaviourType = 0
+BaseDamage = 10.0
+BaseRange = 10.0
+BaseCooldown = 0.05
+BaseManaCost = 0.0
+metadata/_custom_type_script = "uid://y2naeclibxt3"

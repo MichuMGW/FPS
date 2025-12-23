@@ -49,10 +49,26 @@ public class SpellInstance
             PierceCount = 0f
         };
 
+        result.EnableRehit = def.EnableRehit;
+        result.RehitIntervalSeconds = def.RehitIntervalSeconds;
+
         // Typowe “dodatkowe staty” zależne od typu definicji
         if (def is ProjectileSpellDefinition proj)
         {
             result.ProjectileSpeed = proj.ProjectileSpeed * stats.GetStat(StatId.ProjectileSpeedMultiplier);
+            result.PierceCount = proj.ProjectilePierce + stats.GetStat(StatId.ProjectilePierce);
+
+            result.DieOnWorldHit = proj.DieOnWorldHit;
+
+            result.ScaleOverTime = proj.ScaleOverTime;
+            result.StartScale = proj.StartScale;
+            result.EndScale = proj.EndScale;
+            result.ScaleDurationSeconds = proj.ScaleDurationSeconds;
+
+            result.ExplodeOnEnemyHit = proj.ExplodeOnEnemyHit;
+            result.ExplodeOnWorldHit = proj.ExplodeOnWorldHit;
+            result.ExplosionDamageMultiplier = proj.ExplosionDamageMultiplier;
+            result.ExplosionLifetimeSeconds = proj.ExplosionLifetimeSeconds;
         }
         else if (def is DashSpellDefinition dash)
         {

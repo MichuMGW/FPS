@@ -54,12 +54,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.220778, 0)
 [node name="TrollArcher" parent="." instance=ExtResource("4_pu3yx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.15853, 0.220778, 0)
 
+[node name="TrollArcher2" parent="." instance=ExtResource("4_pu3yx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.92241, 0.220778, 0)
+
+[node name="TrollArcher3" parent="." instance=ExtResource("4_pu3yx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.42872, 0.220778, 0)
+
 [node name="Terrain" parent="." instance=ExtResource("5_rt2n2")]
 
 [node name="EnemiesRoot" type="Node3D" parent="." groups=["enemies_root"]]
 
 [node name="PlayerHUD" parent="." instance=ExtResource("9_c1pb6")]
 script = ExtResource("10_6wevv")
+
+[node name="DEBUG_CAMERA" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.545844, 2.5141, 13.8897)
+visible = false
 
 [editable path="Terrain"]
 [editable path="Terrain/NavigationRegion3D/Terrain"]

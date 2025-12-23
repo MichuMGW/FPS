@@ -52,7 +52,7 @@ script = ExtResource("1_nlrb0")
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("Hurtbox") instance=ExtResource("2_v6i2b")]
 Hurtbox = NodePath("../SkeletalHurtboxComponent")
 
-[node name="SkeletalHurtboxComponent" parent="." instance=ExtResource("3_ktnt5")]
+[node name="SkeletalHurtboxComponent" parent="." groups=["hurtbox_component"] instance=ExtResource("3_ktnt5")]
 _armaturePath = "skeleton/SkeletonRig/Skeleton3D"
 
 [node name="PathfindComponent" parent="." node_paths=PackedStringArray("Agent", "_velocity") instance=ExtResource("4_ktnt5")]

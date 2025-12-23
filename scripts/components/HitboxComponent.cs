@@ -43,7 +43,7 @@ public partial class HitboxComponent : Area3D, IDamageSource
             return !_alreadyHit.ContainsKey(target);
 
         if (RehitCooldownSeconds <= 0f)
-            return true;
+            return !_alreadyHit.ContainsKey(target);
 
         if (!_alreadyHit.TryGetValue(target, out var lastTime))
             return true;
