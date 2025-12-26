@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=5 format=3 uid="uid://b3mr818psy3r"]
+
+[ext_resource type="PackedScene" uid="uid://dduip5wb6b8li" path="res://scenes/items/flask.tscn" id="1_ctcwi"]
+[ext_resource type="Script" uid="uid://d1og76mbf6sdm" path="res://resources/items/StatModDefinition.cs" id="1_duxkf"]
+[ext_resource type="Script" uid="uid://xdahrj3wt527" path="res://resources/items/ItemDefinition.cs" id="2_ctcwi"]
+
+[sub_resource type="Resource" id="Resource_38faj"]
+script = ExtResource("1_duxkf")
+Stat = 1
+Add = 0.5
+Mult = 1.0
+metadata/_custom_type_script = "uid://d1og76mbf6sdm"
+
+[resource]
+script = ExtResource("2_ctcwi")
+DisplayName = "Flask"
+Description = "Increase player's HP Regeneration by 0.5/s "
+PreviewScene = ExtResource("1_ctcwi")
+Rarity = 0
+StatModifier = Array[ExtResource("1_duxkf")]([SubResource("Resource_38faj")])
+metadata/_custom_type_script = "uid://xdahrj3wt527"

@@ -46,6 +46,7 @@ color = Color(0.540292, 0.311572, 0, 1)
 size = Vector2(0.1, 0.5)
 
 [node name="StoneShard" type="CharacterBody3D"]
+collision_layer = 0
 script = ExtResource("1_cixsg")
 HitboxPath = NodePath("HitboxComponent")
 

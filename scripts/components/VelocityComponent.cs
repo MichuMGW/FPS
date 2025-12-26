@@ -3,69 +3,73 @@ using System;
 
 public partial class VelocityComponent : Node
 {
-    [Export] public float MaxSpeed { get; set; } = 5.0f;
-    [Export] public float Acceleration { get; set; } = 10.0f;
-    [Export] public float Deceleration { get; set; } = 14.0f;
+    // ===== Debug toggles =====
+    [Export] public bool DebugLogStatWrites { get; set; } = true;
+    [Export] public bool DebugIncludeStackTrace { get; set; } = true;
+    private float _maxSpeed = 5.0f;
+    [Export]
+    public float MaxSpeed
+    {
+        get => _maxSpeed;
+        set => _maxSpeed = value;
+    }
+
+    private float _acceleration = 10.0f;
+    [Export]
+    public float Acceleration
+    {
+        get => _acceleration;
+        set => _acceleration = value;
+    }
+
+    private float _deceleration = 14.0f;
+    [Export]
+    public float Deceleration
+    {
+        get => _deceleration;
+        set => _deceleration = value;
+    }
+
     [Export] public float Gravity { get; set; } = 9.8f;
     [Export] public float RotationSpeed { get; set; } = 8f;
     [Export] public float TerminalVelocity { get; set; } = -50f;
-    [Export] public StatusComponent Status { get; set; } 
-    public bool Active {get; set; } = true;
+
+    public bool Active { get; set; } = true;
 
     public Vector3 CurrentVelocity { get; private set; } = Vector3.Zero;
     public Vector3 DesiredVelocity { get; private set; } = Vector3.Zero;
     private float verticalVelocity = 0f;
 
+    // ===== Base snapshot =====
     private float _baseMaxSpeed;
     private float _baseAcceleration;
     private float _baseDeceleration;
 
     private float _slowMultiplier = 1.0f;
+    private Vector3 _desiredDir = Vector3.Zero;
 
     private CharacterBody3D _body;
+
     public override void _Ready()
     {
         _body = GetOwner<CharacterBody3D>();
-
-        _baseMaxSpeed = MaxSpeed;
-        _baseAcceleration = Acceleration;
-        _baseDeceleration = Deceleration;
-
-        SubscribeEvents();
-    }
-
-    private void SubscribeEvents()
-    {
-        Status.SlowStarted += OnSlowStarted;
-        Status.SlowEnded += OnSlowEnded;
-    }
-
-    private void UnubscribeEvents()
-    {
-        Status.SlowStarted -= OnSlowStarted;
-        Status.SlowEnded -= OnSlowEnded;
+        SetBaseStats();
     }
 
     public override void _PhysicsProcess(double delta)
     {
-        if (!Active)
-        {
-            //Można dać w setterze właściwości SetPhysicProcess(value)
-            return;
-        }
-
+        if (!Active) return;
         float dt = (float)delta;
 
+        DesiredVelocity = _desiredDir.IsZeroApprox()
+            ? Vector3.Zero
+            : _desiredDir * MaxSpeed;
+
         if (!DesiredVelocity.IsZeroApprox())
-        {
             AccelerateTowards(DesiredVelocity, dt);
-        }
         else
-        {
-            // brak inputu / brak celu -> hamujemy
             DecelerateToZero(dt);
-        }
-        
+
         ApplyGravity(dt);
 
         Vector3 finalVelocity = CurrentVelocity;
@@ -77,7 +81,6 @@ public partial class VelocityComponent : Node
 
     private void ApplyGravity(float delta)
     {
-        // spadanie tylko jeśli NIE jesteśmy na ziemi
         if (!_body.IsOnFloor())
         {
             verticalVelocity -= Gravity * delta;
@@ -95,12 +98,10 @@ public partial class VelocityComponent : Node
             return;
 
         Vector3 desiredDir = vel.Normalized();
-
         Vector3 currentForward = _body.GlobalTransform.Basis.Z;
-
         Vector3 newForward = currentForward.Slerp(desiredDir, RotationSpeed * delta).Normalized();
-
         Vector3 targetPos = _body.GlobalPosition - newForward;
+
         _body.LookAt(targetPos, Vector3.Up);
     }
 
@@ -108,13 +109,12 @@ public partial class VelocityComponent : Node
     {
         if (direction.IsZeroApprox())
         {
-            DesiredVelocity = Vector3.Zero;
+            _desiredDir = Vector3.Zero;
             return;
         }
 
-        direction.Y = 0; //ruch po ziemi
-        direction = direction.Normalized();
-        DesiredVelocity = direction * MaxSpeed;
+        direction.Y = 0;
+        _desiredDir = direction.Normalized();
     }
 
     public void AccelerateTowards(Vector3 targetVelocity, float delta)
@@ -144,26 +144,26 @@ public partial class VelocityComponent : Node
             _body.Velocity = Vector3.Zero;
     }
 
-    //Rozważyć implementacje przy użyciu interfejsu IStats
+    // ===== Core logic =====
+
     private void RecalculateStats()
     {
         MaxSpeed = _baseMaxSpeed * _slowMultiplier;
-
         Acceleration = _baseAcceleration * _slowMultiplier;
         Deceleration = _baseDeceleration * _slowMultiplier;
     }
 
-    //TODO: Zweryfikować czy działa poprawnie po dodaniu wielu efektów spowolnienia
-    private void OnSlowStarted(float slowAmount)
+    public void SetBaseStats()
     {
-        slowAmount = Mathf.Clamp(slowAmount, 0f, 1f);
-        _slowMultiplier = 1f - slowAmount;
+        _baseMaxSpeed = MaxSpeed;
+        _baseAcceleration = Acceleration;
+        _baseDeceleration = Deceleration;
+    }
+
+    public void SetMoveSpeedMultiplier(float mult)
+    {
+        _slowMultiplier = mult;
         RecalculateStats();
     }
 
-    private void OnSlowEnded()
-    {
-        _slowMultiplier = 1f;
-        RecalculateStats();
-    }
 }

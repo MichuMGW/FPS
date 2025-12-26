@@ -32,12 +32,14 @@ public partial class HealthComponent : Node
         }
     }
 	public bool isDead = false;
-	public Node3D enemy; //DO WYRZUCENIA
 	public Timer FireDamageTimer;
 	private float fireDamage = 0f;
+	private Node3D _owner;
 
 	public override void _Ready()
 	{
+		_owner = GetOwner<Node3D>();
+
 		CurrentHealth = MaxHealth;
 		floatingDamageScene = GD.Load<PackedScene>("res://scenes/effects/floating_damage.tscn");
 
@@ -49,13 +51,11 @@ public partial class HealthComponent : Node
 	private void SubscribeEvents()
     {
         Hurtbox.Hit += OnHit;
-		FireDamageTimer.Timeout += OnFireDamageTimeout;
     }
 
 	private void UnsubscribeEvents()
     {
         Hurtbox.Hit -= OnHit;
-		FireDamageTimer.Timeout -= OnFireDamageTimeout;
     }
 
     public void OnHit(HitInfo hitInfo)
@@ -75,36 +75,36 @@ public partial class HealthComponent : Node
 		ShowDamage(hitInfo.HitPosition, damage, new Color(1,0,0)); //KOLOR MOŻNA UZALEŻNIĆ OD ELEMENTU
     }
 
-	// public void EnemyOnFire(bool OnFire){
-	// 	if (OnFire && !isCurrentlyOnFire){
-	// 		isCurrentlyOnFire = true;
-	// 		FireDamageTimer.Start();
-	// 		GD.Print("ON FIRE");
-			
-	// 	} else if (!OnFire) {
-	// 		isCurrentlyOnFire = false;
-	// 		FireDamageTimer.Stop();
-	// 		GD.Print("OFF FIRE");
-			
-	// 	}
-	// }
-	private void OnFireDamageTimeout(){
-		ShowDamage(enemy.GlobalPosition, 10, new Color(1, 0, 0));
-		TakeDamage(fireDamage);
-	}
-
-	public void EnemyOnFire(float damage){
-		if (!isCurrentlyOnFire){
-			isCurrentlyOnFire = true;
-			fireDamage = damage;
-			//DODAĆ DURATION I MOŻLIWOŚĆ JEGO ZMIANY
-			FireDamageTimer.Start();
+	public void ApplyStatusDamage(float damage, Element element)
+	{
+		TakeDamage(damage);
+		switch (element)
+		{
+			case Element.Fire:
+				ShowDamage(_owner.GlobalPosition, damage, new Color(1, 0.5f, 0));
+				break;
+			case Element.Earth:
+				ShowDamage(_owner.GlobalPosition, damage, new Color(0.6f, 0.4f, 0.2f));
+				break;
+			case Element.Water:
+				ShowDamage(_owner.GlobalPosition, damage, new Color(0, 0.5f, 1));
+				break;
+			case Element.Air:
+				ShowDamage(_owner.GlobalPosition, damage, new Color(0.8f, 0.8f, 0.8f));
+				break;
+			// case Element.Lightning:
+			// 	ShowDamage(enemy.GlobalPosition, damage, new Color(1, 1, 0));
+			// 	break;
+			case Element.Ice:
+				ShowDamage(_owner.GlobalPosition, damage, new Color(0.5f, 0.8f, 1));
+				break;
+			default:
+				ShowDamage(_owner.GlobalPosition, damage, new Color(1, 1, 1));
+				break;
 		}
-	}
 
-	private void EnemyOffFire(){
-		isCurrentlyOnFire = false;
-		FireDamageTimer.Stop();
+		// GD.Print($"Applying {damage} {element} status damage.");
+		// ShowDamage(_owner.GlobalPosition, damage, new Color(1, 0, 0));
 	}
 
 	public void TakeDamage(float damage)

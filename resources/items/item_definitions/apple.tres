@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=5 format=3 uid="uid://dfa0n676grhod"]
+
+[ext_resource type="PackedScene" uid="uid://pe884i75m4kv" path="res://Assets/models/items/apple/apple.glb" id="1_gl0tj"]
+[ext_resource type="Script" uid="uid://d1og76mbf6sdm" path="res://resources/items/StatModDefinition.cs" id="2_2fqqt"]
+[ext_resource type="Script" uid="uid://xdahrj3wt527" path="res://resources/items/ItemDefinition.cs" id="2_rw2sy"]
+
+[sub_resource type="Resource" id="Resource_0qwm3"]
+script = ExtResource("2_2fqqt")
+Stat = 0
+Add = 20.0
+Mult = 1.0
+metadata/_custom_type_script = "uid://d1og76mbf6sdm"
+
+[resource]
+script = ExtResource("2_rw2sy")
+DisplayName = "Apple"
+Description = "Increase player's max HP by 20"
+PreviewScene = ExtResource("1_gl0tj")
+Rarity = 0
+StatModifier = Array[ExtResource("2_2fqqt")]([SubResource("Resource_0qwm3")])
+metadata/_custom_type_script = "uid://xdahrj3wt527"

@@ -6,6 +6,7 @@ public partial class MainMenuUi : Control
 	// Called when the node enters the scene tree for the first time.
 	[Export]
 	public string SceneToLoad = "res://scenes/main_scene.tscn";
+	public GameEvents _events;
 
 	//Buttons
 	[Export]
@@ -18,6 +19,8 @@ public partial class MainMenuUi : Control
 	{
 		Input.MouseMode = Input.MouseModeEnum.Visible;
 
+		_events = GetTree().GetFirstNodeInGroup("game_events") as GameEvents;
+
 		startButton.Pressed += OnStartButtonPressed;
 		settingsButton.Pressed += OnSettingsButtonPressed;
 		quitButton.Pressed += OnQuitButtonPressed; 
@@ -25,7 +28,9 @@ public partial class MainMenuUi : Control
 
 	private void OnStartButtonPressed()
 	{
-		GetTree().ChangeSceneToFile(SceneToLoad);
+		_events.StartGame();
+		GetTree().ChangeSceneToFile(SceneToLoad); //PRZENIEŚĆ DO GAME EVENTS
+		
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 	}
 

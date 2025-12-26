@@ -5,7 +5,7 @@ public partial class PathfindComponent : Node
 {
     [Export] public NavigationAgent3D Agent;
     [Export] public float TargetReachedThreshold { get; set; } = 0.6f;
-    [Export] private VelocityComponent _velocity;
+    private VelocityComponent _velocity;
 
     public Node3D Target { get; set; }
     public bool Active { get; set; }
@@ -14,6 +14,7 @@ public partial class PathfindComponent : Node
     public override void _Ready()
     {
         _body = GetOwner<CharacterBody3D>();
+        _velocity = _body.GetNode<VelocityComponent>("VelocityComponent");
 
         SetPlayerAsTarget();
 

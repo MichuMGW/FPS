@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="ElementStatusProfile" load_steps=2 format=3 uid="uid://dauqpdr3hfvvb"]
+
+[ext_resource type="Script" uid="uid://dqdjhp8c7xw30" path="res://resources/spells/ElementStatusProfile.cs" id="1_jn0f8"]
+
+[resource]
+script = ExtResource("1_jn0f8")
+Element = 0
+EnableBurning = true
+BurningDuration = 3.0
+BurningTickRate = 0.25
+BurningDotPerTick = 5.0
+EnableSlow = false
+SlowMultiplier = 0.3
+SlowDuration = 2.5
+EnableBleed = false
+BleedDuration = 4.0
+BleedTickRate = 0.5
+BleedDotPerTick = 3.0
+EnableEarthBuildup = false
+EarthStunThreshold = 100.0
+EarthBuildupDecayPerSecond = 10.0
+EarthStunDuration = 1.0
+metadata/_custom_type_script = "uid://dqdjhp8c7xw30"

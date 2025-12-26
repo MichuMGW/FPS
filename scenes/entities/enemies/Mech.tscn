@@ -1,4 +1,4 @@
-[gd_scene load_steps=91 format=3 uid="uid://dsy504x2ofm0n"]
+[gd_scene load_steps=90 format=3 uid="uid://dsy504x2ofm0n"]
 
 [ext_resource type="Script" uid="uid://b3dqbkjkxa0yx" path="res://scripts/entity/enemy/Mech/Mech.cs" id="1_4egvb"]
 [ext_resource type="PackedScene" uid="uid://b63shw0jao7f1" path="res://Assets/models/enemies/mech.glb" id="1_l00so"]
@@ -11,7 +11,6 @@
 [ext_resource type="Texture2D" uid="uid://bj8pn6skhllmg" path="res://Assets/textures/entities/enemies/mech/Mech Normal.png" id="4_qptip"]
 [ext_resource type="PackedScene" uid="uid://dhvc0370yavkg" path="res://scenes/components/pathfind_component.tscn" id="4_xainl"]
 [ext_resource type="PackedScene" uid="uid://dasekhirly362" path="res://scenes/components/skeletal_hurtbox_component.tscn" id="6_n5ocl"]
-[ext_resource type="PackedScene" uid="uid://hvd2uy3wofl8" path="res://scenes/components/status_component.tscn" id="6_u1ljx"]
 [ext_resource type="PackedScene" uid="uid://hvw6gscvm54u" path="res://scenes/components/velocity_component.tscn" id="7_ll0vx"]
 [ext_resource type="Animation" uid="uid://dqwesx2ykr236" path="res://Assets/Animations/Enemies/Mech/Mech_CrouchBeforeJump.res" id="11_n87kn"]
 [ext_resource type="Animation" uid="uid://xtp7cq1d5er" path="res://Assets/Animations/Enemies/Mech/Mech_CrouchToShoot.res" id="12_6pqxc"]
@@ -301,14 +300,10 @@ Hurtbox = NodePath("../SkeletalHurtboxComponent")
 [node name="SkeletalHurtboxComponent" parent="." instance=ExtResource("6_n5ocl")]
 _armaturePath = "Mech/MechArmature/Skeleton3D"
 
-[node name="PathfindComponent" parent="." node_paths=PackedStringArray("Agent", "_velocity") instance=ExtResource("4_xainl")]
+[node name="PathfindComponent" parent="." node_paths=PackedStringArray("Agent") instance=ExtResource("4_xainl")]
 Agent = NodePath("../NavigationAgent3D")
-_velocity = NodePath("../VelocityComponent")
 
-[node name="StatusComponent" parent="." instance=ExtResource("6_u1ljx")]
-
-[node name="VelocityComponent" parent="." node_paths=PackedStringArray("Status") instance=ExtResource("7_ll0vx")]
-Status = NodePath("../StatusComponent")
+[node name="VelocityComponent" parent="." instance=ExtResource("7_ll0vx")]
 
 [node name="Mech" parent="." instance=ExtResource("1_l00so")]
 

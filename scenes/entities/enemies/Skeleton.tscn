@@ -49,20 +49,19 @@ script = ExtResource("1_nlrb0")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
+[node name="VelocityComponent" parent="." instance=ExtResource("6_yypc3")]
+
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("Hurtbox") instance=ExtResource("2_v6i2b")]
 Hurtbox = NodePath("../SkeletalHurtboxComponent")
 
 [node name="SkeletalHurtboxComponent" parent="." groups=["hurtbox_component"] instance=ExtResource("3_ktnt5")]
 _armaturePath = "skeleton/SkeletonRig/Skeleton3D"
 
-[node name="PathfindComponent" parent="." node_paths=PackedStringArray("Agent", "_velocity") instance=ExtResource("4_ktnt5")]
+[node name="PathfindComponent" parent="." node_paths=PackedStringArray("Agent") instance=ExtResource("4_ktnt5")]
 Agent = NodePath("../NavigationAgent3D")
-_velocity = NodePath("../VelocityComponent")
 
 [node name="StatusComponent" parent="." instance=ExtResource("5_e38pm")]
-
-[node name="VelocityComponent" parent="." node_paths=PackedStringArray("Status") instance=ExtResource("6_yypc3")]
-Status = NodePath("../StatusComponent")
+HurtboxComponentPath = NodePath("../SkeletalHurtboxComponent")
 
 [node name="skeleton" parent="." instance=ExtResource("1_15cp8")]
 transform = Transform3D(1.6, 0, 0, 0, 1.6, 0, 0, 0, 1.6, 0, 0, 0)

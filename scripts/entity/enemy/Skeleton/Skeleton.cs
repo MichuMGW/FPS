@@ -26,7 +26,7 @@ public partial class Skeleton : CharacterBody3D
         SetAliveStateCollisions();
 
         Hitbox.Monitoring = false;
-        VelocityComp.MaxSpeed = Speed;
+        // VelocityComp.MaxSpeed = Speed;
 
         Health.EntityDied += OnEntityDied;
 

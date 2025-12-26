@@ -26,8 +26,8 @@ public partial class MovementComponent : Node
         _baseAcceleration = Acceleration;
         _baseDeceleration = Deceleration;
 
-        Status.SlowStarted += OnSlowStarted;
-        Status.SlowEnded += OnSlowEnded;
+        // Status.SlowStarted += OnSlowStarted;
+        // Status.SlowEnded += OnSlowEnded;
     }
 
     public override void _PhysicsProcess(double delta)

@@ -5,19 +5,19 @@ public partial class ElementStatusProfile : Resource
 {
     [Export] public Element Element;
 
-    [ExportGroup("Burning (Fire / Magma / Storm / Dark...)")]
+    [ExportGroup("Burning (Fire, Magma, Storm, Dark)")]
     [Export] public bool EnableBurning = false;
     [Export] public float BurningDuration = 3f;
     [Export] public float BurningTickRate = 0.25f;
     [Export] public float BurningDotPerTick = 5f; // BAZA dla tego żywiołu
 
-    [ExportGroup("Slow (Water / Ice / Dark...)")]
+    [ExportGroup("Slow (Water, Ice, Dark)")]
     [Export] public bool EnableSlow = false;
     [Export(PropertyHint.Range, "0,0.95,0.01")]
     public float SlowMultiplier = 0.3f; // -30%
     [Export] public float SlowDuration = 2.5f;
 
-    [ExportGroup("Bleed (Nature / Magma / Poison...)")]
+    [ExportGroup("Bleed (Nature, Magma, Poison)")]
     [Export] public bool EnableBleed = false;
     [Export] public float BleedDuration = 4f;
     [Export] public float BleedTickRate = 0.5f;

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=5 format=3 uid="uid://dn36fymsbq6d1"]
+
+[ext_resource type="PackedScene" uid="uid://g8kgcrjmyw5h" path="res://Assets/models/items/mirror/mirror.glb" id="1_50h2f"]
+[ext_resource type="Script" uid="uid://d1og76mbf6sdm" path="res://resources/items/StatModDefinition.cs" id="1_l4gkb"]
+[ext_resource type="Script" uid="uid://xdahrj3wt527" path="res://resources/items/ItemDefinition.cs" id="2_50h2f"]
+
+[sub_resource type="Resource" id="Resource_50h2f"]
+script = ExtResource("1_l4gkb")
+Stat = 11
+Add = 0.1
+Mult = 1.0
+metadata/_custom_type_script = "uid://d1og76mbf6sdm"
+
+[resource]
+script = ExtResource("2_50h2f")
+DisplayName = "Mirror"
+Description = "Increase player's crit chance by +10%"
+PreviewScene = ExtResource("1_50h2f")
+Rarity = 0
+StatModifier = Array[ExtResource("1_l4gkb")]([SubResource("Resource_50h2f")])
+metadata/_custom_type_script = "uid://xdahrj3wt527"

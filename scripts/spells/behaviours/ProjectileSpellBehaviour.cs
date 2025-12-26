@@ -54,6 +54,16 @@ public class ProjectileSpellBehaviour : ISpellBehaviour
             explosionLifetimeSeconds: ctx.Stats.ExplosionLifetimeSeconds
         );
 
+        var hitbox = projectile.GetNodeOrNull<HitboxComponent>("HitboxComponent");
+        if (hitbox != null)
+        {
+            hitbox.StatusProfile = def.StatusProfile;          // dopnij do SpellDefinition
+            hitbox.BurningDotMultiplier = def.BurningDotMultiplier;    // dopnij do SpellDefinition
+            hitbox.SlowBonus = def.SlowMultiplierBonus;                // dopnij do SpellDefinition
+            hitbox.EarthBuildupPerHit = def.EarthBuildupPerHit;        // dopnij do SpellDefinition
+        }
+
+
         Vector3 velocity = dir * ctx.Stats.ProjectileSpeed;
         projectile.Launch(velocity);
     }

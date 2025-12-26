@@ -82,6 +82,8 @@ shape = SubResource("CapsuleShape3D_um2ui")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
+[node name="VelocityComponent" parent="." instance=ExtResource("7_co1md")]
+
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("Hurtbox") instance=ExtResource("4_co1md")]
 Hurtbox = NodePath("../SkeletalHurtboxComponent")
 
@@ -90,14 +92,11 @@ Hurtbox = NodePath("../SkeletalHurtboxComponent")
 [node name="SkeletalHurtboxComponent" parent="." instance=ExtResource("5_co1md")]
 _armaturePath = "troll_archer/TrollArcherRig/Skeleton3D"
 
-[node name="StatusComponent" parent="." instance=ExtResource("4_aw4xy")]
-
-[node name="VelocityComponent" parent="." node_paths=PackedStringArray("Status") instance=ExtResource("7_co1md")]
-Status = NodePath("../StatusComponent")
-
-[node name="PathfindComponent" parent="." node_paths=PackedStringArray("Agent", "_velocity") instance=ExtResource("8_4udf5")]
+[node name="PathfindComponent" parent="." node_paths=PackedStringArray("Agent") instance=ExtResource("8_4udf5")]
 Agent = NodePath("../NavigationAgent3D")
-_velocity = NodePath("../VelocityComponent")
+
+[node name="StatusComponent" parent="." instance=ExtResource("4_aw4xy")]
+HurtboxComponentPath = NodePath("../SkeletalHurtboxComponent")
 
 [node name="troll_archer" parent="." instance=ExtResource("8_fcxsy")]
 

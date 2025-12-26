@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=5 format=3 uid="uid://ql5rde4knmtk"]
+
+[ext_resource type="PackedScene" uid="uid://cwcxyff4cyqif" path="res://Assets/models/items/meat/meat.glb" id="1_v0nnv"]
+[ext_resource type="Script" uid="uid://d1og76mbf6sdm" path="res://resources/items/StatModDefinition.cs" id="1_y5dbm"]
+[ext_resource type="Script" uid="uid://xdahrj3wt527" path="res://resources/items/ItemDefinition.cs" id="2_v0nnv"]
+
+[sub_resource type="Resource" id="Resource_ef3ft"]
+script = ExtResource("1_y5dbm")
+Stat = 8
+Add = 0.05
+Mult = 1.0
+metadata/_custom_type_script = "uid://d1og76mbf6sdm"
+
+[resource]
+script = ExtResource("2_v0nnv")
+DisplayName = "Meat"
+Description = "Increase player's damage by +5%"
+PreviewScene = ExtResource("1_v0nnv")
+Rarity = 0
+StatModifier = Array[ExtResource("1_y5dbm")]([SubResource("Resource_ef3ft")])
+metadata/_custom_type_script = "uid://xdahrj3wt527"

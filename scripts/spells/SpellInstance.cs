@@ -37,16 +37,11 @@ public class SpellInstance
 
         SpellCastStats result = new SpellCastStats
         {
-            Damage = def.BaseDamage * stats.GetStat(StatId.SpellDamageMultiplier),
-            Range = def.BaseRange * stats.GetStat(StatId.SpellRangeMultiplier),
+            Damage = def.BaseDamage * stats.GetStat(StatId.DamageMultiplier),
+            Range = def.BaseRange * stats.GetStat(StatId.RangeMultiplier),
             ManaCost = def.BaseManaCost,
 
-            ProjectileSpeed = 0f,
-            Radius = 0f,
-            Duration = 0f,
-            CritChance = 0f,
-            CritMultiplier = 0f,
-            PierceCount = 0f
+            PierceCount = stats.GetStat(StatId.Pierce)
         };
 
         result.EnableRehit = def.EnableRehit;
@@ -56,7 +51,7 @@ public class SpellInstance
         if (def is ProjectileSpellDefinition proj)
         {
             result.ProjectileSpeed = proj.ProjectileSpeed * stats.GetStat(StatId.ProjectileSpeedMultiplier);
-            result.PierceCount = proj.ProjectilePierce + stats.GetStat(StatId.ProjectilePierce);
+            result.PierceCount += proj.ProjectilePierce;
 
             result.DieOnWorldHit = proj.DieOnWorldHit;
 

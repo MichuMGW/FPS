@@ -22,7 +22,7 @@ public abstract partial class HurtboxComponent : Node
     {
         ProcessHit(hurtbox, source, hitPosition);
     }
-    
+
     protected void ProcessHit(HurtboxArea hurtbox, Node3D source, Vector3 hitPosition)
     {
         if (source is not IDamageSource damageSource)
@@ -37,16 +37,21 @@ public abstract partial class HurtboxComponent : Node
 
         damageSource.RegisterHit(rootTarget);
 
-        var hitInfo = new HitInfo
+        var hitInfo = new HitInfo(source, hurtbox.HurtboxType, hurtbox.DamageMultiplier, hitPosition)
         {
-            Source = source,
-            HitboxType = hurtbox.HurtboxType,
-            DamageMultiplier = hurtbox.DamageMultiplier,
-            HitPosition = hitPosition
+            BaseDamage = damageSource.GetDamage(),
+            Element = damageSource.GetDamageType(),
+
+            StatusProfile = damageSource.GetStatusProfile(),
+            BurningDotMultiplier = damageSource.GetBurningDotMultiplier(),
+            BleedDotMultiplier = damageSource.GetBleedDotMultiplier(),
+            SlowBonus = damageSource.GetSlowBonus(),
+            EarthBuildupPerHit = damageSource.GetEarthBuildupPerHit(),
         };
 
         EmitSignal(nameof(Hit), hitInfo);
     }
+
     protected void ProcessHit(HurtboxArea hurtbox, Node3D source) => ProcessHit(hurtbox, source, hurtbox.GlobalPosition);
 	public abstract void SetHurtboxesMonitoring(bool value);
 	public abstract void SetHutboxesMonitorable(bool value);

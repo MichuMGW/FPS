@@ -87,7 +87,7 @@ public partial class TrollArcher : Enemy
         PlayerAimTarget = GetTree().GetFirstNodeInGroup("player_target") as Node3D;
     }
 
-     protected override void OnStatsChanged(bool initialLoad)
+    protected override void OnStatsChanged(bool initialLoad)
     {
 
             Health.MaxHealth = MaxHealth;
@@ -96,7 +96,8 @@ public partial class TrollArcher : Enemy
             else
                 Health.CurrentHealth = Mathf.Min(Health.CurrentHealth, MaxHealth);
 
-            VelocityComp.MaxSpeed = MoveSpeed;
+            // VelocityComp.MaxSpeed = MoveSpeed;
+            GD.Print($"TrollArcher: velocity base updated. velocity.MaxSpeed(after)={VelocityComp.MaxSpeed}");
     }
 
     public void RotateHorizontallyTowardsPlayer(float delta)

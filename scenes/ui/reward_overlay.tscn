@@ -1,0 +1,112 @@
+[gd_scene load_steps=6 format=3 uid="uid://dxm28jd1ja67h"]
+
+[ext_resource type="Script" uid="uid://bx3vge47jjbhb" path="res://scripts/ui/ChestRewardOverlay.cs" id="1_0lvow"]
+[ext_resource type="PackedScene" uid="uid://bcqubio3oirlf" path="res://Assets/models/objects/chest/chest.glb" id="1_ian6i"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_0lvow"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_0lvow"]
+font_size = 32
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_hdvmu"]
+font_size = 24
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[node name="RewardOverlay" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_0lvow")
+ChestPath = NodePath("RewardView/SubViewport/Node3D/chest")
+ChestAnimPath = NodePath("RewardView/SubViewport/Node3D/chest/AnimationPlayer")
+ItemSpawnPath = NodePath("RewardView/SubViewport/Node3D/ItemSpawnPoint")
+HeroPointPath = NodePath("RewardView/SubViewport/Node3D/HeroPoint")
+UIAnimPath = NodePath("")
+ChestOpenAnimName = "OpenChest"
+
+[node name="FreezeFrame" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dimmer" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="RewardView" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="RewardView"]
+own_world_3d = true
+transparent_bg = true
+handle_input_locally = false
+
+[node name="Node3D" type="Node3D" parent="RewardView/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7.8)
+
+[node name="chest" parent="RewardView/SubViewport/Node3D" instance=ExtResource("1_ian6i")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="Skeleton3D" parent="RewardView/SubViewport/Node3D/chest/chest-rig" index="0"]
+bones/1/rotation = Quaternion(-0.707107, 0, 0, 0.707107)
+
+[node name="Skeleton3D" parent="RewardView/SubViewport/Node3D/chest/padlock-rig" index="0"]
+bones/0/position = Vector3(0, 0.347477, -0.882133)
+bones/1/position = Vector3(0.0920976, -0.104137, 0)
+
+[node name="Camera3D" type="Camera3D" parent="RewardView/SubViewport/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.62493, 7.75404)
+
+[node name="ItemSpawnPoint" type="Marker3D" parent="RewardView/SubViewport/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.198932, 0)
+
+[node name="HeroPoint" type="Marker3D" parent="RewardView/SubViewport/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9246, 5.56535)
+
+[node name="DEBUG_MESH" type="MeshInstance3D" parent="RewardView/SubViewport/Node3D/HeroPoint"]
+visible = false
+mesh = SubResource("SphereMesh_0lvow")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="RewardView/SubViewport/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 9, 10)
+light_energy = 10.0
+spot_range = 15.0
+
+[node name="ItemText" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(1000, 200)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -500.0
+offset_top = -200.0
+offset_right = 500.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ItemName" type="Label" parent="ItemText"]
+layout_mode = 2
+text = "TITLE"
+label_settings = SubResource("LabelSettings_0lvow")
+horizontal_alignment = 1
+
+[node name="ItemDescription" type="Label" parent="ItemText"]
+layout_mode = 2
+text = "Description"
+label_settings = SubResource("LabelSettings_hdvmu")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[editable path="RewardView/SubViewport/Node3D/chest"]

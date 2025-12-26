@@ -16,8 +16,8 @@ public partial class PlayerStatsManager : Node
         // sensowne defaulty, żeby nie było 0 jak ktoś zapomni ustawić
         return id switch
         {
-            StatId.SpellDamageMultiplier => 1f,
-            StatId.SpellRangeMultiplier => 1f,
+            StatId.DamageMultiplier => 1f,
+            StatId.RangeMultiplier => 1f,
             StatId.ProjectileSpeedMultiplier => 1f,
             StatId.CooldownReduction => 0f,
             _ => 0f
@@ -84,8 +84,8 @@ public partial class PlayerStatsManager : Node
         SetBaseStat(StatId.JumpCount, res.JumpCount);
 
         // MULTIPLIERY – jako base, bo to wartości wyjściowe
-        SetBaseStat(StatId.SpellDamageMultiplier, res.SpellDamageMultiplier);
-        SetBaseStat(StatId.SpellRangeMultiplier, res.SpellRangeMultiplier);
+        SetBaseStat(StatId.DamageMultiplier, res.SpellDamageMultiplier);
+        SetBaseStat(StatId.RangeMultiplier, res.SpellRangeMultiplier);
         SetBaseStat(StatId.ProjectileSpeedMultiplier, res.ProjectileSpeedMultiplier);
 
         // CooldownReduction – base (0..1)

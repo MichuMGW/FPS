@@ -26,6 +26,7 @@ public abstract partial class SpellDefinition : Resource
     public float RehitMaxDurationSeconds { get; set; } = 0f;
 
     [ExportGroup("Status Magnitudes")]
+    [Export] public ElementStatusProfile StatusProfile { get; set; } = null;
     [Export] public float BurningDotMultiplier = 1f; // FireExplosion np. 4.0
     [Export] public float SlowMultiplierBonus = 0f;  // jeśli chcesz różne slowy
     [Export] public float BleedDotMultiplier = 1f;

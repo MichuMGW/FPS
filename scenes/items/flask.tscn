@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dduip5wb6b8li"]
+
+[ext_resource type="PackedScene" uid="uid://cjr5yxr13skm1" path="res://Assets/models/items/flask/flask.glb" id="1_802je"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ovp6"]
+transparency = 1
+blend_mode = 1
+albedo_color = Color(0.572988, 0.572988, 0.572988, 1)
+
+[node name="Flask" type="Node3D"]
+
+[node name="flask" parent="." instance=ExtResource("1_802je")]
+
+[node name="Flask" parent="flask" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_7ovp6")
+
+[editable path="flask"]
