@@ -7,13 +7,133 @@ public partial class PlayerStatsManager : Node
     [Signal] public delegate void StatChangedEventHandler(int statId, float newValue, float oldValue);
     [Signal] public delegate void StatsChangedEventHandler();
 
-    private readonly Dictionary<StatId, StatValue> _stats = new();
+    // Base staty
+    private readonly Dictionary<StatId, float> _base = new();
 
-    public float GetStat(StatId id) => _stats.TryGetValue(id, out var v) ? v.Final : GetDefault(id);
+    private readonly Dictionary<string, Dictionary<StatId, StatContribution>> _sources = new();
+
+    // wynik końcowy
+    private readonly Dictionary<StatId, float> _final = new();
+
+    private struct StatContribution
+    {
+        public float Add;
+        public float Mult;
+    }
+
+    public float GetStat(StatId id)
+        => _final.TryGetValue(id, out var v) ? v : GetDefault(id);
+
+    public void SetBaseStat(StatId id, float baseValue)
+    {
+        _base[id] = baseValue;
+        RecomputeAll();
+    }
+
+    /// <summary>
+    /// Ustaw wkład źródła (item/buff) dla konkretnego statId.
+    /// Nadpisuje wcześniejszy wkład tego samego źródła.
+    /// </summary>
+    public void SetModifier(string sourceId, StatId stat, float add, float mult)
+    {
+        if (!_sources.TryGetValue(sourceId, out var dict))
+        {
+            dict = new Dictionary<StatId, StatContribution>();
+            _sources[sourceId] = dict;
+        }
+
+        dict[stat] = new StatContribution { Add = add, Mult = mult };
+        RecomputeAll();
+    }
+
+    public void RemoveSource(string sourceId)
+    {
+        if (_sources.Remove(sourceId))
+            RecomputeAll();
+    }
+
+    public void ClearAllSources()
+    {
+        _sources.Clear();
+        RecomputeAll();
+    }
+
+    public void InitializeFromResource(PlayerStatsResource res, bool clearFirst = true)
+    {
+        if (res == null)
+        {
+            GD.PrintErr("PlayerStatsManager: InitializeFromResource called with null.");
+            return;
+        }
+
+        if (clearFirst)
+        {
+            _base.Clear();
+            _sources.Clear();
+            _final.Clear();
+        }
+
+        // Base
+        _base[StatId.MaxHealth] = res.MaxHealth;
+        _base[StatId.MoveSpeed] = res.MoveSpeed;
+        _base[StatId.JumpForce] = res.JumpForce;
+        _base[StatId.JumpCount] = res.JumpCount;
+
+        _base[StatId.DamageMultiplier] = res.SpellDamageMultiplier;
+        _base[StatId.RangeMultiplier] = res.SpellRangeMultiplier;
+        _base[StatId.ProjectileSpeedMultiplier] = res.ProjectileSpeedMultiplier;
+        _base[StatId.CooldownReduction] = res.CooldownReduction;
+
+        RecomputeAll();
+    }
+
+    private void RecomputeAll()
+    {
+        // Zbierz wszystkie staty, które mogą istnieć: base + sources
+        var touched = new HashSet<StatId>();
+        foreach (var k in _base.Keys) touched.Add(k);
+        foreach (var s in _sources.Values)
+            foreach (var k in s.Keys)
+                touched.Add(k);
+
+        bool anyChanged = false;
+
+        foreach (var id in touched)
+        {
+            float old = _final.TryGetValue(id, out var oldV) ? oldV : GetDefault(id);
+
+            float baseV = _base.TryGetValue(id, out var b) ? b : GetDefaultBase(id);
+
+            float addSum = 0f;
+            float multProd = 1f;
+
+            foreach (var src in _sources.Values)
+            {
+                if (!src.TryGetValue(id, out var c))
+                    continue;
+
+                addSum += c.Add;
+                multProd *= (c.Mult <= 0f ? 0f : c.Mult);
+            }
+
+            float now = (baseV + addSum) * multProd;
+
+            _final[id] = now;
+
+            if (!Mathf.IsEqualApprox(old, now))
+            {
+                anyChanged = true;
+                EmitSignal(SignalName.StatChanged, (int)id, now, old);
+            }
+        }
+
+        if (anyChanged)
+            EmitSignal(SignalName.StatsChanged);
+    }
 
     private float GetDefault(StatId id)
     {
-        // sensowne defaulty, żeby nie było 0 jak ktoś zapomni ustawić
+        // wartości końcowe, gdy nie ma base i nie ma source
         return id switch
         {
             StatId.DamageMultiplier => 1f,
@@ -24,83 +144,15 @@ public partial class PlayerStatsManager : Node
         };
     }
 
-    private StatValue GetOrCreate(StatId id)
+    private float GetDefaultBase(StatId id)
     {
-        if (_stats.TryGetValue(id, out var v))
-            return v;
-
-        // domyślne Multiplier = 1
-        v = new StatValue { Base = 0f, Additive = 0f, Multiplier = 1f };
-        _stats[id] = v;
-        return v;
-    }
-
-    public void SetBaseStat(StatId id, float baseValue)
-    {
-        float old = GetStat(id);
-        var v = GetOrCreate(id);
-
-        v.Base = baseValue;
-        _stats[id] = v;
-
-        EmitIfChanged(id, old);
-    }
-
-    public void AddModifier(StatId id, float add = 0f, float mult = 1f)
-    {
-        float old = GetStat(id);
-        var v = GetOrCreate(id);
-
-        v.Additive += add;
-        v.Multiplier *= mult;
-        if (v.Multiplier < 0f) v.Multiplier = 0f;
-
-        _stats[id] = v;
-
-        EmitIfChanged(id, old);
-    }
-
-    public void ResetAll()
-    {
-        _stats.Clear();
-        EmitSignal(SignalName.StatsChanged);
-    }
-
-    public void InitializeFromResource(PlayerStatsResource res, bool clearFirst = true)
-    {
-        if (res == null)
+        // baza, gdy nie ustawiono base
+        return id switch
         {
-            GD.PrintErr("PlayerStatsManager: InitializeFromResource called with null resource.");
-            return;
-        }
-
-        if (clearFirst)
-            _stats.Clear();
-
-        // BAZY (Base)
-        SetBaseStat(StatId.MaxHealth, res.MaxHealth);
-        SetBaseStat(StatId.MoveSpeed, res.MoveSpeed);
-        SetBaseStat(StatId.JumpForce, res.JumpForce);
-        SetBaseStat(StatId.JumpCount, res.JumpCount);
-
-        // MULTIPLIERY – jako base, bo to wartości wyjściowe
-        SetBaseStat(StatId.DamageMultiplier, res.SpellDamageMultiplier);
-        SetBaseStat(StatId.RangeMultiplier, res.SpellRangeMultiplier);
-        SetBaseStat(StatId.ProjectileSpeedMultiplier, res.ProjectileSpeedMultiplier);
-
-        // CooldownReduction – base (0..1)
-        SetBaseStat(StatId.CooldownReduction, res.CooldownReduction);
-
-        EmitSignal(SignalName.StatsChanged);
-    }
-
-    private void EmitIfChanged(StatId id, float oldFinal)
-    {
-        float now = GetStat(id);
-        if (Mathf.IsEqualApprox(oldFinal, now))
-            return;
-
-        EmitSignal(SignalName.StatChanged, (int)id, now, oldFinal);
-        EmitSignal(SignalName.StatsChanged);
+            StatId.DamageMultiplier => 1f,
+            StatId.RangeMultiplier => 1f,
+            StatId.ProjectileSpeedMultiplier => 1f,
+            _ => 0f
+        };
     }
 }

@@ -12,6 +12,10 @@ public partial class GameEvents : Node
 	// NEW: sygnały pod skrzynię (opcjonalnie, ale przydają się)
     [Signal] public delegate void ChestRewardStartedEventHandler();
     [Signal] public delegate void ChestRewardEndedEventHandler();
+    // GameEvents.cs (dopisz)
+    [Signal] public delegate void ElementPickRequestedEventHandler(bool isSecondPick);
+    [Signal] public delegate void ElementPickedEventHandler(Element picked, bool isSecondPick);
+
 
 	// Menu pauzy
 	private PackedScene _gameMenuScene;
@@ -23,6 +27,10 @@ public partial class GameEvents : Node
     private ChestRewardOverlay _chestRewardInstance;
     private ChestManager _chestManager;
     private bool _isChestRewardActive = false;
+    private ItemInventory _inventory;
+    private ItemDefinition _pendingChestItem;
+
+    private PackedScene _elementOverlayScene;
 
 	private int _pauseRequests = 0;
 	private Camera3D _playerCamera;
@@ -38,7 +46,13 @@ public partial class GameEvents : Node
 		_chestRewardScene = GD.Load<PackedScene>("res://scenes/ui/reward_overlay.tscn");
 		_playerCamera = GetTree().GetFirstNodeInGroup("player_camera") as Camera3D;
 
+        _elementOverlayScene = GD.Load<PackedScene>("res://scenes/ui/element_overlay.tscn");
+
         _chestManager = GetTree().GetFirstNodeInGroup("chest_manager") as ChestManager;
+
+        _inventory = GetTree().Root.GetNodeOrNull<ItemInventory>("ItemInventory");
+        if (_inventory == null)
+            GD.PushWarning("GameEvents: missing ItemInventory reference.");
 
 		mainScene = GetTree().CurrentScene;
 
@@ -71,13 +85,35 @@ public partial class GameEvents : Node
 		_isMenuEnabled = isMenuEnabled;
 	}
 
+    public void RequestElementPick(bool isSecondPick)
+    {
+        EmitSignal(nameof(ElementPickRequested), isSecondPick);
+    }
+
+    public void EmitElementPicked(Element picked, bool isSecondPick)
+    {
+        EmitSignal(nameof(ElementPicked), picked, isSecondPick);
+    }
+
+
     private void OnChestOpened(ItemDefinition item, int cost, Chest chest)
     {
         // item może być null jeśli lista pusta
         PackedScene preview = item?.PreviewScene;
+        _pendingChestItem = item;
 
         StartChestReward(preview, item); // <- typed optionalData, patrz niżej
     }
+
+    public void ClaimChestReward()
+    {
+        if (_pendingChestItem != null && _inventory != null)
+            _inventory.AddItem(_pendingChestItem);
+
+        _pendingChestItem = null;
+    }
+
+
 
     public override void _Input(InputEvent @event)
     {
@@ -180,6 +216,20 @@ public partial class GameEvents : Node
         Input.MouseMode = Input.MouseModeEnum.Captured;
 
         EmitSignal(nameof(ChestRewardEnded));
+    }
+
+    public void StartElementPick(bool isSecondPick)
+    {
+        var overlay = _elementOverlayScene.Instantiate() as ElementOverlay;
+        overlay.ProcessMode = ProcessModeEnum.Always;
+        overlay.IsSecondPick = isSecondPick;
+
+        // przypnij bazę kitów (albo przez Export w scenie, jak wolisz)
+        overlay.KitDatabase = GD.Load<ElementKitDatabase>("res://data/ElementKitDatabase.tres");
+
+        _events.RequestPause();
+        GetTree().Root.AddChild(overlay);
+        Input.MouseMode = Input.MouseModeEnum.Visible;
     }
 
     // ----------------------------

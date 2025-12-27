@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ElementKitDatabase" load_steps=3 format=3 uid="uid://bwk8dmptw6036"]
+
+[ext_resource type="Script" uid="uid://b3lgib24dqmon" path="res://resources/spells/ElementKitDefinition.cs" id="1_ia675"]
+[ext_resource type="Script" uid="uid://d2nboqcdj5u6b" path="res://resources/spells/ElementKitDatabase.cs" id="2_dqp1f"]
+
+[resource]
+script = ExtResource("2_dqp1f")
+Kits = Array[ExtResource("1_ia675")]([])
+metadata/_custom_type_script = "uid://d2nboqcdj5u6b"

@@ -13,6 +13,7 @@ metadata/_custom_type_script = "uid://d1og76mbf6sdm"
 
 [resource]
 script = ExtResource("2_ctcwi")
+Id = "item_flask"
 DisplayName = "Flask"
 Description = "Increase player's HP Regeneration by 0.5/s "
 PreviewScene = ExtResource("1_ctcwi")

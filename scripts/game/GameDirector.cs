@@ -6,9 +6,15 @@ public partial class GameDirector : Node
 {
     [Export] public float MatchDurationSeconds { get; set; } = 600f; // 10 minut
     [Export] public NodePath EnemySpawnManagerPath { get; set; }
+    [Export] public ElementKitDatabase KitDatabase;
+    [Export] private PackedScene _elementOverlayScene;
 
     private EnemySpawnManager _enemySpawnManager;
     private DifficultyManager _difficultyManager = new DifficultyManager();
+
+    private GameEvents _events;
+    private RunElementState _runState;
+    private PlayerSpellController _spellController;
 
     private float _elapsed;
     private float _spawnTimer;
@@ -40,6 +46,14 @@ public partial class GameDirector : Node
             GD.PushError("[GameDirector] Could not find EnemySpawnManager.");
             return;
         }
+
+        _events = GetTree().Root.GetNodeOrNull<GameEvents>("GameEvents");
+        _runState = GetTree().Root.GetNodeOrNull<RunElementState>("RunElementState");
+        _spellController = GetTree().GetFirstNodeInGroup("player")?.GetNodeOrNull<PlayerSpellController>("PlayerSpellController")
+                          ?? GetTree().GetFirstNodeInGroup("player") as PlayerSpellController;
+
+        if (_events != null)
+            _events.ElementPicked += OnElementPicked;
 
         _elapsed = 0f;
         _spawnTimer = 0f;
@@ -109,6 +123,25 @@ public partial class GameDirector : Node
                 GD.Print($"[GameDirector] Unlocked enemy type: {unlock.ScenePath} at t={_elapsed:F1}s");
             }
         }
+    }
+
+    private void OnElementPicked(Element picked, bool isSecondPick)
+    {
+        if (_runState == null || KitDatabase == null || _spellController == null)
+            return;
+
+        var finalElement = _runState.GetCombined();
+        if (finalElement == Element.None)
+            return;
+
+        var kit = KitDatabase.GetKit(finalElement);
+        if (kit == null)
+        {
+            GD.PrintErr($"No kit found for final element {finalElement}");
+            return;
+        }
+
+        _spellController.EquipKit(kit);
     }
 
     private void EndMatch()

@@ -2,6 +2,7 @@ using Godot;
 
 public class ProjectileSpellBehaviour : ISpellBehaviour
 {
+    private readonly RandomNumberGenerator rng = new RandomNumberGenerator();
     public void PerformCast(SpellCastContext ctx)
     {
         if (ctx.Instance.Definition is not ProjectileSpellDefinition def)
@@ -72,8 +73,6 @@ public class ProjectileSpellBehaviour : ISpellBehaviour
     {
         if (spreadDegrees <= 0f)
             return baseDir;
-
-        var rng = new RandomNumberGenerator();
 
         float yaw = Mathf.DegToRad(rng.RandfRange(-spreadDegrees, spreadDegrees));
         float pitch = Mathf.DegToRad(rng.RandfRange(-spreadDegrees, spreadDegrees));

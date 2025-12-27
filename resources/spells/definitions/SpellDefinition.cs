@@ -5,6 +5,8 @@ public abstract partial class SpellDefinition : Resource
 {
     [Export] public string Id { get; set; }
     [Export] public string DisplayName { get; set; }
+    [Export(PropertyHint.MultilineText)]
+    public string Description { get; set; } = "";
 
     [Export] public Element Element { get; set; }
 

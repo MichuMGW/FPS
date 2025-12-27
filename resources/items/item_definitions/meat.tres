@@ -7,14 +7,15 @@
 [sub_resource type="Resource" id="Resource_ef3ft"]
 script = ExtResource("1_y5dbm")
 Stat = 8
-Add = 0.05
-Mult = 1.0
+Add = 0.0
+Mult = 1.1
 metadata/_custom_type_script = "uid://d1og76mbf6sdm"
 
 [resource]
 script = ExtResource("2_v0nnv")
+Id = "item_meat"
 DisplayName = "Meat"
-Description = "Increase player's damage by +5%"
+Description = "Increase player's damage by +10%"
 PreviewScene = ExtResource("1_v0nnv")
 Rarity = 0
 StatModifier = Array[ExtResource("1_y5dbm")]([SubResource("Resource_ef3ft")])

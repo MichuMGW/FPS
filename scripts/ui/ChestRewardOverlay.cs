@@ -248,6 +248,8 @@ public partial class ChestRewardOverlay : CanvasLayer
     {
         _idleEnabled = false;
 
+        _events.ClaimChestReward();
+
         // fade out dimmera
         FadeDimmerTo(0f, 0.20f);
 

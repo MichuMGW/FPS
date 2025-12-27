@@ -13,6 +13,7 @@ metadata/_custom_type_script = "uid://d1og76mbf6sdm"
 
 [resource]
 script = ExtResource("2_50h2f")
+Id = "item_mirror"
 DisplayName = "Mirror"
 Description = "Increase player's crit chance by +10%"
 PreviewScene = ExtResource("1_50h2f")
