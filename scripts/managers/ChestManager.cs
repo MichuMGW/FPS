@@ -20,7 +20,7 @@ public partial class ChestManager : Node3D
 	[Export] public int MaxTriesPerChest = 80;
 
 	[Export] public float InteractDistance = 4.5f;
-	[Export] public int BaseOpenCost = 1;
+	[Export] public int BaseOpenCost = 20;
 
 	[Export] public Godot.Collections.Array<ItemDefinition> AvailableItems = new();
 
@@ -34,6 +34,7 @@ public partial class ChestManager : Node3D
 
 	private readonly List<Chest> _chests = new();
 	private Chest _focusedChest;
+	private GameEvents _events;
 
 	public override void _Ready()
 	{
@@ -41,6 +42,7 @@ public partial class ChestManager : Node3D
 
 		_playerRay = GetTree().GetFirstNodeInGroup("player_ray") as RayCast3D;
 		_player = GetTree().GetFirstNodeInGroup("player") as Node3D;
+		_events = GetTree().Root.GetNodeOrNull("GameEvents") as GameEvents;
 
 		InitMask();
 
@@ -169,10 +171,11 @@ public partial class ChestManager : Node3D
 
 		// TODO: sprawdź zasób gracza (klucze itd.)
 		SetFocused(null);
-		chest.Open();
-
 		var item = RollItem();
-		EmitSignal(nameof(ChestOpened), item, CurrentOpenCost, chest);
+
+		_events.RequestChestReward(item, CurrentOpenCost);
+		chest.Open();
+		// EmitSignal(nameof(ChestOpened), item, CurrentOpenCost, chest);
 	}
 
 	private ItemDefinition RollItem()

@@ -19,19 +19,19 @@ config/icon="res://icon.svg"
 
 GameEvents="*res://scripts/game/GameEvents.cs"
 ItemInventory="*res://scripts/items/ItemInventory.cs"
+RunElementState="*res://scripts/game/RunElementState.cs"
+PauseManager="*res://scripts/managers/PauseManager.cs"
 
 [display]
 
 window/size/viewport_width=1200
 window/size/viewport_height=800
+window/size/window_width_override=1920
+window/size/window_height_override=1080
 
 [dotnet]
 
 project/assembly_name="3D Shooter - prototyp"
-
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/gdUnit4/plugin.cfg")
 
 [gdunit4]
 

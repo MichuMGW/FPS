@@ -11,8 +11,11 @@ public partial class Chest : Node3D
     public bool IsOpened { get; private set; }
     public bool IsDespawning { get; private set; }
 
+    private GameEvents _events;
+
     public override void _Ready()
     {
+        _events = GetTree().Root.GetNodeOrNull<GameEvents>("GameEvents");
         Info?.Hide();
     }
 

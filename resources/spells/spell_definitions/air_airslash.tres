@@ -20,6 +20,7 @@ ExplosionDamageMultiplier = 1.0
 ExplosionLifetimeSeconds = 0.0
 Id = ""
 DisplayName = ""
+Description = ""
 Element = 4
 CastMode = 1
 BehaviourType = 0

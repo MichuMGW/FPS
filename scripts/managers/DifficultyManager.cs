@@ -9,9 +9,11 @@ public struct DifficultySnapshot
     public int MaxAliveEnemies;
 }
 
-public class DifficultyManager
+public partial class DifficultyManager : Node
 {
-    //TODO: Skalowanie zrobić w sposób inny niż liniowy
+    public float DifficultyCoefficient { get; private set; }
+    private GameEvents _gameEvents;
+
     public DifficultySnapshot GetDifficulty(float normalizedTime, float elapsedSeconds)
     {
         normalizedTime = Mathf.Clamp(normalizedTime, 0f, 1f);
@@ -21,9 +23,9 @@ public class DifficultyManager
         float speed = 1f + normalizedTime * 1.0f; // na końcu 2x speed
 
         // Spawn: na początku wolno, potem szybciej
-        float spawnInterval = Mathf.Lerp(3.0f, 0.7f, normalizedTime); // od 3s do ~0.7s
+        float spawnInterval = Mathf.Lerp(3.0f, 1.0f, normalizedTime); // od 3s do ~0.7s
 
-        // Limit mobów rośnie z czasem
+        // Mob limit
         int maxAlive = (int)Mathf.Lerp(8, 40, normalizedTime); // od 8 do 40
 
         return new DifficultySnapshot

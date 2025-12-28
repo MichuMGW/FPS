@@ -1,34 +1,32 @@
 using Godot;
-using System;
 using System.Collections.Generic;
 
 public partial class GameDirector : Node
 {
     [Export] public float MatchDurationSeconds { get; set; } = 600f; // 10 minut
     [Export] public NodePath EnemySpawnManagerPath { get; set; }
+
     [Export] public ElementKitDatabase KitDatabase;
-    [Export] private PackedScene _elementOverlayScene;
 
     private EnemySpawnManager _enemySpawnManager;
-    private DifficultyManager _difficultyManager = new DifficultyManager();
+    private readonly DifficultyManager _difficultyManager = new DifficultyManager();
 
     private GameEvents _events;
     private RunElementState _runState;
     private PlayerSpellController _spellController;
+    private ItemInventory _inventory = null;
+    private ChestManager _chestManager = null;
 
     private float _elapsed;
     private float _spawnTimer;
     private bool _isRunning;
 
-    // Konfiguracja odblokowywania typów przeciwników
     private readonly List<EnemyUnlockConfig> _enemyUnlocks = new()
     {
-        // czas w sekundach, ścieżka do sceny wroga
         new EnemyUnlockConfig(   0f, "res://scenes/entities/enemies/Skeleton.tscn"),
         new EnemyUnlockConfig(  60f, "res://scenes/entities/enemies/TrollArcher.tscn"),
         new EnemyUnlockConfig( 120f, "res://scenes/entities/enemies/Orc.tscn"),
         new EnemyUnlockConfig( 180f, "res://scenes/entities/enemies/SkeletonSummoner.tscn"),
-        // dodajesz kolejne według potrzeb
     };
 
     public override void _Ready()
@@ -39,8 +37,7 @@ public partial class GameDirector : Node
             return;
         }
 
-        _enemySpawnManager = GetNode<EnemySpawnManager>(EnemySpawnManagerPath);
-
+        _enemySpawnManager = GetNodeOrNull<EnemySpawnManager>(EnemySpawnManagerPath);
         if (_enemySpawnManager == null)
         {
             GD.PushError("[GameDirector] Could not find EnemySpawnManager.");
@@ -49,18 +46,43 @@ public partial class GameDirector : Node
 
         _events = GetTree().Root.GetNodeOrNull<GameEvents>("GameEvents");
         _runState = GetTree().Root.GetNodeOrNull<RunElementState>("RunElementState");
-        _spellController = GetTree().GetFirstNodeInGroup("player")?.GetNodeOrNull<PlayerSpellController>("PlayerSpellController")
-                          ?? GetTree().GetFirstNodeInGroup("player") as PlayerSpellController;
+        _inventory = GetTree().Root.GetNodeOrNull<ItemInventory>("ItemInventory");
+        // _chestManager = GetTree().Root.GetNodeOrNull<ChestManager>("ChestManager");
+        _chestManager = GetTree().GetFirstNodeInGroup("chest_manager") as ChestManager;
+
+        var player = GetTree().GetFirstNodeInGroup("player") as Player;
+        _spellController = player.GetNodeOrNull<PlayerSpellController>("PlayerSpellController");
+
+        if (_events == null)
+            GD.PushError("[GameDirector] Missing GameEvents autoload.");
+        if (_runState == null)
+            GD.PushError("[GameDirector] Missing RunElementState autoload.");
+        if (_spellController == null)
+            GD.PushWarning("[GameDirector] PlayerSpellController not found (kit equip won't work).");
+        if (KitDatabase == null)
+            GD.PushWarning("[GameDirector] KitDatabase not assigned.");
 
         if (_events != null)
+        {
             _events.ElementPicked += OnElementPicked;
+        }
 
-        _elapsed = 0f;
-        _spawnTimer = 0f;
-        _isRunning = true;
+        CallDeferred(nameof(BootstrapRun));
+        // Na start zawsze wybór pierwszego żywiołu
+        
+    }
 
-        // na starcie – od razu odblokujemy te typy, które mają UnlockTime <= 0
-        UnlockEnemiesIfNeeded();
+    private async void BootstrapRun()
+    {
+        // Poczekaj aż drzewo zakończy setup (1 frame wystarcza w 99% przypadków)
+        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+
+        // Dodatkowo: upewnij się, że UIOverlayManager i inne autoloady weszły
+        // (opcjonalnie, ale stabilne)
+        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+
+        // Teraz dopiero start:
+        StartGame();
     }
 
     public override void _Process(double delta)
@@ -70,7 +92,8 @@ public partial class GameDirector : Node
 
         _elapsed += (float)delta;
 
-        // koniec meczu po 10 minutach
+        _events?.EmitRunTimeUpdated(_elapsed, MatchDurationSeconds);
+
         if (_elapsed >= MatchDurationSeconds)
         {
             EndMatch();
@@ -78,54 +101,82 @@ public partial class GameDirector : Node
         }
 
         float normalizedTime = _elapsed / MatchDurationSeconds;
-
-        // 1) liczymy difficulty z managera
         DifficultySnapshot diff = _difficultyManager.GetDifficulty(normalizedTime, _elapsed);
 
-        // 2) przekazujemy do SpawnManagera – będzie użyte przy każdym nowym spawnie
         _enemySpawnManager.UpdateDifficulty(diff);
 
-        // 3) sprawdzamy, czy trzeba odblokować nowe typy wrogów
         UnlockEnemiesIfNeeded();
 
-        // jeśli nadal nie ma żadnego typu wroga – nie spawnujemy
         if (_enemySpawnManager.AliveEnemiesCount >= diff.MaxAliveEnemies)
             return;
 
-        // 4) obsługa timera spawnu
         _spawnTimer -= (float)delta;
         if (_spawnTimer <= 0f)
         {
-            // robimy spawn
             _enemySpawnManager.SpawnRandomEnemy();
-
-            // reset timera na podstawie difficulty
             _spawnTimer = diff.SpawnInterval;
         }
+    }
+
+    private void StartGame()
+    {
+        GD.Print("[GameDirector] Match started.");
+        
+        _isRunning = true;
+        _elapsed = 0f;
+        _spawnTimer = 0f;
+        _enemySpawnManager.StartSpawning();
+        _chestManager.SpawnChests();
+
+        _events.RequestElementPick(isSecondPick: false);
     }
 
     private void UnlockEnemiesIfNeeded()
     {
         foreach (var unlock in _enemyUnlocks)
         {
-            if (!unlock.Unlocked && _elapsed >= unlock.UnlockTimeSeconds)
+            if (unlock.Unlocked || _elapsed < unlock.UnlockTimeSeconds)
+                continue;
+
+            unlock.Unlocked = true;
+
+            var scene = GD.Load<PackedScene>(unlock.ScenePath);
+            if (scene == null)
             {
-                unlock.Unlocked = true;
-
-                var scene = GD.Load<PackedScene>(unlock.ScenePath);
-                if (scene == null)
-                {
-                    GD.PushError($"[GameDirector] Cannot load enemy scene at path: {unlock.ScenePath}");
-                    continue;
-                }
-
-                _enemySpawnManager.AddEnemyType(scene);
-                GD.Print($"[GameDirector] Unlocked enemy type: {unlock.ScenePath} at t={_elapsed:F1}s");
+                GD.PushError($"[GameDirector] Cannot load enemy scene at path: {unlock.ScenePath}");
+                continue;
             }
+
+            _enemySpawnManager.AddEnemyType(scene);
+            GD.Print($"[GameDirector] Unlocked enemy type: {unlock.ScenePath} at t={_elapsed:F1}s");
         }
     }
 
-    private void OnElementPicked(Element picked, bool isSecondPick)
+    // ===== Element pick handling =====
+
+    private void OnElementPicked(int pickedElement, bool isSecondPick)
+    {
+        if (_runState == null || _events == null)
+            return;
+
+        var picked = (Element)pickedElement;
+
+        if (!isSecondPick)
+        {
+            _runState.SetFirst(picked);
+
+            // Po pierwszym wyborze możesz od razu założyć bazowy kit,
+            // albo czekać aż gracz wybierze drugi element w trakcie runa.
+            ApplyKitFromRunState();
+
+            return;
+        }
+
+        _runState.SetSecond(picked);
+        ApplyKitFromRunState();
+    }
+
+    private void ApplyKitFromRunState()
     {
         if (_runState == null || KitDatabase == null || _spellController == null)
             return;
@@ -137,30 +188,43 @@ public partial class GameDirector : Node
         var kit = KitDatabase.GetKit(finalElement);
         if (kit == null)
         {
-            GD.PrintErr($"No kit found for final element {finalElement}");
+            GD.PrintErr($"[GameDirector] No kit found for final element {finalElement}");
             return;
         }
 
         _spellController.EquipKit(kit);
+        GD.Print($"[GameDirector] Equipped kit: {finalElement}");
+    }
+
+    // ===== Example hook: call this when you want second pick during run =====
+    public void RequestSecondElementPick()
+    {
+        if (_runState == null || _events == null)
+            return;
+
+        if (!_runState.HasFirst)
+        {
+            _events.RequestElementPick(isSecondPick: false);
+            return;
+        }
+
+        if (_runState.HasSecond)
+            return;
+
+        _events.RequestElementPick(isSecondPick: true);
     }
 
     private void EndMatch()
     {
         _isRunning = false;
-
-        // Zatrzymanie nowych spawnów
         _enemySpawnManager.StopSpawning();
 
         GD.Print("[GameDirector] Match ended.");
 
-        // TODO:
-        // - odpal ekran podsumowania
-        // - zapis progresu
-        // - emisja sygnału przez GameEvents itp.
-        // GameEvents.Instance.EmitRunEnded();
+        _events?.EndRun();
     }
 
-    // ================== POMOCNICZA KLASA DO UNLOCKÓW ==================
+    // ================== helper ==================
 
     private class EnemyUnlockConfig
     {

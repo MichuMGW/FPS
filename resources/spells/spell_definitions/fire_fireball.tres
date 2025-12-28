@@ -23,6 +23,7 @@ ExplosionDamageMultiplier = 1.0
 ExplosionLifetimeSeconds = 2.0
 Id = "fire_fireball"
 DisplayName = "Fireball"
+Description = ""
 Element = 1
 CastMode = 1
 BehaviourType = 0

@@ -9,6 +9,7 @@ public partial class ElementOverlay : CanvasLayer
     [Export] public NodePath NatureButtonPath = "ElementView/VBoxContainer/HBoxContainer/NatureButton";
 
     [Export] public NodePath DescriptionLabelPath = "ElementView/VBoxContainer/Panel/Label";
+    [Export] public NodePath SubViewportPath = "ElementView/SubViewport";
 
     [Export] public ElementKitDatabase KitDatabase;
 
@@ -16,6 +17,7 @@ public partial class ElementOverlay : CanvasLayer
 
     private Button _fireBtn, _waterBtn, _airBtn, _natureBtn;
     private Label _desc;
+    private SubViewport _vp;
 
     private GameEvents _events;
     private RunElementState _runState;
@@ -30,6 +32,7 @@ public partial class ElementOverlay : CanvasLayer
         _airBtn = GetNode<Button>(AirButtonPath);
         _natureBtn = GetNode<Button>(NatureButtonPath);
 
+        _vp = GetNode<SubViewport>(SubViewportPath);
         _desc = GetNode<Label>(DescriptionLabelPath);
 
         WireButton(_fireBtn, Element.Fire);
@@ -43,8 +46,23 @@ public partial class ElementOverlay : CanvasLayer
         ApplySecondPickRules();
         ShowKitPreview(Element.Fire); // domyślnie coś pokaż, żeby panel nie był pusty
 
+        SyncViewportSize();
+        GetViewport().SizeChanged += SyncViewportSize;
+
         Input.MouseMode = Input.MouseModeEnum.Visible;
         ProcessMode = ProcessModeEnum.Always;
+    }
+
+    public override void _UnhandledInput(InputEvent e)
+    {
+        if (e is InputEventMouseButton mb && mb.Pressed)
+            GD.Print($"[ElementOverlay] got click: {mb.ButtonIndex}");
+    }
+
+    private void SyncViewportSize()
+    {
+        var s = GetViewport().GetVisibleRect().Size;
+        _vp.Size = (Vector2I)s;
     }
 
     private void WireButton(Button btn, Element element)

@@ -44,6 +44,7 @@ public partial class ChestRewardOverlay : CanvasLayer
     private GameEvents _events;
 
     private Node3D _itemInstance;
+    private ItemDefinition _itemDef;
     private bool _idleEnabled = false;
     private float _t = 0f;
 
@@ -83,35 +84,28 @@ public partial class ChestRewardOverlay : CanvasLayer
         GetViewport().SizeChanged += SyncViewportSize;
     }
 
-    /// <summary>
-    /// Wywoływane przez GameEvents.StartChestReward(...)
-    /// </summary>
-    public void Start(PackedScene itemScene, string itemTitle, string itemDescription, GameEvents events)
-    {
-        _events = events;
-        _canClose = false;
-        
-        SetTextAlpha(0f);
+    public void Start(ItemDefinition item, GameEvents events)
+{
+    _events = events;
+    _itemDef = item;
 
-        // Fade dimmera (prosto, bez animacji assetowej)
-        FadeDimmerTo(DimmerTargetAlpha, 0.25f);
+    _canClose = false;
+    SetTextAlpha(0f);
 
-        // Skrzynia: animacja z Blendera
-        if (_chestAnim != null && _chestAnim.HasAnimation(ChestOpenAnimName))
-            _chestAnim.Play(ChestOpenAnimName);
+    FadeDimmerTo(DimmerTargetAlpha, 0.25f);
 
-        // Item: jeśli null, to wrzuć placeholder, żeby debug działał
-        _itemInstance = CreateItemInstance(itemScene);
-        _itemInstance.Visible = true;
-        _itemInstance.Scale = Vector3.Zero;
+    if (_chestAnim != null && _chestAnim.HasAnimation(ChestOpenAnimName))
+        _chestAnim.Play(ChestOpenAnimName);
 
-        // Start w spawn
-        _itemInstance.GlobalPosition = _itemSpawn.GlobalPosition;
-        _itemInstance.GlobalRotation = _itemSpawn.GlobalRotation;
+    _itemInstance = CreateItemInstance(item?.PreviewScene);
+    _itemInstance.Visible = true;
+    _itemInstance.Scale = Vector3.Zero;
 
-        // Sekwencja
-        RunSequence(itemTitle, itemDescription);
-    }
+    _itemInstance.GlobalPosition = _itemSpawn.GlobalPosition;
+    _itemInstance.GlobalRotation = _itemSpawn.GlobalRotation;
+
+    RunSequence(item.DisplayName, item.Description);
+}
 
     private async void RunSequence(string itemTitle, string itemDescription)
     {
@@ -248,16 +242,17 @@ public partial class ChestRewardOverlay : CanvasLayer
     {
         _idleEnabled = false;
 
-        _events.ClaimChestReward();
+        if (_itemDef != null)
+            _events?.ClaimChestReward(_itemDef);
 
-        // fade out dimmera
         FadeDimmerTo(0f, 0.20f);
 
         _itemInstance?.QueueFree();
         _itemInstance = null;
 
-        // oddaj kontrolę GameEvents
         _events?.CloseChestReward();
+
+        QueueFree();
     }
 
     public void SetItemText(string name, string description)

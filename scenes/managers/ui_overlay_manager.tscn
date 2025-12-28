@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://co6xss73lvr88"]
+
+[ext_resource type="Script" uid="uid://c7ek1xn2e58cl" path="res://scripts/managers/UIOverlayManager.cs" id="1_p10pb"]
+
+[node name="UIOverlayManager" type="Node"]
+script = ExtResource("1_p10pb")

@@ -16,6 +16,7 @@ MaxPlacementDistance = 25.0
 PlacementMask = 17
 Id = "fire_explosion"
 DisplayName = "Fire Explosion"
+Description = ""
 Element = 1
 CastMode = 3
 BehaviourType = 4

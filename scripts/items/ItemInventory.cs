@@ -11,6 +11,7 @@ public partial class ItemInventory : Node
     [Export] public NodePath PlayerStatsManagerPath;
 
     private PlayerStatsManager _stats;
+    private GameEvents _events;
 
     private sealed class ItemStack
     {
@@ -24,8 +25,16 @@ public partial class ItemInventory : Node
         if (_stats == null)
             GD.PushWarning("RunInventory: missing PlayerStatsManager reference.");
 
+        _events = GetTree().Root.GetNodeOrNull<GameEvents>("GameEvents");
+        if (_events != null)
+            _events.ChestRewardClaimed += OnChestRewardClaimed;
         // na start runa: pusto
         ClearRun();
+    }
+
+    private void OnChestRewardClaimed(ItemDefinition item)
+    {
+        AddItem(item);
     }
 
     public IReadOnlyDictionary<string, int> GetCountsByItemId()

@@ -1,4 +1,16 @@
-[gd_scene format=3 uid="uid://b7w7abb7e6in2"]
+[gd_scene load_steps=9 format=3 uid="uid://b7w7abb7e6in2"]
+
+[ext_resource type="Script" uid="uid://qx1ynm0lrtap" path="res://scripts/ui/PlayerHud.cs" id="1_e6e0b"]
+[ext_resource type="Texture2D" uid="uid://bfttqwkw4tfn0" path="res://Assets/textures/ui/bars/Under.png" id="2_u7a8l"]
+[ext_resource type="Texture2D" uid="uid://duikv8kjlpj14" path="res://Assets/textures/ui/bars/Over.png" id="3_hbwp2"]
+[ext_resource type="Texture2D" uid="uid://d0wbsu4h4actu" path="res://Assets/textures/ui/bars/HPProgress.png" id="4_tfw32"]
+[ext_resource type="FontFile" uid="uid://d2vf3deu7a1b0" path="res://Assets/fonts/Kenney High.ttf" id="5_3cn05"]
+[ext_resource type="Texture2D" uid="uid://cjfpsvm5holen" path="res://Assets/textures/ui/bars/ManaProgress.png" id="5_nh6vl"]
+[ext_resource type="Texture2D" uid="uid://dmhrpwp4al77i" path="res://Assets/textures/ui/bars/ExpBar.png" id="6_3cn05"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bhaj2"]
+font = ExtResource("5_3cn05")
+font_size = 24
 
 [node name="PlayerHUD" type="Control"]
 layout_mode = 3
@@ -8,21 +20,112 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+script = ExtResource("1_e6e0b")
+HealthTextPath = NodePath("VBoxContainer/HealthBar/HealthBarLabel")
+ManaTextPath = NodePath("VBoxContainer/ManaBar/ManaBarLabel")
+ExpTextPath = NodePath("VBoxContainer/ExpBar/ExpBarLabel")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -89.0
+offset_top = -100.0
 offset_right = 721.0
+offset_bottom = -2.0
 grow_vertical = 0
 
-[node name="HealthBar" type="ProgressBar" parent="VBoxContainer"]
+[node name="HealthBar" type="TextureProgressBar" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+value = 100.0
+rounded = true
+nine_patch_stretch = true
+texture_under = ExtResource("2_u7a8l")
+texture_over = ExtResource("3_hbwp2")
+texture_progress = ExtResource("4_tfw32")
 
-[node name="ManaBar" type="ProgressBar" parent="VBoxContainer"]
-layout_mode = 2
+[node name="HealthBarLabel" type="Label" parent="VBoxContainer/HealthBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_bhaj2")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="ExpBar" type="ProgressBar" parent="VBoxContainer"]
+[node name="ManaBar" type="TextureProgressBar" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+value = 100.0
+nine_patch_stretch = true
+texture_under = ExtResource("2_u7a8l")
+texture_over = ExtResource("3_hbwp2")
+texture_progress = ExtResource("5_nh6vl")
+
+[node name="ManaBarLabel" type="Label" parent="VBoxContainer/ManaBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ExpBar" type="TextureProgressBar" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+value = 100.0
+nine_patch_stretch = true
+texture_under = ExtResource("2_u7a8l")
+texture_over = ExtResource("3_hbwp2")
+texture_progress = ExtResource("6_3cn05")
+
+[node name="ExpBarLabel" type="Label" parent="VBoxContainer/ExpBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ItemPanel" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -20.0
+offset_right = 40.0
+offset_bottom = 20.0
+grow_vertical = 2
+
+[node name="ItemFlowContainer" type="HFlowContainer" parent="ItemPanel"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 100.0
+grow_vertical = 2
+alignment = 1

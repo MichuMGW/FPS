@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="ItemDefinition" load_steps=5 format=3 uid="uid://dfa0n676grhod"]
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=6 format=3 uid="uid://dfa0n676grhod"]
 
+[ext_resource type="Texture2D" uid="uid://004wsnt86rip" path="res://Assets/icons/apple.png" id="1_2fqqt"]
 [ext_resource type="PackedScene" uid="uid://pe884i75m4kv" path="res://Assets/models/items/apple/apple.glb" id="1_gl0tj"]
 [ext_resource type="Script" uid="uid://d1og76mbf6sdm" path="res://resources/items/StatModDefinition.cs" id="2_2fqqt"]
 [ext_resource type="Script" uid="uid://xdahrj3wt527" path="res://resources/items/ItemDefinition.cs" id="2_rw2sy"]
@@ -16,6 +17,7 @@ script = ExtResource("2_rw2sy")
 Id = "item_apple"
 DisplayName = "Apple"
 Description = "Increase player's max HP by 20"
+Icon = ExtResource("1_2fqqt")
 PreviewScene = ExtResource("1_gl0tj")
 Rarity = 0
 StatModifier = Array[ExtResource("2_2fqqt")]([SubResource("Resource_0qwm3")])

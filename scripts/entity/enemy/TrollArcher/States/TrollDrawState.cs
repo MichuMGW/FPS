@@ -7,7 +7,6 @@ public class TrollDrawState : IState
 {
     private TrollArcher _owner;
     private bool _bodyLookAtTarget;
-    private bool _spineLookAtTarget;
 
     private Timer _bodyLookAtTimer;
     private Timer _drawEndTimer;
@@ -22,7 +21,6 @@ public class TrollDrawState : IState
         _owner.SetSpineLookAtPlayer();
 
         _bodyLookAtTarget = true;
-        _spineLookAtTarget = true;
 
         InitializeBodyLookAtTimer();
         InitializeDrawEndTimer();

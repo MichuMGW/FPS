@@ -21,6 +21,7 @@ ExplosionDamageMultiplier = 1.0
 ExplosionLifetimeSeconds = 0.0
 Id = "water_waterball"
 DisplayName = "Water Orb"
+Description = ""
 Element = 2
 CastMode = 0
 BehaviourType = 0
