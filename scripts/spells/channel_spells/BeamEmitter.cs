@@ -81,7 +81,13 @@ public partial class BeamEmitter : Node3D
         float tickRateSeconds,
         float maxLength,
         float beamWidth,
-        int pierceCount = 999999
+        float critChance,
+        float critMultiplier,
+        int pierceCount = 999999,
+        ElementStatusProfile statusProfile = null,
+        float burningDotMultiplier = 1f,
+        float slowMultiplierBonus = 1f,
+        float earthBuildupPerHit = 0f
     )
     {
         _tickRate = Mathf.Max(0.01f, tickRateSeconds);
@@ -91,10 +97,16 @@ public partial class BeamEmitter : Node3D
 
         if (_hitbox != null)
         {
+            _hitbox.CritChance = critChance;
+            _hitbox.CritMultiplier = critMultiplier;
             _hitbox.Damage = damagePerTick;
             _hitbox.DamageType = element;
             _hitbox.OneShot = false;
             _hitbox.RehitCooldownSeconds = _tickRate; // ważne: rehit = tick
+            _hitbox.StatusProfile = statusProfile;          // dopnij do SpellDefinition
+            _hitbox.BurningDotMultiplier = burningDotMultiplier;    // dopnij do SpellDefinition
+            _hitbox.SlowBonus = slowMultiplierBonus;                // dopnij do SpellDefinition
+            _hitbox.EarthBuildupPerHit = earthBuildupPerHit;        // dopnij do SpellDefinition
         }
 
         UpdateWidth(_beamWidth);
@@ -290,6 +302,11 @@ public partial class BeamEmitter : Node3D
             size.X = width;
             size.Y = width;
             box.Size = size;
+        }
+
+        if (_hitShape?.Shape is CylinderShape3D cyl)
+        {
+            cyl.Radius = width * 0.5f;
         }
     }
 

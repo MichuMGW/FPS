@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="LevelUpUpgradeDefinition" load_steps=4 format=3 uid="uid://pw4iet6dglm0"]
+
+[ext_resource type="Script" uid="uid://d1og76mbf6sdm" path="res://resources/items/StatModDefinition.cs" id="1_tdu0u"]
+[ext_resource type="Script" uid="uid://cejmhmihsxepu" path="res://resources/levelups/LevelUpUpgradeDefinition.cs" id="2_vn51w"]
+
+[sub_resource type="Resource" id="Resource_6btmi"]
+script = ExtResource("1_tdu0u")
+Stat = 0
+Add = 10.0
+Mult = 1.0
+metadata/_custom_type_script = "uid://d1og76mbf6sdm"
+
+[resource]
+script = ExtResource("2_vn51w")
+Id = "max_health"
+DisplayName = "Max Health"
+Description = "Increase Max Health by 10"
+StatMods = Array[ExtResource("1_tdu0u")]([SubResource("Resource_6btmi")])
+CanStack = true
+MaxStacks = 99
+metadata/_custom_type_script = "uid://cejmhmihsxepu"

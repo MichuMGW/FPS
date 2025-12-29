@@ -10,6 +10,8 @@ public partial class HitInfo : Node
     // --- Core damage snapshot (ważne: snapshot, nie “odczytaj później”) ---
     public float BaseDamage { get; set; }
     public Element Element { get; set; }
+    public bool IsCrit;
+    public float FinalDamage;
 
     // --- Status payload ---
     public ElementStatusProfile StatusProfile { get; set; } // może być null

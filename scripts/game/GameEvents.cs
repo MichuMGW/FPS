@@ -18,6 +18,9 @@ public partial class GameEvents : Node
     // Element pick
     [Signal] public delegate void ElementPickRequestedEventHandler(bool isSecondPick);
     [Signal] public delegate void ElementPickedEventHandler(int pickedElement, bool isSecondPick);
+    // Level up
+    [Signal] public delegate void LevelUpChoiceRequestedEventHandler(Godot.Collections.Array<LevelUpOffer> options);
+    [Signal] public delegate void LevelUpChoiceResolvedEventHandler(LevelUpOffer picked);
 
     public override void _Ready()
     {
@@ -52,4 +55,11 @@ public partial class GameEvents : Node
 
     public void EmitElementPicked(Element picked, bool isSecondPick)
         => EmitSignal(nameof(ElementPicked), (int)picked, isSecondPick);
+    
+    // --- Level up ---
+    public void RequestLevelUpChoice(Godot.Collections.Array<LevelUpOffer> options)
+    => EmitSignal(nameof(LevelUpChoiceRequested), options);
+
+    public void ResolveLevelUpChoice(LevelUpOffer picked)
+        => EmitSignal(nameof(LevelUpChoiceResolved), picked);
 }

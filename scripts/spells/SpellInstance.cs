@@ -35,17 +35,28 @@ public class SpellInstance
     {
         var def = Definition;
 
+        float baseDmg = stats.GetStat(StatId.BaseDamage);
+        float dmgAdd = stats.GetStat(StatId.DamageAdd);
+        float dmgMult = stats.GetStat(StatId.DamageMultiplier);
+
         SpellCastStats result = new SpellCastStats
         {
-            Damage = def.BaseDamage * stats.GetStat(StatId.DamageMultiplier),
+            Damage = baseDmg + dmgAdd * dmgMult,
             Range = def.BaseRange * stats.GetStat(StatId.RangeMultiplier),
             ManaCost = def.BaseManaCost,
 
-            PierceCount = stats.GetStat(StatId.Pierce)
+            CritChance = stats.GetStat(StatId.CritChance),
+            CritMultiplier = stats.GetStat(StatId.CritMultiplier),
+
+            PierceCount = stats.GetStat(StatId.Pierce),
+
+            EnableRehit = def.EnableRehit,
+            RehitIntervalSeconds = def.RehitIntervalSeconds,
         };
 
-        result.EnableRehit = def.EnableRehit;
-        result.RehitIntervalSeconds = def.RehitIntervalSeconds;
+        
+
+        
 
         // Typowe “dodatkowe staty” zależne od typu definicji
         if (def is ProjectileSpellDefinition proj)

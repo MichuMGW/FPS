@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="LevelUpUpgradeDefinition" load_steps=4 format=3 uid="uid://qv3nvimbrovo"]
+
+[ext_resource type="Script" uid="uid://d1og76mbf6sdm" path="res://resources/items/StatModDefinition.cs" id="1_c1023"]
+[ext_resource type="Script" uid="uid://cejmhmihsxepu" path="res://resources/levelups/LevelUpUpgradeDefinition.cs" id="2_n8h10"]
+
+[sub_resource type="Resource" id="Resource_qnpy4"]
+script = ExtResource("1_c1023")
+Stat = 1
+Add = 0.2
+Mult = 1.0
+metadata/_custom_type_script = "uid://d1og76mbf6sdm"
+
+[resource]
+script = ExtResource("2_n8h10")
+Id = "health_regen"
+DisplayName = "Health Regeneration"
+Description = "Increase health regeneration by 0.2/s"
+StatMods = Array[ExtResource("1_c1023")]([SubResource("Resource_qnpy4")])
+CanStack = true
+MaxStacks = 99
+metadata/_custom_type_script = "uid://cejmhmihsxepu"

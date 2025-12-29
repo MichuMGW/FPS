@@ -1,14 +1,25 @@
 using Godot;
+using System.Collections.Generic;
 
 public partial class UIOverlayManager : Node
 {
     [Export] public PackedScene ElementOverlayScene;
-    [Export] public PackedScene ChestRewardOverlayScene; // <-- DODAJ
+    [Export] public PackedScene ChestRewardOverlayScene;
+    [Export] public PackedScene LevelUpOverlayScene;
     [Export] public PackedScene GameMenuScene;
     [Export] public ElementKitDatabase KitDatabase;
 
     private GameEvents _events;
     private PauseManager _pause;
+
+    // ==== Overlay queue (na raz pokazujemy jeden) ====
+    private bool _overlayOpen = false;
+
+    // Level-upy potrafią przyjść “hurtem”, więc je kolejkujemy
+    private readonly Queue<Godot.Collections.Array<LevelUpOffer>> _levelUpQueue = new();
+
+    // (Opcjonalnie) trzymaj referencję do aktualnego overlay, jak chcesz blokować inne requesty
+    private CanvasLayer _activeOverlay;
 
     public override void _Ready()
     {
@@ -31,13 +42,22 @@ public partial class UIOverlayManager : Node
         if (_events != null)
         {
             _events.ElementPickRequested += OnElementPickRequested;
-            _events.ChestRewardRequested += OnChestRewardRequested; // <-- DODAJ
+            _events.ChestRewardRequested += OnChestRewardRequested;
             _events.GameMenuRequested += OnGameMenuRequested;
+            _events.LevelUpChoiceRequested += OnLevelUpChoiceRequested;
         }
     }
 
     private void OnElementPickRequested(bool isSecondPick)
     {
+        // Jeśli coś już jest otwarte, ignoruj albo kolejkuj (Twoja decyzja).
+        // Tu: ignorujemy, bo element pick raczej nie powinien wpadać w trakcie innych overlayów.
+        if (_overlayOpen)
+        {
+            GD.PushWarning("[UIOverlayManager] ElementPickRequested while overlay open. Ignored.");
+            return;
+        }
+
         if (ElementOverlayScene == null)
             return;
 
@@ -54,16 +74,19 @@ public partial class UIOverlayManager : Node
         if (overlay.KitDatabase == null)
             overlay.KitDatabase = KitDatabase;
 
-        _pause?.RequestPause();
-
-        GetTree().Root.AddChild(overlay);
-        Input.MouseMode = Input.MouseModeEnum.Visible;
-
-        overlay.TreeExited += OnTreeExited;
+        ShowOverlay(overlay);
+        overlay.TreeExited += OnOverlayTreeExited;
     }
 
     private void OnChestRewardRequested(ChestRewardContext ctx)
     {
+        // chesty też możesz kolejować, ale na razie blokujemy jak coś jest otwarte
+        if (_overlayOpen)
+        {
+            GD.PushWarning("[UIOverlayManager] ChestRewardRequested while overlay open. Ignored.");
+            return;
+        }
+
         if (ChestRewardOverlayScene == null || _events == null || ctx == null || ctx.Item == null)
         {
             GD.PushWarning("[UIOverlayManager] Cannot start ChestRewardOverlay: missing scene/events/ctx/item.");
@@ -79,17 +102,77 @@ public partial class UIOverlayManager : Node
 
         overlay.ProcessMode = ProcessModeEnum.Always;
 
-        _pause?.RequestPause();
-        GetTree().Root.AddChild(overlay);
-        Input.MouseMode = Input.MouseModeEnum.Visible;
-
+        ShowOverlay(overlay);
         overlay.Start(ctx, _events);
 
-        overlay.TreeExited += OnTreeExited;
+        overlay.TreeExited += OnOverlayTreeExited;
+    }
+
+    private void OnLevelUpChoiceRequested(Godot.Collections.Array<LevelUpOffer> options)
+    {
+        if (LevelUpOverlayScene == null || _events == null)
+        {
+            GD.PushWarning("[UIOverlayManager] Cannot start LevelUpOverlay: missing scene/events.");
+            return;
+        }
+
+        if (options == null || options.Count == 0)
+        {
+            GD.PushWarning("[UIOverlayManager] LevelUpChoiceRequested called with empty options.");
+            return;
+        }
+
+        // Zawsze kolejkuj level-upy
+        _levelUpQueue.Enqueue(options);
+
+        // Jeśli nic nie jest otwarte, pokaż od razu
+        TryShowNextLevelUp();
+    }
+
+    private void TryShowNextLevelUp()
+    {
+        if (_overlayOpen)
+            return;
+
+        if (_levelUpQueue.Count <= 0)
+            return;
+
+        var next = _levelUpQueue.Dequeue();
+        ShowLevelUpOverlay(next);
+    }
+
+    private void ShowLevelUpOverlay(Godot.Collections.Array<LevelUpOffer> options)
+    {
+        var overlay = LevelUpOverlayScene.Instantiate() as LevelUpOverlay;
+        if (overlay == null)
+        {
+            GD.PushError("[UIOverlayManager] LevelUpOverlayScene is not a LevelUpOverlay.");
+            return;
+        }
+
+        overlay.ProcessMode = ProcessModeEnum.Always;
+
+        ShowOverlay(overlay);
+
+        overlay.SetOptions(options);
+
+        overlay.Picked += (LevelUpOffer picked) =>
+        {
+            _events.ResolveLevelUpChoice(picked);
+            overlay.QueueFree();
+        };
+
+        overlay.TreeExited += OnOverlayTreeExited;
     }
 
     private void OnGameMenuRequested()
     {
+        if (_overlayOpen)
+        {
+            GD.PushWarning("[UIOverlayManager] GameMenuRequested while overlay open. Ignored.");
+            return;
+        }
+
         if (GameMenuScene == null)
             return;
 
@@ -102,18 +185,40 @@ public partial class UIOverlayManager : Node
 
         menu.ProcessMode = ProcessModeEnum.Always;
 
-        _pause?.RequestPause();
-
-        GetTree().Root.AddChild(menu);
-        Input.MouseMode = Input.MouseModeEnum.Visible;
-
-        menu.TreeExited += OnTreeExited;
+        ShowOverlay(menu);
+        menu.TreeExited += OnOverlayTreeExited;
     }
 
-    private void OnTreeExited()
+    // ===== Common overlay open/close =====
+
+    private void ShowOverlay(CanvasLayer overlay)
     {
-        _pause?.ReleasePause();
-        Input.MouseMode = Input.MouseModeEnum.Captured;
+        _overlayOpen = true;
+        _activeOverlay = overlay;
+
+        _pause?.RequestPause();
+        GetTree().Root.AddChild(overlay);
+        Input.MouseMode = Input.MouseModeEnum.Visible;
     }
 
+    private void OnOverlayTreeExited()
+    {
+        _activeOverlay = null;
+        _overlayOpen = false;
+
+        _pause?.ReleasePause();
+
+        bool hasNextLevelUp = _levelUpQueue.Count > 0;
+
+        if (!hasNextLevelUp)
+        {
+            Input.MouseMode = Input.MouseModeEnum.Captured;
+        }
+        else
+        {
+            Input.MouseMode = Input.MouseModeEnum.Visible;
+        }
+
+        TryShowNextLevelUp();
+    }
 }

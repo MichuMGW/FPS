@@ -58,6 +58,8 @@ public class ProjectileSpellBehaviour : ISpellBehaviour
         var hitbox = projectile.GetNodeOrNull<HitboxComponent>("HitboxComponent");
         if (hitbox != null)
         {
+            hitbox.CritChance = ctx.Stats.CritChance;
+            hitbox.CritMultiplier = ctx.Stats.CritMultiplier;
             hitbox.StatusProfile = def.StatusProfile;          // dopnij do SpellDefinition
             hitbox.BurningDotMultiplier = def.BurningDotMultiplier;    // dopnij do SpellDefinition
             hitbox.SlowBonus = def.SlowMultiplierBonus;                // dopnij do SpellDefinition

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="LevelUpUpgradeDefinition" load_steps=4 format=3 uid="uid://ddwp04kdan4lv"]
+
+[ext_resource type="Script" uid="uid://d1og76mbf6sdm" path="res://resources/items/StatModDefinition.cs" id="1_8l21d"]
+[ext_resource type="Script" uid="uid://cejmhmihsxepu" path="res://resources/levelups/LevelUpUpgradeDefinition.cs" id="2_jrnk8"]
+
+[sub_resource type="Resource" id="Resource_r1vnb"]
+script = ExtResource("1_8l21d")
+Stat = 7
+Add = 4.0
+Mult = 1.0
+metadata/_custom_type_script = "uid://d1og76mbf6sdm"
+
+[resource]
+script = ExtResource("2_jrnk8")
+Id = "damage"
+DisplayName = "Damage"
+Description = "Increase damage by 4"
+StatMods = Array[ExtResource("1_8l21d")]([SubResource("Resource_r1vnb")])
+CanStack = true
+MaxStacks = 99
+metadata/_custom_type_script = "uid://cejmhmihsxepu"

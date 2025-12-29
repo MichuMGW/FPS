@@ -4,8 +4,12 @@ using Godot;
 public partial class PlayerStatsResource : Resource
 {
     [Export] public float MaxHealth = 100f;
-    [Export] public float MoveSpeed = 8f;
+    [Export] public float HealthRegen = 0f; // HP na sekundę
+    [Export] public float MoveSpeed = 5f;
     [Export] public float JumpForce = 10f;
+    [Export] public float BaseDamage = 10f;
+    [Export] public float CritChance = 0f;        // 0.15 = 15%
+    [Export] public float CritMultiplier = 1.5f;  // x1
 
     // Multipliery – domyślnie 1
     [Export] public float SpellDamageMultiplier = 1f;

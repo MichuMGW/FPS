@@ -6,9 +6,32 @@ public partial class PlayerHealthComponent : Node
 	[Signal] public delegate void EntityDiedEventHandler();
 	[Signal] public delegate void CurrentHealthChangedEventHandler();
 	[Signal] public delegate void HealthChangedEventHandler();
-	[Export] public HurtboxComponent Hurtbox {get; set;}
-	public float MaxHealth {get; set;}
+	[Export] public HurtboxComponent Hurtbox {get; private set;}
+	[Export] public PlayerStatsManager Stats {get; private set;}
+	public float _maxHealth;
+	public float MaxHealth {
+		get
+		{
+			return _maxHealth;
+		}
+		set
+		{
+			_maxHealth = Mathf.Max(1f, value);
+		}
+	}
 	private float _currentHealth;
+	private float _healthRegenPerSecond;
+	public float HealthRegenPerSecond
+	{
+		get
+		{
+			return _healthRegenPerSecond;
+		}
+		set
+		{
+			_healthRegenPerSecond = Mathf.Max(0f, value);
+		}
+	}
 	public float CurrentHealth {
         get
         {
@@ -35,23 +58,21 @@ public partial class PlayerHealthComponent : Node
 		CurrentHealth = MaxHealth;
     }
 
-    private PlayerStatsManager _stats;
-
 	public override void _Ready()
 	{
 
-        _stats = GetParent().GetNode<PlayerStatsManager>("PlayerStatsManager");
+        Stats = GetParent().GetNode<PlayerStatsManager>("PlayerStatsManager");
 
-        MaxHealth = _stats.GetStat(StatId.MaxHealth);
-		if (MaxHealth <= 0f)
-		{
-			MaxHealth = 1f;
-		}
+        MaxHealth = Stats.GetStat(StatId.MaxHealth);
 		CurrentHealth = MaxHealth;
 
-		_stats.StatChanged += OnStatChanged;
+		HealthRegenPerSecond = Stats.GetStat(StatId.HealthRegen);
+
+		Stats.StatChanged += OnStatChanged;
 
 		Hurtbox.Hit += OnHit;
+
+		SetProcess(_healthRegenPerSecond > 0f);
 
 		// //TEST
 		// enemy = GetParent<Enemy>();
@@ -63,10 +84,19 @@ public partial class PlayerHealthComponent : Node
 		// FireDamageTimer.Timeout += OnFireDamageTimeout;
 	}
 
+	public override void _Process(double delta)
+    {
+        if (CurrentHealth <= 0f || CurrentHealth >= MaxHealth)
+            return;
+
+        float dt = (float)delta;
+        Heal(HealthRegenPerSecond * dt);
+    }
+
     public override void _ExitTree()
     {
-         if (_stats != null)
-            _stats.StatChanged -= OnStatChanged;
+         if (Stats != null)
+            Stats.StatChanged -= OnStatChanged;
 
         if (Hurtbox != null)
             Hurtbox.Hit -= OnHit;
@@ -75,10 +105,20 @@ public partial class PlayerHealthComponent : Node
 
     private void OnStatChanged(int statId, float newValue, float oldValue)
     {
-        if ((StatId)statId != StatId.MaxHealth)
-            return;
+        var id = (StatId)statId;
 
-        OnMaxHealthChanged(newValue, oldValue);
+        if (id == StatId.MaxHealth)
+        {
+            OnMaxHealthChanged(newValue, oldValue);
+            return;
+        }
+
+        if (id == StatId.HealthRegen)
+        {
+            _healthRegenPerSecond = Mathf.Max(0f, newValue);
+            SetProcess(_healthRegenPerSecond > 0f);
+            return;
+        }
     }
 
 
@@ -88,9 +128,6 @@ public partial class PlayerHealthComponent : Node
             return;
         
         float damage = damageSource.GetDamage();
-		damage *= hitInfo.DamageMultiplier;
-
-		Element damageType = damageSource.GetDamageType();
 
 		//TUTAJ MOGĘ DODAĆ RESISTY
 		//np. damage = ApplyResistance(damage, damageType);
@@ -123,41 +160,22 @@ public partial class PlayerHealthComponent : Node
 		{
 			CurrentHealth = Mathf.Min(CurrentHealth + diff, MaxHealth);
 		}
+		else
+		{
+            CurrentHealth = Mathf.Min(CurrentHealth, MaxHealth);
+		}
 	}
-
-	// private void OnFireDamageTimeout(){
-	// 	TakeDamage(fireDamage);
-	// 	ShowDamage(enemy.GlobalPosition, 10, new Color(1, 0, 0));
-	// }
-
-	// public void EnemyOnFire(float damage){
-	// 	if (!isCurrentlyOnFire){
-	// 		isCurrentlyOnFire = true;
-	// 		fireDamage = damage;
-	// 		//DODAĆ DURATION I MOŻLIWOŚĆ JEGO ZMIANY
-	// 		FireDamageTimer.Start();
-	// 	}
-	// }
-
-	// private void EnemyOffFire(){
-	// 	isCurrentlyOnFire = false;
-	// 	FireDamageTimer.Stop();
-	// }
 
 	public void TakeDamage(float damage)
 	{
 		CurrentHealth -= damage;
 	}
 
-	public void Heal(float amount){
+	public void Heal(float amount)
+	{
+		if (amount <= 0f) return;
+
 		CurrentHealth += amount;
 		CurrentHealth = Mathf.Min(MaxHealth, CurrentHealth);
 	}
-
-	// public void ShowDamage(Vector3 position, float damage, Color color){
-	// 	var floatingDamage = (FloatingDamage)floatingDamageScene.Instantiate();
-	// 	GetTree().CurrentScene.AddChild(floatingDamage);
-	// 	floatingDamage.GlobalPosition = position;
-	// 	floatingDamage.ShowDamage(damage, color);
-	// }
 }

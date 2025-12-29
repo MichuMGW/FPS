@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://drxt24tqal6cm"]
+[gd_scene load_steps=13 format=3 uid="uid://drxt24tqal6cm"]
 
 [ext_resource type="Script" uid="uid://dwvxt7ia7j6td" path="res://scripts/ui/ElementOverlay.cs" id="1_as5dx"]
 [ext_resource type="PackedScene" uid="uid://dpy0gna6v45dl" path="res://Assets/models/crystals/crystal_fire.glb" id="2_5cdle"]
 [ext_resource type="Resource" uid="uid://bwk8dmptw6036" path="res://resources/spells/ElementKitDatabase.tres" id="2_bkulj"]
+[ext_resource type="Theme" uid="uid://csif8wnmjs1io" path="res://Assets/ui_theme.tres" id="3_0s288"]
 [ext_resource type="PackedScene" uid="uid://dxrmkqnipjh5w" path="res://Assets/models/crystals/crystal_water.glb" id="3_bkulj"]
 [ext_resource type="PackedScene" uid="uid://chctlq832mufm" path="res://Assets/models/crystals/crystal_air.glb" id="4_0s288"]
 [ext_resource type="PackedScene" uid="uid://b81qtwljp31b4" path="res://Assets/models/crystals/crystal_earth.glb" id="5_o758x"]
@@ -11,7 +12,7 @@
 viewport_path = NodePath("ElementView/SubViewport")
 
 [sub_resource type="LabelSettings" id="LabelSettings_ie0s3"]
-font_size = 24
+font_size = 64
 
 [sub_resource type="Animation" id="Animation_ruvv6"]
 resource_name = "Move"
@@ -251,6 +252,7 @@ KitDatabase = ExtResource("2_bkulj")
 offset_right = 1200.0
 offset_bottom = 800.0
 mouse_filter = 2
+theme = ExtResource("3_0s288")
 texture = SubResource("ViewportTexture_fen1v")
 
 [node name="SubViewport" type="SubViewport" parent="ElementView"]
@@ -286,6 +288,15 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 
+[node name="Label" type="Label" parent="ElementView/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 0
+text = "Chose an element"
+label_settings = SubResource("LabelSettings_ie0s3")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="HBoxContainer" type="HBoxContainer" parent="ElementView/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -310,12 +321,79 @@ layout_mode = 2
 size_flags_horizontal = 3
 flat = true
 
-[node name="Label" type="Label" parent="ElementView/VBoxContainer"]
+[node name="Panel" type="Panel" parent="ElementView/VBoxContainer"]
+custom_minimum_size = Vector2(0, 250)
 layout_mode = 2
-text = "Chose element"
-label_settings = SubResource("LabelSettings_ie0s3")
+
+[node name="MarginContainer" type="MarginContainer" parent="ElementView/VBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ElementView/VBoxContainer/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SpellTitle" type="Label" parent="ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
 horizontal_alignment = 1
-vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="SpellDescription" type="Label" parent="ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SpellTitle" type="Label" parent="ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="SpellDescription" type="Label" parent="ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SpellTitle" type="Label" parent="ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="SpellDescription" type="Label" parent="ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

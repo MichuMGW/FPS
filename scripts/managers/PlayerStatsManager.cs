@@ -58,6 +58,23 @@ public partial class PlayerStatsManager : Node
         RecomputeAll();
     }
 
+    public void ClearSourcesByPrefix(string prefix)
+    {
+        if (string.IsNullOrEmpty(prefix)) return;
+
+        var toRemove = new List<string>();
+        foreach (var key in _sources.Keys)
+            if (key.StartsWith(prefix, StringComparison.Ordinal))
+                toRemove.Add(key);
+
+        if (toRemove.Count == 0) return;
+
+        foreach (var k in toRemove)
+            _sources.Remove(k);
+
+        RecomputeAll();
+    }
+
     public void InitializeFromResource(PlayerStatsResource res, bool clearFirst = true)
     {
         if (res == null)
@@ -78,6 +95,7 @@ public partial class PlayerStatsManager : Node
         _base[StatId.MoveSpeed] = res.MoveSpeed;
         _base[StatId.JumpForce] = res.JumpForce;
         _base[StatId.JumpCount] = res.JumpCount;
+        _base[StatId.BaseDamage] = res.BaseDamage;
 
         _base[StatId.DamageMultiplier] = res.SpellDamageMultiplier;
         _base[StatId.RangeMultiplier] = res.SpellRangeMultiplier;
@@ -149,6 +167,7 @@ public partial class PlayerStatsManager : Node
         // baza, gdy nie ustawiono base
         return id switch
         {
+            StatId.BaseDamage => 10f,
             StatId.DamageMultiplier => 1f,
             StatId.RangeMultiplier => 1f,
             StatId.ProjectileSpeedMultiplier => 1f,

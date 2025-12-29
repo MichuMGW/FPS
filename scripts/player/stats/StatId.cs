@@ -7,7 +7,7 @@ public enum StatId
     JumpCount,
     KnockbackResistance,
     KnockbackMultiplier,
-
+    BaseDamage,
     DamageAdd,             // +5 dmg
     DamageMultiplier,      // x1.10
     RangeMultiplier,

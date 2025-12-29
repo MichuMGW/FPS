@@ -50,8 +50,14 @@ public class BeamSpellBehaviour : ISpellBehaviour, IHoldSpellBehaviour, ICancela
             ctx.Stats.Damage,
             tickRate,
             maxLen,
+            ctx.Stats.CritChance,
+            ctx.Stats.CritMultiplier,
             def.BeamWidth,
-            def.PierceCount
+            def.PierceCount,
+            def.StatusProfile,
+            def.BurningDotMultiplier,
+            def.SlowMultiplierBonus,
+            def.EarthBuildupPerHit
         );
 
         emitter.Start();

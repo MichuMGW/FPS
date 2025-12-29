@@ -37,11 +37,31 @@ public abstract partial class HurtboxComponent : Node
 
         damageSource.RegisterHit(rootTarget);
 
+        float baseDamage = damageSource.GetDamage();
+
+        float critChance = damageSource.GetCritChance();
+        float critMultiplier = damageSource.GetCritMultiplier();
+
+        bool isCrit = false;
+        float finalDamage = baseDamage;
+
+        // LOSOWANIE CRITA – per HIT
+        if (critChance > 0f && GD.Randf() < critChance)
+        {
+            isCrit = true;
+            finalDamage *= Mathf.Max(1f, critMultiplier);
+        }
+
+        // hurtbox multiplier (np. headshot)
+        finalDamage *= hurtbox.DamageMultiplier;
+
         var hitInfo = new HitInfo(source, hurtbox.HurtboxType, hurtbox.DamageMultiplier, hitPosition)
         {
-            BaseDamage = damageSource.GetDamage(),
-            Element = damageSource.GetDamageType(),
+            BaseDamage = baseDamage,
+            FinalDamage = finalDamage,
+            IsCrit = isCrit,
 
+            Element = damageSource.GetDamageType(),
             StatusProfile = damageSource.GetStatusProfile(),
             BurningDotMultiplier = damageSource.GetBurningDotMultiplier(),
             BleedDotMultiplier = damageSource.GetBleedDotMultiplier(),

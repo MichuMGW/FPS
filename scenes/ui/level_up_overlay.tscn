@@ -1,0 +1,199 @@
+[gd_scene load_steps=8 format=3 uid="uid://co0twflvmb1as"]
+
+[ext_resource type="Script" uid="uid://0k8osrwg8a7u" path="res://scripts/ui/LevelUpOverlay.cs" id="1_bw8lv"]
+[ext_resource type="Theme" uid="uid://csif8wnmjs1io" path="res://Assets/ui_theme.tres" id="2_2tids"]
+[ext_resource type="FontFile" uid="uid://d2vf3deu7a1b0" path="res://Assets/fonts/Kenney High.ttf" id="2_pbip8"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_2tids"]
+font = ExtResource("2_pbip8")
+font_size = 64
+
+[sub_resource type="Theme" id="Theme_0rs0j"]
+default_font = ExtResource("2_pbip8")
+
+[sub_resource type="LabelSettings" id="LabelSettings_8a16v"]
+font = ExtResource("2_pbip8")
+font_size = 36
+
+[sub_resource type="LabelSettings" id="LabelSettings_nptui"]
+font_size = 36
+
+[node name="LevelUpOverlay" type="CanvasLayer" groups=["overlay"]]
+script = ExtResource("1_bw8lv")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("2_2tids")
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+texture_filter = 1
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -390.0
+offset_bottom = 390.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 50
+
+[node name="Label" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "Choose an upgrade:"
+label_settings = SubResource("LabelSettings_2tids")
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+theme = SubResource("Theme_0rs0j")
+theme_override_constants/separation = 20
+
+[node name="Button1" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer/Button1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer/Button1/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer/Button1/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 1
+text = "TEST1"
+label_settings = SubResource("LabelSettings_8a16v")
+vertical_alignment = 1
+
+[node name="Description" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer/Button1/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "DESC1"
+label_settings = SubResource("LabelSettings_8a16v")
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button2" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer5" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer/Button2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer/Button2/MarginContainer5"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer/Button2/MarginContainer5/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 1
+text = "TEST2"
+label_settings = SubResource("LabelSettings_nptui")
+vertical_alignment = 1
+
+[node name="Description" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer/Button2/MarginContainer5/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "DESC2"
+label_settings = SubResource("LabelSettings_8a16v")
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button3" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer6" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer/Button3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer/Button3/MarginContainer6"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer/Button3/MarginContainer6/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 1
+text = "TEST3"
+label_settings = SubResource("LabelSettings_8a16v")
+vertical_alignment = 1
+
+[node name="Description" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer/Button3/MarginContainer6/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "DESC3 ASDSDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+label_settings = SubResource("LabelSettings_8a16v")
+vertical_alignment = 1
+autowrap_mode = 3

@@ -164,7 +164,7 @@ public partial class ElementOverlay : CanvasLayer
             sb.AppendLine(def.Description.Trim());
 
         // “krótka ściąga” ze statów, żeby gracz coś widział
-        sb.AppendLine($"DMG: {def.BaseDamage} | CD: {def.BaseCooldown:0.##} | Mana: {def.BaseManaCost:0.##} | Range: {def.BaseRange:0.##}");
+        sb.AppendLine($"DMG: {def.DamageModifier} | CD: {def.BaseCooldown:0.##} | Mana: {def.BaseManaCost:0.##} | Range: {def.BaseRange:0.##}");
         sb.AppendLine();
     }
 }

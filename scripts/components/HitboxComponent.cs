@@ -5,6 +5,8 @@ public partial class HitboxComponent : Area3D, IDamageSource
 {
     [Export] public float Damage { get; set; } = 20f;
     [Export] public Element DamageType { get; set; } = Element.None;
+    [Export] public float CritChance { get; set; } = 0f;
+    [Export] public float CritMultiplier { get; set; } = 1.5f;
 
     [Export] public float RehitCooldownSeconds { get; set; } = 0f;
     [Export] public bool OneShot { get; set; } = false;
@@ -39,7 +41,8 @@ public partial class HitboxComponent : Area3D, IDamageSource
 
     public float GetDamage() => Damage;
     public Element GetDamageType() => DamageType;
-
+    public float GetCritChance() => CritChance;
+    public float GetCritMultiplier() => CritMultiplier;
     public ElementStatusProfile GetStatusProfile() => StatusProfile;
     public float GetBurningDotMultiplier() => BurningDotMultiplier;
     public float GetBleedDotMultiplier() => BleedDotMultiplier;
@@ -64,4 +67,7 @@ public partial class HitboxComponent : Area3D, IDamageSource
     {
         _alreadyHit[target] = _timeAlive;
     }
+
+    
+
 }

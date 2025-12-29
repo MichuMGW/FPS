@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="LevelUpUpgradeDefinition" load_steps=4 format=3 uid="uid://dg5w3nf3rbxm7"]
+
+[ext_resource type="Script" uid="uid://d1og76mbf6sdm" path="res://resources/items/StatModDefinition.cs" id="1_8jkbq"]
+[ext_resource type="Script" uid="uid://cejmhmihsxepu" path="res://resources/levelups/LevelUpUpgradeDefinition.cs" id="2_fnp2a"]
+
+[sub_resource type="Resource" id="Resource_e62ob"]
+script = ExtResource("1_8jkbq")
+Stat = 2
+Add = 0.5
+Mult = 1.0
+metadata/_custom_type_script = "uid://d1og76mbf6sdm"
+
+[resource]
+script = ExtResource("2_fnp2a")
+Id = "speed"
+DisplayName = "Speed"
+Description = "Increase movement speed by 0.5"
+StatMods = Array[ExtResource("1_8jkbq")]([SubResource("Resource_e62ob")])
+CanStack = true
+MaxStacks = 99
+metadata/_custom_type_script = "uid://cejmhmihsxepu"

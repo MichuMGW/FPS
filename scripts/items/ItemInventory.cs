@@ -91,7 +91,7 @@ public partial class ItemInventory : Node
 
         // Usuń poprzednie źródła itemowe i ustaw od nowa.
         // Najprościej: trzymasz prefix.
-        _stats.ClearAllSources();
+        _stats.ClearSourcesByPrefix("item:");
 
         foreach (var stack in _stacks.Values)
         {
