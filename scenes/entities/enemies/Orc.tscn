@@ -1,7 +1,8 @@
-[gd_scene load_steps=20 format=3 uid="uid://bp6enwwi2ns1h"]
+[gd_scene load_steps=24 format=3 uid="uid://bp6enwwi2ns1h"]
 
 [ext_resource type="Script" uid="uid://d36qtobm17dbo" path="res://scripts/entity/enemy/Orc/Orc.cs" id="1_j7irp"]
 [ext_resource type="PackedScene" uid="uid://2532s3mxhgc6" path="res://Assets/models/enemies/orc.glb" id="1_wxk4a"]
+[ext_resource type="Resource" uid="uid://cjkyvmjc507j8" path="res://resources/stats/enemy_stats/OrcStats.tres" id="2_5lqbp"]
 [ext_resource type="Texture2D" uid="uid://d0t06ciif66w5" path="res://Assets/textures/entities/enemies/orc/OrcMaterial Color.png" id="2_yb7oy"]
 [ext_resource type="Texture2D" uid="uid://bjt6tulrexon6" path="res://Assets/textures/entities/enemies/orc/OrcMaterial Normal.png" id="3_o2ypx"]
 [ext_resource type="PackedScene" uid="uid://cih3o4ppqnupc" path="res://scenes/components/health_component.tscn" id="4_c4vur"]
@@ -10,6 +11,9 @@
 [ext_resource type="PackedScene" uid="uid://dasekhirly362" path="res://scenes/components/skeletal_hurtbox_component.tscn" id="7_5lqbp"]
 [ext_resource type="PackedScene" uid="uid://hvd2uy3wofl8" path="res://scenes/components/status_component.tscn" id="7_5x8eq"]
 [ext_resource type="PackedScene" uid="uid://hvw6gscvm54u" path="res://scenes/components/velocity_component.tscn" id="8_5lqbp"]
+[ext_resource type="PackedScene" uid="uid://bur6hmvbxstyd" path="res://scenes/components/experience_drop_component.tscn" id="8_isc51"]
+[ext_resource type="PackedScene" uid="uid://dn7510hvebguv" path="res://scenes/entities/objects/experience_pickup.tscn" id="9_v4sc8"]
+[ext_resource type="PackedScene" uid="uid://c3kpxgsb3y4yi" path="res://scenes/components/gold_drop_component.tscn" id="10_ai1ps"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wxk4a"]
 albedo_texture = ExtResource("2_yb7oy")
@@ -41,16 +45,15 @@ height = 2.5
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_j7irp"]
 height = 2.5
 
-[node name="Orc" type="CharacterBody3D" node_paths=PackedStringArray("VelocityComp", "Pathfind", "Health", "Hurtbox")]
+[node name="Orc" type="CharacterBody3D"]
 collision_layer = 16
 collision_mask = 19
 script = ExtResource("1_j7irp")
-VelocityComp = NodePath("VelocityComponent")
-Pathfind = NodePath("PathfindComponent")
-Health = NodePath("HealthComponent")
-Hurtbox = NodePath("SkeletalHurtboxComponent")
 ChargeMinDistance = 0.0
 ChargeKnockbackForce = 40.0
+StatsResource = ExtResource("2_5lqbp")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("Hurtbox") instance=ExtResource("4_c4vur")]
 Hurtbox = NodePath("../SkeletalHurtboxComponent")
@@ -58,16 +61,19 @@ Hurtbox = NodePath("../SkeletalHurtboxComponent")
 [node name="SkeletalHurtboxComponent" parent="." instance=ExtResource("7_5lqbp")]
 _armaturePath = "orc/OrcArmature/Skeleton3D"
 
-[node name="PathfindComponent" parent="." node_paths=PackedStringArray("Agent", "_velocity") instance=ExtResource("6_j7irp")]
+[node name="PathfindComponent" parent="." node_paths=PackedStringArray("Agent") instance=ExtResource("6_j7irp")]
 Agent = NodePath("../NavigationAgent3D")
-_velocity = NodePath("../VelocityComponent")
+
+[node name="VelocityComponent" parent="." instance=ExtResource("8_5lqbp")]
 
 [node name="StatusComponent" parent="." instance=ExtResource("7_5x8eq")]
+HurtboxComponentPath = NodePath("../SkeletalHurtboxComponent")
 
-[node name="VelocityComponent" parent="." node_paths=PackedStringArray("Status") instance=ExtResource("8_5lqbp")]
-Status = NodePath("../StatusComponent")
+[node name="ExperienceDropComponent" parent="." instance=ExtResource("8_isc51")]
+PickupScene = ExtResource("9_v4sc8")
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+[node name="GoldDropComponent" parent="." instance=ExtResource("10_ai1ps")]
+BaseGold = 5
 
 [node name="orc" parent="." instance=ExtResource("1_wxk4a")]
 transform = Transform3D(1.7, 0, 0, 0, 1.7, 0, 0, 0, 1.7, 0, 0, 0)

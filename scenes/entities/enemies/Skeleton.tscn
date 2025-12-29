@@ -1,14 +1,18 @@
-[gd_scene load_steps=21 format=3 uid="uid://crf3ekm0kijwl"]
+[gd_scene load_steps=25 format=3 uid="uid://crf3ekm0kijwl"]
 
 [ext_resource type="PackedScene" uid="uid://drtc68o87at8y" path="res://Assets/models/enemies/skeleton.glb" id="1_15cp8"]
 [ext_resource type="Script" uid="uid://bf4risfyy0n5o" path="res://scripts/entity/enemy/Skeleton/Skeleton.cs" id="1_nlrb0"]
 [ext_resource type="Texture2D" uid="uid://bhw310feyqim5" path="res://Assets/textures/entities/enemies/skeleton/Skeleton Color.png" id="2_pibiy"]
 [ext_resource type="PackedScene" uid="uid://cih3o4ppqnupc" path="res://scenes/components/health_component.tscn" id="2_v6i2b"]
+[ext_resource type="Resource" uid="uid://trpisahm6l2w" path="res://resources/stats/enemy_stats/SkeletonStats.tres" id="2_yypc3"]
 [ext_resource type="PackedScene" uid="uid://dasekhirly362" path="res://scenes/components/skeletal_hurtbox_component.tscn" id="3_ktnt5"]
 [ext_resource type="Texture2D" uid="uid://bnttvdhore2fv" path="res://Assets/textures/entities/enemies/skeleton/Skeleton Normal.png" id="3_pwvnv"]
 [ext_resource type="PackedScene" uid="uid://dhvc0370yavkg" path="res://scenes/components/pathfind_component.tscn" id="4_ktnt5"]
 [ext_resource type="PackedScene" uid="uid://hvd2uy3wofl8" path="res://scenes/components/status_component.tscn" id="5_e38pm"]
 [ext_resource type="PackedScene" uid="uid://hvw6gscvm54u" path="res://scenes/components/velocity_component.tscn" id="6_yypc3"]
+[ext_resource type="PackedScene" uid="uid://bur6hmvbxstyd" path="res://scenes/components/experience_drop_component.tscn" id="8_o3yux"]
+[ext_resource type="PackedScene" uid="uid://dn7510hvebguv" path="res://scenes/entities/objects/experience_pickup.tscn" id="9_7tckv"]
+[ext_resource type="PackedScene" uid="uid://c3kpxgsb3y4yi" path="res://scenes/components/gold_drop_component.tscn" id="10_7tckv"]
 [ext_resource type="PackedScene" uid="uid://gwkhn3v3fswg" path="res://scenes/components/hurtbox_area.tscn" id="10_ktnt5"]
 [ext_resource type="PackedScene" uid="uid://c2wcxah80nn20" path="res://scenes/components/hitbox_component.tscn" id="11_e38pm"]
 
@@ -40,12 +44,13 @@ radius = 0.234618
 height = 1.6
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ktnt5"]
-size = Vector3(1.46973, 1.80627, 1.3811)
+size = Vector3(0.498047, 0.843856, 1.3811)
 
 [node name="Skeleton" type="CharacterBody3D"]
 collision_layer = 16
 collision_mask = 19
 script = ExtResource("1_nlrb0")
+StatsResource = ExtResource("2_yypc3")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
@@ -62,6 +67,11 @@ Agent = NodePath("../NavigationAgent3D")
 
 [node name="StatusComponent" parent="." instance=ExtResource("5_e38pm")]
 HurtboxComponentPath = NodePath("../SkeletalHurtboxComponent")
+
+[node name="ExperienceDropComponent" parent="." instance=ExtResource("8_o3yux")]
+PickupScene = ExtResource("9_7tckv")
+
+[node name="GoldDropComponent" parent="." instance=ExtResource("10_7tckv")]
 
 [node name="skeleton" parent="." instance=ExtResource("1_15cp8")]
 transform = Transform3D(1.6, 0, 0, 0, 1.6, 0, 0, 0, 1.6, 0, 0, 0)
@@ -231,9 +241,11 @@ shape = SubResource("CapsuleShape3D_h8410")
 [node name="HitboxComponent" parent="." instance=ExtResource("11_e38pm")]
 collision_layer = 64
 collision_mask = 4
+monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00244141, 1.34591, 0.881556)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0908196, 1.58844, 0.881556)
 shape = SubResource("BoxShape3D_ktnt5")
+debug_color = Color(1, 0.00597473, 0.0573954, 0.42)
 
 [editable path="skeleton"]

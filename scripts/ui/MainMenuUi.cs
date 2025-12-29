@@ -4,8 +4,7 @@ using System;
 public partial class MainMenuUi : Control
 {
 	// Called when the node enters the scene tree for the first time.
-	[Export]
-	public string SceneToLoad = "res://scenes/main_scene.tscn";
+	[Export] public string SceneToLoad = "res://scenes/main_scene.tscn";
 	public GameEvents _events;
 
 	//Buttons

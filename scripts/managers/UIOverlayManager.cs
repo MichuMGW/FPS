@@ -4,6 +4,7 @@ public partial class UIOverlayManager : Node
 {
     [Export] public PackedScene ElementOverlayScene;
     [Export] public PackedScene ChestRewardOverlayScene; // <-- DODAJ
+    [Export] public PackedScene GameMenuScene;
     [Export] public ElementKitDatabase KitDatabase;
 
     private GameEvents _events;
@@ -31,6 +32,7 @@ public partial class UIOverlayManager : Node
         {
             _events.ElementPickRequested += OnElementPickRequested;
             _events.ChestRewardRequested += OnChestRewardRequested; // <-- DODAJ
+            _events.GameMenuRequested += OnGameMenuRequested;
         }
     }
 
@@ -57,43 +59,61 @@ public partial class UIOverlayManager : Node
         GetTree().Root.AddChild(overlay);
         Input.MouseMode = Input.MouseModeEnum.Visible;
 
-        overlay.TreeExited += () =>
-        {
-            _pause?.ReleasePause();
-            Input.MouseMode = Input.MouseModeEnum.Captured;
-        };
+        overlay.TreeExited += OnTreeExited;
     }
 
-    private void OnChestRewardRequested(ItemDefinition item, int cost)
-{
-    if (ChestRewardOverlayScene == null || _events == null || item == null)
+    private void OnChestRewardRequested(ChestRewardContext ctx)
+    {
+        if (ChestRewardOverlayScene == null || _events == null || ctx == null || ctx.Item == null)
         {
-            GD.PushWarning("[UIOverlayManager] Cannot start ChestRewardOverlay: missing scene, events, or item.");
+            GD.PushWarning("[UIOverlayManager] Cannot start ChestRewardOverlay: missing scene/events/ctx/item.");
             return;
         }
-        
 
-    var overlay = ChestRewardOverlayScene.Instantiate() as ChestRewardOverlay;
-    if (overlay == null)
-    {
-        GD.PushError("[UIOverlayManager] ChestRewardOverlayScene is not a ChestRewardOverlay.");
-        return;
+        var overlay = ChestRewardOverlayScene.Instantiate() as ChestRewardOverlay;
+        if (overlay == null)
+        {
+            GD.PushError("[UIOverlayManager] ChestRewardOverlayScene is not a ChestRewardOverlay.");
+            return;
+        }
+
+        overlay.ProcessMode = ProcessModeEnum.Always;
+
+        _pause?.RequestPause();
+        GetTree().Root.AddChild(overlay);
+        Input.MouseMode = Input.MouseModeEnum.Visible;
+
+        overlay.Start(ctx, _events);
+
+        overlay.TreeExited += OnTreeExited;
     }
 
-    overlay.ProcessMode = ProcessModeEnum.Always;
+    private void OnGameMenuRequested()
+    {
+        if (GameMenuScene == null)
+            return;
 
-    _pause?.RequestPause();
-    GetTree().Root.AddChild(overlay);
-    Input.MouseMode = Input.MouseModeEnum.Visible;
+        var menu = GameMenuScene.Instantiate() as GameMenuUI;
+        if (menu == null)
+        {
+            GD.PushError("[UIOverlayManager] GameMenuScene is not a GameMenuUI.");
+            return;
+        }
 
-    // Start overlay: UI dane bierze z ItemDefinition
-    overlay.Start(item, _events);
+        menu.ProcessMode = ProcessModeEnum.Always;
 
-    overlay.TreeExited += () =>
+        _pause?.RequestPause();
+
+        GetTree().Root.AddChild(menu);
+        Input.MouseMode = Input.MouseModeEnum.Visible;
+
+        menu.TreeExited += OnTreeExited;
+    }
+
+    private void OnTreeExited()
     {
         _pause?.ReleasePause();
         Input.MouseMode = Input.MouseModeEnum.Captured;
-    };
-}
+    }
 
 }

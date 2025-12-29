@@ -1,0 +1,46 @@
+[gd_scene load_steps=9 format=3 uid="uid://dn7510hvebguv"]
+
+[ext_resource type="Shader" uid="uid://dv2thjj428ocd" path="res://Assets/effects/shaders/experience_point/experience_point_coat.tres" id="1_a2ca6"]
+[ext_resource type="Script" uid="uid://cmdnpxmrud1by" path="res://scripts/entity/ExperiencePickup.cs" id="1_h6ktf"]
+[ext_resource type="Shader" uid="uid://cuy6vvxshsgv8" path="res://Assets/effects/shaders/experience_point/experience_point_core.tres" id="2_h6ktf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_etale"]
+render_priority = 0
+shader = ExtResource("1_a2ca6")
+shader_parameter/Color = Color(1.97336e-06, 0.461179, 0.101535, 1)
+shader_parameter/FresnelPower = 1.725
+
+[sub_resource type="SphereMesh" id="SphereMesh_kt8yp"]
+material = SubResource("ShaderMaterial_etale")
+radius = 0.1
+height = 0.2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4he30"]
+render_priority = 0
+shader = ExtResource("2_h6ktf")
+shader_parameter/ColorParameter = Color(0.549233, 0.508687, 0, 1)
+shader_parameter/FloatParameter = 6.46
+
+[sub_resource type="SphereMesh" id="SphereMesh_qms6y"]
+material = SubResource("ShaderMaterial_4he30")
+radius = 0.05
+height = 0.1
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_a2ca6"]
+radius = 0.1
+
+[node name="ExperiencePickup" type="Node3D"]
+script = ExtResource("1_h6ktf")
+
+[node name="Coat" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_kt8yp")
+
+[node name="Core" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_qms6y")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_a2ca6")

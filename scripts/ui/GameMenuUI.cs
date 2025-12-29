@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class GameMenuScene : Control
+public partial class GameMenuUI : CanvasLayer
 {
 	[Export]
 	public Button continueButton;

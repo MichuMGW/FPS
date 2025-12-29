@@ -240,7 +240,7 @@ _data = {
 &"RESET": SubResource("Animation_q7vc7")
 }
 
-[node name="ElementOverlay" type="CanvasLayer"]
+[node name="ElementOverlay" type="CanvasLayer" groups=["overlay"]]
 process_mode = 3
 script = ExtResource("1_as5dx")
 NatureButtonPath = NodePath("ElementView/VBoxContainer/HBoxContainer/EarthButton")

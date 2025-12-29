@@ -21,6 +21,8 @@ GameEvents="*res://scripts/game/GameEvents.cs"
 ItemInventory="*res://scripts/items/ItemInventory.cs"
 RunElementState="*res://scripts/game/RunElementState.cs"
 PauseManager="*res://scripts/managers/PauseManager.cs"
+GoldManager="*res://scripts/managers/GoldManager.cs"
+ExperienceManager="*res://scripts/managers/ExperienceManager.cs"
 
 [display]
 
@@ -40,6 +42,7 @@ Shortcuts/filesystem/run_test=PackedInt32Array(4194326, 4194328, 4194338)
 [global_group]
 
 player_camera=""
+overlay=""
 
 [input]
 
@@ -128,7 +131,8 @@ interact={
 3d_physics/layer_5="EnemyBody"
 3d_physics/layer_6="EnemyHurtBox"
 3d_physics/layer_7="EnemyHitbox"
-3d_physics/layer_8="Pickups"
+3d_physics/layer_8="Chests"
+3d_physics/layer_9="Pickups"
 3d_physics/size/viewport_width=1600
 3d_physics/size/viewport_height=1200
 

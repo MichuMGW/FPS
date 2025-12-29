@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_q0uyg")
-BaseMoveSpeed = 0.0
-BaseMaxHealth = 0.0
-BaseDamage = 0.0
+BaseMoveSpeed = 5.0
+BaseMaxHealth = 100.0
+BaseDamage = 10.0
 metadata/_custom_type_script = "uid://dgid28tkcx6in"

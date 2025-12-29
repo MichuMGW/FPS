@@ -27,14 +27,17 @@ public partial class ItemInventory : Node
 
         _events = GetTree().Root.GetNodeOrNull<GameEvents>("GameEvents");
         if (_events != null)
-            _events.ChestRewardClaimed += OnChestRewardClaimed;
+            _events.ChestRewardResolved += OnChestRewardResolved;
         // na start runa: pusto
         ClearRun();
     }
 
-    private void OnChestRewardClaimed(ItemDefinition item)
+    private void OnChestRewardResolved(ChestRewardContext ctx, bool claimed)
     {
-        AddItem(item);
+        if (!claimed) return;
+        if (ctx?.Item == null) return;
+
+        AddItem(ctx.Item);
     }
 
     public IReadOnlyDictionary<string, int> GetCountsByItemId()

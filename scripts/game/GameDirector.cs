@@ -24,7 +24,7 @@ public partial class GameDirector : Node
     private readonly List<EnemyUnlockConfig> _enemyUnlocks = new()
     {
         new EnemyUnlockConfig(   0f, "res://scenes/entities/enemies/Skeleton.tscn"),
-        new EnemyUnlockConfig(  60f, "res://scenes/entities/enemies/TrollArcher.tscn"),
+        new EnemyUnlockConfig(  0f, "res://scenes/entities/enemies/TrollArcher.tscn"),
         new EnemyUnlockConfig( 120f, "res://scenes/entities/enemies/Orc.tscn"),
         new EnemyUnlockConfig( 180f, "res://scenes/entities/enemies/SkeletonSummoner.tscn"),
     };
@@ -100,8 +100,9 @@ public partial class GameDirector : Node
             return;
         }
 
-        float normalizedTime = _elapsed / MatchDurationSeconds;
-        DifficultySnapshot diff = _difficultyManager.GetDifficulty(normalizedTime, _elapsed);
+        // Pobierz snapshot trudności dla aktualnego czasu
+        // TODO: DODAĆ POZIOMY TRUDNOŚCI DO WYBORU
+        DifficultySnapshot diff = _difficultyManager.GetDifficulty(_elapsed, RunDifficulty.Normal);
 
         _enemySpawnManager.UpdateDifficulty(diff);
 

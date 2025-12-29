@@ -13,6 +13,10 @@ public partial class ChestRewardOverlay : CanvasLayer
     [Export] private NodePath ItemSpawnPath = "RewardView/SubViewport/Reward3D/ItemSpawn";
     [Export] private NodePath HeroPointPath = "RewardView/SubViewport/Reward3D/ItemSpawn"; // popraw w scenie na HeroPoint
     [Export] private NodePath UIAnimPath = "UIAnim";
+    [Export] private NodePath ClaimButtonPath = "Buttons/ClaimButton";
+    [Export] private NodePath AbandonButtonPath = "Buttons/AbandonButton";
+    [Export] private NodePath ItemNamePath = "VBoxContainer/ItemName";
+    [Export] private NodePath ItemDescriptionPath = "VBoxContainer/ItemDescription";
 
     [Export] public string ChestOpenAnimName = "ChestOpen";
     [Export] public float DimmerTargetAlpha = 0.65f;
@@ -41,7 +45,13 @@ public partial class ChestRewardOverlay : CanvasLayer
 
     private AnimationPlayer _uiAnim;
 
+    private Button _claimBtn;
+    private Button _abandonBtn;
+
     private GameEvents _events;
+    private ChestRewardContext _ctx;
+
+    private bool _canChoose = false;
 
     private Node3D _itemInstance;
     private ItemDefinition _itemDef;
@@ -69,8 +79,18 @@ public partial class ChestRewardOverlay : CanvasLayer
 
         _uiAnim = GetNodeOrNull<AnimationPlayer>(UIAnimPath);
 
-        _itemName = GetNode<Label>("ItemText/ItemName");
-        _itemDescription = GetNode<Label>("ItemText/ItemDescription");
+        _itemName = GetNode<Label>(ItemNamePath);
+        _itemDescription = GetNode<Label>(ItemDescriptionPath);
+
+        _claimBtn = GetNodeOrNull<Button>(ClaimButtonPath);
+        _abandonBtn = GetNodeOrNull<Button>(AbandonButtonPath);
+
+        if (_claimBtn != null) _claimBtn.Visible = false;
+        if (_abandonBtn != null) _abandonBtn.Visible = false;
+
+        if (_claimBtn != null) _claimBtn.Pressed += () => Resolve(true);
+        if (_abandonBtn != null) _abandonBtn.Pressed += () => Resolve(false);
+
 
         // Startowo wszystko ciemne
         var c = _dimmer.Color;
@@ -84,54 +104,70 @@ public partial class ChestRewardOverlay : CanvasLayer
         GetViewport().SizeChanged += SyncViewportSize;
     }
 
-    public void Start(ItemDefinition item, GameEvents events)
-{
-    _events = events;
-    _itemDef = item;
+    public override void _Process(double delta)
+    {
+        if (!_canChoose || _itemInstance == null)
+            return;
 
-    _canClose = false;
-    SetTextAlpha(0f);
+        _t += (float)delta;
 
-    FadeDimmerTo(DimmerTargetAlpha, 0.25f);
+        // obrót
+        _itemInstance.RotateY(IdleRotationSpeed * (float)delta);
 
-    if (_chestAnim != null && _chestAnim.HasAnimation(ChestOpenAnimName))
-        _chestAnim.Play(ChestOpenAnimName);
+        // lewitacja (względem pozycji hero point, żeby nie dryfowało)
+        var basePos = _heroPoint.GlobalPosition;
+        var y = Mathf.Sin(_t * IdleHoverSpeed) * IdleHoverAmplitude;
+        _itemInstance.GlobalPosition = new Vector3(basePos.X, basePos.Y + y, basePos.Z);
+    }
 
-    _itemInstance = CreateItemInstance(item?.PreviewScene);
-    _itemInstance.Visible = true;
-    _itemInstance.Scale = Vector3.Zero;
+    public void Start(ChestRewardContext ctx, GameEvents events)
+    {
+        _ctx = ctx;
+        _events = events;
 
-    _itemInstance.GlobalPosition = _itemSpawn.GlobalPosition;
-    _itemInstance.GlobalRotation = _itemSpawn.GlobalRotation;
+        var item = ctx?.Item;
+        if (item == null)
+        {
+            QueueFree();
+            return;
+        }
 
-    RunSequence(item.DisplayName, item.Description);
-}
+        _canClose = false;
+
+        SetTextAlpha(0f);
+
+        FadeDimmerTo(DimmerTargetAlpha, 0.25f);
+
+        if (_chestAnim != null && _chestAnim.HasAnimation(ChestOpenAnimName))
+            _chestAnim.Play(ChestOpenAnimName);
+
+        _itemInstance = CreateItemInstance(item?.PreviewScene);
+        _itemInstance.Visible = true;
+        _itemInstance.Scale = Vector3.Zero;
+
+        _itemInstance.GlobalPosition = _itemSpawn.GlobalPosition;
+        _itemInstance.GlobalRotation = _itemSpawn.GlobalRotation;
+
+        RunSequence(item.DisplayName, item.Description);
+    }
 
     private async void RunSequence(string itemTitle, string itemDescription)
     {
         // krótka pauza żeby klapa skrzyni ruszyła
         await ToSignal(GetTree().CreateTimer(0.12f, processInPhysics: false, ignoreTimeScale: true), "timeout");
-
-        // pokaż item
-
-        // wysuń do góry (lokalnie w osi Y świata)
-        // var riseTarget = _itemInstance.GlobalPosition + new Vector3(0f, 0.6f, 0f);
-        // await TweenGlobalPosition(_itemInstance, riseTarget, ItemRiseDuration, Tween.TransitionType.Cubic, Tween.EaseType.Out);
-
-        // mała przerwa “dramatyzm”
         await ToSignal(GetTree().CreateTimer(ItemDelayBeforeMove, processInPhysics: false, ignoreTimeScale: true), "timeout");
-
-        // przesuń na hero point (czyli “środek ekranu” w tym mini-viewportcie)
         await TweenToHeroPoint();
 
-        // POPRAWIC JAK DODAM CHESTMANAGER
-        // SetItemText("TITLE", "description");
-        // OnItemArrivedAtCenter();
         ShowItemText(itemTitle, itemDescription);
 
-        // teraz idle
-        _idleEnabled = true;
-        _canClose = true;
+        ShowChoiceButtons();
+        _canChoose = true;
+    }
+
+    private void ShowChoiceButtons()
+    {
+        if (_claimBtn != null) _claimBtn.Visible = true;
+        if (_abandonBtn != null) _abandonBtn.Visible = true;
     }
 
     private Node3D CreateItemInstance(PackedScene itemScene)
@@ -144,7 +180,6 @@ public partial class ChestRewardOverlay : CanvasLayer
         }
         else
         {
-            // debug placeholder: zwykła bryła
             var mesh = new MeshInstance3D();
             mesh.Mesh = new BoxMesh();
             n = new Node3D();
@@ -159,6 +194,28 @@ public partial class ChestRewardOverlay : CanvasLayer
         n.ProcessMode = ProcessModeEnum.Always;
 
         return n;
+    }
+
+    public override void _UnhandledInput(InputEvent @event)
+    {
+        if (!_canChoose) return;
+
+        if (@event.IsActionPressed("ui_cancel"))
+        {
+            Resolve(false); // ESC = abandon
+            GetViewport().SetInputAsHandled();
+        }
+    }
+
+    private void Resolve(bool claimed)
+    {
+        if (!_canChoose) return;
+        _canChoose = false;
+
+        _events?.ResolveChestReward(_ctx, claimed);
+
+        // sprzątanie UI jak u ciebie
+        QueueFree();
     }
 
     private void SyncViewportSize()
@@ -210,47 +267,12 @@ public partial class ChestRewardOverlay : CanvasLayer
         await ToSignal(moveTween, "finished");     
     }
 
-    public override void _Process(double delta)
-    {
-        if (!_idleEnabled || _itemInstance == null)
-            return;
-
-        _t += (float)delta;
-
-        // obrót
-        _itemInstance.RotateY(IdleRotationSpeed * (float)delta);
-
-        // lewitacja (względem pozycji hero point, żeby nie dryfowało)
-        var basePos = _heroPoint.GlobalPosition;
-        var y = Mathf.Sin(_t * IdleHoverSpeed) * IdleHoverAmplitude;
-        _itemInstance.GlobalPosition = new Vector3(basePos.X, basePos.Y + y, basePos.Z);
-    }
-
-    public override void _UnhandledInput(InputEvent @event)
-    {
-        if (!_canClose)
-            return;
-
-        if (@event.IsActionPressed("ui_cancel") || @event.IsActionPressed("ui_accept")) // || @event.IsMouseButtonPressed(MouseButton.Left)
-        {
-            Close();
-            GetViewport().SetInputAsHandled();
-        }
-    }
-
     public void Close()
     {
-        _idleEnabled = false;
-
-        if (_itemDef != null)
-            _events?.ClaimChestReward(_itemDef);
-
         FadeDimmerTo(0f, 0.20f);
 
         _itemInstance?.QueueFree();
         _itemInstance = null;
-
-        _events?.CloseChestReward();
 
         QueueFree();
     }

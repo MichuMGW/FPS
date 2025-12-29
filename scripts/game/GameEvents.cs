@@ -5,24 +5,15 @@ public partial class GameEvents : Node
     [Signal] public delegate void GameStartedEventHandler();
     [Signal] public delegate void RunEndedEventHandler();
 
-    [Signal] public delegate void ExperiencePointCollectedEventHandler(int currentExperience);
+    [Signal] public delegate void GameMenuRequestedEventHandler();
+
     [Signal] public delegate void RunTimeUpdatedEventHandler(float elapsed, float total);
 
     [Signal] public delegate void MenuEnabledEventHandler(bool isMenuEnabled);
 
     // --- CHEST REWARD FLOW ---
-    // Request = "Hej UI, pokaż overlay skrzynki z tym itemem"
-    [Signal] public delegate void ChestRewardRequestedEventHandler(ItemDefinition item, int cost);
-
-    // Optional: UI może chcieć wiedzieć, że overlay wystartował / zakończył się (np. do input/mouse/pause)
-    [Signal] public delegate void ChestRewardStartedEventHandler();
-    [Signal] public delegate void ChestRewardEndedEventHandler();
-
-    // Claim = "gracz zaakceptował nagrodę"
-    [Signal] public delegate void ChestRewardClaimedEventHandler(ItemDefinition item);
-
-    // Closed = "overlay zamknięty, wracamy do gry"
-    [Signal] public delegate void ChestRewardClosedEventHandler();
+    [Signal] public delegate void ChestRewardRequestedEventHandler(ChestRewardContext ctx);
+    [Signal] public delegate void ChestRewardResolvedEventHandler(ChestRewardContext ctx, bool claimed);
 
     // Element pick
     [Signal] public delegate void ElementPickRequestedEventHandler(bool isSecondPick);
@@ -36,9 +27,8 @@ public partial class GameEvents : Node
     // ===== Emittery / Requests =====
     public void StartGame() => EmitSignal(nameof(GameStarted));
     public void EndRun() => EmitSignal(nameof(RunEnded));
-
-    public void EmitExperiencePointCollected(int currentExperience)
-        => EmitSignal(nameof(ExperiencePointCollected), currentExperience);
+    public void RequestGameMenu()
+        => EmitSignal(nameof(GameMenuRequested));
 
     public void EmitRunTimeUpdated(float elapsed, float total)
         => EmitSignal(nameof(RunTimeUpdated), elapsed, total);
@@ -50,17 +40,11 @@ public partial class GameEvents : Node
     public void RequestChestReward(ItemDefinition item, int chestOpenCost)
         => EmitSignal(nameof(ChestRewardRequested), item, chestOpenCost);
 
-    public void EmitChestRewardStarted()
-        => EmitSignal(nameof(ChestRewardStarted));
+    public void RequestChestReward(ChestRewardContext ctx)
+        => EmitSignal(nameof(ChestRewardRequested), ctx);
 
-    public void EmitChestRewardEnded()
-        => EmitSignal(nameof(ChestRewardEnded));
-
-    public void ClaimChestReward(ItemDefinition item)
-        => EmitSignal(nameof(ChestRewardClaimed), item);
-
-    public void CloseChestReward()
-        => EmitSignal(nameof(ChestRewardClosed));
+    public void ResolveChestReward(ChestRewardContext ctx, bool claimed)
+        => EmitSignal(nameof(ChestRewardResolved), ctx, claimed);
 
     // --- Element pick ---
     public void RequestElementPick(bool isSecondPick)

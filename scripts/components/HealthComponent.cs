@@ -8,7 +8,7 @@ public partial class HealthComponent : Node
 
 	[Export] public float MaxHealth {get; set;} = 100f;
     [Export] public HurtboxComponent Hurtbox {get; set;}
-	public bool Enabled {get; set; } = true;
+	public bool Active {get; set; } = true;
 	private bool isCurrentlyOnFire = false;
 	private PackedScene floatingDamageScene;
     private float _currentHealth;
@@ -31,7 +31,6 @@ public partial class HealthComponent : Node
             else _currentHealth = value;
         }
     }
-	public bool isDead = false;
 	public Timer FireDamageTimer;
 	private float fireDamage = 0f;
 	private Node3D _owner;
@@ -77,6 +76,9 @@ public partial class HealthComponent : Node
 
 	public void ApplyStatusDamage(float damage, Element element)
 	{
+		if (!Active)
+			return;
+
 		TakeDamage(damage);
 		switch (element)
 		{
@@ -114,6 +116,7 @@ public partial class HealthComponent : Node
 
     public void Die()
     {
+		Active = false;
 		UnsubscribeEvents();
         EmitSignal(nameof(EntityDied));
     }

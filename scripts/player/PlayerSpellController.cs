@@ -92,9 +92,9 @@ public partial class PlayerSpellController : Node
 
     public void EquipKit(ElementKitDefinition kit)
     {
-        _equipped[SpellSlot.LeftHand]  = kit.LeftHandSpell  != null ? new SpellInstance(kit.LeftHandSpell)  : null;
+        _equipped[SpellSlot.LeftHand] = kit.LeftHandSpell  != null ? new SpellInstance(kit.LeftHandSpell)  : null;
         _equipped[SpellSlot.RightHand] = kit.RightHandSpell != null ? new SpellInstance(kit.RightHandSpell) : null;
-        _equipped[SpellSlot.Dash]      = kit.DashSpell      != null ? new SpellInstance(kit.DashSpell)      : null;
+        _equipped[SpellSlot.Dash] = kit.DashSpell      != null ? new SpellInstance(kit.DashSpell)      : null;
     }
 
     public SpellInstance GetInstance(SpellSlot slot)

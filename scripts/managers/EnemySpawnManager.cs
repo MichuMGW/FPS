@@ -31,13 +31,16 @@ public partial class EnemySpawnManager : Node3D
 
     // DIFICULTY (od GameDirectora)
     private DifficultySnapshot _currentDifficulty;
+    public DifficultySnapshot CurrentDifficulty => _currentDifficulty;
 
     // PODSTAWOWE NODY
     private Node3D _player;
     private Camera3D _camera;
     public Node3D EnemiesRoot;
+    public Node3D MinionsRoot;
 
     public int AliveEnemiesCount => EnemiesRoot?.GetChildCount() ?? 0;
+    public int AliveMinionsCount => MinionsRoot?.GetChildCount() ?? 0;
 
     // Maska
     private Image _maskImage;
@@ -74,12 +77,9 @@ public partial class EnemySpawnManager : Node3D
         // Jeżeli masz osobny node "EnemiesRoot" w scenie:
         // (jak nie masz, to możesz ten kawałek wywalić)
         var currentScene = GetTree().CurrentScene;
-        if (currentScene != null && currentScene.HasNode("EnemiesRoot"))
-        {
-            EnemiesRoot = currentScene.GetNode<Node3D>("EnemiesRoot");
-        }
+        EnemiesRoot = currentScene.GetNode<Node3D>("EnemiesRoot");
+        MinionsRoot = currentScene.GetNode<Node3D>("MinionsRoot");
 
-        // Poczekaj 1 klatkę, aż NavigationRegion zdąży się zarejestrować w NavigationServer
         CallDeferred(nameof(InitNavigationMap));
     }
 
@@ -235,7 +235,7 @@ public partial class EnemySpawnManager : Node3D
                 continue;
 
             // 6) Lokalna kolizja – czy coś tam już nie stoi
-            if (!IsPointFree(groundPos, space))
+            if (IsPointFree(groundPos, space))
                 continue;
 
             spawnPos = groundPos;
@@ -276,8 +276,11 @@ public partial class EnemySpawnManager : Node3D
         enemy.LookAt(_player.GlobalPosition, Vector3.Up, true);
 
         if (enemy is IScalableEnemy scalable)
+        {
             scalable.ApplyDifficulty(_currentDifficulty);
-
+            GD.Print("Current Difficulty Coeff: " + _currentDifficulty.Coeff); 
+        }
+            
         return enemy;
     }
 
@@ -301,10 +304,10 @@ public partial class EnemySpawnManager : Node3D
         int px = (int)(u * (_maskWidth  - 1));
         int py = (int)(v * (_maskHeight - 1));
 
-        Color c = _maskImage.GetPixel(px, py);
+        Color color = _maskImage.GetPixel(px, py);
 
         // B/W: biały ≈ 1, czarny ≈ 0. Wystarczy próg.
-        return c.R > 0.5f;
+        return color.R > 0.5f;
     }
 
     private bool IsInsidePlayerFov(Vector3 worldPos)
@@ -341,8 +344,6 @@ public partial class EnemySpawnManager : Node3D
         };
 
         var results = space.IntersectShape(query, maxResults: 8);
-        // return results.Count == 0;
-        //DEBUG ONLY
-        return results.Count != 0;
+        return results.Count == 0;
     }
 }

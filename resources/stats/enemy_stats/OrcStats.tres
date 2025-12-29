@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_tv630")
-BaseMoveSpeed = 0.0
-BaseMaxHealth = 0.0
-BaseDamage = 0.0
+BaseMoveSpeed = 5.0
+BaseMaxHealth = 150.0
+BaseDamage = 15.0
 metadata/_custom_type_script = "uid://dgid28tkcx6in"

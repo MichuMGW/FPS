@@ -21,10 +21,12 @@ public partial class ChestManager : Node3D
 
 	[Export] public float InteractDistance = 4.5f;
 	[Export] public int BaseOpenCost = 20;
+	[Export] public float SqrtScaleForCost = 30f;
 
 	[Export] public Godot.Collections.Array<ItemDefinition> AvailableItems = new();
 
 	public int CurrentOpenCost { get; private set; } = 1;
+	private int _openedChests = 0;
 
 	private Image _maskImage;
 	private int _maskW, _maskH;
@@ -35,6 +37,7 @@ public partial class ChestManager : Node3D
 	private readonly List<Chest> _chests = new();
 	private Chest _focusedChest;
 	private GameEvents _events;
+	private GoldManager _gold;
 
 	public override void _Ready()
 	{
@@ -42,11 +45,15 @@ public partial class ChestManager : Node3D
 
 		_playerRay = GetTree().GetFirstNodeInGroup("player_ray") as RayCast3D;
 		_player = GetTree().GetFirstNodeInGroup("player") as Node3D;
+
 		_events = GetTree().Root.GetNodeOrNull("GameEvents") as GameEvents;
+		_gold = GetTree().Root.GetNodeOrNull<GoldManager>("GoldManager");
 
 		InitMask();
 
 		CurrentOpenCost = Math.Max(0, BaseOpenCost);
+
+		_events.ChestRewardResolved += OnChestRewardResolved;
 	}
 
 	public override void _Process(double delta)
@@ -151,31 +158,55 @@ public partial class ChestManager : Node3D
 	}
 
 	private void HandleOpenInput()
+    {
+        if (_focusedChest == null || _focusedChest.IsOpened) return;
+        if (_player == null) return;
+
+        float dist = _focusedChest.GlobalPosition.DistanceTo(_player.GlobalPosition);
+        if (dist > InteractDistance) return;
+
+        if (!Input.IsActionJustPressed("interact"))
+            return;
+
+        TryOpenFocused();
+    }
+
+	private void TryOpenFocused()
+    {
+        var chest = _focusedChest;
+        if (chest == null) return;
+
+        // gold check
+        if (_gold == null || !_gold.TrySpendGold(CurrentOpenCost))
+        {
+            chest.ShowNotEnoughGold(CurrentOpenCost);
+            return;
+        }
+
+        // lock this chest interaction right away (żeby nie dało się spamować)
+        chest.LockInteraction();
+        SetFocused(null);
+
+        var item = RollItem();
+        var ctx = new ChestRewardContext(chest, item, CurrentOpenCost);
+
+        _events?.RequestChestReward(ctx);
+    }
+
+	private void OnChestRewardResolved(ChestRewardContext ctx, bool claimed)
+    {
+        // overlay się zamknął, więc kończymy flow skrzyni
+        if (ctx?.Chest == null) return;
+
+        _openedChests++;
+        UpdateChestCost();
+
+        ctx.Chest.DespawnWithTween();
+    }
+
+	private void UpdateChestCost()
 	{
-		if (_focusedChest == null || _focusedChest.IsOpened) return;
-		if (_player == null) return;
-
-		float dist = _focusedChest.GlobalPosition.DistanceTo(_player.GlobalPosition);
-		if (dist > InteractDistance) return;
-
-		if (!Input.IsActionJustPressed("interact"))
-			return;
-
-		OpenFocused();
-	}
-
-	private void OpenFocused()
-	{
-		var chest = _focusedChest;
-		if (chest == null) return;
-
-		// TODO: sprawdź zasób gracza (klucze itd.)
-		SetFocused(null);
-		var item = RollItem();
-
-		_events.RequestChestReward(item, CurrentOpenCost);
-		chest.Open();
-		// EmitSignal(nameof(ChestOpened), item, CurrentOpenCost, chest);
+		CurrentOpenCost = BaseOpenCost + (int)(Mathf.Sqrt(_openedChests) * SqrtScaleForCost);
 	}
 
 	private ItemDefinition RollItem()

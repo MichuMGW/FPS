@@ -1,9 +1,10 @@
-[gd_scene load_steps=33 format=3 uid="uid://bkeed28o4855u"]
+[gd_scene load_steps=37 format=3 uid="uid://bkeed28o4855u"]
 
 [ext_resource type="Script" uid="uid://c8sricxnxcwy5" path="res://scripts/entity/enemy/TrollArcher/TrollArcher.cs" id="1_helx4"]
 [ext_resource type="Texture2D" uid="uid://bknb2fo6qwle6" path="res://Assets/textures/entities/enemies/troll_archer/Body Color.png" id="2_ayqqd"]
 [ext_resource type="PackedScene" uid="uid://bewno5r8us0l3" path="res://scenes/entities/projectiles/arrow_projectile.tscn" id="2_co1md"]
 [ext_resource type="PackedScene" uid="uid://dq6cg5pe3am5k" path="res://scenes/entities/objects/bow.tscn" id="3_4udf5"]
+[ext_resource type="Resource" uid="uid://d0aijcp7xc7gd" path="res://resources/stats/enemy_stats/TrollArcherStats.tres" id="4_4udf5"]
 [ext_resource type="PackedScene" uid="uid://hvd2uy3wofl8" path="res://scenes/components/status_component.tscn" id="4_aw4xy"]
 [ext_resource type="PackedScene" uid="uid://cih3o4ppqnupc" path="res://scenes/components/health_component.tscn" id="4_co1md"]
 [ext_resource type="Texture2D" uid="uid://e3eacmqdr1qa" path="res://Assets/textures/entities/enemies/troll_archer/Body Normal.png" id="4_ycys7"]
@@ -14,7 +15,10 @@
 [ext_resource type="PackedScene" uid="uid://dhvc0370yavkg" path="res://scenes/components/pathfind_component.tscn" id="8_4udf5"]
 [ext_resource type="PackedScene" uid="uid://b1nep4giok5oy" path="res://Assets/models/enemies/TrollArcher/troll_archer.glb" id="8_fcxsy"]
 [ext_resource type="PackedScene" uid="uid://jjcniyhtwkxs" path="res://Assets/models/enemies/TrollArcher/bow.glb" id="10_6onr1"]
+[ext_resource type="PackedScene" uid="uid://bur6hmvbxstyd" path="res://scenes/components/experience_drop_component.tscn" id="10_qxnty"]
 [ext_resource type="PackedScene" uid="uid://dg50frt6cbuje" path="res://Assets/models/enemies/TrollArcher/arrow(old).glb" id="11_6onr1"]
+[ext_resource type="PackedScene" uid="uid://dn7510hvebguv" path="res://scenes/entities/objects/experience_pickup.tscn" id="11_um2ui"]
+[ext_resource type="PackedScene" uid="uid://c3kpxgsb3y4yi" path="res://scenes/components/gold_drop_component.tscn" id="12_8d43y"]
 [ext_resource type="PackedScene" uid="uid://gwkhn3v3fswg" path="res://scenes/components/hurtbox_area.tscn" id="13_un2xp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_um2ui"]
@@ -75,6 +79,7 @@ script = ExtResource("1_helx4")
 ArrowProjectileScene = ExtResource("2_co1md")
 BowScene = ExtResource("3_4udf5")
 AimTime = 0.75
+StatsResource = ExtResource("4_4udf5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.14732, 0)
@@ -87,8 +92,6 @@ shape = SubResource("CapsuleShape3D_um2ui")
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("Hurtbox") instance=ExtResource("4_co1md")]
 Hurtbox = NodePath("../SkeletalHurtboxComponent")
 
-[node name="ExperienceDropComponent" type="Node" parent="."]
-
 [node name="SkeletalHurtboxComponent" parent="." instance=ExtResource("5_co1md")]
 _armaturePath = "troll_archer/TrollArcherRig/Skeleton3D"
 
@@ -98,52 +101,59 @@ Agent = NodePath("../NavigationAgent3D")
 [node name="StatusComponent" parent="." instance=ExtResource("4_aw4xy")]
 HurtboxComponentPath = NodePath("../SkeletalHurtboxComponent")
 
+[node name="ExperienceDropComponent" parent="." instance=ExtResource("10_qxnty")]
+PickupScene = ExtResource("11_um2ui")
+BaseXp = 4
+
+[node name="GoldDropComponent" parent="." instance=ExtResource("12_8d43y")]
+BaseGold = 4
+
 [node name="troll_archer" parent="." instance=ExtResource("8_fcxsy")]
 
 [node name="Skeleton3D" parent="troll_archer/TrollArcherRig" index="0"]
-bones/1/position = Vector3(0, 0.937775, -0.0596836)
+bones/1/position = Vector3(0, 0.936641, -0.0596836)
 bones/1/rotation = Quaternion(0.088983, -0.701486, 0.088983, 0.701486)
-bones/2/rotation = Quaternion(-0.00900475, 0.0185685, -0.0116979, 0.999719)
-bones/3/rotation = Quaternion(-0.0566457, -0.000344273, -0.0121267, 0.998321)
-bones/4/rotation = Quaternion(0.0206825, 0.000453786, -0.0118154, 0.999716)
-bones/5/rotation = Quaternion(0.117757, 0.0103881, 0.00833496, 0.992953)
-bones/6/rotation = Quaternion(-0.12989, 0.348781, -0.16778, 0.912869)
-bones/7/rotation = Quaternion(-0.0108447, 0.343252, -0.149347, 0.92723)
-bones/8/rotation = Quaternion(-0.646003, -0.236539, -0.469393, 0.553533)
-bones/9/rotation = Quaternion(0.156262, 0.975025, -0.153876, -0.0350891)
-bones/10/rotation = Quaternion(-0.0166471, 0.0397338, 0.564972, 0.823985)
-bones/11/rotation = Quaternion(-0.236631, -0.823612, 0.050726, 0.512929)
+bones/2/rotation = Quaternion(-0.0087524, 0.021041, -0.0106684, 0.999683)
+bones/3/rotation = Quaternion(-0.0562075, 0.000962821, -0.012315, 0.998343)
+bones/4/rotation = Quaternion(0.0211182, 0.00175878, -0.0119116, 0.999705)
+bones/5/rotation = Quaternion(0.117701, 0.0100493, 0.00859205, 0.992961)
+bones/6/rotation = Quaternion(-0.12777, 0.349505, -0.167063, 0.913023)
+bones/7/rotation = Quaternion(-0.0108565, 0.343096, -0.149258, 0.927302)
+bones/8/rotation = Quaternion(-0.644952, -0.238263, -0.470392, 0.553172)
+bones/9/rotation = Quaternion(0.171554, 0.972973, -0.151329, -0.0314912)
+bones/10/rotation = Quaternion(-0.0166186, 0.0396849, 0.565857, 0.82338)
+bones/11/rotation = Quaternion(-0.239889, -0.819853, 0.0484553, 0.517635)
 bones/12/rotation = Quaternion(0.344055, 0.624235, -0.388381, 0.584052)
 bones/13/rotation = Quaternion(0.696561, 0.0421243, -0.0888233, 0.710732)
 bones/14/rotation = Quaternion(0.416855, 0.00695863, -0.0691936, 0.906309)
-bones/15/rotation = Quaternion(0.244971, 0.860402, 0.250496, -0.370066)
+bones/15/rotation = Quaternion(0.247079, 0.859137, 0.250747, -0.37143)
 bones/16/rotation = Quaternion(0.249787, 0.0484903, -0.0860948, 0.963246)
 bones/17/rotation = Quaternion(0.339056, -0.0264089, -0.196957, 0.919539)
-bones/19/rotation = Quaternion(-0.678788, 0.561581, 0.112936, 0.459477)
-bones/20/rotation = Quaternion(0.428453, 0.745499, -0.306907, -0.408005)
-bones/21/rotation = Quaternion(-0.000464737, -0.0268145, -0.955223, 0.294671)
-bones/22/rotation = Quaternion(-0.166762, 0.841135, -0.412638, 0.307266)
-bones/23/rotation = Quaternion(0.0115105, -0.678214, 0.00397344, 0.734763)
-bones/24/rotation = Quaternion(0.103354, -0.00630536, 0.00859012, 0.994588)
-bones/25/rotation = Quaternion(0.136342, 0.00025209, 0.030716, 0.990185)
-bones/27/rotation = Quaternion(-0.100329, 0.981794, 0.158463, -0.0300624)
-bones/28/rotation = Quaternion(0.104732, -0.0160513, 0.0444056, 0.993379)
-bones/29/rotation = Quaternion(-0.101609, 0.119419, -0.037234, 0.986929)
-bones/31/rotation = Quaternion(0.713093, 0.428794, 0.524036, 0.181716)
+bones/19/rotation = Quaternion(-0.652429, 0.585196, 0.0996999, 0.471108)
+bones/20/rotation = Quaternion(0.399876, 0.761033, -0.298074, -0.414824)
+bones/21/rotation = Quaternion(-0.00223025, -0.0278857, -0.957418, 0.287345)
+bones/22/rotation = Quaternion(-0.203253, 0.824674, -0.397647, 0.347099)
+bones/23/rotation = Quaternion(0.0180732, -0.680468, 0.0249492, 0.73213)
+bones/24/rotation = Quaternion(0.130697, -0.00795574, 0.0122355, 0.991315)
+bones/25/rotation = Quaternion(0.164586, -0.000453856, 0.0346322, 0.985755)
+bones/27/rotation = Quaternion(-0.0988829, 0.982121, 0.157361, -0.0299698)
+bones/28/rotation = Quaternion(0.118234, -0.0190987, 0.048309, 0.991626)
+bones/29/rotation = Quaternion(-0.101601, 0.11942, -0.0372306, 0.98693)
+bones/31/rotation = Quaternion(0.709325, 0.430245, 0.527332, 0.18349)
 bones/31/scale = Vector3(1, 1, 1)
-bones/32/rotation = Quaternion(0.300355, -0.62356, 0.293799, 0.659274)
-bones/33/rotation = Quaternion(0.846718, -0.334124, -0.405203, 0.0850874)
-bones/34/rotation = Quaternion(0.292674, 0.581446, -0.289144, 0.701896)
-bones/35/position = Vector3(0.0825824, 0.105384, -0.428289)
+bones/32/rotation = Quaternion(0.302506, -0.625134, 0.294063, 0.656677)
+bones/33/rotation = Quaternion(0.848077, -0.33418, -0.402522, 0.0840506)
+bones/34/rotation = Quaternion(0.295116, 0.581041, -0.291445, 0.700256)
+bones/35/position = Vector3(0.0868335, 0.105833, -0.425813)
 bones/35/rotation = Quaternion(0.607459, -0.363547, 0.625214, 0.328532)
 bones/36/rotation = Quaternion(-0.136988, 0.00828272, -0.00171777, 0.990537)
-bones/37/position = Vector3(-0.195284, 0.12861, 0.368326)
+bones/37/position = Vector3(-0.198964, 0.128847, 0.368065)
 bones/37/rotation = Quaternion(0.625214, -0.328533, 0.60746, 0.363547)
 bones/37/scale = Vector3(1, 1, 1)
 bones/38/rotation = Quaternion(-0.136902, -0.00838852, 0.00173257, 0.990548)
 
 [node name="UpperArmLeftAttachment" type="BoneAttachment3D" parent="troll_archer/TrollArcherRig/Skeleton3D" index="0"]
-transform = Transform3D(0.935337, 0.338212, 0.103721, 0.301194, -0.607573, -0.73494, -0.185548, 0.718657, -0.670152, -0.104474, 1.53829, 0.155579)
+transform = Transform3D(0.944263, 0.312796, 0.102596, 0.282144, -0.60844, -0.741751, -0.169593, 0.729355, -0.662781, -0.103905, 1.53782, 0.155025)
 bone_name = "upper_arm.L"
 bone_idx = 9
 
@@ -154,7 +164,7 @@ transform = Transform3D(0.171224, 2.96859e-08, -4.03652e-08, 0, 0.171218, 1.0244
 shape = SubResource("BoxShape3D_hgxrn")
 
 [node name="UpperArmRightAttachment" type="BoneAttachment3D" parent="troll_archer/TrollArcherRig/Skeleton3D" index="1"]
-transform = Transform3D(0.308702, 0.140958, -0.940656, 0.611808, -0.78665, 0.0829016, -0.728282, -0.601092, -0.32908, -0.113202, 1.61889, -0.217705)
+transform = Transform3D(0.262371, 0.156493, -0.952193, 0.718629, -0.690232, 0.0845742, -0.643999, -0.706463, -0.293557, -0.117974, 1.63111, -0.214641)
 bone_name = "upper_arm.R"
 bone_idx = 20
 
@@ -165,7 +175,7 @@ transform = Transform3D(0.171225, 2.23517e-08, -5.15138e-08, -2.5332e-07, 0.1712
 shape = SubResource("BoxShape3D_hgxrn")
 
 [node name="ForearmLeftAttachment" type="BoneAttachment3D" parent="troll_archer/TrollArcherRig/Skeleton3D" index="2"]
-transform = Transform3D(0.640981, -0.748163, 0.171451, -0.394967, -0.513031, -0.762102, 0.658136, 0.420776, -0.624343, 0.0478559, 1.26464, 0.479262)
+transform = Transform3D(0.61902, -0.767027, 0.168774, -0.403162, -0.494762, -0.769851, 0.673999, 0.408509, -0.615504, 0.0369776, 1.26378, 0.483526)
 bone_name = "forearm.L"
 bone_idx = 10
 
@@ -176,7 +186,7 @@ transform = Transform3D(0.200837, 3.27826e-07, 1.57394e-07, 1.2666e-07, 1.04345,
 shape = SubResource("BoxShape3D_cnbu8")
 
 [node name="ForearmRightAttachment" type="BoneAttachment3D" parent="troll_archer/TrollArcherRig/Skeleton3D" index="3"]
-transform = Transform3D(-0.350142, 0.00958636, -0.936648, -0.061349, 0.997566, 0.0331436, 0.934686, 0.0690672, -0.348701, -0.0497151, 1.26458, -0.488436)
+transform = Transform3D(-0.324453, -0.035636, -0.94523, -0.218541, 0.975078, 0.0382536, 0.92031, 0.218983, -0.324155, -0.0474894, 1.32023, -0.532831)
 bone_name = "forearm.R"
 bone_idx = 21
 
@@ -187,7 +197,7 @@ transform = Transform3D(0.200836, 3.61353e-07, 2.16067e-07, 8.28877e-08, 1.04345
 shape = SubResource("BoxShape3D_cnbu8")
 
 [node name="HeadAttachment" type="BoneAttachment3D" parent="troll_archer/TrollArcherRig/Skeleton3D" index="4"]
-transform = Transform3D(0.961843, 0.271624, -0.032827, -0.266693, 0.903996, -0.334165, -0.0610918, 0.330169, 0.941943, -0.167984, 1.84489, 0.00875604)
+transform = Transform3D(0.963143, 0.268083, -0.0220504, -0.260051, 0.907055, -0.331094, -0.0687599, 0.324626, 0.94334, -0.169483, 1.84374, 0.00721847)
 bone_name = "spine.006"
 bone_idx = 7
 
@@ -198,7 +208,7 @@ transform = Transform3D(0.28463, -9.31323e-10, 7.45058e-09, 0, 0.28463, 0, 7.450
 shape = SubResource("BoxShape3D_pkcri")
 
 [node name="ChestAttachment" type="BoneAttachment3D" parent="troll_archer/TrollArcherRig/Skeleton3D" index="5"]
-transform = Transform3D(0.0494426, -0.159038, -0.986034, -0.0609749, 0.984919, -0.161915, 0.996914, 0.0681288, 0.0389997, -0.0954941, 1.40824, -0.0490463)
+transform = Transform3D(0.0590467, -0.160909, -0.985201, -0.0574897, 0.984737, -0.164278, 0.996598, 0.0663391, 0.0488949, -0.0957758, 1.40709, -0.0497555)
 bone_name = "spine.003"
 bone_idx = 4
 
@@ -209,7 +219,7 @@ transform = Transform3D(0.300024, 0, 4.74392e-09, -3.72529e-09, 0.300915, 1.7318
 shape = SubResource("BoxShape3D_411ac")
 
 [node name="AbdomenAttachment" type="BoneAttachment3D" parent="troll_archer/TrollArcherRig/Skeleton3D" index="6"]
-transform = Transform3D(0.0416701, -0.231717, -0.97189, -0.0137551, 0.97251, -0.232455, 0.999037, 0.0230548, 0.0373373, -0.0411376, 1.09732, -0.0596836)
+transform = Transform3D(0.0459729, -0.232206, -0.971579, -0.010554, 0.972441, -0.232912, 0.998887, 0.0209617, 0.0422552, -0.0411376, 1.09618, -0.0596836)
 bone_name = "spine.001"
 bone_idx = 2
 
@@ -220,7 +230,7 @@ transform = Transform3D(0.300409, -1.86265e-09, 4.65661e-10, -1.86265e-09, 0.300
 shape = SubResource("BoxShape3D_co1md")
 
 [node name="ThighLeftAttachment" type="BoneAttachment3D" parent="troll_archer/TrollArcherRig/Skeleton3D" index="7"]
-transform = Transform3D(-0.773042, -0.544749, 0.325045, 0.628896, -0.725212, 0.280281, 0.0830443, 0.421088, 0.90321, -0.0614084, 0.956138, 0.0464396)
+transform = Transform3D(-0.772231, -0.551025, 0.316278, 0.631063, -0.722919, 0.281335, 0.0736211, 0.416846, 0.905992, -0.0614084, 0.955004, 0.0464396)
 bone_name = "thigh.L"
 bone_idx = 31
 
@@ -231,7 +241,7 @@ transform = Transform3D(0.202868, -1.30385e-08, 1.11759e-08, 1.86265e-08, 0.2028
 shape = SubResource("BoxShape3D_4udf5")
 
 [node name="ThighRightAttachment" type="BoneAttachment3D" parent="troll_archer/TrollArcherRig/Skeleton3D" index="8"]
-transform = Transform3D(0.767885, -0.211409, 0.604698, -0.457538, -0.841685, 0.28675, 0.448343, -0.496862, -0.743046, -0.0614084, 0.956138, -0.165807)
+transform = Transform3D(0.765138, -0.20817, 0.609287, -0.457949, -0.841135, 0.287707, 0.452599, -0.499157, -0.738916, -0.0614084, 0.955004, -0.165807)
 bone_name = "thigh.R"
 bone_idx = 33
 
@@ -242,7 +252,7 @@ transform = Transform3D(0.202868, 0, 0, 7.45058e-09, 0.202868, 0, 7.45058e-09, 0
 shape = SubResource("BoxShape3D_4udf5")
 
 [node name="ShinLeftAttachment" type="BoneAttachment3D" parent="troll_archer/TrollArcherRig/Skeleton3D" index="9"]
-transform = Transform3D(0.279211, 0.246244, 0.928119, 0.301884, -0.94006, 0.158595, 0.911541, 0.235903, -0.336812, -0.321431, 0.609976, 0.247435)
+transform = Transform3D(0.276423, 0.244805, 0.929334, 0.303948, -0.939644, 0.157114, 0.911706, 0.239039, -0.334147, -0.324426, 0.609937, 0.24541)
 bone_name = "shin.L"
 bone_idx = 32
 
@@ -253,7 +263,7 @@ transform = Transform3D(0.161084, 0, 2.98023e-08, -1.11759e-08, 0.161084, 2.0489
 shape = SubResource("BoxShape3D_qxnty")
 
 [node name="ShinRightAttachment" type="BoneAttachment3D" parent="troll_archer/TrollArcherRig/Skeleton3D" index="10"]
-transform = Transform3D(-0.461784, 0.478306, 0.74698, -0.299079, -0.876795, 0.376539, 0.835051, -0.0495266, 0.54794, -0.162319, 0.554381, -0.402971)
+transform = Transform3D(-0.46852, 0.483636, 0.739314, -0.29969, -0.874231, 0.381975, 0.83107, -0.0426023, 0.554535, -0.160773, 0.553509, -0.404067)
 bone_name = "shin.R"
 bone_idx = 34
 
@@ -264,7 +274,7 @@ transform = Transform3D(0.161084, 0, 0, 1.86265e-09, 0.161084, 0, 7.45058e-09, 0
 shape = SubResource("BoxShape3D_qxnty")
 
 [node name="FootLeftAttachment" type="BoneAttachment3D" parent="troll_archer/TrollArcherRig/Skeleton3D" index="11"]
-transform = Transform3D(0.0461174, -0.852487, 0.52071, 0.0308737, -0.519799, -0.85373, 0.998459, 0.055448, 0.00234771, -0.195284, 0.12861, 0.368326)
+transform = Transform3D(0.0461187, -0.852487, 0.52071, 0.0308743, -0.519799, -0.85373, 0.998459, 0.0554495, 0.00234753, -0.198964, 0.128847, 0.368065)
 bone_name = "foot.L"
 bone_idx = 37
 
@@ -275,7 +285,7 @@ transform = Transform3D(0.137235, 0.00112305, -0.00367285, 0.000808628, 0.119897
 shape = SubResource("BoxShape3D_p5ev2")
 
 [node name="FootRightAttachment" type="BoneAttachment3D" parent="troll_archer/TrollArcherRig/Skeleton3D" index="12"]
-transform = Transform3D(-0.0461192, -0.852486, 0.520711, -0.0308742, -0.5198, -0.85373, 0.998459, -0.05545, -0.00234699, 0.0825824, 0.105384, -0.428289)
+transform = Transform3D(-0.0461192, -0.852487, 0.52071, -0.0308743, -0.519799, -0.85373, 0.998459, -0.0554499, -0.00234723, 0.0868335, 0.105833, -0.425813)
 bone_name = "foot.R"
 bone_idx = 35
 
@@ -286,18 +296,45 @@ transform = Transform3D(0.137235, 0.00112305, -0.00367285, 0.000808628, 0.119897
 shape = SubResource("BoxShape3D_p5ev2")
 
 [node name="LeftHandAttachment" type="BoneAttachment3D" parent="troll_archer/TrollArcherRig/Skeleton3D" index="13"]
-transform = Transform3D(0.464207, -0.728189, 0.504234, 0.317225, 0.66821, 0.672951, -0.82697, -0.152433, 0.541187, -0.305093, 0.980794, 0.741823)
+transform = Transform3D(0.482652, -0.719385, 0.499531, 0.300919, 0.671855, 0.6768, -0.822492, -0.176341, 0.540749, -0.325959, 0.989096, 0.741305)
 bone_name = "hand_slot.L"
 bone_idx = 18
 
 [node name="bow" parent="troll_archer/TrollArcherRig/Skeleton3D/LeftHandAttachment" instance=ExtResource("10_6onr1")]
 transform = Transform3D(-0.0649692, 0.0709907, -0.995359, 0.00211192, 0.997473, 0.0710036, 0.997885, 0.00251098, -0.064955, 0.03, 0.018, 0.007)
 
+[node name="Skeleton3D" parent="troll_archer/TrollArcherRig/Skeleton3D/LeftHandAttachment/bow/BowRig" index="0"]
+bones/0/position = Vector3(-4.09782e-08, -0.013601, -2.96264e-08)
+bones/0/rotation = Quaternion(-0.0855758, 0.44229, 0.402144, 0.79708)
+bones/1/rotation = Quaternion(-1.28971e-08, -3.49468e-07, 0.171406, 0.985201)
+bones/2/rotation = Quaternion(2.47108e-08, -1.18491e-07, -0.1068, 0.994281)
+bones/3/rotation = Quaternion(1.67629e-08, 4.89968e-08, -0.0678454, 0.997696)
+bones/4/rotation = Quaternion(2.86605e-08, -1.34375e-07, 0.00821485, 0.999966)
+bones/5/rotation = Quaternion(-3.38494e-08, -5.58487e-08, -0.135107, 0.990831)
+bones/6/rotation = Quaternion(2.35485e-08, -6.35052e-08, -0.0552321, 0.998474)
+bones/7/rotation = Quaternion(1.1741e-08, -4.72507e-08, -0.00255053, 0.999997)
+bones/8/rotation = Quaternion(-1.24749e-07, -3.70377e-08, -0.194262, 0.98095)
+bones/9/rotation = Quaternion(-1.24177e-07, -1.74621e-07, -0.152117, 0.988362)
+bones/10/rotation = Quaternion(2.54267e-09, 3.62776e-07, -0.0125447, 0.999921)
+bones/12/position = Vector3(0.0946855, 0.0207819, -9.52512e-09)
+bones/13/rotation = Quaternion(-3.33656e-07, -9.31634e-08, 0.985201, 0.171405)
+bones/14/rotation = Quaternion(1.02925e-08, 1.13196e-07, 0.106801, 0.99428)
+bones/15/rotation = Quaternion(-1.35509e-08, 1.24181e-08, 0.0678458, 0.997696)
+bones/16/rotation = Quaternion(2.61501e-09, 1.38314e-07, -0.00821494, 0.999966)
+bones/17/rotation = Quaternion(-1.0093e-07, -9.69472e-09, 0.135107, 0.990831)
+bones/18/rotation = Quaternion(9.23088e-09, 8.6265e-08, 0.0552315, 0.998474)
+bones/19/rotation = Quaternion(-5.04554e-09, 5.61138e-08, 0.00254975, 0.999997)
+bones/20/rotation = Quaternion(-1.40334e-07, 5.46864e-09, 0.194261, 0.98095)
+bones/21/rotation = Quaternion(-1.18153e-07, 9.26257e-08, 0.152116, 0.988363)
+bones/22/rotation = Quaternion(-2.89562e-08, -3.76211e-07, 0.0125444, 0.999921)
+bones/24/position = Vector3(0.0970801, 0.333717, 5.7014e-08)
+bones/25/position = Vector3(0.0970799, -0.292154, -4.85748e-08)
+
 [node name="Bow" parent="troll_archer/TrollArcherRig/Skeleton3D/LeftHandAttachment/bow/BowRig/Skeleton3D" index="0"]
 surface_material_override/0 = SubResource("StandardMaterial3D_411ac")
 
 [node name="RightHandAttachment" type="BoneAttachment3D" parent="troll_archer/TrollArcherRig/Skeleton3D" index="14"]
-transform = Transform3D(0.784587, 0.267808, 0.559197, 0.567168, -0.674371, -0.472804, 0.250485, 0.688115, -0.680995, 0.0322561, 1.76724, -0.42614)
+transform = Transform3D(0.775122, 0.261592, 0.575113, 0.560467, -0.70488, -0.434765, 0.291655, 0.659328, -0.692982, 0.014996, 1.81276, -0.40456)
 bone_name = "hand_slot.R"
 bone_idx = 30
 

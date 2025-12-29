@@ -7,19 +7,24 @@ public partial class PlayerHud : Control
     [Export] public NodePath ManaBarPath = "VBoxContainer/ManaBar";
     [Export] public NodePath ExpBarPath = "VBoxContainer/ExpBar";
     [Export] public NodePath ItemContainerPath = "ItemPanel/ItemFlowContainer";
-    [Export] public NodePath HealthTextPath = "VBoxContainer/HealthBar/HealthText";
-    [Export] public NodePath ManaTextPath = "VBoxContainer/ManaBar/ManaText";
-    [Export] public NodePath ExpTextPath = "VBoxContainer/ExpBar/ExpText";
+    [Export] public NodePath HealthLabelPath = "VBoxContainer/HealthBar/HealthLabel";
+    [Export] public NodePath ManaLabelPath = "VBoxContainer/ManaBar/ManaLabel";
+    [Export] public NodePath ExpLabelPath = "VBoxContainer/ExpBar/ExpLabel";
+    [Export] public NodePath GoldLabelPath = "GoldPanel/HBoxContainer/GoldLabel";
 
     private Player _player;
     private TextureProgressBar _healthBar;
-    private Label _healthText;
+    private Label _healthLabel;
     private TextureProgressBar _manaBar;
-    private Label _manaText;
+    private Label _manaLabel;
     private TextureProgressBar _expBar;
-    private Label _expText;
+    private Label _expLabel;
     private FlowContainer _itemContainer;
     private ItemInventory _inventory;
+    private ExperienceManager _experience;
+
+    private GoldManager _gold;
+    private Label _goldLabel;
     private readonly Dictionary<string, ItemStackWidget> _itemWidgets = new();
 
     public override void _Ready()
@@ -41,11 +46,7 @@ public partial class PlayerHud : Control
 
         if (_player.Stats != null)
         {
-            // Najlepiej słuchać per-stat (wydajniej i czytelniej)
             _player.Stats.StatChanged += OnStatChanged;
-
-            // Dodatkowo możesz zostawić ogólne StatsChanged jeśli chcesz „fallback”
-            // _player.Stats.StatsChanged += OnStatsChanged;
 
             RefreshHealthMaxUI();
         }
@@ -54,6 +55,30 @@ public partial class PlayerHud : Control
         {
             _inventory.InventoryChanged += OnInventoryChanged;
             RefreshInventoryUI();
+        }
+
+        if (_experience != null)
+        {
+            _experience.ExpChanged += (currentXp, currentLevel, xpToNext) =>
+            {
+                RefreshExpUI();
+                RefreshExpMaxUI();
+            };
+
+            RefreshExpMaxUI();
+            RefreshExpUI();
+        }
+
+        if (_gold != null)
+        {
+            _gold.GoldChanged += (newGold) =>
+            {
+                _goldLabel.Text = newGold.ToString();
+            };
+
+            _goldLabel.Text = _gold.CurrentGold.ToString();
+            
+            RefreshGoldUI();
         }
     }
 
@@ -153,7 +178,7 @@ public partial class PlayerHud : Control
     {
         if (_player?.Health == null || _healthBar == null) return;
 
-        float currentHealth = _player.Health.CurrentHealth;
+        float currentHealth = Mathf.CeilToInt(_player.Health.CurrentHealth);
         _healthBar.Value = currentHealth;
         RefreshHealthText();
     }
@@ -162,7 +187,7 @@ public partial class PlayerHud : Control
     {
         if (_player?.Health == null || _healthBar == null) return;
 
-        _healthBar.MaxValue = _player.Health.MaxHealth;
+        _healthBar.MaxValue = Mathf.CeilToInt(_player.Health.MaxHealth);
         RefreshHealthText();
     }
 
@@ -182,25 +207,46 @@ public partial class PlayerHud : Control
     //     _manaBar.MaxValue = maxMana;
     // }
 
-    // private void RefreshExpUI()
-    // {
-    //     if (_player?.Stats == null || _expBar == null) return;
+    private void RefreshExpUI()
+    {
+        if (_player?.Stats == null || _expBar == null) return;
 
-    //     float currentExp = _player.Stats.GetStat(StatId.CurrentExp);
-    //     _expBar.Value = currentExp;
-    // }
+        var currentExp = _experience.CurrentExp;
+        _expBar.Value = currentExp;
+
+        RefreshExpText();
+    }
+
+    private void RefreshExpMaxUI()
+    {
+        if (_experience == null || _expBar == null) return;
+
+        var expToNext = _experience.ExpToNext;
+        _expBar.MaxValue = expToNext;
+
+        RefreshExpText();
+    }
+
+    private void RefreshExpText()
+    {
+        _expLabel.Text = $"{_experience.CurrentExp} / {_experience.ExpToNext}";
+    }
 
     private void RefreshHealthText()
     {
-        _healthText.Text = $"{_player.Health.CurrentHealth} / {_player.Health.MaxHealth}";
+        _healthLabel.Text = $"{_player.Health.CurrentHealth} / {_player.Health.MaxHealth}";
     }
 
     // private void RefreshManaText()
     // {
-    //     _manaText.Text = $"{_player.Stats.GetStat(StatId.CurrentMana)} / {_player.Stats.GetStat(StatId.MaxMana)}";
+    //     _manaLabel.Text = $"{_player.Stats.GetStat(StatId.CurrentMana)} / {_player.Stats.GetStat(StatId.MaxMana)}";
     // }
 
     // Jeśli kiedyś podepniesz StatsChanged zamiast StatChanged
+    private void RefreshGoldUI()
+    {
+        
+    }
     private void OnStatsChanged()
     {
         // Zrób proste „pełne odświeżenie”
@@ -218,13 +264,16 @@ public partial class PlayerHud : Control
         _manaBar = GetNodeOrNull<TextureProgressBar>(ManaBarPath);
         _expBar = GetNodeOrNull<TextureProgressBar>(ExpBarPath);
 
-        _healthText = GetNodeOrNull<Label>(HealthTextPath);
-        _manaText = GetNodeOrNull<Label>(ManaTextPath);
-        _expText = GetNodeOrNull<Label>(ExpTextPath);
+        _healthLabel = GetNodeOrNull<Label>(HealthLabelPath);
+        _manaLabel = GetNodeOrNull<Label>(ManaLabelPath);
+        _expLabel = GetNodeOrNull<Label>(ExpLabelPath);
+        _goldLabel = GetNodeOrNull<Label>(GoldLabelPath);
 
         _itemContainer = GetNodeOrNull<FlowContainer>(ItemContainerPath);
 
         _inventory = GetTree().Root.GetNodeOrNull<ItemInventory>("ItemInventory");
+        _experience = GetTree().Root.GetNodeOrNull<ExperienceManager>("ExperienceManager");
+        _gold = GetTree().Root.GetNodeOrNull<GoldManager>("GoldManager");
 
         _player = GetTree().GetFirstNodeInGroup("player") as Player;
 

@@ -85,6 +85,8 @@ public class TrollDrawState : IState
 
     public void Exit()
     {
+        _owner.Arrow.Visible = false;
+        
         _bodyLookAtTimer.QueueFree();
         _drawEndTimer.QueueFree();
         _aimLockTimer.QueueFree();

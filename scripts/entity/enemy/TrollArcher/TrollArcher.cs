@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class TrollArcher : Enemy
+public partial class TrollArcher : StateMachineEnemy<TrollStateId>
 {
     [Export] public PackedScene ArrowProjectileScene { get; private set; }
     [Export] public PackedScene BowScene {get; private set; }
@@ -10,67 +10,23 @@ public partial class TrollArcher : Enemy
     [Export] public float AimTime {get; private set; } = 1.5f;
     
     [Export] public float SpineLookSmoothSpeed {get; private set; } = 10f;
-
-    public VelocityComponent VelocityComp {get; private set; }
-    public PathfindComponent Pathfind {get; private set; }
-    public HealthComponent Health {get; private set; }
-    public HurtboxComponent Hurtbox {get; private set; }
+    [Export] public float ShootDistance {get; private set;} = 15f;
 
     public AnimationPlayer TrollAnimation {get; private set; }
     public AnimationPlayer BowAnimation {get; private set; }
     public AnimationPlayer ArrowAnimation {get; private set; }
 
+    public LookAtModifier3D SpineLookAt {get; set; }
+
     public Node3D ArrowSpawnPoint { get; private set; }
     public Node3D AimTarget {get; set; }
-    public LookAtModifier3D SpineLookAt {get; set; }
-    public Node3D Player {get; private set; }
-    public Node3D PlayerAimTarget {get; private set; }
     public Node3D Bow {get; set; }
     public Node3D Arrow {get; set; }
-
-    private Dictionary<TrollStateId, IState> _states;
-    private IState _currentState;
     private TrollStateId _currentId;
 
-    [Export] public float ShootDistance {get; private set;} = 15f;
-
-    public override void _Ready()
-    {
-        FindNodes();
-        SetAliveStateCollisions();
-
-        LoadStatsFromResource("res://resources/stats/enemy_stats/TrollArcherStats.tres");
-
-        Health.EntityDied += OnDied;
-
-        _states = new()
-        {
-            { TrollStateId.Idle,  new TrollIdleState(this) },
-            { TrollStateId.Chase, new TrollChaseState(this) },
-            { TrollStateId.Draw,  new TrollDrawState(this) },
-            { TrollStateId.Shoot, new TrollShootState(this) },
-            { TrollStateId.Dead,  new TrollDeadState(this) },
-        };
-
-        ChangeState(TrollStateId.Chase);
-    }
-
-    public override void _Process(double delta)
-    {
-        _currentState?.Update(delta);
-    }
-
-    public override void _PhysicsProcess(double delta)
-    {
-        _currentState?.PhysicsUpdate(delta);
-    }
-
-    private void FindNodes()
+    protected override void FindNodes()
     {   
-        VelocityComp = GetNode<VelocityComponent>("VelocityComponent");
-        Pathfind = GetNode<PathfindComponent>("PathfindComponent");
-        Health = GetNode<HealthComponent>("HealthComponent");
-        Hurtbox = GetNode<HurtboxComponent>("SkeletalHurtboxComponent");
+        base.FindNodes();
 
         TrollAnimation = GetNode<AnimationPlayer>("troll_archer/AnimationPlayer");
         BowAnimation = GetNode<AnimationPlayer>("troll_archer/TrollArcherRig/Skeleton3D/LeftHandAttachment/bow/AnimationPlayer");
@@ -82,22 +38,45 @@ public partial class TrollArcher : Enemy
         Arrow = GetNode<Node3D>("troll_archer/TrollArcherRig/Skeleton3D/RightHandAttachment/arrow");
 
         SpineLookAt = GetNode<LookAtModifier3D>("troll_archer/TrollArcherRig/Skeleton3D/SpineLookAtModifier3D");
-
-        Player = GetTree().GetFirstNodeInGroup("player") as Node3D;
-        PlayerAimTarget = GetTree().GetFirstNodeInGroup("player_target") as Node3D;
     }
 
-    protected override void OnStatsChanged(bool initialLoad)
+    protected override void OnAfterReady()
     {
+        Arrow.Visible = false;
 
-            Health.MaxHealth = MaxHealth;
-            if (!initialLoad || Health.CurrentHealth <= 0)
-                Health.CurrentHealth = MaxHealth;
-            else
-                Health.CurrentHealth = Mathf.Min(Health.CurrentHealth, MaxHealth);
+        States = new()
+        {
+            { TrollStateId.Idle, new TrollIdleState(this) },
+            { TrollStateId.Chase, new TrollChaseState(this) },
+            { TrollStateId.Draw, new TrollDrawState(this) },
+            { TrollStateId.Shoot, new TrollShootState(this) },
+            { TrollStateId.Dead, new TrollDeadState(this) },
+        };
 
-            // VelocityComp.MaxSpeed = MoveSpeed;
-            GD.Print($"TrollArcher: velocity base updated. velocity.MaxSpeed(after)={VelocityComp.MaxSpeed}");
+        ChangeState(TrollStateId.Chase);
+    }
+
+    protected override void OnDied()
+    {
+        if (SpineLookAt != null)
+            SpineLookAt.Active = false;
+
+        ChangeState(TrollStateId.Dead);
+    }
+
+    public void ShootArrow()
+    {
+        if (ArrowProjectileScene == null || ArrowSpawnPoint == null || AimTarget == null)
+            return;
+
+        var arrow = ArrowProjectileScene.Instantiate<ArrowProjectile>();
+        arrow.Damage = Damage;
+        arrow.GlobalTransform = ArrowSpawnPoint.GlobalTransform;
+
+        Vector3 dir = (AimTarget.GlobalPosition - ArrowSpawnPoint.GlobalPosition).Normalized();
+        arrow.Velocity = dir * arrow.Speed;
+
+        GetTree().CurrentScene.AddChild(arrow);
     }
 
     public void RotateHorizontallyTowardsPlayer(float delta)
@@ -119,37 +98,6 @@ public partial class TrollArcher : Enemy
         var targetPos = GlobalPosition - newForward;
 
         LookAt(targetPos, Vector3.Up);
-    }
-
-    private void OnDied()
-    {
-        DisableSpineLookAtTarget();
-        SetDeadStateCollisions();
-
-        Pathfind.Active = false;
-        VelocityComp.Active = false;
-
-        ChangeState(TrollStateId.Dead);
-    }
-    private void SetAliveStateCollisions()
-    {
-        CollisionLayer = PhysicsLayers.ENEMY_BODY;
-        CollisionMask = PhysicsLayers.ENEMY_BODY | PhysicsLayers.PLAYER_BODY | PhysicsLayers.TERRAIN;
-    }
-    private void SetDeadStateCollisions()
-    {
-        CollisionMask = PhysicsLayers.TERRAIN;
-    }
-
-    public void ChangeState(TrollStateId newId)
-    {
-        if (newId == _currentId) return;
-
-        Arrow.Visible = false;
-        _currentState?.Exit();
-        _currentId = newId;
-        _currentState = _states[newId];
-        _currentState.Enter();
     }
 
     public void SetSpineLookAtPlayer()
@@ -181,32 +129,6 @@ public partial class TrollArcher : Enemy
         {
             AimTarget.GlobalPosition = PlayerAimTarget.GlobalPosition;
         }   
-    }
-
-    private void InitializeArrow()
-    {
-        if (ArrowProjectileScene == null || 
-            ArrowSpawnPoint == null)
-            return;
-
-        var arrow = ArrowProjectileScene.Instantiate<ArrowProjectile>();
-
-        arrow.Damage = Damage;
-        arrow.GlobalTransform = ArrowSpawnPoint.GlobalTransform;
-
-        Vector3 from = ArrowSpawnPoint.GlobalPosition;
-        Vector3 to = AimTarget.GlobalPosition;
-
-        Vector3 dir = (to - from).Normalized();
-
-        arrow.Velocity = dir * arrow.Speed;
-
-        GetTree().CurrentScene.AddChild(arrow);
-    }
-
-    public void ShootArrow()
-    {
-        InitializeArrow();
     }
 }
 
