@@ -62,7 +62,7 @@ public partial class HealthComponent : Node
         if (hitInfo.Source is not IDamageSource damageSource)
             return;
         
-        float damage = damageSource.GetDamage();
+        float damage = hitInfo.FinalDamage;
 		damage *= hitInfo.DamageMultiplier;
 
 		Element damageType = damageSource.GetDamageType();
@@ -71,7 +71,7 @@ public partial class HealthComponent : Node
 		//np. damage = ApplyResistance(damage, damageType);
 
 		TakeDamage(damage);
-		ShowDamage(hitInfo.HitPosition, damage, new Color(1,0,0)); //KOLOR MOŻNA UZALEŻNIĆ OD ELEMENTU
+		ShowDamage(hitInfo.HitPosition, damage, ElementColors.GetColor(damageType)); //KOLOR MOŻNA UZALEŻNIĆ OD ELEMENTU
     }
 
 	public void ApplyStatusDamage(float damage, Element element)
@@ -80,33 +80,33 @@ public partial class HealthComponent : Node
 			return;
 
 		TakeDamage(damage);
-		switch (element)
-		{
-			case Element.Fire:
-				ShowDamage(_owner.GlobalPosition, damage, new Color(1, 0.5f, 0));
-				break;
-			case Element.Earth:
-				ShowDamage(_owner.GlobalPosition, damage, new Color(0.6f, 0.4f, 0.2f));
-				break;
-			case Element.Water:
-				ShowDamage(_owner.GlobalPosition, damage, new Color(0, 0.5f, 1));
-				break;
-			case Element.Air:
-				ShowDamage(_owner.GlobalPosition, damage, new Color(0.8f, 0.8f, 0.8f));
-				break;
-			// case Element.Lightning:
-			// 	ShowDamage(enemy.GlobalPosition, damage, new Color(1, 1, 0));
-			// 	break;
-			case Element.Ice:
-				ShowDamage(_owner.GlobalPosition, damage, new Color(0.5f, 0.8f, 1));
-				break;
-			default:
-				ShowDamage(_owner.GlobalPosition, damage, new Color(1, 1, 1));
-				break;
-		}
+		// switch (element)
+		// {
+		// 	case Element.Fire:
+		// 		ShowDamage(_owner.GlobalPosition, damage, new Color(1, 0.5f, 0));
+		// 		break;
+		// 	case Element.Earth:
+		// 		ShowDamage(_owner.GlobalPosition, damage, new Color(0.6f, 0.4f, 0.2f));
+		// 		break;
+		// 	case Element.Water:
+		// 		ShowDamage(_owner.GlobalPosition, damage, new Color(0, 0.5f, 1));
+		// 		break;
+		// 	case Element.Air:
+		// 		ShowDamage(_owner.GlobalPosition, damage, new Color(0.8f, 0.8f, 0.8f));
+		// 		break;
+		// 	// case Element.Lightning:
+		// 	// 	ShowDamage(enemy.GlobalPosition, damage, new Color(1, 1, 0));
+		// 	// 	break;
+		// 	case Element.Ice:
+		// 		ShowDamage(_owner.GlobalPosition, damage, new Color(0.5f, 0.8f, 1));
+		// 		break;
+		// 	default:
+		// 		ShowDamage(_owner.GlobalPosition, damage, new Color(1, 1, 1));
+		// 		break;
+		// }
 
 		// GD.Print($"Applying {damage} {element} status damage.");
-		// ShowDamage(_owner.GlobalPosition, damage, new Color(1, 0, 0));
+		ShowDamage(_owner.GlobalPosition, damage, ElementColors.GetStatusEffectColor(element));
 	}
 
 	public void TakeDamage(float damage)
@@ -126,9 +126,10 @@ public partial class HealthComponent : Node
 	}
 
 	public void ShowDamage(Vector3 position, float damage, Color color){
+		var damageInt = Mathf.CeilToInt(damage);
 		var floatingDamage = (FloatingDamage)floatingDamageScene.Instantiate();
 		GetTree().CurrentScene.AddChild(floatingDamage);
 		floatingDamage.GlobalPosition = position;
-		floatingDamage.ShowDamage(damage, color);
+		floatingDamage.ShowDamage(damageInt, color);
 	}
 }

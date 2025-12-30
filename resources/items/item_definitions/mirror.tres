@@ -7,14 +7,14 @@
 
 [sub_resource type="Resource" id="Resource_50h2f"]
 script = ExtResource("1_l4gkb")
-Stat = 11
+Stat = 12
 Add = 0.1
 Mult = 1.0
 metadata/_custom_type_script = "uid://d1og76mbf6sdm"
 
 [resource]
 script = ExtResource("2_50h2f")
-Id = "item_mirror"
+Id = "item:mirror"
 DisplayName = "Mirror"
 Description = "Increase player's crit chance by +10%"
 Icon = ExtResource("1_ymcot")

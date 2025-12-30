@@ -14,7 +14,7 @@ metadata/_custom_type_script = "uid://d1og76mbf6sdm"
 
 [resource]
 script = ExtResource("2_rw2sy")
-Id = "item_apple"
+Id = "item:apple"
 DisplayName = "Apple"
 Description = "Increase player's max HP by 20"
 Icon = ExtResource("1_2fqqt")

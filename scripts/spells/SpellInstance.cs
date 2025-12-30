@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Godot;
 
 public class SpellInstance
 {
@@ -39,9 +40,14 @@ public class SpellInstance
         float dmgAdd = stats.GetStat(StatId.DamageAdd);
         float dmgMult = stats.GetStat(StatId.DamageMultiplier);
 
+        float spellDmg = (baseDmg + dmgAdd) * dmgMult * Mathf.Max(0f, def.DamageModifier);
+
+        float rehitMult = stats.GetStat(StatId.RehitIntervalMultiplier);
+        if (rehitMult <= 0f) rehitMult = 1f;
+
         SpellCastStats result = new SpellCastStats
         {
-            Damage = baseDmg + dmgAdd * dmgMult,
+            Damage = spellDmg,
             Range = def.BaseRange * stats.GetStat(StatId.RangeMultiplier),
             ManaCost = def.BaseManaCost,
 
@@ -51,12 +57,8 @@ public class SpellInstance
             PierceCount = stats.GetStat(StatId.Pierce),
 
             EnableRehit = def.EnableRehit,
-            RehitIntervalSeconds = def.RehitIntervalSeconds,
+            RehitIntervalSeconds = Mathf.Max(0.01f, def.RehitIntervalSeconds * rehitMult)
         };
-
-        
-
-        
 
         // Typowe “dodatkowe staty” zależne od typu definicji
         if (def is ProjectileSpellDefinition proj)

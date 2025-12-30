@@ -28,8 +28,6 @@ ExperienceManager="*res://scripts/managers/ExperienceManager.cs"
 
 window/size/viewport_width=1200
 window/size/viewport_height=800
-window/size/window_width_override=1920
-window/size/window_height_override=1080
 
 [dotnet]
 

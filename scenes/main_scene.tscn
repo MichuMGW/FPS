@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://df4a8gudyllgr"]
+[gd_scene load_steps=32 format=3 uid="uid://df4a8gudyllgr"]
 
 [ext_resource type="Script" uid="uid://c2k3g32olfnjh" path="res://scripts/game/GameDirector.cs" id="1_c16ls"]
 [ext_resource type="PackedScene" uid="uid://dikn2lcwld56f" path="res://scenes/managers/chest_manager.tscn" id="1_mngbo"]
@@ -8,6 +8,7 @@
 [ext_resource type="Resource" uid="uid://dfa0n676grhod" path="res://resources/items/item_definitions/apple.tres" id="3_6u1mn"]
 [ext_resource type="Texture2D" uid="uid://x0owjhftlf3r" path="res://Assets/textures/environment/terrain/SpawnTerrainMask.png" id="3_18nlu"]
 [ext_resource type="Resource" uid="uid://b3mr818psy3r" path="res://resources/items/item_definitions/flask.tres" id="4_bcnxi"]
+[ext_resource type="Script" uid="uid://xdahrj3wt527" path="res://resources/items/ItemDefinition.cs" id="4_k3g67"]
 [ext_resource type="Resource" uid="uid://ql5rde4knmtk" path="res://resources/items/item_definitions/meat.tres" id="5_7nt27"]
 [ext_resource type="PackedScene" uid="uid://c4fn1nnwef2hm" path="res://scenes/ui.tscn" id="5_gubc5"]
 [ext_resource type="PackedScene" uid="uid://br85v6rjactsn" path="res://scenes/environment/terrain/terrain.tscn" id="5_rt2n2"]
@@ -49,7 +50,7 @@ SpawnMaskTexture = ExtResource("3_18nlu")
 
 [node name="ChestManager" parent="." instance=ExtResource("1_mngbo")]
 ChestCount = 100
-AvailableItems = [ExtResource("3_6u1mn"), ExtResource("4_bcnxi"), ExtResource("5_7nt27"), ExtResource("6_k6f3i")]
+AvailableItems = Array[ExtResource("4_k3g67")]([ExtResource("3_6u1mn"), ExtResource("4_bcnxi"), ExtResource("5_7nt27"), ExtResource("6_k6f3i")])
 
 [node name="LevelUpManager" parent="." instance=ExtResource("8_k67gn")]
 UpgradePool = Array[ExtResource("9_k3g67")]([ExtResource("10_4bgka"), ExtResource("11_02d50"), ExtResource("12_pgk25"), ExtResource("13_kkokr"), ExtResource("14_lhwp2")])

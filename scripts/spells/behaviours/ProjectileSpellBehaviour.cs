@@ -62,6 +62,7 @@ public class ProjectileSpellBehaviour : ISpellBehaviour
             hitbox.CritMultiplier = ctx.Stats.CritMultiplier;
             hitbox.StatusProfile = def.StatusProfile;          // dopnij do SpellDefinition
             hitbox.BurningDotMultiplier = def.BurningDotMultiplier;    // dopnij do SpellDefinition
+            hitbox.BleedDotMultiplier = def.BleedDotMultiplier;
             hitbox.SlowBonus = def.SlowMultiplierBonus;                // dopnij do SpellDefinition
             hitbox.EarthBuildupPerHit = def.EarthBuildupPerHit;        // dopnij do SpellDefinition
         }

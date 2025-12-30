@@ -73,6 +73,9 @@ public partial class ItemInventory : Node
 
         RebuildStatSources();
         GD.Print($"RunInventory: added item {item.Id}, new count: {stack.Count}");
+        GD.Print($"BaseDamage now: {_stats.GetStat(StatId.BaseDamage)}");
+        GD.Print($"CritChance now: {_stats.GetStat(StatId.CritChance)}");
+        GD.Print($"HealthRegen now: {_stats.GetStat(StatId.HealthRegen)}");
         EmitSignal(SignalName.InventoryChanged);
         return true;
     }
@@ -101,11 +104,8 @@ public partial class ItemInventory : Node
 
             string sourceId = $"item:{item.Id}";
 
-            // ItemDefinition ma listę StatModDefinition
             foreach (var m in item.StatModifier)
             {
-                // stackowanie: Add sumuje się liniowo, Mult możesz np. potęgować
-                // multTotal = mult^count (dla roguelite to standard)
                 float addTotal = m.Add * count;
                 float multTotal = PowSafe(m.Mult, count);
 

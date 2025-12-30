@@ -112,7 +112,18 @@ public class ExplosionSpellBehaviour : ISpellBehaviour, IPressSpellBehaviour, IH
         ctx.Caster.GetTree().CurrentScene.AddChild(aoe);
 
         aoe.GlobalPosition = state.Point;
-        aoe.Configure(def.Element, ctx.Stats.Damage, state.Radius);
+        aoe.Configure(
+            def.Element,
+            ctx.Stats.Damage,
+            state.Radius,
+            ctx.Stats.CritChance,
+            ctx.Stats.CritMultiplier,
+            def.StatusProfile,
+            def.BurningDotMultiplier,
+            def.BleedDotMultiplier,
+            def.SlowMultiplierBonus,
+            def.EarthBuildupPerHit
+        );
 
         return true;
     }

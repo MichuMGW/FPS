@@ -92,14 +92,14 @@ public partial class PlayerStatsManager : Node
 
         // Base
         _base[StatId.MaxHealth] = res.MaxHealth;
+        _base[StatId.HealthRegen] = res.HealthRegen;
         _base[StatId.MoveSpeed] = res.MoveSpeed;
         _base[StatId.JumpForce] = res.JumpForce;
         _base[StatId.JumpCount] = res.JumpCount;
         _base[StatId.BaseDamage] = res.BaseDamage;
+        _base[StatId.CritChance] = res.CritChance;
+        _base[StatId.CritMultiplier] = res.CritMultiplier;
 
-        _base[StatId.DamageMultiplier] = res.SpellDamageMultiplier;
-        _base[StatId.RangeMultiplier] = res.SpellRangeMultiplier;
-        _base[StatId.ProjectileSpeedMultiplier] = res.ProjectileSpeedMultiplier;
         _base[StatId.CooldownReduction] = res.CooldownReduction;
 
         RecomputeAll();
@@ -151,13 +151,23 @@ public partial class PlayerStatsManager : Node
 
     private float GetDefault(StatId id)
     {
-        // wartości końcowe, gdy nie ma base i nie ma source
         return id switch
         {
+            StatId.BaseDamage => 10f,
+
             StatId.DamageMultiplier => 1f,
             StatId.RangeMultiplier => 1f,
             StatId.ProjectileSpeedMultiplier => 1f,
+
+            StatId.CritChance => 0f,
+            StatId.CritMultiplier => 1.5f,
+
+            StatId.ManaCostMultiplier => 1f,
+            StatId.RehitIntervalMultiplier => 1f,
+            StatId.KnockbackMultiplier => 1f,
+
             StatId.CooldownReduction => 0f,
+
             _ => 0f
         };
     }
@@ -171,6 +181,10 @@ public partial class PlayerStatsManager : Node
             StatId.DamageMultiplier => 1f,
             StatId.RangeMultiplier => 1f,
             StatId.ProjectileSpeedMultiplier => 1f,
+            StatId.CritMultiplier => 1.5f,
+            StatId.ManaCostMultiplier => 1f,
+            StatId.RehitIntervalMultiplier => 1f,
+            StatId.KnockbackMultiplier => 1f,
             _ => 0f
         };
     }

@@ -7,16 +7,16 @@
 
 [sub_resource type="Resource" id="Resource_ef3ft"]
 script = ExtResource("1_y5dbm")
-Stat = 8
-Add = 0.0
-Mult = 1.1
+Stat = 9
+Add = 0.1
+Mult = 1.0
 metadata/_custom_type_script = "uid://d1og76mbf6sdm"
 
 [resource]
 script = ExtResource("2_v0nnv")
-Id = "item_meat"
+Id = "item:meat"
 DisplayName = "Meat"
-Description = "Increase player's damage by +10%"
+Description = "Increase damage multiplier by +10%"
 Icon = ExtResource("1_ef3ft")
 PreviewScene = ExtResource("1_v0nnv")
 Rarity = 0

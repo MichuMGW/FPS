@@ -11,11 +11,6 @@ public partial class PlayerStatsResource : Resource
     [Export] public float CritChance = 0f;        // 0.15 = 15%
     [Export] public float CritMultiplier = 1.5f;  // x1
 
-    // Multipliery – domyślnie 1
-    [Export] public float SpellDamageMultiplier = 1f;
-    [Export] public float SpellRangeMultiplier = 1f;
-    [Export] public float ProjectileSpeedMultiplier = 1f;
-
     // Redukcja cooldownów – domyślnie 0 (czyli brak redukcji)
     [Export] public float CooldownReduction = 0f;
     [Export] public int JumpCount = 1;

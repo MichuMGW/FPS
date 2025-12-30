@@ -20,7 +20,7 @@ public partial class ChestManager : Node3D
 	[Export] public int MaxTriesPerChest = 80;
 
 	[Export] public float InteractDistance = 4.5f;
-	[Export] public int BaseOpenCost = 20;
+	[Export] public int BaseOpenCost = 1; //DO ZMIANY NA 30/20
 	[Export] public float SqrtScaleForCost = 30f;
 
 	[Export] public Godot.Collections.Array<ItemDefinition> AvailableItems = new();
@@ -206,7 +206,8 @@ public partial class ChestManager : Node3D
 
 	private void UpdateChestCost()
 	{
-		CurrentOpenCost = BaseOpenCost + (int)(Mathf.Sqrt(_openedChests) * SqrtScaleForCost);
+		// CurrentOpenCost = BaseOpenCost + (int)(Mathf.Sqrt(_openedChests) * SqrtScaleForCost);
+		CurrentOpenCost = 1; //WRÓCIĆ DO POWYŻSZEGO
 	}
 
 	private ItemDefinition RollItem()

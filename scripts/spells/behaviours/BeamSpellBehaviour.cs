@@ -46,18 +46,19 @@ public class BeamSpellBehaviour : ISpellBehaviour, IHoldSpellBehaviour, ICancela
         float maxLen = Mathf.Max(1f, ctx.Stats.Range);
 
         emitter.Configure(
-            def.Element,
-            ctx.Stats.Damage,
-            tickRate,
-            maxLen,
-            ctx.Stats.CritChance,
-            ctx.Stats.CritMultiplier,
-            def.BeamWidth,
-            def.PierceCount,
-            def.StatusProfile,
-            def.BurningDotMultiplier,
-            def.SlowMultiplierBonus,
-            def.EarthBuildupPerHit
+            element: def.Element,
+            damagePerTick: ctx.Stats.Damage,
+            tickRateSeconds: tickRate,
+            maxLength: maxLen,
+            beamWidth: def.BeamWidth,
+            critChance: ctx.Stats.CritChance,
+            critMultiplier: ctx.Stats.CritMultiplier,
+            pierceCount: def.PierceCount,
+            statusProfile: def.StatusProfile,
+            burningDotMultiplier: def.BurningDotMultiplier,
+            bleedDotMultiplier: def.BleedDotMultiplier,
+            slowMultiplierBonus: def.SlowMultiplierBonus,
+            earthBuildupPerHit: def.EarthBuildupPerHit
         );
 
         emitter.Start();

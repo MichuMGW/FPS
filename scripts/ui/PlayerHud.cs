@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Godot;
 
@@ -11,6 +12,7 @@ public partial class PlayerHud : Control
     [Export] public NodePath ManaLabelPath = "VBoxContainer/ManaBar/ManaLabel";
     [Export] public NodePath ExpLabelPath = "VBoxContainer/ExpBar/ExpLabel";
     [Export] public NodePath GoldLabelPath = "GoldPanel/HBoxContainer/GoldLabel";
+    [Export] public NodePath TimeLabelPath = "TimeLabel";
 
     private Player _player;
     private TextureProgressBar _healthBar;
@@ -19,12 +21,14 @@ public partial class PlayerHud : Control
     private Label _manaLabel;
     private TextureProgressBar _expBar;
     private Label _expLabel;
+    private Label _timeLabel;
     private FlowContainer _itemContainer;
     private ItemInventory _inventory;
     private ExperienceManager _experience;
 
     private GoldManager _gold;
     private Label _goldLabel;
+    private GameEvents _events;
     private readonly Dictionary<string, ItemStackWidget> _itemWidgets = new();
 
     public override void _Ready()
@@ -80,7 +84,21 @@ public partial class PlayerHud : Control
             
             RefreshGoldUI();
         }
+
+        if (_events != null)
+        {
+            _events.RunTimeUpdated += RefreshTimeUI;
+        }
     }
+
+    private void RefreshTimeUI(float elapsed, float total)
+    {
+        var remaining = total - elapsed;
+        var minutes = Mathf.FloorToInt(remaining / 60);
+        var seconds = Mathf.FloorToInt(remaining % 60);
+        _timeLabel.Text = $"{minutes:00}:{seconds:00}";
+    }
+
 
     public override void _ExitTree()
     {
@@ -96,6 +114,11 @@ public partial class PlayerHud : Control
 
         if (_inventory != null)
             _inventory.InventoryChanged -= OnInventoryChanged;
+
+        if (_events != null)
+        {
+            _events.RunTimeUpdated -= RefreshTimeUI;
+        }
     }
 
     private void OnInventoryChanged()
@@ -178,8 +201,7 @@ public partial class PlayerHud : Control
     {
         if (_player?.Health == null || _healthBar == null) return;
 
-        float currentHealth = Mathf.CeilToInt(_player.Health.CurrentHealth);
-        _healthBar.Value = currentHealth;
+        _healthBar.Value = _player.Health.CurrentHealth;
         RefreshHealthText();
     }
 
@@ -187,7 +209,7 @@ public partial class PlayerHud : Control
     {
         if (_player?.Health == null || _healthBar == null) return;
 
-        _healthBar.MaxValue = Mathf.CeilToInt(_player.Health.MaxHealth);
+        _healthBar.MaxValue = _player.Health.MaxHealth;
         RefreshHealthText();
     }
 
@@ -234,7 +256,7 @@ public partial class PlayerHud : Control
 
     private void RefreshHealthText()
     {
-        _healthLabel.Text = $"{_player.Health.CurrentHealth} / {_player.Health.MaxHealth}";
+        _healthLabel.Text = $"{Mathf.CeilToInt(_player.Health.CurrentHealth)} / {Mathf.CeilToInt(_player.Health.MaxHealth)}";
     }
 
     // private void RefreshManaText()
@@ -274,6 +296,9 @@ public partial class PlayerHud : Control
         _inventory = GetTree().Root.GetNodeOrNull<ItemInventory>("ItemInventory");
         _experience = GetTree().Root.GetNodeOrNull<ExperienceManager>("ExperienceManager");
         _gold = GetTree().Root.GetNodeOrNull<GoldManager>("GoldManager");
+
+        _events = GetTree().Root.GetNodeOrNull<GameEvents>("GameEvents");
+        _timeLabel = GetNodeOrNull<Label>(TimeLabelPath);
 
         _player = GetTree().GetFirstNodeInGroup("player") as Player;
 

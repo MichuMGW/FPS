@@ -176,6 +176,5 @@ public partial class PlayerHealthComponent : Node
 		if (amount <= 0f) return;
 
 		CurrentHealth += amount;
-		CurrentHealth = Mathf.Min(MaxHealth, CurrentHealth);
 	}
 }

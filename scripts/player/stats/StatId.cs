@@ -16,8 +16,6 @@ public enum StatId
     CritMultiplier,        // x1.5
     ProjectileSpeedMultiplier,
     CooldownReduction,
-
-    ProjectilePierceAdd,        // +1 pierce
     RehitIntervalMultiplier,    // x0.9 (szybciej tickuje)
     ManaCostMultiplier,         // x0.8
 }

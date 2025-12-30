@@ -26,7 +26,7 @@ public partial class GameDirector : Node
         new EnemyUnlockConfig(   0f, "res://scenes/entities/enemies/Skeleton.tscn"),
         new EnemyUnlockConfig(  0f, "res://scenes/entities/enemies/TrollArcher.tscn"),
         new EnemyUnlockConfig( 120f, "res://scenes/entities/enemies/Orc.tscn"),
-        new EnemyUnlockConfig( 180f, "res://scenes/entities/enemies/SkeletonSummoner.tscn"),
+        new EnemyUnlockConfig( 0f, "res://scenes/entities/enemies/SkeletonSummoner.tscn"),
     };
 
     public override void _Ready()

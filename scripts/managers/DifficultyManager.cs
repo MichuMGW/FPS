@@ -39,10 +39,12 @@ public sealed class DifficultyManager
     private const float SpdPerLevel = 0.06f;
 
     // Spawn knobs
-    private const float SpawnIntervalStart = 8.0f;
+    // private const float SpawnIntervalStart = 8.0f; //NAPRAWIĆ POTEM
+    private const float SpawnIntervalStart = 0.01f;
+
     private const float SpawnIntervalFloor = 0.60f;
 
-    private const int MaxAliveStart = 8;
+    private const int MaxAliveStart = 60; //NAPRAWIĆ POTEM
     private const int MaxAliveCap = 60;
 
     private const float BudgetStart = 5.5f;

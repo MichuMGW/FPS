@@ -86,6 +86,7 @@ public partial class BeamEmitter : Node3D
         int pierceCount = 999999,
         ElementStatusProfile statusProfile = null,
         float burningDotMultiplier = 1f,
+        float bleedDotMultiplier = 1f,
         float slowMultiplierBonus = 1f,
         float earthBuildupPerHit = 0f
     )
@@ -105,6 +106,7 @@ public partial class BeamEmitter : Node3D
             _hitbox.RehitCooldownSeconds = _tickRate; // ważne: rehit = tick
             _hitbox.StatusProfile = statusProfile;          // dopnij do SpellDefinition
             _hitbox.BurningDotMultiplier = burningDotMultiplier;    // dopnij do SpellDefinition
+            _hitbox.BleedDotMultiplier = bleedDotMultiplier;
             _hitbox.SlowBonus = slowMultiplierBonus;                // dopnij do SpellDefinition
             _hitbox.EarthBuildupPerHit = earthBuildupPerHit;        // dopnij do SpellDefinition
         }

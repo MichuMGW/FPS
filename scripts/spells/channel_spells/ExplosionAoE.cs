@@ -35,13 +35,33 @@ public partial class ExplosionAoE : Node3D
         }
     }
 
-    public void Configure(Element element, float damage, float radius)
+    public void Configure(
+        Element element,
+        float damage,
+        float radius,
+        float critChance,
+        float critMultiplier,
+        ElementStatusProfile statusProfile,
+        float burningDotMultiplier,
+        float bleedDotMultiplier,
+        float slowBonus,
+        float earthBuildupPerHit
+    )
     {
         if (hitbox != null)
         {
             hitbox.Damage = damage;
             hitbox.DamageType = element;
             hitbox.OneShot = true;
+
+            hitbox.CritChance = critChance;
+            hitbox.CritMultiplier = critMultiplier;
+
+            hitbox.StatusProfile = statusProfile;
+            hitbox.BurningDotMultiplier = burningDotMultiplier;
+            hitbox.BleedDotMultiplier = bleedDotMultiplier;
+            hitbox.SlowBonus = slowBonus;
+            hitbox.EarthBuildupPerHit = earthBuildupPerHit;
         }
 
         ApplyRadius(radius);
