@@ -11,6 +11,7 @@ public abstract partial class Enemy : CharacterBody3D, IScalableEnemy
     public HitboxComponent Hitbox { get; private set; }
     public DifficultySnapshot CurrentDifficulty { get; private set; }
 
+    // Zamiast GetFirstNodeInGroup w każdym enemy:
     public Node3D Player { get; private set; }
     public Node3D PlayerAimTarget { get; private set; }
 
@@ -22,6 +23,8 @@ public abstract partial class Enemy : CharacterBody3D, IScalableEnemy
     private float _baseMoveSpeed;
     private float _baseDamage;
 
+    private bool _alive = true;
+
     public override void _Ready()
     {
         FindNodes();
@@ -30,17 +33,39 @@ public abstract partial class Enemy : CharacterBody3D, IScalableEnemy
 
         LoadBaseStats();
         OnAfterReady();
+
+        // Krytyczne: komponenty NIE mają własnego ticka.
+        VelocityComp?.SetPhysicsProcess(false);
+        Pathfind?.SetPhysicsProcess(false);
+        // StatusComponent też: SetProcess(false) i ręcznie tickujemy (patrz niżej).
     }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        if (!_alive) return;
+        float dt = (float)delta;
+
+        // 1) “mózg” (state machine)
+        TickBrain(dt);
+
+        // 2) nawigacja (rzadziej niż co klatkę, ale wywołujemy metodę tick)
+        if (Pathfind != null)
+            Pathfind.Tick(dt);
+
+        // 3) ruch (MoveAndSlide robimy raz tutaj)
+        if (VelocityComp != null)
+            VelocityComp.Tick(dt);
+    }
+
+    // Hook dla StateMachineEnemy
+    protected virtual void TickBrain(float dt) { }
 
     protected virtual void FindNodes()
     {
         VelocityComp = GetNodeOrNull<VelocityComponent>("VelocityComponent");
         Pathfind = GetNodeOrNull<PathfindComponent>("PathfindComponent");
         Health = GetNodeOrNull<HealthComponent>("HealthComponent");
-
-        if (Health != null)
-            Hurtbox = Health.Hurtbox;
-
+        if (Health != null) Hurtbox = Health.Hurtbox;
         Hitbox = GetNodeOrNull<HitboxComponent>("HitboxComponent");
 
         Player = GetTree().GetFirstNodeInGroup("player") as Node3D;
@@ -67,13 +92,11 @@ public abstract partial class Enemy : CharacterBody3D, IScalableEnemy
 
     private void OnDiedCommon()
     {
+        _alive = false;
         SetupDeadCollisions();
 
-        if (Pathfind != null)
-            Pathfind.Active = false;
-
-        if (VelocityComp != null)
-            VelocityComp.Active = false;
+        if (Pathfind != null) Pathfind.Active = false;
+        if (VelocityComp != null) VelocityComp.Active = false;
 
         OnDied();
     }
@@ -101,18 +124,16 @@ public abstract partial class Enemy : CharacterBody3D, IScalableEnemy
         MoveSpeed = _baseMoveSpeed;
         Damage = _baseDamage;
 
-        ApplyStatsToComponents(initialLoad: true);
+        ApplyStatsToComponents(true);
     }
 
     public void ApplyDifficulty(DifficultySnapshot difficulty)
     {
         CurrentDifficulty = difficulty;
-
         MaxHealth = _baseMaxHealth * difficulty.HpMultiplier;
         MoveSpeed = _baseMoveSpeed * difficulty.MoveSpeedMultiplier;
         Damage = _baseDamage * difficulty.DamageMultiplier;
-
-        ApplyStatsToComponents(initialLoad: false);
+        ApplyStatsToComponents(false);
     }
 
     protected virtual void ApplyStatsToComponents(bool initialLoad)
@@ -120,17 +141,17 @@ public abstract partial class Enemy : CharacterBody3D, IScalableEnemy
         if (Health != null)
         {
             Health.MaxHealth = MaxHealth;
-
-            if (initialLoad || Health.CurrentHealth <= 0f)
-                Health.CurrentHealth = MaxHealth;
-            else
-                Health.CurrentHealth = Mathf.Min(Health.CurrentHealth, MaxHealth);
+            if (initialLoad || Health.CurrentHealth <= 0f) Health.CurrentHealth = MaxHealth;
+            else Health.CurrentHealth = Mathf.Min(Health.CurrentHealth, MaxHealth);
         }
 
-        if (VelocityComp != null)
-            VelocityComp.MaxSpeed = MoveSpeed;
+        if (VelocityComp != null) VelocityComp.MaxSpeed = MoveSpeed;
+        if (Hitbox != null) Hitbox.Damage = Damage;
+    }
 
-        if (Hitbox != null)
-            Hitbox.Damage = Damage;
+    public void EnableMovement(bool enable)
+    {
+        if (VelocityComp != null) VelocityComp.Active = enable;
+        if (Pathfind != null) Pathfind.Active = enable;
     }
 }

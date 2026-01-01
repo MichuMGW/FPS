@@ -40,11 +40,11 @@ public sealed class DifficultyManager
 
     // Spawn knobs
     // private const float SpawnIntervalStart = 8.0f; //NAPRAWIĆ POTEM
-    private const float SpawnIntervalStart = 0.01f;
+    private const float SpawnIntervalStart = 7f;
 
     private const float SpawnIntervalFloor = 0.60f;
 
-    private const int MaxAliveStart = 60; //NAPRAWIĆ POTEM
+    private const int MaxAliveStart = 10; //NAPRAWIĆ POTEM
     private const int MaxAliveCap = 60;
 
     private const float BudgetStart = 5.5f;
@@ -52,9 +52,10 @@ public sealed class DifficultyManager
 
     // Mikro-skoki “jak stage”, ale bez stage:
     // co N minut lekko dopalasz coeff (np. “fala elite” / “nowa pula wrogów”)
-    private const float PulseEveryMinutes = 6.0f;
+    private const float PulseEveryMinutes = 3f;
     private const float PulseStrength = 0.06f; // 6% przyspieszenia na oknie pulsu
     private const float PulseWidth = 0.9f;     // szerokość pulsu w minutach (miękko, nie schodek)
+    public RunDifficulty RunDifficulty { get; set; }
 
     public DifficultySnapshot GetDifficulty(
         float elapsedSeconds,

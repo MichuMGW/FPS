@@ -1,4 +1,4 @@
-[gd_scene load_steps=96 format=3 uid="uid://dsy504x2ofm0n"]
+[gd_scene load_steps=97 format=3 uid="uid://dsy504x2ofm0n"]
 
 [ext_resource type="Script" uid="uid://b3dqbkjkxa0yx" path="res://scripts/entity/enemy/Mech/Mech.cs" id="1_4egvb"]
 [ext_resource type="PackedScene" uid="uid://b63shw0jao7f1" path="res://Assets/models/enemies/mech.glb" id="1_l00so"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cskxd7ws222u7" path="res://scenes/entities/objects/rocket.tscn" id="3_n5ocl"]
 [ext_resource type="Texture2D" uid="uid://bj8pn6skhllmg" path="res://Assets/textures/entities/enemies/mech/Mech Normal.png" id="4_qptip"]
 [ext_resource type="PackedScene" uid="uid://dhvc0370yavkg" path="res://scenes/components/pathfind_component.tscn" id="4_xainl"]
+[ext_resource type="Resource" uid="uid://2ysv4n4o60su" path="res://resources/stats/enemy_stats/MechStats.tres" id="5_aivtk"]
 [ext_resource type="PackedScene" uid="uid://dasekhirly362" path="res://scenes/components/skeletal_hurtbox_component.tscn" id="6_n5ocl"]
 [ext_resource type="PackedScene" uid="uid://hvw6gscvm54u" path="res://scenes/components/velocity_component.tscn" id="7_ll0vx"]
 [ext_resource type="Animation" uid="uid://dqwesx2ykr236" path="res://Assets/Animations/Enemies/Mech/Mech_CrouchBeforeJump.res" id="11_n87kn"]
@@ -306,6 +307,7 @@ LandingDecalScene = ExtResource("3_kqfwb")
 LeftArmLookAt = NodePath("Mech/MechArmature/Skeleton3D/ArmLeftLookAt")
 RightArmLookAt = NodePath("Mech/MechArmature/Skeleton3D/ArmRightLookAt")
 HeadLookAt = NodePath("Mech/MechArmature/Skeleton3D/HeadLookAt")
+StatsResource = ExtResource("5_aivtk")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 

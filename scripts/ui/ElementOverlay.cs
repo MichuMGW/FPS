@@ -3,21 +3,40 @@ using System.Text;
 
 public partial class ElementOverlay : CanvasLayer
 {
+    [Export] public NodePath HeaderLabelPath = "ElementView/VBoxContainer/Top/HeaderLabel";
+    [Export] public NodePath SubHeaderLabelPath = "ElementView/VBoxContainer/Top/SubHeaderLabel";
+
     [Export] public NodePath FireButtonPath = "ElementView/VBoxContainer/HBoxContainer/FireButton";
     [Export] public NodePath WaterButtonPath = "ElementView/VBoxContainer/HBoxContainer/WaterButton";
     [Export] public NodePath AirButtonPath = "ElementView/VBoxContainer/HBoxContainer/AirButton";
     [Export] public NodePath NatureButtonPath = "ElementView/VBoxContainer/HBoxContainer/NatureButton";
 
-    [Export] public NodePath DescriptionLabelPath = "ElementView/VBoxContainer/Panel/Label";
+    [Export] public NodePath LeftSpellTitlePath = "ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer/LeftSpellVBoxContainer/SpellTitle";
+    [Export] public NodePath RightSpellTitlePath = "ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer/RightSpellVBoxContainer/SpellTitle";
+    [Export] public NodePath DashSpellTitlePath = "ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer/DashSpellVBoxContainer/SpellTitle";
+
+    [Export] public NodePath LeftSpellIconPath = "ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer/LeftSpellVBoxContainer/SpellIcon";
+    [Export] public NodePath RightSpellIconPath = "ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer/RightSpellVBoxContainer/SpellIcon";
+    [Export] public NodePath DashSpellIconPath = "ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer/DashSpellVBoxContainer/SpellIcon";
+
+    [Export] public NodePath LeftSpellDescriptionPath = "ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer/LeftSpellVBoxContainer/SpellDescription";
+    [Export] public NodePath RightSpellDescriptionPath = "ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer/RightSpellVBoxContainer/SpellDescription";
+    [Export] public NodePath DashSpellDescriptionPath = "ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer/DashSpellVBoxContainer/SpellDescription";
+
     [Export] public NodePath SubViewportPath = "ElementView/SubViewport";
 
     [Export] public ElementKitDatabase KitDatabase;
-
     [Export] public bool IsSecondPick = false;
 
+    private Label _headerLabel;
+    private Label _subHeaderLabel;
+
     private Button _fireBtn, _waterBtn, _airBtn, _natureBtn;
-    private Label _desc;
+    private Label _leftSpellTitle, _rightSpellTitle, _dashSpellTitle;
+    private TextureRect _leftSpellIcon, _rightSpellIcon, _dashSpellIcon;
+    private Label _leftSpellDescription, _rightSpellDescription, _dashSpellDescription;
     private SubViewport _vp;
+
 
     private GameEvents _events;
     private RunElementState _runState;
@@ -27,36 +46,43 @@ public partial class ElementOverlay : CanvasLayer
         _events = GetTree().Root.GetNodeOrNull<GameEvents>("GameEvents");
         _runState = GetTree().Root.GetNodeOrNull<RunElementState>("RunElementState");
 
+        _headerLabel = GetNodeOrNull<Label>(HeaderLabelPath);
+        _subHeaderLabel = GetNodeOrNull<Label>(SubHeaderLabelPath);
+
         _fireBtn = GetNode<Button>(FireButtonPath);
         _waterBtn = GetNode<Button>(WaterButtonPath);
         _airBtn = GetNode<Button>(AirButtonPath);
         _natureBtn = GetNode<Button>(NatureButtonPath);
 
         _vp = GetNode<SubViewport>(SubViewportPath);
-        _desc = GetNode<Label>(DescriptionLabelPath);
+
+        _leftSpellTitle = GetNode<Label>(LeftSpellTitlePath);
+        _rightSpellTitle = GetNode<Label>(RightSpellTitlePath);
+        _dashSpellTitle = GetNode<Label>(DashSpellTitlePath);
+
+        _leftSpellDescription = GetNode<Label>(LeftSpellDescriptionPath);
+        _rightSpellDescription = GetNode<Label>(RightSpellDescriptionPath);
+        _dashSpellDescription = GetNode<Label>(DashSpellDescriptionPath);
+
+        _leftSpellIcon = GetNode<TextureRect>(LeftSpellIconPath);
+        _rightSpellIcon = GetNode<TextureRect>(RightSpellIconPath);
+        _dashSpellIcon = GetNode<TextureRect>(DashSpellIconPath);
 
         WireButton(_fireBtn, Element.Fire);
         WireButton(_waterBtn, Element.Water);
         WireButton(_airBtn, Element.Air);
-
-        // UWAGA: u Ciebie w enumie startowe żywioły to Fire/Water/Nature/Air.
-        // Przycisk "NatureButton" na screenie najpewniej ma znaczyć "Nature/Ziemia bazowa".
         WireButton(_natureBtn, Element.Nature);
 
         ApplySecondPickRules();
-        ShowKitPreview(Element.Fire); // domyślnie coś pokaż, żeby panel nie był pusty
+        SetTopLabelsIdle();
+
+        HideKitPreview();
 
         SyncViewportSize();
         GetViewport().SizeChanged += SyncViewportSize;
 
         Input.MouseMode = Input.MouseModeEnum.Visible;
         ProcessMode = ProcessModeEnum.Always;
-    }
-
-    public override void _UnhandledInput(InputEvent e)
-    {
-        if (e is InputEventMouseButton mb && mb.Pressed)
-            GD.Print($"[ElementOverlay] got click: {mb.ButtonIndex}");
     }
 
     private void SyncViewportSize()
@@ -69,23 +95,43 @@ public partial class ElementOverlay : CanvasLayer
     {
         btn.Pressed += () => Pick(element);
 
-        // “podgląd po najechaniu”:
+        // show preview on hover/focus
         btn.MouseEntered += () => ShowKitPreview(element);
         btn.FocusEntered += () => ShowKitPreview(element);
+
+        // hide preview when leaving hover/focus
+        btn.MouseExited += HideKitPreview;
+        btn.FocusExited += HideKitPreview;
+    }
+
+    private void HideKitPreview()
+    {
+        ClearSpellUI();
+        SetTopLabelsIdle();
     }
 
     private void ApplySecondPickRules()
     {
         if (!IsSecondPick || _runState == null) return;
 
-        // zablokuj element już wybrany jako pierwszy
         var first = _runState.First;
         if (first == Element.None) return;
 
-        if (first == Element.Fire) _fireBtn.Disabled = true;
-        if (first == Element.Water) _waterBtn.Disabled = true;
-        if (first == Element.Air) _airBtn.Disabled = true;
-        if (first == Element.Nature) _natureBtn.Disabled = true;
+        DisableIfNoCombo(first, Element.Fire, _fireBtn);
+        DisableIfNoCombo(first, Element.Water, _waterBtn);
+        DisableIfNoCombo(first, Element.Air, _airBtn);
+        DisableIfNoCombo(first, Element.Nature, _natureBtn);
+    }
+
+    private void DisableIfNoCombo(Element first, Element candidate, Button btn)
+    {
+        if (btn.Disabled) return;
+
+        if (candidate == first) return;
+
+        var combined = ElementCombiner.Combine(first, candidate);
+        if (combined == Element.None)
+            btn.Disabled = true;
     }
 
     private void Pick(Element picked)
@@ -99,72 +145,141 @@ public partial class ElementOverlay : CanvasLayer
         }
 
         _events?.EmitElementPicked(picked, IsSecondPick);
-
-        // Zamykamy overlay. Jeśli wolisz animację, odpal AnimationPlayer i dopiero QueueFree w callbacku.
         QueueFree();
     }
 
-    private void ShowKitPreview(Element baseElement)
+    private void ShowKitPreview(Element hoveredElement)
     {
+        if (_headerLabel != null)
+            _headerLabel.Text = IsSecondPick ? "Choose a second element" : "Choose an element";
+
         if (KitDatabase == null)
         {
-            _desc.Text = "Brak przypiętej bazy kitów (ElementKitDatabase).";
+            if (_subHeaderLabel != null)
+                _subHeaderLabel.Text = "No ElementKitDatabase assigned.";
+            ClearSpellUI();
             return;
         }
 
-        // Podgląd:
-        // - dla pierwszego wyboru: pokazujemy kit bazowy
-        // - dla drugiego wyboru: pokazujemy wynik kombinacji (first + hovered)
-        Element previewElement = baseElement;
+        Element previewElement = hoveredElement;
 
         if (IsSecondPick && _runState != null && _runState.HasFirst)
         {
-            previewElement = ElementCombiner.Combine(_runState.First, baseElement);
-            if (previewElement == Element.None)
+            var first = _runState.First;
+
+            if (hoveredElement == first)
             {
-                _desc.Text = $"Brak kombinacji dla: {_runState.First} + {baseElement}.";
-                return;
+                // retain
+                previewElement = first;
+                if (_subHeaderLabel != null)
+                    _subHeaderLabel.Text = $"Retain element: {ElementName(first)}";
             }
+            else
+            {
+                previewElement = ElementCombiner.Combine(first, hoveredElement);
+                if (previewElement == Element.None)
+                {
+                    if (_subHeaderLabel != null)
+                        _subHeaderLabel.Text = $"Combination unavailable: {ElementName(first)} + {ElementName(hoveredElement)}";
+                    ClearSpellUI();
+                    return;
+                }
+
+                if (_subHeaderLabel != null)
+                    _subHeaderLabel.Text = $"Element: {ElementName(previewElement)}";
+            }
+        }
+        else
+        {
+            // first pick
+            if (_subHeaderLabel != null)
+                _subHeaderLabel.Text = $"Element: {ElementName(previewElement)}";
         }
 
         var kit = KitDatabase.GetKit(previewElement);
         if (kit == null)
         {
-            _desc.Text = $"Brak kitu dla żywiołu: {previewElement}.";
+            if (_subHeaderLabel != null)
+                _subHeaderLabel.Text = $"No kit found for: {ElementName(previewElement)}";
+            ClearSpellUI();
             return;
         }
 
-        _desc.Text = BuildKitDescription(previewElement, kit);
+        BuildKitDescription(previewElement, kit);
     }
 
-    private string BuildKitDescription(Element element, ElementKitDefinition kit)
+    private void BuildKitDescription(Element element, ElementKitDefinition kit)
     {
-        var sb = new StringBuilder();
-        sb.AppendLine($"Żywioł: {element}");
-        sb.AppendLine();
+        ApplySpellToUI(
+            titleLabel: _leftSpellTitle,
+            descLabel: _leftSpellDescription,
+            iconRect: _leftSpellIcon,
+            def: kit.LeftHandSpell,
+            fallbackTitle: "Left (Basic)"
+        );
 
-        AppendSpell(sb, "Lewy", kit.LeftHandSpell);
-        AppendSpell(sb, "Prawy", kit.RightHandSpell);
-        AppendSpell(sb, "Dash", kit.DashSpell);
+        ApplySpellToUI(
+            titleLabel: _rightSpellTitle,
+            descLabel: _rightSpellDescription,
+            iconRect: _rightSpellIcon,
+            def: kit.RightHandSpell,
+            fallbackTitle: "Right"
+        );
 
-        return sb.ToString().TrimEnd();
+        ApplySpellToUI(
+            titleLabel: _dashSpellTitle,
+            descLabel: _dashSpellDescription,
+            iconRect: _dashSpellIcon,
+            def: kit.DashSpell,
+            fallbackTitle: "Dash"
+        );
     }
 
-    private void AppendSpell(StringBuilder sb, string slotName, SpellDefinition def)
+    private void ApplySpellToUI(Label titleLabel, Label descLabel, TextureRect iconRect, SpellDefinition def, string fallbackTitle)
     {
+        if (titleLabel == null && descLabel == null && iconRect == null)
+            return;
+
         if (def == null)
         {
-            sb.AppendLine($"{slotName}: (brak)");
-            sb.AppendLine();
+            if (titleLabel != null) titleLabel.Text = $"{fallbackTitle}: (none)";
+            if (descLabel != null) descLabel.Text = "";
+            if (iconRect != null) iconRect.Texture = null;
             return;
         }
 
-        sb.AppendLine($"{slotName}: {def.DisplayName}");
-        if (!string.IsNullOrWhiteSpace(def.Description))
-            sb.AppendLine(def.Description.Trim());
+        if (titleLabel != null)
+            titleLabel.Text = string.IsNullOrWhiteSpace(def.DisplayName) ? fallbackTitle : def.DisplayName;
 
-        // “krótka ściąga” ze statów, żeby gracz coś widział
-        sb.AppendLine($"DMG: {def.DamageModifier} | CD: {def.BaseCooldown:0.##} | Mana: {def.BaseManaCost:0.##} | Range: {def.BaseRange:0.##}");
-        sb.AppendLine();
+        var d = (def.Description ?? "").Trim();
+
+        var stats = $"DMG Multiplier: {def.DamageModifier * 100f:0.##}%  |  CD: {def.BaseCooldown:0.##} s  |  Mana: {def.BaseManaCost:0.##}  |  Range: {def.BaseRange:0.##}m";
+
+        if (descLabel != null)
+            descLabel.Text = string.IsNullOrWhiteSpace(d) ? stats : $"{d}\n{stats}";
+
+        if (iconRect != null)
+            iconRect.Texture = def.Icon;
+    }
+
+    private void ClearSpellUI()
+    {
+        ApplySpellToUI(_leftSpellTitle, _leftSpellDescription, _leftSpellIcon, null, "Left (Basic)");
+        ApplySpellToUI(_rightSpellTitle, _rightSpellDescription, _rightSpellIcon, null, "Right");
+        ApplySpellToUI(_dashSpellTitle, _dashSpellDescription, _dashSpellIcon, null, "Dash");
+    }
+
+    private void SetTopLabelsIdle()
+    {
+        if (_headerLabel != null)
+            _headerLabel.Text = IsSecondPick ? "Choose a second element" : "Choose an element";
+
+        if (_subHeaderLabel != null)
+            _subHeaderLabel.Text = "";
+    }
+
+    private static string ElementName(Element e)
+    {
+        return e.ToString();
     }
 }

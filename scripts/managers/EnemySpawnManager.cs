@@ -4,36 +4,29 @@ using System.Collections.Generic;
 
 public partial class EnemySpawnManager : Node3D
 {
-    // ROZMIAR MAPY (ŚRODEK W (0,0), PROMIEŃ ~ 285 = 570/2)
     [Export] public Vector2 MapHalfExtents = new(285f, 285f);
 
-    // PIERŚCIEŃ SPAWNU
     [Export(PropertyHint.Range, "0,300,0.1")]
-    public float MinSpawnDistance = 30f;
+    public float MinSpawnDistance = 40f;
 
     [Export(PropertyHint.Range, "0,300,0.1")]
     public float MaxSpawnDistance = 50f;
 
-    // FOV (POZA TYM KĄTEM MOŻNA SPAWNIĆ)
     [Export(PropertyHint.Range, "0,180,1")]
     public float CameraFovDegrees = 120f;
 
-    // KOLIZJE / TEREN
     [Export] public uint TerrainCollisionMask = PhysicsLayers.TERRAIN;
     [Export] public uint ObstacleCollisionMask = PhysicsLayers.OBSTACLES;
     [Export] public float RaycastHeight = 100f;
     [Export] public float SpawnClearRadius = 1.5f;
     [Export] public int MaxTriesPerSpawn = 25;
 
-    // MASKA BW – BIAŁY = MOŻNA SPAWN
     [Export] public Texture2D SpawnMaskTexture;
-    [Export] public bool FlipV = true; // jak maska będzie do góry nogami, flipniesz
+    [Export] public bool FlipV = true;
 
-    // DIFICULTY (od GameDirectora)
     private DifficultySnapshot _currentDifficulty;
     public DifficultySnapshot CurrentDifficulty => _currentDifficulty;
 
-    // PODSTAWOWE NODY
     private Node3D _player;
     private Camera3D _camera;
     public Node3D EnemiesRoot;
@@ -42,19 +35,31 @@ public partial class EnemySpawnManager : Node3D
     public int AliveEnemiesCount => EnemiesRoot?.GetChildCount() ?? 0;
     public int AliveMinionsCount => MinionsRoot?.GetChildCount() ?? 0;
 
-    // Maska
     private Image _maskImage;
     private int _maskWidth;
     private int _maskHeight;
 
-    // Spawn type’y
-    private readonly List<PackedScene> _enemyTypes = new();
     private bool _spawningEnabled;
-    private float _spawnTimer;
 
-    // Navi
     private bool _navReady = false;
     private Rid _navMap;
+
+    private sealed class EnemySpawnEntry
+    {
+        public PackedScene Scene;
+        public float Weight;
+
+        public EnemySpawnEntry(PackedScene scene, float weight)
+        {
+            Scene = scene;
+            Weight = weight;
+        }
+    }
+
+    private readonly List<EnemySpawnEntry> _enemyPool = new();
+
+    private bool _weightsDirty = true;
+    private float _totalWeight = 0f;
 
     public override void _Ready()
     {
@@ -74,11 +79,12 @@ public partial class EnemySpawnManager : Node3D
         if (EnemiesRoot == null)
             EnemiesRoot = this;
 
-        // Jeżeli masz osobny node "EnemiesRoot" w scenie:
-        // (jak nie masz, to możesz ten kawałek wywalić)
         var currentScene = GetTree().CurrentScene;
-        EnemiesRoot = currentScene.GetNode<Node3D>("EnemiesRoot");
-        MinionsRoot = currentScene.GetNode<Node3D>("MinionsRoot");
+        if (currentScene != null)
+        {
+            EnemiesRoot = currentScene.GetNode<Node3D>("EnemiesRoot");
+            MinionsRoot = currentScene.GetNode<Node3D>("MinionsRoot");
+        }
 
         CallDeferred(nameof(InitNavigationMap));
     }
@@ -86,69 +92,71 @@ public partial class EnemySpawnManager : Node3D
     private void InitNavigationMap()
     {
         var world3D = GetWorld3D();
-        if (world3D == null)
-        {
-            GD.PushError("[EnemySpawnManager] World3D is null in InitNavigationMap.");
-            return;
-        }
 
         _navMap = world3D.NavigationMap;
 
         if (_navMap.IsValid)
         {
             _navReady = true;
-            GD.Print("[EnemySpawnManager] Navigation map is ready.");
-        }
-        else
-        {
-            GD.PushWarning("[EnemySpawnManager] Navigation map is not valid yet.");
         }
     }
 
     private void InitMaskImage()
     {
-        if (SpawnMaskTexture == null)
-        {
-            GD.PushWarning("[EnemySpawnManager] SpawnMaskTexture not assigned – mask check disabled.");
-            return;
-        }
-
         _maskImage = SpawnMaskTexture.GetImage();
-        if (_maskImage == null)
-        {
-            GD.PushError("[EnemySpawnManager] Could not get Image from SpawnMaskTexture.");
-            return;
-        }
+        if (_maskImage == null) return;
 
         _maskWidth  = _maskImage.GetWidth();
         _maskHeight = _maskImage.GetHeight();
     }
 
-    // ================== PUBLIC API ==================
-
     public void StartSpawning()
     {
         _spawningEnabled = true;
-        _spawnTimer = 0f;
     }
 
     public void StopSpawning() => _spawningEnabled = false;
 
     public void UpdateDifficulty(DifficultySnapshot snapshot) => _currentDifficulty = snapshot;
 
-    public void AddEnemyType(PackedScene enemyScene)
+    public void AddEnemyType(PackedScene enemyScene, float weight = 1f)
     {
-        if (enemyScene == null)
+        if (enemyScene == null) return;
+
+        weight = Mathf.Max(0f, weight);
+
+        for (int i = 0; i < _enemyPool.Count; i++)
         {
-            GD.PushError("[EnemySpawnManager] Tried to add null scene.");
-            return;
+            if (_enemyPool[i].Scene == enemyScene)
+            {
+                _enemyPool[i].Weight = weight;
+                _weightsDirty = true;
+                return;
+            }
         }
 
-        if (!_enemyTypes.Contains(enemyScene))
-            _enemyTypes.Add(enemyScene);
+        _enemyPool.Add(new EnemySpawnEntry(enemyScene, weight));
+        _weightsDirty = true;
     }
 
-    // Proste API: spróbuj znaleźć pozycję – zwróć true/false
+    public void SetEnemyWeight(PackedScene enemyScene, float weight)
+    {
+        if (enemyScene == null)
+            return;
+
+        weight = Mathf.Max(0f, weight);
+
+        for (int i = 0; i < _enemyPool.Count; i++)
+        {
+            if (_enemyPool[i].Scene == enemyScene)
+            {
+                _enemyPool[i].Weight = weight;
+                _weightsDirty = true;
+                return;
+            }
+        }
+    }
+
     public bool TryGetSpawnPosition(out Vector3 spawnPos)
     {
         spawnPos = default;
@@ -180,8 +188,7 @@ public partial class EnemySpawnManager : Node3D
 
         for (int i = 0; i < MaxTriesPerSpawn; i++)
         {
-            // 1) losowy punkt 30–50m od gracza (XZ)
-            float angle    = (float)GD.RandRange(0.0, Mathf.Tau);
+            float angle = (float)GD.RandRange(0.0, Mathf.Tau);
             float distance = (float)GD.RandRange(MinSpawnDistance, MaxSpawnDistance);
 
             Vector3 offset = new Vector3(
@@ -192,14 +199,11 @@ public partial class EnemySpawnManager : Node3D
 
             Vector3 candidateXZ = _player.GlobalPosition + offset;
 
-            // Clamp do świata (pod maskę)
             candidateXZ.X = Mathf.Clamp(candidateXZ.X, -MapHalfExtents.X, MapHalfExtents.X);
             candidateXZ.Z = Mathf.Clamp(candidateXZ.Z, -MapHalfExtents.Y, MapHalfExtents.Y);
 
-            // 2) przyciągnięcie do navmesha
             Vector3 navPoint = NavigationServer3D.MapGetClosestPoint(_navMap, candidateXZ);
 
-            // sprawdź, czy dalej jesteśmy w pierścieniu
             float distToPlayerXZ = new Vector2(
                 navPoint.X - _player.GlobalPosition.X,
                 navPoint.Z - _player.GlobalPosition.Z
@@ -208,9 +212,8 @@ public partial class EnemySpawnManager : Node3D
             if (distToPlayerXZ < MinSpawnDistance || distToPlayerXZ > MaxSpawnDistance)
                 continue;
 
-            // 3) Raycast w dół – doprecyzowanie pozycji + normal
             Vector3 from = navPoint + Vector3.Up * RaycastHeight;
-            Vector3 to   = navPoint + Vector3.Down * RaycastHeight * 2f;
+            Vector3 to = navPoint + Vector3.Down * RaycastHeight * 2f;
 
             var rayParams = PhysicsRayQueryParameters3D.Create(from, to);
             rayParams.CollisionMask = TerrainCollisionMask;
@@ -222,20 +225,16 @@ public partial class EnemySpawnManager : Node3D
             Vector3 groundPos = (Vector3)hit["position"];
             Vector3 normal    = (Vector3)hit["normal"];
 
-            // Zbyt stromo?
             if (normal.Y < 0.7f)
                 continue;
 
-            // 4) Maska BW – biały = można spawnować
             if (!IsAllowedByMask(groundPos))
                 continue;
 
-            // 5) Poza FOV gracza
             if (IsInsidePlayerFov(groundPos))
                 continue;
 
-            // 6) Lokalna kolizja – czy coś tam już nie stoi
-            if (IsPointFree(groundPos, space))
+            if (!IsPointFree(groundPos, space))
                 continue;
 
             spawnPos = groundPos;
@@ -245,30 +244,35 @@ public partial class EnemySpawnManager : Node3D
         return false;
     }
 
-    // Losowy typ wroga z listy
+
     public void SpawnRandomEnemy()
     {
-        if (_enemyTypes.Count == 0)
+        if (!_spawningEnabled)
+            return;
+
+        if (_enemyPool.Count == 0)
         {
             GD.PushWarning("[EnemySpawnManager] No enemy types registered.");
             return;
         }
 
-        int idx = (int)GD.RandRange(0, _enemyTypes.Count);
-        if (idx >= _enemyTypes.Count)
-            idx = _enemyTypes.Count - 1;
+        int idx = PickWeightedIndex();
+        if (idx < 0)
+        {
+            GD.PushWarning("[EnemySpawnManager] Total weight is 0. Nothing to spawn.");
+            return;
+        }
 
-        var scene = _enemyTypes[idx];
-        SpawnEnemy(scene);
+        SpawnEnemy(_enemyPool[idx].Scene);
     }
 
-    // Wygodne API: podaj scenę, ja znajdę punkt i zrespię
     public Node3D SpawnEnemy(PackedScene enemyScene)
     {
-        if (!TryGetSpawnPosition(out var pos))
-        {
+        if (enemyScene == null)
             return null;
-        }
+
+        if (!TryGetSpawnPosition(out var pos))
+            return null;
 
         var enemy = enemyScene.Instantiate<Node3D>();
         EnemiesRoot.AddChild(enemy);
@@ -276,12 +280,43 @@ public partial class EnemySpawnManager : Node3D
         enemy.LookAt(_player.GlobalPosition, Vector3.Up, true);
 
         if (enemy is IScalableEnemy scalable)
-        {
             scalable.ApplyDifficulty(_currentDifficulty);
-            GD.Print("Current Difficulty Coeff: " + _currentDifficulty.Coeff); 
-        }
-            
+
         return enemy;
+    }
+
+    private int PickWeightedIndex()
+    {
+        RebuildWeightCacheIfNeeded();
+
+        if (_totalWeight <= 0f)
+            return -1;
+
+        float roll = GD.Randf() * _totalWeight;
+        float sum = 0f;
+
+        for (int i = 0; i < _enemyPool.Count; i++)
+        {
+            float w = Mathf.Max(0f, _enemyPool[i].Weight);
+            sum += w;
+            if (roll <= sum)
+                return i;
+        }
+
+        return _enemyPool.Count - 1;
+    }
+
+    private void RebuildWeightCacheIfNeeded()
+    {
+        if (!_weightsDirty)
+            return;
+
+        _totalWeight = 0f;
+
+        for (int i = 0; i < _enemyPool.Count; i++)
+            _totalWeight += Mathf.Max(0f, _enemyPool[i].Weight);
+
+        _weightsDirty = false;
     }
 
     // ================== HELPERY ==================
@@ -289,9 +324,8 @@ public partial class EnemySpawnManager : Node3D
     private bool IsAllowedByMask(Vector3 worldPos)
     {
         if (_maskImage == null)
-            return true; // maska wyłączona → nie blokujemy
+            return true;
 
-        // world XZ → UV 0..1
         float u = (worldPos.X + MapHalfExtents.X) / (MapHalfExtents.X * 2f);
         float v = (worldPos.Z + MapHalfExtents.Y) / (MapHalfExtents.Y * 2f);
 
@@ -301,12 +335,10 @@ public partial class EnemySpawnManager : Node3D
         if (FlipV)
             v = 1f - v;
 
-        int px = (int)(u * (_maskWidth  - 1));
+        int px = (int)(u * (_maskWidth - 1));
         int py = (int)(v * (_maskHeight - 1));
 
         Color color = _maskImage.GetPixel(px, py);
-
-        // B/W: biały ≈ 1, czarny ≈ 0. Wystarczy próg.
         return color.R > 0.5f;
     }
 
@@ -314,6 +346,7 @@ public partial class EnemySpawnManager : Node3D
     {
         Vector3 toTarget = worldPos - _player.GlobalPosition;
         toTarget.Y = 0f;
+
         if (toTarget.LengthSquared() < 0.001f)
             return true;
 
@@ -323,12 +356,9 @@ public partial class EnemySpawnManager : Node3D
         forward.Y = 0f;
         forward = forward.Normalized();
 
-        float dot = forward.Dot(toTarget);
-        dot = Mathf.Clamp(dot, -1f, 1f);
-
+        float dot = Mathf.Clamp(forward.Dot(toTarget), -1f, 1f);
         float angleDeg = Mathf.RadToDeg(Mathf.Acos(dot));
 
-        // jeśli punkt jest w stożku FOV – NIE jest ok do spawnu
         return angleDeg <= CameraFovDegrees * 0.5f;
     }
 
@@ -340,7 +370,7 @@ public partial class EnemySpawnManager : Node3D
         {
             Shape = shape,
             Transform = new Transform3D(Basis.Identity, pos),
-            CollisionMask = TerrainCollisionMask | ObstacleCollisionMask
+            CollisionMask = ObstacleCollisionMask
         };
 
         var results = space.IntersectShape(query, maxResults: 8);

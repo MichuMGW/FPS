@@ -24,14 +24,4 @@ public class SkeletonSummonerDeadState : IState
     {
         
     }
-
-    public void PhysicsUpdate(double delta)
-    {
-        
-    }
-
-    public void Update(double delta)
-    {
-        
-    }
 }

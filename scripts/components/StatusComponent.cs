@@ -54,6 +54,8 @@ public partial class StatusComponent : Node
 		_health = GetOwner().GetNodeOrNull<HealthComponent>("HealthComponent");
 		_velocity = GetOwner().GetNodeOrNull<VelocityComponent>("VelocityComponent");
 
+        SetProcess(false);
+
         // ApplyMoveSpeedMultiplier(1f);
         // ApplyStunState(false);
     }
@@ -150,6 +152,7 @@ public partial class StatusComponent : Node
             return;
 
         // refresh duration, intensywność bierzemy max (FireExplosion > Fireball)
+        SetProcess(true);
         _burning = true;
         _burningTimeLeft = Mathf.Max(_burningTimeLeft, duration);
         _burningTickRate = tickRate;
@@ -170,6 +173,7 @@ public partial class StatusComponent : Node
             _burning = false;
             _burningTickAcc = 0f;
             _burningDotPerTick = 0f;
+            SetProcess(false);
             return;
         }
 
@@ -188,6 +192,7 @@ public partial class StatusComponent : Node
         if (duration <= 0f || dotPerTick <= 0f)
             return;
 
+        SetProcess(true);
         _bleeding = true;
         _bleedTimeLeft = Mathf.Max(_bleedTimeLeft, duration);
         _bleedTickRate = tickRate;
@@ -199,7 +204,7 @@ public partial class StatusComponent : Node
     {
         if (!_bleeding)
             return;
-
+        
         _bleedTimeLeft -= dt;
         if (_bleedTimeLeft <= 0f)
         {
@@ -213,6 +218,7 @@ public partial class StatusComponent : Node
         while (_bleedTickAcc >= _bleedTickRate)
         {
             _bleedTickAcc -= _bleedTickRate;
+            SetProcess(false);
             DealStatusDamage(_bleedDotPerTick, Element.Nature);
         }
     }
@@ -224,6 +230,7 @@ public partial class StatusComponent : Node
         if (duration <= 0f)
             return;
 
+        SetProcess(true);
         _slowed = true;
         _slowTimeLeft = Mathf.Max(_slowTimeLeft, duration);
 
@@ -246,6 +253,7 @@ public partial class StatusComponent : Node
             _slowed = false;
             _slowPercent = 0f;
             _speedMultiplier = 1f;
+            SetProcess(false);
             ApplyMoveSpeedMultiplier(1f);
         }
     }
@@ -257,6 +265,7 @@ public partial class StatusComponent : Node
         if (add <= 0f)
             return;
 
+        SetProcess(true);
         _earthBuildup += add;
 
         // decay ustawiamy “na czas trwania buildupu”
@@ -283,7 +292,10 @@ public partial class StatusComponent : Node
 
         // jak spadnie do zera, czyścimy decay, bo inaczej zostaje “na zawsze”
         if (_earthBuildup <= 0f)
+        {
             _earthDecayPerSecond = 0f;
+            SetProcess(false);
+        }
     }
 
     // ====================== Stun ======================
@@ -305,6 +317,7 @@ public partial class StatusComponent : Node
         {
             _stunned = false;
             ApplyStunState(false);
+            SetProcess(false);
         }
     }
 
@@ -323,12 +336,12 @@ public partial class StatusComponent : Node
 	//DO OGARNIĘCIA: obsługa stuna w AI
     private void ApplyStunState(bool stunned)
     {
-        var owner = GetOwner();
-        if (owner == null)
-            return;
+        // var owner = GetOwner();
+        // if (owner == null)
+        //     return;
 
-        var brain = owner.GetNodeOrNull<Node>("AIComponent");
-        if (brain != null && brain.HasMethod("SetStunned"))
-            brain.Call("SetStunned", stunned);
+        // var brain = owner.GetNodeOrNull<Node>("AIComponent");
+        // if (brain != null && brain.HasMethod("SetStunned"))
+        //     brain.Call("SetStunned", stunned);
     }
 }

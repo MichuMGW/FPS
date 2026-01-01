@@ -29,6 +29,7 @@ public partial class Skeleton : StateMachineEnemy<SkeletonStateId>
             { SkeletonStateId.Dead, new SkeletonDeadState(this) },
         };
 
+        // ChangeState(SkeletonStateId.Spawn);
         ChangeState(SkeletonStateId.Spawn);
     }
 

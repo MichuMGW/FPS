@@ -7,36 +7,46 @@ public partial class Player : CharacterBody3D
     [Export] public PlayerStatsResource BaseStats;
     public PlayerStatsManager Stats { get; private set; }
     public PlayerSpellController Spells { get; private set; }
-    [Export] public PlayerHealthComponent Health {get; set;} //DODAĆ DO SCENY
+    [Export] public PlayerHealthComponent Health { get; set; } //DODAĆ DO SCENY
     public PlayerMovement Movement { get; private set; }
     // [Export] public SpellCastManager SpellCastManager {get; set;}
-    [Export] public Node3D AimTarget {get; private set;}
+    [Export] public Node3D AimTarget { get; set; }
     [Export] public KnockbackComponent Knockback { get; private set; }
+    [Export] public Camera3D Camera { get; set; }
+    [Export] public SimpleHurtboxComponent Hurtbox { get; set; }
 
-    public AnimationPlayer Animation {get; private set; }
+    public AnimationPlayer Animation { get; private set; }
     public AnimationTree AnimTree { get; private set; }
     private AnimationNodeStateMachinePlayback _leftSmp;
     private AnimationNodeStateMachinePlayback _rightSmp;
 
-     // ---------- FSM: SUPER ----------
+    // ---------- FSM: SUPER ----------
     public PlayerSuperStateId CurrentSuperStateId { get; private set; }
     private IState _currentSuperState;
     private Dictionary<PlayerSuperStateId, IState> _superStates;
+    private IUpdateState _currentSuperUpdate;
+    private IPhysicsUpdateState _currentSuperPhysics;
 
     // ---------- FSM: MOVE ----------
     public PlayerMoveStateId CurrentMoveStateId { get; private set; }
     private IState _currentMoveState;
     private Dictionary<PlayerMoveStateId, IState> _moveStates;
+    private IUpdateState _currentMoveUpdate;
+    private IPhysicsUpdateState _currentMovePhysics;
 
     // ---------- FSM: PRIMARY ACTION ----------
     public PlayerPrimaryActionStateId CurrentPrimaryActionStateId { get; private set; }
     private IState _currentPrimaryActionState;
     private Dictionary<PlayerPrimaryActionStateId, IState> _primaryActionStates;
+    private IUpdateState _currentPrimaryActionUpdate;
+    private IPhysicsUpdateState _currentPrimaryActionPhysics;
 
     // ---------- FSM: SECONDARY ACTION ----------
     public PlayerSecondaryActionStateId CurrentSecondaryActionStateId { get; private set; }
     private IState _currentSecondaryActionState;
     private Dictionary<PlayerSecondaryActionStateId, IState> _secondaryActionStates;
+    private IUpdateState _currentSecondaryActionUpdate;
+    private IPhysicsUpdateState _currentSecondaryActionPhysics;
 
     public SpellSlot CurrentPrimaryCastingSlot { get; set; } = SpellSlot.LeftHand;
     public SpellSlot CurrentSecondaryCastingSlot { get; set; } = SpellSlot.RightHand;
@@ -78,41 +88,55 @@ public partial class Player : CharacterBody3D
         _leftSmp = (AnimationNodeStateMachinePlayback)AnimTree.Get("parameters/LeftHand/playback");
         _rightSmp = (AnimationNodeStateMachinePlayback)AnimTree.Get("parameters/RightHand/playback");
 
-        PlayLeftArmAnimation("Arms_L_Idle");
-        PlayRightArmAnimation("Arms_R_Idle");
+        PlayLeftArmAnimation("L_Idle");
+        PlayRightArmAnimation("R_Idle");
     }
 
-    public void PlayLeftArmAnimation(string stateName)
+    public void PlayLeftArmAnimation(string stateName, bool forceReset = false)
     {
-        _leftSmp?.Travel($"Arms_{stateName}");
+        if (forceReset)
+        {
+            _leftSmp?.Start($"Arms_{stateName}", true);
+        }
+        else
+        {
+            _leftSmp?.Travel($"Arms_{stateName}");
+        }
     }
 
-    public void PlayRightArmAnimation(string stateName)
+    public void PlayRightArmAnimation(string stateName, bool forceReset = false)
     {
-        _rightSmp?.Travel($"Arms_{stateName}");
+        if (forceReset)
+        {
+            _rightSmp?.Start($"Arms_{stateName}", true);
+        }
+        else
+        {
+            _rightSmp?.Travel($"Arms_{stateName}");
+        }
     }
 
     public override void _Process(double delta)
     {
-        _currentSuperState?.Update(delta);
+        _currentSuperUpdate?.Update(delta);
 
         if (CurrentSuperStateId == PlayerSuperStateId.Alive)
         {
-            _currentMoveState?.Update(delta);
-            _currentPrimaryActionState?.Update(delta);
-            _currentSecondaryActionState?.Update(delta);
+            _currentMoveUpdate?.Update(delta);
+            _currentPrimaryActionUpdate?.Update(delta);
+            _currentSecondaryActionUpdate?.Update(delta);
         }
     }
 
     public override void _PhysicsProcess(double delta)
     {
-        _currentSuperState?.PhysicsUpdate(delta);
+        _currentSuperPhysics?.PhysicsUpdate(delta);
 
         if (CurrentSuperStateId == PlayerSuperStateId.Alive)
         {
-            _currentMoveState?.PhysicsUpdate(delta);
-            _currentPrimaryActionState?.PhysicsUpdate(delta);
-            _currentSecondaryActionState?.PhysicsUpdate(delta);
+            _currentMovePhysics?.PhysicsUpdate(delta);
+            _currentPrimaryActionPhysics?.PhysicsUpdate(delta);
+            _currentSecondaryActionPhysics?.PhysicsUpdate(delta);
         }
 
         MoveAndSlide();
@@ -121,16 +145,20 @@ public partial class Player : CharacterBody3D
     private void FindNodes()
     {
         Stats = GetNode<PlayerStatsManager>("PlayerStatsManager");
-        if(Stats == null)
+        if (Stats == null)
         {
             GD.PrintErr("Player: PlaterStatsManager is null");
         }
         Health = GetNode<PlayerHealthComponent>("PlayerHealthComponent");
         Spells = GetNode<PlayerSpellController>("PlayerSpellController");
         Movement = GetNode<PlayerMovement>("PlayerMovement");
-        
+
         AnimTree = GetNode<AnimationTree>("Head/Camera3D/Arms/AnimationTree");
         Animation = GetNode<AnimationPlayer>("Head/Camera3D/Arms/AnimationPlayer");
+
+        Camera = GetNode<Camera3D>("Head/Camera3D");
+
+        Hurtbox = GetNode<SimpleHurtboxComponent>("SimpleHurtboxComponent");
     }
 
     private void InitializeSuperStates()
@@ -149,6 +177,7 @@ public partial class Player : CharacterBody3D
         {
             { PlayerMoveStateId.Grounded, new PlayerMoveGroundedState(this) },
             { PlayerMoveStateId.Airborne, new PlayerMoveAirborneState(this) },
+            { PlayerMoveStateId.Dash, new PlayerMoveDashState(this) }
         };
     }
 
@@ -178,6 +207,10 @@ public partial class Player : CharacterBody3D
         _currentSuperState?.Exit();
         CurrentSuperStateId = newState;
         _currentSuperState = _superStates[newState];
+
+        _currentSuperUpdate = _currentSuperState as IUpdateState;
+        _currentSuperPhysics = _currentSuperState as IPhysicsUpdateState;
+
         _currentSuperState.Enter();
     }
 
@@ -188,6 +221,10 @@ public partial class Player : CharacterBody3D
         _currentMoveState?.Exit();
         CurrentMoveStateId = newState;
         _currentMoveState = _moveStates[newState];
+
+        _currentMoveUpdate = _currentMoveState as IUpdateState;
+        _currentMovePhysics = _currentMoveState as IPhysicsUpdateState;
+
         _currentMoveState.Enter();
     }
 
@@ -198,6 +235,10 @@ public partial class Player : CharacterBody3D
         _currentPrimaryActionState?.Exit();
         CurrentPrimaryActionStateId = newState;
         _currentPrimaryActionState = _primaryActionStates[newState];
+
+        _currentPrimaryActionUpdate = _currentPrimaryActionState as IUpdateState;
+        _currentPrimaryActionPhysics = _currentPrimaryActionState as IPhysicsUpdateState;
+
         _currentPrimaryActionState.Enter();
     }
 
@@ -208,6 +249,10 @@ public partial class Player : CharacterBody3D
         _currentSecondaryActionState?.Exit();
         CurrentSecondaryActionStateId = newState;
         _currentSecondaryActionState = _secondaryActionStates[newState];
+
+        _currentSecondaryActionUpdate = _currentSecondaryActionState as IUpdateState;
+        _currentSecondaryActionPhysics = _currentSecondaryActionState as IPhysicsUpdateState;
+
         _currentSecondaryActionState.Enter();
     }
 
@@ -225,5 +270,14 @@ public partial class Player : CharacterBody3D
         StunTimeLeft = Mathf.Max(StunTimeLeft, seconds);
         ChangeSuperState(PlayerSuperStateId.Stunned);
     }
-}
 
+    public void StartDash(DashSpellDefinition def, Vector3 direction)
+    {
+        if (_moveStates[PlayerMoveStateId.Dash] is PlayerMoveDashState dashState)
+        {
+            dashState.Setup(def, direction);
+            ChangeMoveState(PlayerMoveStateId.Dash);
+        }
+    }
+
+}

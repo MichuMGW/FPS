@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="ElementKitDefinition" load_steps=4 format=3 uid="uid://hc2d4swmwhf4"]
+[gd_resource type="Resource" script_class="ElementKitDefinition" load_steps=5 format=3 uid="uid://hc2d4swmwhf4"]
 
+[ext_resource type="Resource" uid="uid://dn0micki6xl1g" path="res://resources/spells/spell_definitions/dash.tres" id="1_qlhwo"]
 [ext_resource type="Resource" uid="uid://dymh5sqmophp7" path="res://resources/spells/spell_definitions/fire_fireball.tres" id="1_rpmwo"]
 [ext_resource type="Script" uid="uid://b3lgib24dqmon" path="res://resources/spells/ElementKitDefinition.cs" id="1_uriph"]
 [ext_resource type="Resource" uid="uid://cyxu5p3imwvxv" path="res://resources/spells/spell_definitions/fire_explosion.tres" id="2_qlhwo"]
@@ -9,4 +10,5 @@ script = ExtResource("1_uriph")
 Element = 1
 LeftHandSpell = ExtResource("1_rpmwo")
 RightHandSpell = ExtResource("2_qlhwo")
+DashSpell = ExtResource("1_qlhwo")
 metadata/_custom_type_script = "uid://b3lgib24dqmon"

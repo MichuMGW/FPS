@@ -6,7 +6,7 @@
 [ext_resource type="Theme" uid="uid://csif8wnmjs1io" path="res://Assets/ui_theme.tres" id="3_0s288"]
 [ext_resource type="PackedScene" uid="uid://dxrmkqnipjh5w" path="res://Assets/models/crystals/crystal_water.glb" id="3_bkulj"]
 [ext_resource type="PackedScene" uid="uid://chctlq832mufm" path="res://Assets/models/crystals/crystal_air.glb" id="4_0s288"]
-[ext_resource type="PackedScene" uid="uid://b81qtwljp31b4" path="res://Assets/models/crystals/crystal_earth.glb" id="5_o758x"]
+[ext_resource type="PackedScene" uid="uid://1cpi31gjnrev" path="res://Assets/models/crystals/crystal_nature.glb" id="7_bkulj"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_fen1v"]
 viewport_path = NodePath("ElementView/SubViewport")
@@ -18,118 +18,97 @@ font_size = 64
 resource_name = "Move"
 length = 4.0
 loop_mode = 1
-tracks/0/type = "position_3d"
+tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ElementView/SubViewport/crystal_fire")
-tracks/0/interp = 1
+tracks/0/path = NodePath("ElementView/SubViewport/crystal_fire:position")
+tracks/0/interp = 2
 tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array()
-tracks/1/type = "position_3d"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ElementView/SubViewport/crystal_water")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = PackedFloat32Array()
-tracks/2/type = "position_3d"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("ElementView/SubViewport/crystal_earth")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = PackedFloat32Array()
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("ElementView/SubViewport/crystal_fire:position")
-tracks/3/interp = 2
-tracks/3/loop_wrap = true
-tracks/3/keys = {
+tracks/0/keys = {
 "times": PackedFloat32Array(0, 1, 2, 3, 4),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector3(-1.2, 1.2, 0), Vector3(-1.2, 1.3, 0), Vector3(-1.2, 1.2, 0), Vector3(-1.2, 1.3, 0), Vector3(-1.2, 1.2, 0)]
 }
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("ElementView/SubViewport/crystal_fire:rotation")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ElementView/SubViewport/crystal_fire:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0, 4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0, 6.28319, 0)]
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("ElementView/SubViewport/crystal_water:position")
-tracks/5/interp = 2
-tracks/5/loop_wrap = true
-tracks/5/keys = {
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ElementView/SubViewport/crystal_water:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0, 1, 2, 3, 4),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector3(-0.4, 1.2, 0), Vector3(-0.4, 1.3, 0), Vector3(-0.4, 1.2, 0), Vector3(-0.4, 1.3, 0), Vector3(-0.4, 1.2, 0)]
 }
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("ElementView/SubViewport/crystal_water:rotation")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ElementView/SubViewport/crystal_water:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
 "times": PackedFloat32Array(0, 4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0, 6.28319, 0)]
 }
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("ElementView/SubViewport/crystal_air:position")
-tracks/7/interp = 2
-tracks/7/loop_wrap = true
-tracks/7/keys = {
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ElementView/SubViewport/crystal_air:position")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/keys = {
 "times": PackedFloat32Array(0, 1, 2, 3, 4),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector3(0.4, 1.2, 0), Vector3(0.4, 1.3, 0), Vector3(0.4, 1.2, 0), Vector3(0.4, 1.3, 0), Vector3(0.4, 1.2, 0)]
 }
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("ElementView/SubViewport/crystal_earth:position")
-tracks/8/interp = 2
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0, 1, 2, 3, 4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(1.2, 1.2, 0), Vector3(1.2, 1.3, 0), Vector3(1.2, 1.2, 0), Vector3(1.2, 1.3, 0), Vector3(1.2, 1.2, 0)]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("ElementView/SubViewport/crystal_air:rotation")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ElementView/SubViewport/crystal_air:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
 "times": PackedFloat32Array(0, 4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0, 6.28319, 0)]
 }
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("ElementView/SubViewport/crystal_earth:rotation")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("ElementView/SubViewport/crystal_nature:position")
+tracks/6/interp = 2
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1.2, 1.2, 0), Vector3(1.2, 1.3, 0), Vector3(1.2, 1.2, 0), Vector3(1.2, 1.3, 0), Vector3(1.2, 1.2, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("ElementView/SubViewport/crystal_nature:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
 "times": PackedFloat32Array(0, 4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
@@ -201,38 +180,38 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("ElementView/SubViewport/crystal_earth:position")
+tracks/5/path = NodePath("ElementView/SubViewport/crystal_air:rotation")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(1.2, 1.3, 0)]
+"values": [Vector3(0, 0, 0)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("ElementView/SubViewport/crystal_air:rotation")
+tracks/6/path = NodePath("ElementView/SubViewport/crystal_nature:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0, 0)]
+"values": [Vector3(1.2, 1.3, 0)]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("ElementView/SubViewport/crystal_earth:rotation")
+tracks/7/path = NodePath("ElementView/SubViewport/crystal_nature:rotation")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0, 0)]
+"values": [Vector3(0, 6.28319, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6en3n"]
@@ -244,9 +223,17 @@ _data = {
 [node name="ElementOverlay" type="CanvasLayer" groups=["overlay"]]
 process_mode = 3
 script = ExtResource("1_as5dx")
-NatureButtonPath = NodePath("ElementView/VBoxContainer/HBoxContainer/EarthButton")
-DescriptionLabelPath = NodePath("ElementView/VBoxContainer/Label")
+HeaderLabelPath = NodePath("ElementView/VBoxContainer/HeaderLabel")
+SubHeaderLabelPath = NodePath("ElementView/VBoxContainer/SubHeaderLabel")
 KitDatabase = ExtResource("2_bkulj")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.8)
 
 [node name="ElementView" type="TextureRect" parent="."]
 offset_right = 1200.0
@@ -273,8 +260,8 @@ transform = Transform3D(1, 0, 4.46638e-06, 0, 1, 0, -4.46638e-06, 0, 1, -0.4, 1.
 [node name="crystal_air" parent="ElementView/SubViewport" instance=ExtResource("4_0s288")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 1.3, 0)
 
-[node name="crystal_earth" parent="ElementView/SubViewport" instance=ExtResource("5_o758x")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 1.3, 0)
+[node name="crystal_nature" parent="ElementView/SubViewport" instance=ExtResource("7_bkulj")]
+transform = Transform3D(1, 0, 4.46638e-06, 0, 1, 0, -4.46638e-06, 0, 1, 1.2, 1.3, 0)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="ElementView/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 2)
@@ -288,7 +275,16 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="ElementView/VBoxContainer"]
+[node name="HeaderLabel" type="Label" parent="ElementView/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 0
+text = "Chose an element"
+label_settings = SubResource("LabelSettings_ie0s3")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SubHeaderLabel" type="Label" parent="ElementView/VBoxContainer"]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_vertical = 0
@@ -316,7 +312,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 flat = true
 
-[node name="EarthButton" type="Button" parent="ElementView/VBoxContainer/HBoxContainer"]
+[node name="NatureButton" type="Button" parent="ElementView/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 flat = true
@@ -341,54 +337,70 @@ theme_override_constants/margin_bottom = 30
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer"]
+[node name="LeftSpellVBoxContainer" type="VBoxContainer" parent="ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="SpellTitle" type="Label" parent="ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="SpellTitle" type="Label" parent="ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer/LeftSpellVBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "AAAAAAAAAAAAAAAAA"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="SpellIcon" type="TextureRect" parent="ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer/LeftSpellVBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="SpellDescription" type="Label" parent="ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer/LeftSpellVBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="SpellDescription" type="Label" parent="ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="RightSpellVBoxContainer" type="VBoxContainer" parent="ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SpellTitle" type="Label" parent="ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer/RightSpellVBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer"]
+[node name="SpellIcon" type="TextureRect" parent="ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer/RightSpellVBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
-[node name="SpellTitle" type="Label" parent="ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 6
-horizontal_alignment = 1
-autowrap_mode = 3
-
-[node name="SpellDescription" type="Label" parent="ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="SpellDescription" type="Label" parent="ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer/RightSpellVBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer"]
+[node name="DashSpellVBoxContainer" type="VBoxContainer" parent="ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="SpellTitle" type="Label" parent="ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer3"]
+[node name="SpellTitle" type="Label" parent="ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer/DashSpellVBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="SpellDescription" type="Label" parent="ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer3"]
+[node name="SpellIcon" type="TextureRect" parent="ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer/DashSpellVBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="SpellDescription" type="Label" parent="ElementView/VBoxContainer/Panel/MarginContainer/HBoxContainer/DashSpellVBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6

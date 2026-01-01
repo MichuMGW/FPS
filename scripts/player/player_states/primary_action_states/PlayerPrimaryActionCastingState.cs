@@ -1,6 +1,7 @@
 using Godot;
+using System;
 
-public class PlayerPrimaryActionCastingState : IState
+public class PlayerPrimaryActionCastingState : IState, IUpdateState
 {
     private readonly Player player;
     private readonly SpellSlot slot = SpellSlot.LeftHand;
@@ -9,6 +10,8 @@ public class PlayerPrimaryActionCastingState : IState
 
     public void Enter()
     {
+        player.Spells.SpellRecasted += OnSpellRecasted;
+
         if (!player.Spells.BeginCast(slot))
         {
             player.ChangePrimaryActionState(PlayerPrimaryActionStateId.None);
@@ -28,6 +31,8 @@ public class PlayerPrimaryActionCastingState : IState
 
     public void Exit()
     {
+        player.Spells.SpellRecasted -= OnSpellRecasted;
+
         player.Spells.EndCast(slot, CastEndReason.Canceled);
     }
 
@@ -37,13 +42,17 @@ public class PlayerPrimaryActionCastingState : IState
         {
             player.Spells.EndCast(slot, CastEndReason.Released);
             player.ChangePrimaryActionState(PlayerPrimaryActionStateId.None);
+            player.PlayLeftArmAnimation("L_Idle");
             return;
         }
 
         player.Spells.UpdateCast(slot, (float)delta);
-
-        // jeśli chcesz: animacje “tickowane” przy udanym cast, ale to już UI, nie mechanika
     }
 
-    public void PhysicsUpdate(double delta) { }
+    private void OnSpellRecasted(int recastedSlot)
+    {
+        if (recastedSlot != (int)slot) return;
+
+        player.PlayLeftArmAnimation("L_CastProjectile", true);
+    }
 }

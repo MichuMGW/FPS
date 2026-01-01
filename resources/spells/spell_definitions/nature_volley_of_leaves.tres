@@ -1,0 +1,62 @@
+[gd_resource type="Resource" script_class="ProjectileSpellDefinition" load_steps=6 format=3 uid="uid://cty43clrmv80p"]
+
+[ext_resource type="Texture2D" uid="uid://dcsfn88nrykjf" path="res://Assets/icons/nature_volley_of_leaves.png" id="1_0810o"]
+[ext_resource type="PackedScene" uid="uid://cq3f7nvxqnqsa" path="res://scenes/spells/basic_spells/projectile_spells/nature_leaf.tscn" id="1_vsfj3"]
+[ext_resource type="Script" uid="uid://y2naeclibxt3" path="res://resources/spells/definitions/ProjectileSpellDefinition.cs" id="1_wt62d"]
+[ext_resource type="Script" uid="uid://dqdjhp8c7xw30" path="res://resources/spells/ElementStatusProfile.cs" id="2_0810o"]
+
+[sub_resource type="Resource" id="Resource_xhvro"]
+script = ExtResource("2_0810o")
+Element = 0
+EnableBurning = false
+BurningDuration = 3.0
+BurningTickRate = 0.25
+BurningDotPerTick = 5.0
+EnableSlow = false
+SlowMultiplier = 0.3
+SlowDuration = 2.5
+EnableBleed = true
+BleedDuration = 4.0
+BleedTickRate = 0.5
+BleedDotPerTick = 1.0
+EnableEarthBuildup = false
+EarthStunThreshold = 100.0
+EarthBuildupDecayPerSecond = 10.0
+EarthStunDuration = 1.0
+metadata/_custom_type_script = "uid://dqdjhp8c7xw30"
+
+[resource]
+script = ExtResource("1_wt62d")
+ProjectileScene = ExtResource("1_vsfj3")
+ProjectileSpeed = 30.0
+ProjectileSpread = 5.0
+ProjectilePierce = 0
+DieOnWorldHit = true
+ScaleOverTime = true
+StartScale = 0.05
+EndScale = 1.0
+ScaleDurationSeconds = 0.05
+ExplodeOnEnemyHit = false
+ExplodeOnWorldHit = false
+ExplosionDamageMultiplier = 1.0
+ExplosionLifetimeSeconds = 0.0
+Id = "nature_volley_of_leaves"
+DisplayName = "Volley of leaves"
+Description = "Quickly shoots a volley of leaves with high spread"
+Icon = ExtResource("1_0810o")
+Element = 3
+CastMode = 1
+BehaviourType = 0
+DamageModifier = 0.2
+BaseRange = 20.0
+BaseCooldown = 0.2
+BaseManaCost = 0.5
+EnableRehit = false
+RehitIntervalSeconds = 0.25
+RehitMaxDurationSeconds = 0.0
+StatusProfile = SubResource("Resource_xhvro")
+BurningDotMultiplier = 1.0
+SlowMultiplierBonus = 0.0
+BleedDotMultiplier = 1.0
+EarthBuildupPerHit = 0.0
+metadata/_custom_type_script = "uid://y2naeclibxt3"

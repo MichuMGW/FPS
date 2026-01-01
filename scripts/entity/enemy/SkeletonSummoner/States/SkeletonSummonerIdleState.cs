@@ -1,4 +1,4 @@
-public class SkeletonSummonerIdleState : IState
+public class SkeletonSummonerIdleState : IState, IUpdateState
 {
     private SkeletonSummoner _owner;
     private float _idleTime;
@@ -14,11 +14,6 @@ public class SkeletonSummonerIdleState : IState
     }
 
     public void Exit()
-    {
-        
-    }
-
-    public void PhysicsUpdate(double delta)
     {
         
     }

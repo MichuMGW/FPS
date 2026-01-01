@@ -1,6 +1,6 @@
 using Godot;
 
-public class MechMoveIdleState : IState
+public class MechMoveIdleState : IState, IPhysicsUpdateState
 {
     private readonly Mech _owner;
 
@@ -11,14 +11,11 @@ public class MechMoveIdleState : IState
 
     public void Enter()
     {
-        _owner.Pathfind.Active = false;
-        _owner.VelocityComp.SetDesiredDirection(Vector3.Zero);
+        _owner.EnableMovement(false);
         _owner.PlayLocomotion("Mech_Idle");
     }
 
     public void Exit() { }
-
-    public void Update(double delta) { }
 
     public void PhysicsUpdate(double delta)
     {

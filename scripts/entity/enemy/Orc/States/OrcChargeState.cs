@@ -1,6 +1,6 @@
 using Godot;
 
-public class OrcChargeState : IState
+public class OrcChargeState : IState, IPhysicsUpdateState
 {
     private readonly Orc _owner;
     private float _timeElapsed;
@@ -101,8 +101,6 @@ public class OrcChargeState : IState
             _owner.ChangeState(OrcStateId.Stop);
         }
     }
-
-    public void Update(double delta) { }
 
     private bool ShouldStopCharge()
     {

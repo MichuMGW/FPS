@@ -12,9 +12,8 @@ public class MechDeadState : IState
 
     public void Enter()
     {
-        _owner.Pathfind.Active = false;
-        _owner.VelocityComp.Active = false;
-        _owner.VelocityComp.StopInstantly();
+        _owner.EnableMovement(false);
+        _owner.DisableLookAt();
         _owner.PlayLocomotion("Mech_Die");
 
         _owner.Animation.AnimationFinished += OnAnimationFinished;
@@ -22,13 +21,10 @@ public class MechDeadState : IState
 
     private void OnAnimationFinished(StringName animName)
     {
-        _owner.QueueFree();
+        if (animName == "Mech_Die")
+            _owner.QueueFree();
     }
 
 
     public void Exit() { }
-
-    public void Update(double delta) { }
-
-    public void PhysicsUpdate(double delta) { }
 }

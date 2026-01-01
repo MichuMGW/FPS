@@ -1,14 +1,14 @@
 using System.Collections.Generic;
+using Godot;
 
-public abstract partial class StateMachineEnemy<TStateId> : Enemy
-    where TStateId : struct
+public abstract partial class StateMachineEnemy<TStateId> : Enemy where TStateId : struct
 {
     protected IState CurrentState;
     protected Dictionary<TStateId, IState> States = new();
     protected TStateId CurrentStateId;
 
-    public override void _Process(double delta) => CurrentState?.Update(delta);
-    public override void _PhysicsProcess(double delta) => CurrentState?.PhysicsUpdate(delta);
+    private IUpdateState _updateState;
+    private IPhysicsUpdateState _physicsState;
 
     public void ChangeState(TStateId newId)
     {
@@ -18,6 +18,16 @@ public abstract partial class StateMachineEnemy<TStateId> : Enemy
         CurrentState?.Exit();
         CurrentStateId = newId;
         CurrentState = States[newId];
+
+        _updateState = CurrentState as IUpdateState;
+        _physicsState = CurrentState as IPhysicsUpdateState;
+
         CurrentState.Enter();
+    }
+
+    protected override void TickBrain(float dt)
+    {
+        _physicsState?.PhysicsUpdate(dt);
+        _updateState?.Update(dt);
     }
 }

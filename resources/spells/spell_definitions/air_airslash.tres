@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="ProjectileSpellDefinition" load_steps=3 format=3 uid="uid://kyhmi5m5bumq"]
+[gd_resource type="Resource" script_class="ProjectileSpellDefinition" load_steps=4 format=3 uid="uid://kyhmi5m5bumq"]
 
 [ext_resource type="PackedScene" uid="uid://dnuwqawm1fm02" path="res://scenes/spells/basic_spells/projectile_spells/air_slash.tscn" id="1_32rnx"]
 [ext_resource type="Script" uid="uid://y2naeclibxt3" path="res://resources/spells/definitions/ProjectileSpellDefinition.cs" id="1_ckek4"]
+[ext_resource type="Texture2D" uid="uid://chte52ti35qg4" path="res://Assets/icons/air_airslash.png" id="1_h1jkm"]
 
 [resource]
 script = ExtResource("1_ckek4")
@@ -21,6 +22,7 @@ ExplosionLifetimeSeconds = 0.0
 Id = ""
 DisplayName = ""
 Description = ""
+Icon = ExtResource("1_h1jkm")
 Element = 4
 CastMode = 1
 BehaviourType = 0

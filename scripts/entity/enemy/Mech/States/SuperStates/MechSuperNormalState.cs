@@ -9,11 +9,10 @@ public class MechSuperNormalState : IState
         _owner = owner;
     }
 
-    public void Enter() { }
+    public void Enter()
+    {
+        _owner.EnableMovement(true);
+    }
 
     public void Exit() { }
-
-    public void Update(double delta) { }
-
-    public void PhysicsUpdate(double delta) { }
 }

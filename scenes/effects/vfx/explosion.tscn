@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://goh3vkv8vodf"]
+[gd_scene load_steps=8 format=3 uid="uid://goh3vkv8vodf"]
 
+[ext_resource type="Script" uid="uid://bwvaebh43ere6" path="res://scripts/effects/ExplosionVFX.cs" id="1_1pcfh"]
 [ext_resource type="Material" uid="uid://cxhaa6i7bto07" path="res://Assets/effects/vfx/explosion/ExplosionMaterial.tres" id="1_an4hs"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rva4e"]
@@ -19,14 +20,137 @@ scale_max = 10.0
 
 [sub_resource type="QuadMesh" id="QuadMesh_16uck"]
 
+[sub_resource type="Animation" id="Animation_dohr4"]
+resource_name = "OmniLight_fade"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("OmniLight3D:light_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [10.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("OmniLight3D:omni_range")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [5.0, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Explosion1:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Explosion2:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Explosion1")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"values": []
+}
+
+[sub_resource type="Animation" id="Animation_1pcfh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("OmniLight3D:light_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [10.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("OmniLight3D:omni_range")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [5.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Explosion1:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Explosion2:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_76qwo"]
+_data = {
+&"Explode": SubResource("Animation_dohr4"),
+&"RESET": SubResource("Animation_1pcfh")
+}
+
 [node name="ExplosionVFX" type="Node3D"]
+script = ExtResource("1_1pcfh")
 
 [node name="Explosion1" type="GPUParticles3D" parent="."]
 transform = Transform3D(0.134231, 0, 0, 0, 0.134231, 0, 0, 0, 0.134756, -0.00112057, -0.00427759, -0.00190479)
 material_override = ExtResource("1_an4hs")
 cast_shadow = 0
+emitting = false
 amount = 20
-lifetime = 1.5
+lifetime = 2.0
+one_shot = true
 explosiveness = 1.0
 randomness = 0.84
 fixed_fps = 60
@@ -37,10 +161,20 @@ draw_pass_1 = SubResource("QuadMesh_16uck")
 transform = Transform3D(0.996103, 0, 0, 0, 0.996103, 0, 0, 0, 1, -0.00112057, -0.00427759, -0.00190479)
 material_override = ExtResource("1_an4hs")
 emitting = false
-lifetime = 2.13
+lifetime = 2.0
 one_shot = true
+explosiveness = 1.0
 randomness = 0.84
 fixed_fps = 60
 visibility_aabb = AABB(-4, -4, -4.79199, 8, 8, 8)
 process_material = SubResource("ParticleProcessMaterial_rva4e")
 draw_pass_1 = SubResource("QuadMesh_16uck")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(0.920982, 0.495165, 3.85046e-07, 1)
+light_energy = 10.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_76qwo")
+}

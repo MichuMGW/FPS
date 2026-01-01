@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ElementKitDefinition" load_steps=5 format=3 uid="uid://1hrqx8ltf7ae"]
+
+[ext_resource type="Script" uid="uid://b3lgib24dqmon" path="res://resources/spells/ElementKitDefinition.cs" id="1_kvwoe"]
+[ext_resource type="Resource" uid="uid://dn0micki6xl1g" path="res://resources/spells/spell_definitions/dash.tres" id="1_rbygk"]
+[ext_resource type="Resource" uid="uid://cvdiefxdwpgti" path="res://resources/spells/spell_definitions/magma_magmaball.tres" id="2_vw7vh"]
+[ext_resource type="Resource" uid="uid://dawgx466veeyn" path="res://resources/spells/spell_definitions/magma_magmaball_exploding.tres" id="3_3sx67"]
+
+[resource]
+script = ExtResource("1_kvwoe")
+Element = 5
+LeftHandSpell = ExtResource("2_vw7vh")
+RightHandSpell = ExtResource("3_3sx67")
+DashSpell = ExtResource("1_rbygk")
+metadata/_custom_type_script = "uid://b3lgib24dqmon"

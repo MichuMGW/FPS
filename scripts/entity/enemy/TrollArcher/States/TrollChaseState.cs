@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class TrollChaseState : IState
+public partial class TrollChaseState : IState, IPhysicsUpdateState
 {
     private TrollArcher _owner;
     public TrollChaseState(TrollArcher owner)
@@ -10,14 +10,14 @@ public partial class TrollChaseState : IState
 
     public void Enter()
     {
-        _owner.Pathfind.Active = true;
+        _owner.EnableMovement(true);
         _owner.Pathfind.SetPlayerAsTarget();
         _owner.TrollAnimation.Play("Troll_Walk", 0.5f);
     }
 
     public void Exit()
     {
-        _owner.Pathfind.Active = false;
+        _owner.EnableMovement(false);
     }
 
     public void PhysicsUpdate(double delta)
@@ -32,6 +32,4 @@ public partial class TrollChaseState : IState
         }
 
     }
-
-    public void Update(double delta){}
 }

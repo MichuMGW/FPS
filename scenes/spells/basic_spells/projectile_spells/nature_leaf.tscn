@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://cq3f7nvxqnqsa"]
+
+[ext_resource type="Script" uid="uid://tcmlvmhebq6h" path="res://scripts/spells/projectile_spells/Projectile.cs" id="1_mxvt5"]
+[ext_resource type="ArrayMesh" uid="uid://b2j16dnhg6ar3" path="res://Assets/effects/meshes/nature_leaf.obj" id="2_hf54b"]
+[ext_resource type="PackedScene" uid="uid://c2wcxah80nn20" path="res://scenes/components/hitbox_component.tscn" id="3_8luex"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_coagh"]
+albedo_color = Color(0, 0.545098, 0, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_mxvt5"]
+radius = 0.05
+
+[node name="Leaf" type="CharacterBody3D"]
+collision_layer = 0
+script = ExtResource("1_mxvt5")
+HitboxPath = NodePath("HitboxComponent")
+CollisionShapePath = NodePath("HitboxComponent/CollisionShape3D")
+VisualPath = NodePath("Leaf")
+
+[node name="Leaf" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.82137e-15, 8.74228e-08, 2, 2, -8.74228e-08, 0, 8.74228e-08, 2, -8.74228e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_coagh")
+mesh = ExtResource("2_hf54b")
+
+[node name="HitboxComponent" parent="." instance=ExtResource("3_8luex")]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.498699)
+shape = SubResource("SphereShape3D_mxvt5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.498699)
+shape = SubResource("SphereShape3D_mxvt5")

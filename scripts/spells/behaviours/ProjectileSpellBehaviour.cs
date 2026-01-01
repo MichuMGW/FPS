@@ -32,6 +32,11 @@ public class ProjectileSpellBehaviour : ISpellBehaviour
 
         projectile.LookAt(projectile.GlobalPosition + dir, Vector3.Up, true);
 
+        float rollRad = Mathf.DegToRad(rng.RandfRange(-180f, 180f));
+
+        Vector3 forward = -projectile.GlobalTransform.Basis.Z;
+        projectile.GlobalRotate(forward, rollRad);
+
         projectile.Configure(
             element: def.Element,
             damage: ctx.Stats.Damage,

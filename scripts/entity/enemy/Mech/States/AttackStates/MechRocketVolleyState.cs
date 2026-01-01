@@ -1,6 +1,6 @@
 using Godot;
 
-public class MechRocketVolleyState : IState
+public class MechRocketVolleyState : IState, IUpdateState
 {
     private readonly Mech _owner;
     private int _rocketsLeft;
@@ -54,6 +54,4 @@ public class MechRocketVolleyState : IState
         _owner.SpawnRocket(_nextLeft);
         _nextLeft = !_nextLeft;
     }
-
-    public void PhysicsUpdate(double delta) { }
 }

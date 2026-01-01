@@ -4,6 +4,11 @@ using Godot;
 
 public partial class PlayerHud : Control
 {
+    private static readonly Color InfoColor = new Color(1f, 1f, 1f, 1f);
+    private static readonly Color ErrorColor = new Color(1f, 0.2f, 0.2f, 1f);
+
+    [Export] public ElementKitDatabase KitDatabase;
+
     [Export] public NodePath HealthBarPath = "VBoxContainer/HealthBar";
     [Export] public NodePath ManaBarPath = "VBoxContainer/ManaBar";
     [Export] public NodePath ExpBarPath = "VBoxContainer/ExpBar";
@@ -13,6 +18,22 @@ public partial class PlayerHud : Control
     [Export] public NodePath ExpLabelPath = "VBoxContainer/ExpBar/ExpLabel";
     [Export] public NodePath GoldLabelPath = "GoldPanel/HBoxContainer/GoldLabel";
     [Export] public NodePath TimeLabelPath = "TimeLabel";
+    [Export] public NodePath InfoLabelPath = "InfoLabel";
+
+    [Export] public NodePath LeftSpellIconPath = "Spells/Left/SpellIcon";
+    [Export] public NodePath RightSpellIconPath = "Spells/Right/SpellIcon";
+    [Export] public NodePath DashSpellIconPath = "Spells/Dash/SpellIcon";
+
+    [Export] public NodePath LeftSpellShortcutPath = "Spells/Left/Shortcut";
+    [Export] public NodePath RightSpellShortcutPath = "Spells/Right/Shortcut";
+    [Export] public NodePath DashSpellShortcutPath = "Spells/Dash/Shortcut";
+
+    // Nazwy akcji z InputMap (USTAW w Inspectorze pod swoje actiony)
+    [Export] public string LeftSpellAction = "cast_left";
+    [Export] public string RightSpellAction = "cast_right";
+    [Export] public string DashSpellAction = "cast_dash";
+
+    private RunElementState _runElementState;
 
     private Player _player;
     private TextureProgressBar _healthBar;
@@ -26,14 +47,30 @@ public partial class PlayerHud : Control
     private ItemInventory _inventory;
     private ExperienceManager _experience;
 
+    private TextureProgressBar _bossHealthBar;
+
+    private Label _infoLabel;
+    private Tween _infoTween;
+
+    private Label _leftSpellShortcut, _rightSpellShortcut, _DashShortcut;
+    private TextureRect _leftSpellIcon, _rightSpellIcon, _DashIcon;
+
     private GoldManager _gold;
     private Label _goldLabel;
     private GameEvents _events;
     private readonly Dictionary<string, ItemStackWidget> _itemWidgets = new();
 
+    private bool _errorActive = false;
+
     public override void _Ready()
     {
         FindNodes();
+
+        if (_infoLabel != null)
+        {
+            _infoLabel.Visible = false;
+            _infoLabel.Modulate = new Color(1, 1, 1, 1); // full alpha
+        }
 
         if (_player == null)
         {
@@ -88,6 +125,14 @@ public partial class PlayerHud : Control
         if (_events != null)
         {
             _events.RunTimeUpdated += RefreshTimeUI;
+            _events.ElementPicked += OnElementPicked;
+
+            _events.ShowInfo += OnShowInfo;
+            _events.HideInfo += OnHideInfo;
+            _events.ShowError += OnShowError;
+
+            // ustaw skróty od razu (nie zależą od kitu)
+            RefreshSpellShortcuts();
         }
     }
 
@@ -118,6 +163,11 @@ public partial class PlayerHud : Control
         if (_events != null)
         {
             _events.RunTimeUpdated -= RefreshTimeUI;
+            _events.ElementPicked -= OnElementPicked;
+
+            _events.ShowInfo -= OnShowInfo;
+            _events.HideInfo -= OnHideInfo;
+            _events.ShowError -= OnShowError;
         }
     }
 
@@ -291,6 +341,16 @@ public partial class PlayerHud : Control
         _expLabel = GetNodeOrNull<Label>(ExpLabelPath);
         _goldLabel = GetNodeOrNull<Label>(GoldLabelPath);
 
+        _leftSpellIcon = GetNodeOrNull<TextureRect>(LeftSpellIconPath);
+        _rightSpellIcon = GetNodeOrNull<TextureRect>(RightSpellIconPath);
+        _DashIcon = GetNodeOrNull<TextureRect>(DashSpellIconPath);
+
+        _leftSpellShortcut = GetNodeOrNull<Label>(LeftSpellShortcutPath);
+        _rightSpellShortcut = GetNodeOrNull<Label>(RightSpellShortcutPath);
+        _DashShortcut = GetNodeOrNull<Label>(DashSpellShortcutPath);
+
+        _runElementState = GetTree().Root.GetNodeOrNull<RunElementState>("RunElementState");
+
         _itemContainer = GetNodeOrNull<FlowContainer>(ItemContainerPath);
 
         _inventory = GetTree().Root.GetNodeOrNull<ItemInventory>("ItemInventory");
@@ -300,10 +360,209 @@ public partial class PlayerHud : Control
         _events = GetTree().Root.GetNodeOrNull<GameEvents>("GameEvents");
         _timeLabel = GetNodeOrNull<Label>(TimeLabelPath);
 
+        _infoLabel = GetNodeOrNull<Label>(InfoLabelPath);
+
         _player = GetTree().GetFirstNodeInGroup("player") as Player;
 
         if (_healthBar == null) GD.PrintErr("PlayerHud: HealthBar not found at VBoxContainer/HealthBar");
         if (_manaBar == null) GD.PrintErr("PlayerHud: ManaBar not found at VBoxContainer/ManaBar");
         if (_expBar == null) GD.PrintErr("PlayerHud: ExpBar not found at VBoxContainer/ExpBar");
     }
+
+    private void OnElementPicked(int pickedElement, bool isSecondPick)
+    {
+        if (KitDatabase == null)
+        {
+            GD.PushWarning("[PlayerHud] KitDatabase is not assigned.");
+            ClearSpellHud();
+            return;
+        }
+
+        var picked = (Element)pickedElement;
+
+        // Jaki element jest “aktywnym kitem”?
+        // - pierwszy pick: po prostu element
+        // - drugi pick: kombinacja first + picked
+        Element kitElement = picked;
+
+        if (isSecondPick && _runElementState != null)
+        {
+            var combined = ElementCombiner.Combine(_runElementState.First, picked);
+            if (combined != Element.None)
+                kitElement = combined;
+        }
+
+        ApplyKitToHud(kitElement);
+    }
+
+    private void ApplyKitToHud(Element kitElement)
+    {
+        var kit = KitDatabase.GetKit(kitElement);
+        if (kit == null)
+        {
+            GD.PushWarning($"[PlayerHud] No kit found for element: {kitElement}");
+            ClearSpellHud();
+            return;
+        }
+
+        ApplySpellIcon(_leftSpellIcon, kit.LeftHandSpell);
+        ApplySpellIcon(_rightSpellIcon, kit.RightHandSpell);
+        ApplySpellIcon(_DashIcon, kit.DashSpell);
+
+        // skróty możesz też odświeżać tutaj (koszt praktycznie zerowy)
+        RefreshSpellShortcuts();
+    }
+
+    private void ApplySpellIcon(TextureRect iconRect, SpellDefinition def)
+    {
+        if (iconRect == null) return;
+        iconRect.Texture = def?.Icon;
+    }
+
+    private void ClearSpellHud()
+    {
+        ApplySpellIcon(_leftSpellIcon, null);
+        ApplySpellIcon(_rightSpellIcon, null);
+        ApplySpellIcon(_DashIcon, null);
+
+        if (_leftSpellShortcut != null) _leftSpellShortcut.Text = "";
+        if (_rightSpellShortcut != null) _rightSpellShortcut.Text = "";
+        if (_DashShortcut != null) _DashShortcut.Text = "";
+    }
+
+    private void RefreshSpellShortcuts()
+    {
+        if (_leftSpellShortcut != null) _leftSpellShortcut.Text = GetActionHintCompact(LeftSpellAction);
+        if (_rightSpellShortcut != null) _rightSpellShortcut.Text = GetActionHintCompact(RightSpellAction);
+        if (_DashShortcut != null) _DashShortcut.Text = GetActionHintCompact(DashSpellAction);
+    }
+
+    private string GetActionHintCompact(string actionName)
+    {
+        if (string.IsNullOrWhiteSpace(actionName)) return "";
+        if (!InputMap.HasAction(actionName)) return "";
+
+        var evs = InputMap.ActionGetEvents(actionName);
+        if (evs == null || evs.Count == 0) return "";
+
+        // bierz pierwszy binding (najczęściej “primary”)
+        var e = evs[0];
+
+        // Zróbmy to krótsze niż AsText(), bo HUD to nie Wikipedia.
+        if (e is InputEventMouseButton mb)
+        {
+            return mb.ButtonIndex switch
+            {
+                MouseButton.Left => "LMB",
+                MouseButton.Right => "RMB",
+                MouseButton.Middle => "MMB",
+                MouseButton.WheelUp => "Wheel Up",
+                MouseButton.WheelDown => "Wheel Down",
+                _ => mb.AsText()
+            };
+        }
+
+        if (e is InputEventKey k)
+        {
+            // Godot 4: zwykle lepiej PhysicalKeycode (układ klawiatury mniej miesza)
+            var key = k.PhysicalKeycode != Key.None ? k.PhysicalKeycode : k.Keycode;
+            return OS.GetKeycodeString(key);
+        }
+
+        // fallback (np. pad)
+        return e.AsText();
+    }
+
+    private void KillInfoTween()
+    {
+        if (_infoTween != null && _infoTween.IsRunning())
+            _infoTween.Kill();
+        _infoTween = null;
+    }
+
+    private void OnShowInfo(string message, float durationSeconds)
+    {
+        if (_infoLabel == null) return;
+        if (_errorActive) return;
+
+        KillInfoTween();
+
+        _infoLabel.Text = message ?? "";
+        _infoLabel.Visible = true;
+
+        _infoLabel.Modulate = InfoColor;
+
+        if (durationSeconds > 0f)
+        {
+            _infoTween = CreateTween();
+            _infoTween.SetEase(Tween.EaseType.InOut);
+            _infoTween.SetTrans(Tween.TransitionType.Sine);
+
+            _infoTween.TweenInterval(durationSeconds);
+            _infoTween.TweenProperty(_infoLabel, "modulate:a", 0f, 0.8f);
+
+            _infoTween.Finished += () =>
+            {
+                if (_infoLabel == null) return;
+                _infoLabel.Visible = false;
+
+                var cc = _infoLabel.Modulate;
+                cc.A = 1f;
+                _infoLabel.Modulate = cc;
+
+                _infoTween = null;
+            };
+        }
+    }
+
+    private void OnHideInfo()
+    {
+        if (_infoLabel == null) return;
+
+        if (_errorActive) return;
+
+        KillInfoTween();
+        _infoLabel.Visible = false;
+
+        var c = _infoLabel.Modulate;
+        c.A = 1f;
+        _infoLabel.Modulate = c;
+    }
+
+    private void OnShowError(string message, float durationSeconds)
+    {
+        if (_infoLabel == null) return;
+
+        KillInfoTween();
+
+        _errorActive = true;
+
+        _infoLabel.Text = message ?? "";
+        _infoLabel.Visible = true;
+
+        _infoLabel.Modulate = ErrorColor;
+
+        var hold = Mathf.Max(durationSeconds, 0.1f);
+
+        _infoTween = CreateTween();
+        _infoTween.SetEase(Tween.EaseType.InOut);
+        _infoTween.SetTrans(Tween.TransitionType.Sine);
+
+        _infoTween.TweenInterval(hold);
+        _infoTween.TweenProperty(_infoLabel, "modulate:a", 0f, 1.0f);
+
+        _infoTween.Finished += () =>
+        {
+            if (_infoLabel == null) return;
+            _infoLabel.Visible = false;
+
+            var cc = _infoLabel.Modulate;
+            cc.A = 1f;
+            _infoLabel.Modulate = cc;
+
+            _infoTween = null;
+            _errorActive = false;
+        };
+    }
+
 }

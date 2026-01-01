@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class PathfindComponent : Node
 {
@@ -22,9 +21,17 @@ public partial class PathfindComponent : Node
         Agent.TargetDesiredDistance = TargetReachedThreshold;
     }
 
-    public override void _PhysicsProcess(double delta)
+    public void Tick(float dt)
     {
+        if (Engine.GetFramesDrawn() % 10 != 0) return;
+
         if (!Active)
+        {
+            _velocity.SetDesiredDirection(Vector3.Zero);
+            return;
+        }
+
+        if (Target == null)
         {
             _velocity.SetDesiredDirection(Vector3.Zero);
             return;
@@ -43,19 +50,13 @@ public partial class PathfindComponent : Node
         toNext.Y = 0;
 
         if (toNext.LengthSquared() < 0.001f)
-        {
             _velocity.SetDesiredDirection(Vector3.Zero);
-        }
         else
-        {
             _velocity.SetDesiredDirection(toNext);
-        }
     }
 
     public void SetPlayerAsTarget()
     {
         Target = GetTree().GetFirstNodeInGroup("player") as Node3D;
     }
-
-
 }

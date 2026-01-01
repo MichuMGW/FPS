@@ -56,10 +56,9 @@ public partial class VelocityComponent : Node
         SetBaseStats();
     }
 
-    public override void _PhysicsProcess(double delta)
+    public void Tick(float dt)
     {
         if (!Active) return;
-        float dt = (float)delta;
 
         DesiredVelocity = _desiredDir.IsZeroApprox()
             ? Vector3.Zero
@@ -86,6 +85,11 @@ public partial class VelocityComponent : Node
             verticalVelocity -= Gravity * delta;
             if (verticalVelocity < TerminalVelocity)
                 verticalVelocity = TerminalVelocity;
+        }
+        else
+        {
+            // Opcjonalnie: jeśli masz “pływanie” po spadaniu, to to stabilizuje (nie zmienia zachowania ruchu poziomego).
+            // verticalVelocity = 0f;
         }
     }
 
@@ -144,8 +148,6 @@ public partial class VelocityComponent : Node
             _body.Velocity = Vector3.Zero;
     }
 
-    // ===== Core logic =====
-
     private void RecalculateStats()
     {
         MaxSpeed = _baseMaxSpeed * _slowMultiplier;
@@ -165,5 +167,4 @@ public partial class VelocityComponent : Node
         _slowMultiplier = mult;
         RecalculateStats();
     }
-
 }

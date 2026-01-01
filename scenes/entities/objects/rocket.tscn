@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cskxd7ws222u7"]
+[gd_scene load_steps=15 format=3 uid="uid://cskxd7ws222u7"]
 
 [ext_resource type="ArrayMesh" uid="uid://m05gud05ky1u" path="res://Assets/models/objects/rocket.obj" id="1_cde7l"]
 [ext_resource type="Script" uid="uid://bm5rvn7l570ej" path="res://scripts/entity/enemy/Mech/Rocket.cs" id="1_fgcts"]
@@ -9,6 +9,7 @@
 [ext_resource type="Material" uid="uid://5jrr036xde8e" path="res://Assets/effects/materials/rocket_flame.tres" id="4_u6peu"]
 [ext_resource type="PackedScene" uid="uid://gwkhn3v3fswg" path="res://scenes/components/hurtbox_area.tscn" id="8_bcr53"]
 [ext_resource type="PackedScene" uid="uid://c2wcxah80nn20" path="res://scenes/components/hitbox_component.tscn" id="9_jc2w5"]
+[ext_resource type="PackedScene" uid="uid://goh3vkv8vodf" path="res://scenes/effects/vfx/explosion.tscn" id="10_bcr53"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u6peu"]
 albedo_texture = ExtResource("2_e1afc")
@@ -21,20 +22,23 @@ radius = 0.177701
 height = 1.07472
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_jc2w5"]
-radius = 5.0
+radius = 2.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fgcts"]
 radius = 0.0746362
 height = 0.622832
 
-[node name="Rocket" type="CharacterBody3D"]
+[node name="Rocket" type="CharacterBody3D" node_paths=PackedStringArray("_rocketMesh", "_flame1", "_flame2", "_flame3")]
 collision_layer = 64
 collision_mask = 3
 script = ExtResource("1_fgcts")
 Speed = 15.0
 TurnSpeed = 2.0
 LifeTime = 2.0
-ExplosionRadius = 100.0
+_rocketMesh = NodePath("RocketMesh")
+_flame1 = NodePath("Flame1")
+_flame2 = NodePath("Flame2")
+_flame3 = NodePath("Flame3")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("Hurtbox") instance=ExtResource("2_wdagx")]
 Hurtbox = NodePath("../SimpleHurtboxComponent")
@@ -78,3 +82,5 @@ shape = SubResource("SphereShape3D_jc2w5")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0.18858)
 shape = SubResource("CapsuleShape3D_fgcts")
+
+[node name="ExplosionVFX" parent="." instance=ExtResource("10_bcr53")]

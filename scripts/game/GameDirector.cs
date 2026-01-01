@@ -3,10 +3,11 @@ using System.Collections.Generic;
 
 public partial class GameDirector : Node
 {
-    [Export] public float MatchDurationSeconds { get; set; } = 600f; // 10 minut
+    [Export] public float MatchDurationSeconds { get; set; } = 600f;
     [Export] public NodePath EnemySpawnManagerPath { get; set; }
-
     [Export] public ElementKitDatabase KitDatabase;
+    [Export(PropertyHint.Range, "0.1,0.9,0.05")]
+    public float SecondPickAtNormalizedTime = 0.5f;
 
     private EnemySpawnManager _enemySpawnManager;
     private readonly DifficultyManager _difficultyManager = new DifficultyManager();
@@ -21,12 +22,15 @@ public partial class GameDirector : Node
     private float _spawnTimer;
     private bool _isRunning;
 
+    private bool _secondPickRequested;
+    private bool _secondPickDone;
+
     private readonly List<EnemyUnlockConfig> _enemyUnlocks = new()
     {
-        new EnemyUnlockConfig(   0f, "res://scenes/entities/enemies/Skeleton.tscn"),
-        new EnemyUnlockConfig(  0f, "res://scenes/entities/enemies/TrollArcher.tscn"),
-        new EnemyUnlockConfig( 120f, "res://scenes/entities/enemies/Orc.tscn"),
-        new EnemyUnlockConfig( 0f, "res://scenes/entities/enemies/SkeletonSummoner.tscn"),
+        new EnemyUnlockConfig(0f, "res://scenes/entities/enemies/Skeleton.tscn", weight: 3f),
+        new EnemyUnlockConfig(60f, "res://scenes/entities/enemies/TrollArcher.tscn", weight: 1.2f),
+        new EnemyUnlockConfig(120f, "res://scenes/entities/enemies/Orc.tscn", weight: 1.5f, minEnemyLevel: 3),
+        new EnemyUnlockConfig(300f, "res://scenes/entities/enemies/SkeletonSummoner.tscn", weight: 0.5f, minCoeff: 1.05f),
     };
 
     public override void _Ready()
@@ -47,11 +51,10 @@ public partial class GameDirector : Node
         _events = GetTree().Root.GetNodeOrNull<GameEvents>("GameEvents");
         _runState = GetTree().Root.GetNodeOrNull<RunElementState>("RunElementState");
         _inventory = GetTree().Root.GetNodeOrNull<ItemInventory>("ItemInventory");
-        // _chestManager = GetTree().Root.GetNodeOrNull<ChestManager>("ChestManager");
         _chestManager = GetTree().GetFirstNodeInGroup("chest_manager") as ChestManager;
 
         var player = GetTree().GetFirstNodeInGroup("player") as Player;
-        _spellController = player.GetNodeOrNull<PlayerSpellController>("PlayerSpellController");
+        _spellController = player?.GetNodeOrNull<PlayerSpellController>("PlayerSpellController");
 
         if (_events == null)
             GD.PushError("[GameDirector] Missing GameEvents autoload.");
@@ -63,25 +66,15 @@ public partial class GameDirector : Node
             GD.PushWarning("[GameDirector] KitDatabase not assigned.");
 
         if (_events != null)
-        {
             _events.ElementPicked += OnElementPicked;
-        }
 
         CallDeferred(nameof(BootstrapRun));
-        // Na start zawsze wybór pierwszego żywiołu
-        
     }
 
     private async void BootstrapRun()
     {
-        // Poczekaj aż drzewo zakończy setup (1 frame wystarcza w 99% przypadków)
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-
-        // Dodatkowo: upewnij się, że UIOverlayManager i inne autoloady weszły
-        // (opcjonalnie, ale stabilne)
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-
-        // Teraz dopiero start:
         StartGame();
     }
 
@@ -91,8 +84,9 @@ public partial class GameDirector : Node
             return;
 
         _elapsed += (float)delta;
-
         _events?.EmitRunTimeUpdated(_elapsed, MatchDurationSeconds);
+
+        TryTriggerSecondPick();
 
         if (_elapsed >= MatchDurationSeconds)
         {
@@ -100,13 +94,10 @@ public partial class GameDirector : Node
             return;
         }
 
-        // Pobierz snapshot trudności dla aktualnego czasu
-        // TODO: DODAĆ POZIOMY TRUDNOŚCI DO WYBORU
         DifficultySnapshot diff = _difficultyManager.GetDifficulty(_elapsed, RunDifficulty.Normal);
-
         _enemySpawnManager.UpdateDifficulty(diff);
 
-        UnlockEnemiesIfNeeded();
+        UnlockEnemiesIfNeeded(diff);
 
         if (_enemySpawnManager.AliveEnemiesCount >= diff.MaxAliveEnemies)
             return;
@@ -122,21 +113,31 @@ public partial class GameDirector : Node
     private void StartGame()
     {
         GD.Print("[GameDirector] Match started.");
-        
+
         _isRunning = true;
         _elapsed = 0f;
         _spawnTimer = 0f;
-        _enemySpawnManager.StartSpawning();
-        _chestManager.SpawnChests();
 
-        _events.RequestElementPick(isSecondPick: false);
+        _secondPickRequested = false;
+        _secondPickDone = false;
+
+        _enemySpawnManager.StartSpawning();
+        _chestManager?.SpawnChests();
+
+        _events?.RequestElementPick(isSecondPick: false);
     }
 
-    private void UnlockEnemiesIfNeeded()
+    private void UnlockEnemiesIfNeeded(DifficultySnapshot diff)
     {
         foreach (var unlock in _enemyUnlocks)
         {
             if (unlock.Unlocked || _elapsed < unlock.UnlockTimeSeconds)
+                continue;
+
+            // dodatkowe filtry pod difficulty:
+            if (diff.EnemyLevel < unlock.MinEnemyLevel || diff.EnemyLevel > unlock.MaxEnemyLevel)
+                continue;
+            if (diff.Coeff < unlock.MinCoeff || diff.Coeff > unlock.MaxCoeff)
                 continue;
 
             unlock.Unlocked = true;
@@ -148,12 +149,32 @@ public partial class GameDirector : Node
                 continue;
             }
 
-            _enemySpawnManager.AddEnemyType(scene);
-            GD.Print($"[GameDirector] Unlocked enemy type: {unlock.ScenePath} at t={_elapsed:F1}s");
+            _enemySpawnManager.AddEnemyType(scene, unlock.Weight);
+            GD.Print($"[GameDirector] Unlocked enemy type: {unlock.ScenePath} weight={unlock.Weight} at t={_elapsed:F1}s");
         }
     }
 
-    // ===== Element pick handling =====
+    private void TryTriggerSecondPick()
+    {
+        if (_events == null || _runState == null) return;
+
+        if (_secondPickDone || _secondPickRequested) return;
+        if (!_runState.HasFirst || _runState.HasSecond) return;
+
+        //float triggerTime = MatchDurationSeconds * Mathf.Clamp(SecondPickAtNormalizedTime, 0.1f, 0.9f);
+        float triggerTime = 1;
+
+        if (_elapsed < triggerTime)
+            return;
+
+        _secondPickRequested = true;
+
+        // pauza gry, overlay ma ProcessMode Always więc będzie działał
+        GetTree().Paused = true;
+
+        _events.RequestElementPick(isSecondPick: true);
+        GD.Print($"[GameDirector] Second element pick requested at t={_elapsed:F1}s");
+    }
 
     private void OnElementPicked(int pickedElement, bool isSecondPick)
     {
@@ -165,11 +186,7 @@ public partial class GameDirector : Node
         if (!isSecondPick)
         {
             _runState.SetFirst(picked);
-
-            // Po pierwszym wyborze możesz od razu założyć bazowy kit,
-            // albo czekać aż gracz wybierze drugi element w trakcie runa.
             ApplyKitFromRunState();
-
             return;
         }
 
@@ -197,7 +214,6 @@ public partial class GameDirector : Node
         GD.Print($"[GameDirector] Equipped kit: {finalElement}");
     }
 
-    // ===== Example hook: call this when you want second pick during run =====
     public void RequestSecondElementPick()
     {
         if (_runState == null || _events == null)
@@ -219,25 +235,7 @@ public partial class GameDirector : Node
     {
         _isRunning = false;
         _enemySpawnManager.StopSpawning();
-
         GD.Print("[GameDirector] Match ended.");
-
         _events?.EndRun();
-    }
-
-    // ================== helper ==================
-
-    private class EnemyUnlockConfig
-    {
-        public float UnlockTimeSeconds;
-        public string ScenePath;
-        public bool Unlocked;
-
-        public EnemyUnlockConfig(float unlockTimeSeconds, string scenePath)
-        {
-            UnlockTimeSeconds = unlockTimeSeconds;
-            ScenePath = scenePath;
-            Unlocked = false;
-        }
     }
 }

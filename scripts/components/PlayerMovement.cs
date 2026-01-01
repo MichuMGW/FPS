@@ -8,9 +8,10 @@ public partial class PlayerMovement : Node
     [Export(PropertyHint.Range, "0,1,0.01")]
     public float AirControl = 0.25f; // ile kontroli w powietrzu (0..1)
 
-    private float _walkSpeed;
+    public float Speed { get; private set; }
     private float _jumpForce;
     private int _maxJumpCount;
+
 
     public int JumpsLeft { get; private set; }
 
@@ -38,7 +39,7 @@ public partial class PlayerMovement : Node
 
     private void PullStats()
     {
-        _walkSpeed = _stats.GetStat(StatId.MoveSpeed);
+        Speed = _stats.GetStat(StatId.MoveSpeed);
         _jumpForce = _stats.GetStat(StatId.JumpForce);
         _maxJumpCount = Mathf.Max(1, Mathf.RoundToInt(_stats.GetStat(StatId.JumpCount)));
     }
@@ -78,14 +79,6 @@ public partial class PlayerMovement : Node
         return dir.Normalized();
     }
 
-    public float GetTargetSpeed()
-    {
-        float speed = _walkSpeed;
-        if (Input.IsActionPressed("Sprint"))
-            speed *= SprintMultiplier;
-        return speed;
-    }
-
     public void ApplyGravity(float dt)
     {
         if (!_player.IsOnFloor())
@@ -109,6 +102,12 @@ public partial class PlayerMovement : Node
         _player.Velocity = new Vector3(blended.X, _player.Velocity.Y, blended.Z);
     }
 
+    public void ApplyDashMove(Vector3 dir, float dashSpeed, bool keepY = true)
+    {
+        float y = keepY ? _player.Velocity.Y : 0f;
+        _player.Velocity = new Vector3(dir.X * dashSpeed, y, dir.Z * dashSpeed);
+    }
+
     public bool TryJump()
     {
         if (!Input.IsActionJustPressed("Jump"))
@@ -120,5 +119,30 @@ public partial class PlayerMovement : Node
         JumpsLeft--;
         _player.Velocity = new Vector3(_player.Velocity.X, _jumpForce, _player.Velocity.Z);
         return true;
+    }
+
+    public Vector3 GetDashDirection()
+    {
+        Vector3 dir = ReadMoveInput();
+        dir.Y = 0f;
+
+        if (dir.LengthSquared() < 0.0001f)
+        {
+            dir = -_player.GlobalTransform.Basis.Z;
+            dir.Y = 0f;
+        }
+
+        return dir.Normalized();
+    }
+
+    public float EvaluateDashSpeed(float dashForce, float t01)
+    {
+        t01 = Mathf.Clamp(t01, 0f, 1f);
+
+        // ease-out: mocny start, szybciej gaśnie na końcu
+        float factor = Mathf.Pow(1f - t01, 1.5f);
+        factor *= factor; // (1 - t)^2
+
+        return dashForce * factor;
     }
 }

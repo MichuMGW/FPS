@@ -1,11 +1,10 @@
-[gd_scene load_steps=22 format=3 uid="uid://mympbdtdffqg"]
+[gd_scene load_steps=17 format=3 uid="uid://mympbdtdffqg"]
 
 [ext_resource type="Script" uid="uid://tcmlvmhebq6h" path="res://scripts/spells/projectile_spells/Projectile.cs" id="1_ckf0t"]
 [ext_resource type="PackedScene" uid="uid://xng3w0ck0x1s" path="res://scenes/hitbox_component_OLD.tscn" id="2_5ele2"]
 [ext_resource type="ArrayMesh" uid="uid://dk2p2p1mcqyhw" path="res://Assets/effects/meshes/fireball_mesh.obj" id="3_5ele2"]
 [ext_resource type="Shader" uid="uid://cjo668gjt5k6t" path="res://Assets/effects/shaders/fireball/fireball_trail1_shader.tres" id="3_oydsb"]
 [ext_resource type="Shader" uid="uid://ciq4p4fmcjhsf" path="res://Assets/effects/shaders/fireball/fireball_head_shader.tres" id="5_tt53c"]
-[ext_resource type="Shader" uid="uid://k30q3217nhto" path="res://Assets/effects/shaders/fireball/fireball_trail2_shader.tres" id="6_8th6s"]
 [ext_resource type="Texture2D" uid="uid://oueapoone5qq" path="res://Assets/effects/textures/T_VFX_basic1.PNG" id="7_i0cao"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_q3m7n"]
@@ -29,22 +28,6 @@ shader_parameter/FresnelPower = 5.0
 [sub_resource type="SphereMesh" id="SphereMesh_q3m7n"]
 radius = 0.25
 height = 0.5
-
-[sub_resource type="Gradient" id="Gradient_i0cao"]
-offsets = PackedFloat32Array(0, 0.432584, 0.882023, 0.994382)
-colors = PackedColorArray(1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_i0cao"]
-gradient = SubResource("Gradient_i0cao")
-use_hdr = true
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8th6s"]
-render_priority = 0
-shader = ExtResource("6_8th6s")
-shader_parameter/Color_Texture = SubResource("GradientTexture1D_i0cao")
-shader_parameter/Trail_Speed = Vector2(2.5, 0)
-
-[sub_resource type="QuadMesh" id="QuadMesh_i0cao"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nwoxh"]
 blend_mode = 1
@@ -116,13 +99,6 @@ skeleton = NodePath("../..")
 transform = Transform3D(1.6, 0, 0, 0, 1.6, 0, 0, 0, 1.6, -0.105141, 0, 0)
 material_override = SubResource("ShaderMaterial_oydsb")
 mesh = SubResource("SphereMesh_q3m7n")
-skeleton = NodePath("../..")
-
-[node name="TrailMesh" type="MeshInstance3D" parent="VFXFireball"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.880179, 0.00530678, 0.00811267)
-visible = false
-material_override = SubResource("ShaderMaterial_8th6s")
-mesh = SubResource("QuadMesh_i0cao")
 skeleton = NodePath("../..")
 
 [node name="Sparks" type="GPUParticles3D" parent="VFXFireball"]

@@ -28,13 +28,13 @@ public partial class TrollDeadState : IState
 
         _owner.TrollAnimation.AnimationFinished += OnAnimationFinished;
     }
+    public void Exit(){ }
 
     private void OnAnimationFinished(StringName animName)
     {
         _owner.QueueFree();
     }
 
-    public void Exit(){ }
 
     private void RotateTowardPlayer()
     {
@@ -43,8 +43,4 @@ public partial class TrollDeadState : IState
 
         _owner.LookAt(targetPos, Vector3.Up, true);
     }
-
-    public void PhysicsUpdate(double delta){}
-
-    public void Update(double delta){}
 }

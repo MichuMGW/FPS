@@ -1,0 +1,243 @@
+[gd_scene load_steps=24 format=3 uid="uid://qud4f3qag37t"]
+
+[ext_resource type="Script" uid="uid://d36qtobm17dbo" path="res://scripts/entity/enemy/Orc/Orc.cs" id="1_y8w1c"]
+[ext_resource type="Resource" uid="uid://cjkyvmjc507j8" path="res://resources/stats/enemy_stats/OrcStats.tres" id="2_krrsj"]
+[ext_resource type="PackedScene" uid="uid://cih3o4ppqnupc" path="res://scenes/components/health_component.tscn" id="3_a2ncs"]
+[ext_resource type="PackedScene" uid="uid://dasekhirly362" path="res://scenes/components/skeletal_hurtbox_component.tscn" id="4_vlskg"]
+[ext_resource type="PackedScene" uid="uid://dhvc0370yavkg" path="res://scenes/components/pathfind_component.tscn" id="5_pvry8"]
+[ext_resource type="PackedScene" uid="uid://hvw6gscvm54u" path="res://scenes/components/velocity_component.tscn" id="6_qva4n"]
+[ext_resource type="PackedScene" uid="uid://hvd2uy3wofl8" path="res://scenes/components/status_component.tscn" id="7_dkfpa"]
+[ext_resource type="PackedScene" uid="uid://bur6hmvbxstyd" path="res://scenes/components/experience_drop_component.tscn" id="8_rb6k7"]
+[ext_resource type="PackedScene" uid="uid://dn7510hvebguv" path="res://scenes/entities/objects/experience_pickup.tscn" id="9_2rpnj"]
+[ext_resource type="PackedScene" uid="uid://c3kpxgsb3y4yi" path="res://scenes/components/gold_drop_component.tscn" id="10_jhc7l"]
+[ext_resource type="PackedScene" uid="uid://2532s3mxhgc6" path="res://Assets/models/enemies/orc.glb" id="11_fpe5d"]
+[ext_resource type="Texture2D" uid="uid://d0t06ciif66w5" path="res://Assets/textures/entities/enemies/orc/OrcMaterial Color.png" id="12_n3h7w"]
+[ext_resource type="Texture2D" uid="uid://bjt6tulrexon6" path="res://Assets/textures/entities/enemies/orc/OrcMaterial Normal.png" id="13_k0eic"]
+[ext_resource type="PackedScene" uid="uid://gwkhn3v3fswg" path="res://scenes/components/hurtbox_area.tscn" id="14_x7fqs"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wxk4a"]
+albedo_texture = ExtResource("12_n3h7w")
+normal_enabled = true
+normal_texture = ExtResource("13_k0eic")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5lqbp"]
+size = Vector3(0.3, 0.355, 0.32377)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_isc51"]
+size = Vector3(0.5, 0.851465, 0.442383)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3rynh"]
+size = Vector3(0.2, 0.47477, 0.224707)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_v4sc8"]
+size = Vector3(0.168, 0.504245, 0.179)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ai1ps"]
+size = Vector3(0.212109, 0.534683, 0.232733)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nhwux"]
+size = Vector3(0.119025, 0.564667, 0.121609)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_c4vur"]
+radius = 0.4
+height = 2.5
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_j7irp"]
+height = 2.5
+
+[node name="Orc" type="CharacterBody3D"]
+collision_layer = 16
+collision_mask = 19
+script = ExtResource("1_y8w1c")
+ChargeMinDistance = 0.0
+ChargeKnockbackForce = 40.0
+StatsResource = ExtResource("2_krrsj")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("Hurtbox") instance=ExtResource("3_a2ncs")]
+Hurtbox = NodePath("../SkeletalHurtboxComponent")
+
+[node name="SkeletalHurtboxComponent" parent="." instance=ExtResource("4_vlskg")]
+_armaturePath = "orc/OrcArmature/Skeleton3D"
+
+[node name="PathfindComponent" parent="." node_paths=PackedStringArray("Agent") instance=ExtResource("5_pvry8")]
+Agent = NodePath("../NavigationAgent3D")
+
+[node name="VelocityComponent" parent="." instance=ExtResource("6_qva4n")]
+
+[node name="StatusComponent" parent="." instance=ExtResource("7_dkfpa")]
+HurtboxComponentPath = NodePath("../SkeletalHurtboxComponent")
+
+[node name="ExperienceDropComponent" parent="." instance=ExtResource("8_rb6k7")]
+PickupScene = ExtResource("9_2rpnj")
+
+[node name="GoldDropComponent" parent="." instance=ExtResource("10_jhc7l")]
+BaseGold = 5
+
+[node name="orc" parent="." instance=ExtResource("11_fpe5d")]
+transform = Transform3D(1.7, 0, 0, 0, 1.7, 0, 0, 0, 1.7, 0, 0, 0)
+
+[node name="Skeleton3D" parent="orc/OrcArmature" index="0"]
+bones/1/position = Vector3(-0.635931, 1.4535, -0.432401)
+bones/3/position = Vector3(0.635931, 1.4535, -0.432401)
+bones/3/rotation = Quaternion(0.494115, -0.505817, 0.505816, -0.494115)
+bones/4/position = Vector3(0, 0, 0)
+bones/5/position = Vector3(0.000964781, 0.794222, -0.00841965)
+bones/5/rotation = Quaternion(0.12582, -9.31323e-10, 3.30474e-08, 0.992053)
+bones/6/rotation = Quaternion(-0.0882568, -2.32909e-10, -2.08893e-08, 0.996098)
+bones/7/rotation = Quaternion(-0.0536652, 8.29459e-10, -1.22236e-08, 0.998559)
+bones/8/rotation = Quaternion(0.00591783, -1.20606e-07, 1.22236e-09, 0.999982)
+bones/9/rotation = Quaternion(0.197533, -1.16415e-10, -1.30967e-10, 0.980296)
+bones/10/rotation = Quaternion(-0.0948572, -4.65661e-10, 1.04774e-09, 0.995491)
+bones/11/rotation = Quaternion(-0.0937117, -1.0085e-13, -8.32861e-13, 0.995599)
+bones/12/rotation = Quaternion(0.63709, 0.37458, 0.427264, -0.520818)
+bones/13/rotation = Quaternion(-0.200433, 0.82433, -0.50304, 0.165099)
+bones/14/rotation = Quaternion(0.286228, -0.0237067, -0.0146529, 0.957756)
+bones/15/rotation = Quaternion(-0.020754, -0.00377558, -0.0391534, 0.999011)
+bones/17/rotation = Quaternion(-0.000746618, 2.77616e-06, -0.0151294, 0.999885)
+bones/18/rotation = Quaternion(-0.00034134, -3.41766e-07, -0.0131254, 0.999914)
+bones/19/rotation = Quaternion(0.00803392, 0.139485, 0.0201109, 0.989987)
+bones/20/rotation = Quaternion(0.63709, -0.374581, -0.427264, -0.520818)
+bones/21/rotation = Quaternion(0.200434, 0.82433, -0.50304, -0.165099)
+bones/22/rotation = Quaternion(0.286228, 0.0237069, 0.0146529, 0.957756)
+bones/23/rotation = Quaternion(-0.0207541, 0.00377555, 0.0391534, 0.999011)
+bones/25/rotation = Quaternion(-0.000746623, -2.70686e-06, 0.0151294, 0.999885)
+bones/26/rotation = Quaternion(-0.000341346, 2.10726e-07, 0.0131254, 0.999914)
+bones/27/rotation = Quaternion(0.00803381, -0.139485, -0.0201108, 0.989987)
+bones/28/rotation = Quaternion(-5.39158e-08, 0.700007, 0.714136, -5.28491e-08)
+bones/30/rotation = Quaternion(0.1873, 0.779228, 0.303076, -0.515624)
+bones/32/rotation = Quaternion(0.985011, 0.0114529, -0.00738086, 0.171951)
+bones/33/rotation = Quaternion(0.105492, 0.0062962, 0.0182013, 0.994234)
+bones/34/rotation = Quaternion(-0.535457, 0.00426541, -0.0125272, 0.844459)
+bones/36/rotation = Quaternion(0.985011, -0.0114528, 0.00738107, 0.171951)
+bones/37/rotation = Quaternion(0.105491, -0.00629621, -0.0182011, 0.994234)
+bones/38/rotation = Quaternion(-0.535458, -0.00426543, 0.0125272, 0.844458)
+
+[node name="OrcMesh" parent="orc/OrcArmature/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_wxk4a")
+
+[node name="HeadAttachment" type="BoneAttachment3D" parent="orc/OrcArmature/Skeleton3D" index="1"]
+transform = Transform3D(1, -9.77765e-09, -5.9226e-09, 9.77765e-09, 1, -1.59442e-06, 5.92266e-09, 1.43051e-06, 1, 0.000964778, 1.68152, 0.0669684)
+bone_name = "spine.006"
+bone_idx = 11
+
+[node name="HurtboxArea" parent="orc/OrcArmature/Skeleton3D/HeadAttachment" instance=ExtResource("14_x7fqs")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="orc/OrcArmature/Skeleton3D/HeadAttachment/HurtboxArea"]
+transform = Transform3D(1, -2.22045e-16, 1.26121e-13, -2.22045e-16, 1, -8.9407e-08, 0, 0, 1, -9.31323e-10, 0.0775027, 0.0619801)
+shape = SubResource("BoxShape3D_5lqbp")
+
+[node name="BodyAttachment" type="BoneAttachment3D" parent="orc/OrcArmature/Skeleton3D" index="2"]
+transform = Transform3D(1, -8.2392e-09, -4.42667e-09, 8.326e-09, 0.9998, 0.0199797, 4.26121e-09, -0.0199797, 0.999801, 0.000964786, 1.30571, 0.0380963)
+bone_name = "spine.003"
+bone_idx = 8
+
+[node name="HurtboxArea" parent="orc/OrcArmature/Skeleton3D/BodyAttachment" instance=ExtResource("14_x7fqs")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="orc/OrcArmature/Skeleton3D/BodyAttachment/HurtboxArea"]
+transform = Transform3D(1, 8.32667e-17, -1.77636e-15, 1.17961e-16, 1, 0, -2.22045e-15, 0, 1, 0, -0.0757328, -0.0288086)
+shape = SubResource("BoxShape3D_isc51")
+
+[node name="ThightLeftAttachment" type="BoneAttachment3D" parent="orc/OrcArmature/Skeleton3D" index="3"]
+transform = Transform3D(0.999629, 0.0251009, -0.010602, 0.0240034, -0.995346, -0.0933352, -0.0128955, 0.0930462, -0.995579, 0.123733, 0.852814, 0.0319629)
+bone_name = "thigh.L"
+bone_idx = 32
+
+[node name="HurtboxArea" parent="orc/OrcArmature/Skeleton3D/ThightLeftAttachment" instance=ExtResource("14_x7fqs")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="orc/OrcArmature/Skeleton3D/ThightLeftAttachment/HurtboxArea"]
+transform = Transform3D(1, 1.11759e-08, -9.31323e-10, 1.21072e-08, 1, -2.98023e-08, 3.72529e-09, 3.8743e-07, 0.999999, 1.49012e-08, 0.138347, 0.0376466)
+shape = SubResource("BoxShape3D_3rynh")
+
+[node name="ThighRightAttachment" type="BoneAttachment3D" parent="orc/OrcArmature/Skeleton3D" index="4"]
+transform = Transform3D(0.999629, -0.0251006, 0.010602, -0.0240031, -0.995345, -0.0933352, 0.0128954, 0.0930461, -0.995579, -0.123733, 0.852814, 0.0319629)
+bone_name = "thigh.R"
+bone_idx = 36
+
+[node name="HurtboxArea" parent="orc/OrcArmature/Skeleton3D/ThighRightAttachment" instance=ExtResource("14_x7fqs")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="orc/OrcArmature/Skeleton3D/ThighRightAttachment/HurtboxArea"]
+transform = Transform3D(1, 1.11759e-08, -9.31323e-10, 1.21072e-08, 1, -2.98023e-08, 3.72529e-09, 3.8743e-07, 0.999999, 1.49012e-08, 0.138347, 0.0376466)
+shape = SubResource("BoxShape3D_3rynh")
+
+[node name="ShinLeftAttachment" type="BoneAttachment3D" parent="orc/OrcArmature/Skeleton3D" index="5"]
+transform = Transform3D(0.999921, -0.0125521, 0.000729096, -0.0125508, -0.99297, 0.117705, -0.000753469, -0.117705, -0.993049, 0.134161, 0.439296, 0.0706191)
+bone_name = "shin.L"
+bone_idx = 33
+
+[node name="HurtboxArea" parent="orc/OrcArmature/Skeleton3D/ShinLeftAttachment" instance=ExtResource("14_x7fqs")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="orc/OrcArmature/Skeleton3D/ShinLeftAttachment/HurtboxArea"]
+transform = Transform3D(1, 3.25963e-09, 1.49012e-08, 0, 1, -4.47035e-08, 0, 2.98023e-08, 1, 4.47035e-08, 0.171095, 0.0289673)
+shape = SubResource("BoxShape3D_v4sc8")
+
+[node name="ShinRightAttachment" type="BoneAttachment3D" parent="orc/OrcArmature/Skeleton3D" index="6"]
+transform = Transform3D(0.999921, 0.012552, -0.000729145, 0.0125506, -0.99297, 0.117703, 0.000753387, -0.117703, -0.993049, -0.134161, 0.439296, 0.0706192)
+bone_name = "shin.R"
+bone_idx = 37
+
+[node name="HurtboxArea" parent="orc/OrcArmature/Skeleton3D/ShinRightAttachment" instance=ExtResource("14_x7fqs")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="orc/OrcArmature/Skeleton3D/ShinRightAttachment/HurtboxArea"]
+transform = Transform3D(1, 3.25963e-09, 1.49012e-08, 0, 1, -4.47035e-08, 0, 2.98023e-08, 1, 4.47035e-08, 0.171095, 0.0289673)
+shape = SubResource("BoxShape3D_v4sc8")
+
+[node name="UpperArmLeftAttachment" type="BoneAttachment3D" parent="orc/OrcArmature/Skeleton3D" index="7"]
+transform = Transform3D(-0.775357, 0.185093, -0.603789, -0.0220597, -0.963439, -0.267017, -0.631137, -0.193714, 0.751093, 0.269818, 1.45275, 0.0184712)
+bone_name = "upper_arm.L"
+bone_idx = 13
+
+[node name="HurtboxArea" parent="orc/OrcArmature/Skeleton3D/UpperArmLeftAttachment" instance=ExtResource("14_x7fqs")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="orc/OrcArmature/Skeleton3D/UpperArmLeftAttachment/HurtboxArea"]
+transform = Transform3D(0.999997, -2.36183e-06, -1.19209e-06, 3.12924e-07, 0.999998, 4.61936e-07, 2.11596e-06, 4.57466e-06, 0.999998, 0.00605536, 0.092628, 7.61747e-05)
+shape = SubResource("BoxShape3D_ai1ps")
+
+[node name="UpperArmRightAttachment" type="BoneAttachment3D" parent="orc/OrcArmature/Skeleton3D" index="8"]
+transform = Transform3D(-0.775358, -0.185094, 0.603789, 0.02206, -0.96344, -0.267017, 0.631137, -0.193714, 0.751093, -0.269818, 1.45275, 0.0184714)
+bone_name = "upper_arm.R"
+bone_idx = 21
+
+[node name="HurtboxArea" parent="orc/OrcArmature/Skeleton3D/UpperArmRightAttachment" instance=ExtResource("14_x7fqs")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="orc/OrcArmature/Skeleton3D/UpperArmRightAttachment/HurtboxArea"]
+transform = Transform3D(0.999997, -2.36183e-06, -1.19209e-06, 3.12924e-07, 0.999998, 4.61936e-07, 2.11596e-06, 4.57466e-06, 0.999998, 0.00605536, 0.092628, 7.61747e-05)
+shape = SubResource("BoxShape3D_ai1ps")
+
+[node name="ForearmLeftAttachment" type="BoneAttachment3D" parent="orc/OrcArmature/Skeleton3D" index="9"]
+transform = Transform3D(-0.804213, -0.188015, -0.563818, 0.00820545, -0.952066, 0.30578, -0.594284, 0.241287, 0.767208, 0.338437, 1.09557, -0.053344)
+bone_name = "forearm.L"
+bone_idx = 14
+
+[node name="HurtboxArea" parent="orc/OrcArmature/Skeleton3D/ForearmLeftAttachment" instance=ExtResource("14_x7fqs")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="orc/OrcArmature/Skeleton3D/ForearmLeftAttachment/HurtboxArea"]
+transform = Transform3D(1, 0, -1.49012e-08, 0, 1, -2.98023e-07, -2.23517e-07, 3.57628e-07, 0.999999, -0.00361133, 0.20651, 0.0294112)
+shape = SubResource("BoxShape3D_nhwux")
+
+[node name="ForearmRightAttachment" type="BoneAttachment3D" parent="orc/OrcArmature/Skeleton3D" index="10"]
+transform = Transform3D(-0.804214, 0.188015, 0.563818, -0.0082052, -0.952067, 0.30578, 0.594283, 0.241287, 0.767208, -0.338438, 1.09557, -0.0533438)
+bone_name = "forearm.R"
+bone_idx = 22
+
+[node name="HurtboxArea" parent="orc/OrcArmature/Skeleton3D/ForearmRightAttachment" instance=ExtResource("14_x7fqs")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="orc/OrcArmature/Skeleton3D/ForearmRightAttachment/HurtboxArea"]
+transform = Transform3D(1, 0, -1.49012e-08, 0, 1, -2.98023e-07, -2.23517e-07, 3.57628e-07, 0.999999, -0.00361133, 0.20651, 0.0294112)
+shape = SubResource("BoxShape3D_nhwux")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+shape = SubResource("CapsuleShape3D_c4vur")
+
+[node name="ChargeHitbox" type="Area3D" parent="."]
+collision_layer = 64
+collision_mask = 2
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ChargeHitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.260262, 1.2, 1)
+shape = SubResource("CapsuleShape3D_j7irp")
+
+[editable path="orc"]

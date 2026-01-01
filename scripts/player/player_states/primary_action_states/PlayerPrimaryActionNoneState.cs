@@ -1,6 +1,6 @@
 using Godot;
 
-public class PlayerPrimaryActionNoneState : IState
+public class PlayerPrimaryActionNoneState : IState, IUpdateState
 {
     private readonly Player player;
 
@@ -11,10 +11,9 @@ public class PlayerPrimaryActionNoneState : IState
 
     public void Enter()
     {
-        player.PlayLeftArmAnimation("L_Idle");
+        
     }
     public void Exit() { }
-    public void PhysicsUpdate(double delta) { }
 
     public void Update(double delta)
     {

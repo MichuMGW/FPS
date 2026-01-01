@@ -20,10 +20,12 @@ public partial class ChestManager : Node3D
 	[Export] public int MaxTriesPerChest = 80;
 
 	[Export] public float InteractDistance = 4.5f;
-	[Export] public int BaseOpenCost = 1; //DO ZMIANY NA 30/20
+	[Export] public int BaseOpenCost = 30; //DO ZMIANY NA 30/20
 	[Export] public float SqrtScaleForCost = 30f;
 
-	[Export] public Godot.Collections.Array<ItemDefinition> AvailableItems = new();
+    [Export] public string InteractAction = "Interact";
+
+    [Export] public Godot.Collections.Array<ItemDefinition> AvailableItems = new();
 
 	public int CurrentOpenCost { get; private set; } = 1;
 	private int _openedChests = 0;
@@ -39,7 +41,11 @@ public partial class ChestManager : Node3D
 	private GameEvents _events;
 	private GoldManager _gold;
 
-	public override void _Ready()
+    private bool _hudInteractShown = false;
+    private string _hudInteractMsg = "";
+    private bool _wasInRange = false;
+
+    public override void _Ready()
 	{
 		GD.Randomize();
 
@@ -132,32 +138,53 @@ public partial class ChestManager : Node3D
 		return null;
 	}
 
-	private void SetFocused(Chest chest)
-	{
-		if (_focusedChest == chest) return;
+    private void SetFocused(Chest chest)
+    {
+        if (_focusedChest == chest) return;
 
-		_focusedChest?.HideInfo();
-		_focusedChest = chest;
-	}
+        _focusedChest?.HideInfo();
+        _focusedChest = chest;
 
-	private void UpdateChestInfo()
-	{
-		if (_focusedChest == null || _player == null) return;
+        _wasInRange = false;
+        HideHudInteract();
+    }
 
-		if (_focusedChest.IsOpened)
-		{
-			_focusedChest.HideInfo();
-			return;
-		}
 
-		float dist = _focusedChest.GlobalPosition.DistanceTo(_player.GlobalPosition);
-		if (dist <= InteractDistance)
-			_focusedChest.ShowInfo(CurrentOpenCost);
-		else
-			_focusedChest.HideInfo();
-	}
+    private void UpdateChestInfo()
+    {
+        if (_focusedChest == null || _player == null)
+        {
+            _wasInRange = false;
+            HideHudInteract();
+            return;
+        }
 
-	private void HandleOpenInput()
+        if (_focusedChest.IsOpened)
+        {
+            _focusedChest.HideInfo();
+            _wasInRange = false;
+            HideHudInteract();
+            return;
+        }
+
+        float dist = _focusedChest.GlobalPosition.DistanceTo(_player.GlobalPosition);
+        bool inRange = dist <= InteractDistance;
+
+        if (inRange)
+        {
+            _focusedChest.ShowInfo(CurrentOpenCost); // tylko koszt nad skrzynką
+            ShowHudInteract();
+        }
+        else
+        {
+            _focusedChest.HideInfo();
+            HideHudInteract();
+        }
+
+        _wasInRange = inRange;
+    }
+
+    private void HandleOpenInput()
     {
         if (_focusedChest == null || _focusedChest.IsOpened) return;
         if (_player == null) return;
@@ -165,35 +192,34 @@ public partial class ChestManager : Node3D
         float dist = _focusedChest.GlobalPosition.DistanceTo(_player.GlobalPosition);
         if (dist > InteractDistance) return;
 
-        if (!Input.IsActionJustPressed("interact"))
+        if (!Input.IsActionJustPressed(InteractAction))
             return;
 
         TryOpenFocused();
     }
 
-	private void TryOpenFocused()
+    private void TryOpenFocused()
     {
         var chest = _focusedChest;
         if (chest == null) return;
 
-        // gold check
         if (_gold == null || !_gold.TrySpendGold(CurrentOpenCost))
         {
-            chest.ShowNotEnoughGold(CurrentOpenCost);
+            _events?.EmitShowError("Insufficient funds", 3f);
             return;
         }
 
-        // lock this chest interaction right away (żeby nie dało się spamować)
         chest.LockInteraction();
+        chest.HideInfo();
+        HideHudInteract();
         SetFocused(null);
 
         var item = RollItem();
         var ctx = new ChestRewardContext(chest, item, CurrentOpenCost);
-
         _events?.RequestChestReward(ctx);
     }
 
-	private void OnChestRewardResolved(ChestRewardContext ctx, bool claimed)
+    private void OnChestRewardResolved(ChestRewardContext ctx, bool claimed)
     {
         // overlay się zamknął, więc kończymy flow skrzyni
         if (ctx?.Chest == null) return;
@@ -206,8 +232,8 @@ public partial class ChestManager : Node3D
 
 	private void UpdateChestCost()
 	{
-		// CurrentOpenCost = BaseOpenCost + (int)(Mathf.Sqrt(_openedChests) * SqrtScaleForCost);
-		CurrentOpenCost = 1; //WRÓCIĆ DO POWYŻSZEGO
+		CurrentOpenCost = BaseOpenCost + (int)(Mathf.Sqrt(_openedChests) * SqrtScaleForCost);
+		//CurrentOpenCost = 1; //WRÓCIĆ DO POWYŻSZEGO
 	}
 
 	private ItemDefinition RollItem()
@@ -320,5 +346,60 @@ public partial class ChestManager : Node3D
 		ItemRarity.Legendary => 1,
 		_ => 1
 	};
+
+    private string GetActionHintCompact(string actionName)
+    {
+        if (string.IsNullOrWhiteSpace(actionName)) return "";
+        if (!InputMap.HasAction(actionName)) return "";
+
+        var evs = InputMap.ActionGetEvents(actionName);
+        if (evs == null || evs.Count == 0) return "";
+
+        var e = evs[0];
+
+        if (e is InputEventMouseButton mb)
+        {
+            return mb.ButtonIndex switch
+            {
+                MouseButton.Left => "LMB",
+                MouseButton.Right => "RMB",
+                MouseButton.Middle => "MMB",
+                _ => mb.AsText()
+            };
+        }
+
+        if (e is InputEventKey k)
+        {
+            var key = k.PhysicalKeycode != Key.None ? k.PhysicalKeycode : k.Keycode;
+            return OS.GetKeycodeString(key);
+        }
+
+        return e.AsText();
+    }
+
+    private string BuildInteractHint()
+    {
+        var key = GetActionHintCompact(InteractAction);
+        if (string.IsNullOrWhiteSpace(key)) key = "E";
+        return $"Press \"{key}\" to open";
+    }
+
+    private void ShowHudInteract()
+    {
+        var msg = BuildInteractHint();
+
+        _hudInteractShown = true;
+        _hudInteractMsg = msg;
+        _events.EmitShowInfo(msg, 0f);
+    }
+
+    private void HideHudInteract()
+    {
+        if (!_hudInteractShown) return;
+        _hudInteractShown = false;
+        _hudInteractMsg = "";
+        _events?.EmitHideInfo();
+    }
+
 
 }

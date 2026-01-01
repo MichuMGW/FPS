@@ -11,6 +11,8 @@ public partial class ExperiencePickup : Node3D
 	{
 		area = GetNode<Area3D>("Area3D");
 		area.AreaEntered += OnAreaEntered;
+
+		SetPhysicsProcess(false);
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -43,6 +45,7 @@ public partial class ExperiencePickup : Node3D
 		if (area.Name == "PickupRadiusArea")
 		{
 			_isInRadius = true;
+			SetPhysicsProcess(true);
 		}
 	}
 }

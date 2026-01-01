@@ -16,7 +16,7 @@ texture = ExtResource("1_8vpt4")
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_v6jmg"]
 gradient = SubResource("Gradient_o6fa2")
-fill_from = Vector2(1, 0.589744)
+fill_from = Vector2(1, 0.67094)
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_xfpla"]
 expanded_output_ports = [0]

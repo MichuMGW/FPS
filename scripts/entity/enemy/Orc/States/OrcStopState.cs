@@ -2,7 +2,7 @@ using System;
 using Godot;
 
 
-public class OrcStopState : IState
+public class OrcStopState : IState, IPhysicsUpdateState
 {
     private readonly Orc _owner;
 
@@ -37,6 +37,4 @@ public class OrcStopState : IState
     {
         _owner.VelocityComp.RotateTowardsMovement((float)delta);
     }
-
-    public void Update(double delta) { }
 }

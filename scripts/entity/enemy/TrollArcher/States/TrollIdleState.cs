@@ -11,8 +11,4 @@ public class TrollIdleState : IState
     public void Enter(){}
 
     public void Exit(){}
-
-    public void PhysicsUpdate(double delta){}
-
-    public void Update(double delta){}
 }

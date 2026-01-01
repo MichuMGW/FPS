@@ -1,20 +1,28 @@
 using Godot;
 
-public class PlayerSecondaryActionCastingState : IState
+public class PlayerSecondaryActionCastingState : IState, IUpdateState
 {
     private readonly Player player;
     private SpellSlot slot;
+
+    private bool _ended;
+    private CastEndReason _endReason;
 
     public PlayerSecondaryActionCastingState(Player p) => player = p;
 
     public void Enter()
     {
+        _ended = false;
+        _endReason = CastEndReason.Canceled;
+
         slot = player.CurrentSecondaryCastingSlot;
 
         // Dash: jeśli dash jest osobnym slotem i stanem, to możesz go w ogóle nie wrzucać w tę maszynę
         if (slot == SpellSlot.Dash)
         {
-            // albo osobny state dla dash
+            _ended = false;
+            player.Spells.BeginCast(slot);
+            player.PlayRightArmAnimation("R_Idle");
             player.ChangeSecondaryActionState(PlayerSecondaryActionStateId.None);
             return;
         }
@@ -31,6 +39,9 @@ public class PlayerSecondaryActionCastingState : IState
         // animacja startowa tylko zależnie od cast-mode
         switch (def.CastMode)
         {
+            case SpellCastMode.Instant:
+                player.PlayRightArmAnimation("R_CastProjectile_Instant");
+                break;
             case SpellCastMode.Channel:
                 player.PlayRightArmAnimation("R_CastChannel");
                 break;
@@ -46,7 +57,10 @@ public class PlayerSecondaryActionCastingState : IState
 
     public void Exit()
     {
-        player.Spells.EndCast(slot, CastEndReason.Canceled);
+        if (!_ended)
+        {
+            player.Spells.EndCast(slot, CastEndReason.Canceled);
+        }
     }
 
     public void Update(double delta)
@@ -54,22 +68,38 @@ public class PlayerSecondaryActionCastingState : IState
         // przykładowy “interrupt”
         if (Input.IsActionJustPressed("CastDash"))
         {
-            player.Spells.EndCast(slot, CastEndReason.Interrupted);
+            _ended = true;
+            _endReason = CastEndReason.Interrupted;
+            player.Spells.EndCast(slot, _endReason);
             player.ChangeSecondaryActionState(PlayerSecondaryActionStateId.None);
             return;
         }
 
         if (!IsHeld(slot))
         {
-            player.Spells.EndCast(slot, CastEndReason.Released);
+            _ended = true;
+            _endReason = CastEndReason.Released;
+            player.Spells.EndCast(slot, _endReason);
+
+            var castMode = player.Spells.GetInstance(slot)?.Definition.CastMode;
+            switch (castMode)
+            {
+                
+                case SpellCastMode.ChargeRelease:
+                case SpellCastMode.ChargeAuto:
+                    player.PlayRightArmAnimation("R_CastRelease");
+                    break;
+                default:
+                    player.PlayRightArmAnimation("R_Idle");
+                    break;
+            }
+
             player.ChangeSecondaryActionState(PlayerSecondaryActionStateId.None);
             return;
         }
 
         player.Spells.UpdateCast(slot, (float)delta);
     }
-
-    public void PhysicsUpdate(double delta) { }
 
     private bool IsHeld(SpellSlot s)
     {

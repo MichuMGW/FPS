@@ -1,6 +1,6 @@
 using Godot;
 
-public class OrcChaseState : IState
+public class OrcChaseState : IState, IPhysicsUpdateState
 {
     private readonly Orc _owner;
     private float _chaseTime;
@@ -41,8 +41,6 @@ public class OrcChaseState : IState
             _owner.ChangeState(OrcStateId.Charge);
         }
     }
-
-    public void Update(double delta) { }
 
     private bool CanStartCharge()
     {

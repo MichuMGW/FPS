@@ -231,7 +231,6 @@ public partial class Projectile : CharacterBody3D
         // rehit tick (polling overlapy)
         if (_rehitEnabled && !_exploded)
 		{
-			GD.Print("TickRehit");
             TickRehit(dt);
 		}
     }

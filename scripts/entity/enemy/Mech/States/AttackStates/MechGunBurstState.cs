@@ -1,6 +1,6 @@
 using Godot;
 
-public class MechGunBurstState : IState
+public class MechGunBurstState : IState, IUpdateState
 {
     private readonly Mech _owner;
 
@@ -57,6 +57,4 @@ public class MechGunBurstState : IState
 
         _nextLeft = !_nextLeft;
     }
-
-    public void PhysicsUpdate(double delta) { }
 }

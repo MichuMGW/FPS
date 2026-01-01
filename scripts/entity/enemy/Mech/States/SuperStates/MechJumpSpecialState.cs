@@ -1,6 +1,6 @@
 using Godot;
 
-public class MechJumpSpecialState : IState
+public class MechJumpSpecialState : IState, IUpdateState, IPhysicsUpdateState
 {
     private readonly Mech _owner;
 
@@ -108,7 +108,7 @@ public class MechJumpSpecialState : IState
 
                     _owner.VelocityComp.Active = true;
 
-                    _owner.LookAt(_owner.Player.GlobalPosition, Vector3.Up, true);
+                    FacePlayerYawOnly();
 
                     _owner.PlayLocomotion("Mech_Land");
                     _owner.DebreesParticles.Emitting = true;
@@ -124,6 +124,23 @@ public class MechJumpSpecialState : IState
                 break;
         }
     }
+
+    private void FacePlayerYawOnly()
+    {
+        if (_owner.Player == null) return;
+
+        Vector3 toPlayer = _owner.Player.GlobalPosition - _owner.GlobalPosition;
+        toPlayer.Y = 0f; // tylko płaszczyzna
+
+        if (toPlayer.LengthSquared() < 0.0001f)
+            return; // jesteś na nim, nie ma gdzie “patrzeć”
+
+        float yaw = Mathf.Atan2(toPlayer.X, toPlayer.Z);
+        var rot = _owner.Rotation;
+        rot.Y = yaw;
+        _owner.Rotation = rot;
+    }
+
 
     private Vector3 GetLandingPosition(Node3D body)
     {

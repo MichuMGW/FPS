@@ -27,14 +27,4 @@ public class SkeletonSummonerSummonState : IState
     {
         _owner.Animation.AnimationFinished -= OnAnimationFinished;
     }
-
-    public void PhysicsUpdate(double delta)
-    {
-        
-    }
-
-    public void Update(double delta)
-    {
-        
-    }
 }

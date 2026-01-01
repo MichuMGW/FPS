@@ -54,9 +54,4 @@ public class TrollShootState : IState
         _owner.DisableSpineLookAtTarget();
         UnsubscribeEvents();
     }
-
-
-    public void PhysicsUpdate(double delta){}
-
-    public void Update(double delta){}
 }

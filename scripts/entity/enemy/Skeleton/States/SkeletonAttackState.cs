@@ -1,7 +1,7 @@
 using System;
 using Godot;
 
-public partial class SkeletonAttackState : IState
+public partial class SkeletonAttackState : IState, IUpdateState
 {
     private Skeleton _owner;
     private float _time;
@@ -15,6 +15,8 @@ public partial class SkeletonAttackState : IState
 
     public void Enter()
     {
+        _owner.EnableMovement(false);
+
         var targetPos = _owner.PlayerAimTarget.GlobalPosition;
         targetPos.Y = _owner.GlobalPosition.Y;
 
@@ -37,12 +39,8 @@ public partial class SkeletonAttackState : IState
     public void Exit()
     {
         _owner.Hitbox.Active = false;
+        _owner.EnableMovement(true);
         _owner.Animation.AnimationFinished -= OnAnimationFinished;
-    }
-
-    public void PhysicsUpdate(double delta)
-    {
-        
     }
 
     public void Update(double delta)

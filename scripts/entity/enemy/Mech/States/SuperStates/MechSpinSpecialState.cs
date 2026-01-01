@@ -1,6 +1,6 @@
 using Godot;
 
-public class MechSpinSpecialState : IState
+public class MechSpinSpecialState : IState, IUpdateState
 {
     private readonly Mech _owner;
 

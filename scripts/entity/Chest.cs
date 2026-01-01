@@ -18,19 +18,13 @@ public partial class Chest : Node3D
     public void ShowInfo(int cost)
     {
         if (IsOpened || IsDespawning) return;
-        Info?.ShowInfo(cost);
+        Info?.ShowCost(cost);
     }
 
     public void HideInfo()
     {
         if (IsOpened || IsDespawning) return;
         Info?.HideInfo();
-    }
-
-    public void ShowNotEnoughGold(int cost)
-    {
-        if (IsOpened || IsDespawning) return;
-        Info?.ShowNotEnoughGold(cost);
     }
 
     public void LockInteraction()

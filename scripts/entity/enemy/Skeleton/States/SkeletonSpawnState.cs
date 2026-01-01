@@ -14,6 +14,10 @@ public class SkeletonSpawnState : IState
         _owner.PlayAnimationRandomized("Skeleton_Spawn");
         _owner.Animation.AnimationFinished += OnAnimationFinished;
     }
+    public void Exit()
+    {
+        
+    }
 
     private void OnAnimationFinished(StringName animName)
     {
@@ -21,18 +25,4 @@ public class SkeletonSpawnState : IState
         _owner.Animation.AnimationFinished -= OnAnimationFinished;
     }
 
-    public void Exit()
-    {
-        
-    }
-
-    public void PhysicsUpdate(double delta)
-    {
-        
-    }
-
-    public void Update(double delta)
-    {
-        
-    }
 }

@@ -1,6 +1,6 @@
 using Godot;
 
-public class MechMoveCircleState : IState
+public class MechMoveCircleState : IState, IUpdateState, IPhysicsUpdateState
 {
     private readonly Mech _owner;
     private float _angle;
@@ -14,7 +14,6 @@ public class MechMoveCircleState : IState
     {
         _owner.LookAtActive = true;
         _owner.Pathfind.Active = false;
-        _owner.Pathfind.SetPhysicsProcess(false);
         _owner.VelocityComp.MaxSpeed = _owner.MoveSpeed;
         _owner.PlayLocomotion("Mech_Walk");
 
@@ -30,7 +29,7 @@ public class MechMoveCircleState : IState
     public void Exit()
     {
         _owner.VelocityComp.SetDesiredDirection(Vector3.Zero);
-        _owner.Pathfind.SetPhysicsProcess(true);
+        _owner.Pathfind.Active = true;
     }
 
     public void Update(double delta)

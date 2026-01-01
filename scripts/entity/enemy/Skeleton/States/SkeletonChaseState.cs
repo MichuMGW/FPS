@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class SkeletonChaseState : IState
+public partial class SkeletonChaseState : IState, IPhysicsUpdateState
 {
     private Skeleton _owner;
     public SkeletonChaseState(Skeleton owner)
@@ -27,9 +27,6 @@ public partial class SkeletonChaseState : IState
         if (distanceToPlayer <= _owner.AttackDistance)
         {
             _owner.ChangeState(SkeletonStateId.Attack);
-            return;
         }
     }
-
-    public void Update(double delta){}
 }

@@ -80,8 +80,8 @@ public class SpellInstance
         }
         else if (def is DashSpellDefinition dash)
         {
-            // możesz wykorzystać ProjectileSpeed jako “speed” w stats, żeby nie mnożyć pól
-            result.ProjectileSpeed = dash.DashSpeed;
+            result.Duration = dash.DashDuration;
+            result.Duration *= stats.GetStat(StatId.RangeMultiplier);
         }
         else if (def is AreaSpellDefinition area)
         {

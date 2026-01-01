@@ -1,6 +1,6 @@
 using Godot;
 
-public class PlayerMoveAirborneState : IState
+public class PlayerMoveAirborneState : IState, IPhysicsUpdateState
 {
     private readonly Player _player;
 
@@ -18,10 +18,6 @@ public class PlayerMoveAirborneState : IState
     }
 
     public void Exit()
-    {
-    }
-
-    public void Update(double delta)
     {
     }
 
@@ -44,7 +40,7 @@ public class PlayerMoveAirborneState : IState
 
         // 2) Ruch w powietrzu z ograniczoną kontrolą
         Vector3 moveDirection = _player.Movement.ReadMoveInput();
-        float speed = _player.Movement.GetTargetSpeed();
+        float speed = _player.Movement.Speed;
 
         float airControl = _player.Movement.AirControl;
         if (_player.Knockback != null && _player.Knockback.IsActive)

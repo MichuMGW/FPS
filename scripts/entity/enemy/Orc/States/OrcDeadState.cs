@@ -27,8 +27,4 @@ public class OrcDeadState : IState
 
 
     public void Exit() { }
-
-    public void PhysicsUpdate(double delta) { }
-
-    public void Update(double delta) { }
 }

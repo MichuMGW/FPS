@@ -22,6 +22,10 @@ public partial class GameEvents : Node
     [Signal] public delegate void LevelUpChoiceRequestedEventHandler(Godot.Collections.Array<LevelUpOffer> options);
     [Signal] public delegate void LevelUpChoiceResolvedEventHandler(LevelUpOffer picked);
 
+    [Signal] public delegate void ShowInfoEventHandler(string message, float durationSeconds);
+    [Signal] public delegate void HideInfoEventHandler();
+    [Signal] public delegate void ShowErrorEventHandler(string message, float durationSeconds);
+
     public override void _Ready()
     {
         ProcessMode = ProcessModeEnum.Always;
@@ -38,6 +42,7 @@ public partial class GameEvents : Node
 
     public void EmitMenuEnabled(bool isMenuEnabled)
         => EmitSignal(nameof(MenuEnabled), isMenuEnabled);
+
 
     // --- Chest API (to czego ChestRewardOverlay oczekuje + to czego UI potrzebuje) ---
     public void RequestChestReward(ItemDefinition item, int chestOpenCost)
@@ -62,4 +67,14 @@ public partial class GameEvents : Node
 
     public void ResolveLevelUpChoice(LevelUpOffer picked)
         => EmitSignal(nameof(LevelUpChoiceResolved), picked);
+
+    public void EmitShowInfo(string message, float durationSeconds = 0f)
+        => EmitSignal(nameof(ShowInfo), message, durationSeconds);
+
+    public void EmitHideInfo()
+        => EmitSignal(nameof(HideInfo));
+
+    public void EmitShowError(string message, float durationSeconds = 3f)
+        => EmitSignal(nameof(ShowError), message, durationSeconds);
+
 }

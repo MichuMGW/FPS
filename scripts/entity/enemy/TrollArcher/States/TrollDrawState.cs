@@ -3,7 +3,7 @@
 using System;
 using Godot;
 
-public class TrollDrawState : IState
+public class TrollDrawState : IState, IPhysicsUpdateState
 {
     private TrollArcher _owner;
     private bool _bodyLookAtTarget;
@@ -101,7 +101,4 @@ public class TrollDrawState : IState
         }
         _owner.UpdateSpineLookTarget((float)delta);
     }
-
-    public void Update(double delta){}
-
 }

@@ -16,6 +16,10 @@ public class SkeletonDeadState : IState
 
         _owner.Animation.AnimationFinished += OnAnimationFinished;
     }
+    public void Exit()
+    {
+        
+    }
 
     private void OnAnimationFinished(StringName animName)
     {
@@ -23,18 +27,4 @@ public class SkeletonDeadState : IState
     }
 
 
-    public void Exit()
-    {
-        
-    }
-
-    public void PhysicsUpdate(double delta)
-    {
-        
-    }
-
-    public void Update(double delta)
-    {
-        
-    }
 }

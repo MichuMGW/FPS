@@ -1,6 +1,6 @@
 using Godot;
 
-public class PlayerSecondaryActionNoneState : IState
+public class PlayerSecondaryActionNoneState : IState, IUpdateState
 {
     private readonly Player player;
 
@@ -8,10 +8,8 @@ public class PlayerSecondaryActionNoneState : IState
 
     public void Enter()
     {
-        player.PlayRightArmAnimation("R_Idle");
     }
     public void Exit() { }
-    public void PhysicsUpdate(double delta) { }
 
     public void Update(double delta)
     {
@@ -24,8 +22,7 @@ public class PlayerSecondaryActionNoneState : IState
 
     private bool TryGetSecondaryPressedSlot(out SpellSlot slot)
     {
-        // priorytet: dash -> prawy
-        if (Input.IsActionJustPressed("CastDash"))
+        if (Input.IsActionPressed("CastDash"))
         {
             slot = SpellSlot.Dash;
             return true;

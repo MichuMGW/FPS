@@ -18,12 +18,7 @@ public partial class CameraMovement : Node
             Input.MouseMode = Input.MouseModeEnum.Visible;
         }
 
-        //Camera FOV change
-        if(Input.IsActionPressed("Sprint")){
-            camera.Fov = Mathf.Lerp(camera.Fov, 75, 0.1f);
-        } else {
-            camera.Fov = Mathf.Lerp(camera.Fov, 60, 0.1f);
-        }
+
 
         // Camera rotation
         if (@event is InputEventMouseMotion mouseMotion && Input.MouseMode == Input.MouseModeEnum.Captured)

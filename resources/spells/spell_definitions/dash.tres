@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="DashSpellDefinition" load_steps=3 format=3 uid="uid://dn0micki6xl1g"]
+
+[ext_resource type="Texture2D" uid="uid://dohqs4nyb67a4" path="res://Assets/icons/dash.png" id="1_0qi7d"]
+[ext_resource type="Script" uid="uid://dmeh3wnto5qwj" path="res://resources/spells/definitions/DashSpellDefinition.cs" id="1_p1bc7"]
+
+[resource]
+script = ExtResource("1_p1bc7")
+DashDuration = 0.5
+SpeedMultiplier = 4.0
+FovModifiedAmount = 15.0
+DashForce = 30.0
+Id = "dash"
+DisplayName = "Dash"
+Description = "Short dash in current movement direction. Gives short invurnerability"
+Icon = ExtResource("1_0qi7d")
+Element = 0
+CastMode = 0
+BehaviourType = 3
+DamageModifier = 1.0
+BaseRange = 20.0
+BaseCooldown = 1.0
+BaseManaCost = 0.0
+EnableRehit = false
+RehitIntervalSeconds = 0.25
+RehitMaxDurationSeconds = 0.0
+BurningDotMultiplier = 1.0
+SlowMultiplierBonus = 0.0
+BleedDotMultiplier = 1.0
+EarthBuildupPerHit = 0.0
+metadata/_custom_type_script = "uid://dmeh3wnto5qwj"

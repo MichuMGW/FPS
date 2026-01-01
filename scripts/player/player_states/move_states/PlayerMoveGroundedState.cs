@@ -1,6 +1,6 @@
 using Godot;
 
-public class PlayerMoveGroundedState : IState
+public class PlayerMoveGroundedState : IState, IPhysicsUpdateState
 {
     private readonly Player _player;
 
@@ -17,8 +17,6 @@ public class PlayerMoveGroundedState : IState
 
     public void Exit() { }
 
-    public void Update(double delta) { }
-
     public void PhysicsUpdate(double delta)
     {
         float dt = (float)delta;
@@ -31,7 +29,7 @@ public class PlayerMoveGroundedState : IState
         }
 
         Vector3 moveDir = _player.Movement.ReadMoveInput();
-        float speed = _player.Movement.GetTargetSpeed();
+        float speed = _player.Movement.Speed;
 
         _player.Movement.ApplyGroundMove(moveDir, speed);
 

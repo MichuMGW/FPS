@@ -22,7 +22,7 @@ gradient = SubResource("Gradient_pmxlp")
 width = 64
 
 [sub_resource type="Gradient" id="Gradient_prd1g"]
-offsets = PackedFloat32Array(0.0169492, 0.38, 0.461, 0.55, 0.602)
+offsets = PackedFloat32Array(0.0169492, 0.38, 0.461, 0.55, 1)
 colors = PackedColorArray(0, 0, 0, 0, 0.964706, 0.964706, 0.964706, 1, 1, 0.8, 0.501961, 1, 1, 0, 0, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_awksa"]

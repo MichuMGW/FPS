@@ -1,13 +1,15 @@
-[gd_resource type="Resource" script_class="ElementKitDatabase" load_steps=7 format=3 uid="uid://bwk8dmptw6036"]
+[gd_resource type="Resource" script_class="ElementKitDatabase" load_steps=9 format=3 uid="uid://bwk8dmptw6036"]
 
 [ext_resource type="Script" uid="uid://b3lgib24dqmon" path="res://resources/spells/ElementKitDefinition.cs" id="1_ia675"]
 [ext_resource type="Script" uid="uid://d2nboqcdj5u6b" path="res://resources/spells/ElementKitDatabase.cs" id="2_dqp1f"]
 [ext_resource type="Resource" uid="uid://hc2d4swmwhf4" path="res://resources/spells/element_kit_definitions/fire_kit.tres" id="2_q44m4"]
 [ext_resource type="Resource" uid="uid://8clhc2nk3ltk" path="res://resources/spells/element_kit_definitions/water_kit.tres" id="3_agvak"]
 [ext_resource type="Resource" uid="uid://bwkrk38dgxhfd" path="res://resources/spells/element_kit_definitions/air_kit.tres" id="4_7o8sb"]
+[ext_resource type="Resource" uid="uid://xe2yce262npd" path="res://resources/spells/element_kit_definitions/nature_kit.tres" id="5_agvak"]
 [ext_resource type="Resource" uid="uid://dpv888n3rhaa4" path="res://resources/spells/element_kit_definitions/earth_kit.tres" id="5_lmc7b"]
+[ext_resource type="Resource" uid="uid://1hrqx8ltf7ae" path="res://resources/spells/element_kit_definitions/magma_kit.tres" id="7_7o8sb"]
 
 [resource]
 script = ExtResource("2_dqp1f")
-Kits = Array[ExtResource("1_ia675")]([ExtResource("2_q44m4"), ExtResource("3_agvak"), ExtResource("4_7o8sb"), ExtResource("5_lmc7b")])
+Kits = Array[ExtResource("1_ia675")]([ExtResource("2_q44m4"), ExtResource("3_agvak"), ExtResource("4_7o8sb"), ExtResource("5_agvak"), ExtResource("5_lmc7b"), ExtResource("7_7o8sb")])
 metadata/_custom_type_script = "uid://d2nboqcdj5u6b"

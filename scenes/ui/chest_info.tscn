@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cdqxkk2mc0007"]
+[gd_scene load_steps=5 format=3 uid="uid://cdqxkk2mc0007"]
 
 [ext_resource type="Script" uid="uid://c3ad36kbeld6w" path="res://scripts/ui/ChestInfo.cs" id="1_r67s2"]
+[ext_resource type="Theme" uid="uid://csif8wnmjs1io" path="res://Assets/ui_theme.tres" id="2_76ylb"]
+[ext_resource type="Texture2D" uid="uid://di3blninj87dm" path="res://Assets/icons/coins.png" id="2_ltd0y"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_nqib5"]
 viewport_path = NodePath("Sprite3D/SubViewport")
@@ -31,6 +33,7 @@ offset_right = 100.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
 color = Color(0, 0, 0, 0.5)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Sprite3D/SubViewport/CostText"]
@@ -40,51 +43,22 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -45.5
+offset_top = -32.0
+offset_right = 45.5
+offset_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="TextureRect" type="TextureRect" parent="Sprite3D/SubViewport/CostText/HBoxContainer"]
-layout_mode = 2
 
 [node name="CostLabel" type="Label" parent="Sprite3D/SubViewport/CostText/HBoxContainer"]
 layout_mode = 2
-text = "ALO"
-horizontal_alignment = 1
+theme = ExtResource("2_76ylb")
+text = "30"
+horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="HintText" type="ColorRect" parent="Sprite3D/SubViewport"]
-top_level = true
-custom_minimum_size = Vector2(200, 0)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -100.0
-offset_top = 30.0
-offset_right = 100.0
-offset_bottom = 70.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.5)
-
-[node name="HintLabel" type="Label" parent="Sprite3D/SubViewport/HintText"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -66.5
-offset_top = -11.5
-offset_right = 66.5
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "Press \"E\" to open"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="TextureRect" type="TextureRect" parent="Sprite3D/SubViewport/CostText/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("2_ltd0y")
+stretch_mode = 2

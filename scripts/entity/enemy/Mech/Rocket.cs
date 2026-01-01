@@ -1,148 +1,21 @@
-// using Godot;
-// using System;
-// using System.Collections.Generic;
-
-// public partial class Rocket : CharacterBody3D
-// {
-//     [Export] public float Speed { get; set; } = 30f;
-//     [Export] public float TurnSpeed { get; set; } = 3f;
-//     [Export] public float LifeTime { get; set; } = 6f;
-//     [Export] public float ExplosionDuration { get; set; } = 0.15f;
-//     [Export] public float ExplosionRadius { get; set; } = 5f;
-
-//     private HurtboxComponent _hurtbox;
-//     private HealthComponent _health;
-//     private HitboxComponent _hitbox;
-//     private Shape3D _hitboxShape;
-
-//     private Node3D _target;
-//     private Vector3 _moveDir = Vector3.Forward;
-//     private float _timeAlive;
-//     private bool _exploded;
-
-//     public override void _Ready()
-//     {
-//         _health = GetNode<HealthComponent>("HealthComponent");
-//         _target = GetTree().GetFirstNodeInGroup("player") as Node3D;
-//         _hitbox = GetNode<HitboxComponent>("HitboxComponent");
-//         _hitboxShape = GetNode<CollisionShape3D>("CollisionShape3D").Shape;
-
-
-//         ((SphereShape3D)_hitboxShape).Radius = ExplosionRadius;
-//         _hitbox.Active = false;
-
-
-//         if (_moveDir == Vector3.Zero)
-//             _moveDir = GlobalTransform.Basis.Y.Normalized();
-
-//         _health.EntityDied += OnDied;
-//     }
-
-//     private void OnDied()
-//     {
-//         Explode(true);
-//     }
-
-
-//     public void Initialize(Vector3 initialDir)
-//     {
-//         _moveDir = initialDir.Normalized();
-//         LookAt(GlobalPosition + _moveDir, Vector3.Up);
-//     }
-
-//     public override void _PhysicsProcess(double delta)
-//     {
-//         float dt = (float)delta;
-//         _timeAlive += dt;
-
-//         if (_timeAlive >= LifeTime)
-//         {
-//             Explode();
-//             return;
-//         }
-
-//         if (_target != null && IsInstanceValid(_target))
-//         {
-//             Vector3 toTarget = _target.GlobalPosition - GlobalPosition;
-//             toTarget.Y += 1.0f;
-
-//             if (toTarget != Vector3.Zero)
-//             {
-//                 Vector3 desiredDir = toTarget.Normalized();
-//                 float t = Mathf.Clamp(TurnSpeed * dt, 0f, 1f);
-//                 _moveDir = _moveDir.Slerp(desiredDir, t).Normalized();
-//                 LookAt(GlobalPosition + _moveDir, Vector3.Up, true);
-//             }
-//         }
-
-//         GlobalPosition += _moveDir * Speed * dt;
-//         MoveAndCollide();
-//     }
-
-//     private void Explode(bool hurtEnemies = false)
-//     {
-//         // Wyłącz bezpośrednie kolizje, żeby nic więcej nie łapać
-//         if(hurtEnemies == true)
-//         {
-//             CollisionLayer |= PhysicsLayers.PLAYER_HITBOX;
-//         }
-
-//         _hitArea.SetDeferred("monitoring", false);
-
-//         // Ustaw AoE w miejscu eksplozji
-//         GlobalPosition = GlobalPosition;
-
-//         SetDeferred("monitoring", true);
-
-//         GetTree().CreateTimer(0.05f).Timeout += () =>
-//         {
-//             QueueFree();
-//         };
-//     }
-
-//     // ===== IDamageSource =====
-
-//     public float GetDamage() => _damage;
-
-//     public Element GetDamageType() => _damageType;
-
-//     public bool CanHitAgain(Node3D target)
-//     {
-//         if (RehitCooldownSeconds <= 0f)
-//             return true;
-
-//         if (!_lastHitTimeByTarget.TryGetValue(target, out var lastTime))
-//             return true;
-
-//         return _timeAlive - (float)lastTime >= RehitCooldownSeconds;
-//     }
-
-//     public void RegisterHit(Node3D target)
-//     {
-//         if (RehitCooldownSeconds <= 0f)
-//             return;
-
-//         _lastHitTimeByTarget[target] = _timeAlive;
-//     }
-// }
-
 using Godot;
-using System;
 
 public partial class Rocket : CharacterBody3D
 {
-    // ===== RUCH =====
     [Export] public float Speed { get; set; } = 30f;
     [Export] public float TurnSpeed { get; set; } = 3f;
     [Export] public float LifeTime { get; set; } = 6f;
-    [Export] public float ExplosionDuration { get; set; } = 0.15f;
-    [Export] public float ExplosionRadius { get; set; } = 5f;
+    [Export] public float ExplosionDuration { get; set; } = 2f;
+    [Export] public float ExplosionRadius { get; set; } = 2f;
 
-    // ===== REFERENCJE =====
     private HealthComponent _health;
     private HitboxComponent _hitbox;
     private Shape3D _hitboxShape;
 
+    [Export] public MeshInstance3D _rocketMesh;
+    [Export] public MeshInstance3D _flame1, _flame2, _flame3;
+
+    private ExplosionVFX _explosionVfx;
     private Node3D _target;
     private Vector3 _moveDir = Vector3.Forward;
     private float _timeAlive;
@@ -150,6 +23,7 @@ public partial class Rocket : CharacterBody3D
 
     public override void _Ready()
     {
+        _explosionVfx = GetNode<ExplosionVFX>("ExplosionVFX");
         _health = GetNodeOrNull<HealthComponent>("HealthComponent");
         if (_health != null)
             _health.EntityDied += OnDied;
@@ -233,6 +107,9 @@ public partial class Rocket : CharacterBody3D
         if (_exploded)
             return;
 
+        _explosionVfx.Explode();
+        HideMeshes();
+
         _exploded = true;
         if(hurtEnemies == true)
         {
@@ -244,12 +121,18 @@ public partial class Rocket : CharacterBody3D
 
         _hitbox.Active = true;
 
-        // Po ExplosionDuration sprzątamy całą scenę rakiety (wraz z hitboxem)
-        GD.Print("EXPLODE");
         GetTree().CreateTimer(ExplosionDuration).Timeout += () =>
         {
             QueueFree();
         };
+    }
+
+    private void HideMeshes()
+    {
+        _rocketMesh.Visible = false;
+        _flame1.Visible = false;
+        _flame2.Visible = false;
+        _flame3.Visible = false;
     }
 }
 

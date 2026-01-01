@@ -155,8 +155,8 @@ data = PackedVector3Array(0, 0, -1, 0.951057, 2, -0.309017, 0, 2, -1, 0, 0, -1, 
 [node name="PineTree" type="Node3D"]
 
 [node name="pine_tree" type="MeshInstance3D" parent="."]
+visibility_range_end = 100.0
 mesh = SubResource("ArrayMesh_xbwg8")
-skeleton = NodePath("")
 
 [node name="pine_tree" type="StaticBody3D" parent="pine_tree"]
 transform = Transform3D(0.695985, 0, 0, 0, 1.49894, 0, 0, 0, 0.695985, 0, 0, 0)

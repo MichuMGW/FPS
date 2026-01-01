@@ -15,7 +15,16 @@ public partial class RunElementState : Node
     }
 
     public void SetFirst(Element e) => First = e;
-    public void SetSecond(Element e) => Second = e;
+    public void SetSecond(Element e)
+    {
+        if (e == First)
+        {
+            Second = Element.None;
+            return;
+        }
+
+        Second = e;
+    }
 
     public Element GetCombined()
     {

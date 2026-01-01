@@ -1,6 +1,6 @@
 using Godot;
 
-public class MechMoveChaseState : IState
+public class MechMoveChaseState : IState, IPhysicsUpdateState
 {
     private readonly Mech _owner;
 
@@ -22,8 +22,6 @@ public class MechMoveChaseState : IState
     {
         _owner.VelocityComp.SetDesiredDirection(Vector3.Zero);
     }
-
-    public void Update(double delta){}
 
     public void PhysicsUpdate(double delta)
     {

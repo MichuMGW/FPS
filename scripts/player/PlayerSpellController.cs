@@ -4,10 +4,12 @@ using Godot;
 
 public enum SpellSlot { LeftHand, RightHand, Dash }
 
-public enum CastEndReason { Released, Canceled, Interrupted }
+public enum CastEndReason { Released, Canceled, Interrupted, Casted }
 
 public partial class PlayerSpellController : Node
 {
+    [Signal] public delegate void SpellRecastedEventHandler(int slot);
+
     [Export] public NodePath LeftHandPath;
     [Export] public NodePath RightHandPath;
     [Export] public NodePath CameraPath;
@@ -165,7 +167,7 @@ public partial class PlayerSpellController : Node
                 break;
 
             case SpellCastMode.HoldRepeatCooldown:
-                TryPerformCast(session, applyCooldown: true);
+                TryPerformCast(session, applyCooldown: false);
                 break;
 
             case SpellCastMode.Channel:
@@ -193,7 +195,9 @@ public partial class PlayerSpellController : Node
         switch (s.Def.CastMode)
         {
             case SpellCastMode.HoldRepeatCooldown:
-                TryPerformCast(s, applyCooldown: true);
+                var canCast = TryPerformCast(s, applyCooldown: true);
+                if (canCast)
+                    EmitSignal(nameof(SpellRecasted), (int)slot);
                 break;
 
             case SpellCastMode.Instant:
@@ -230,17 +234,12 @@ public partial class PlayerSpellController : Node
                 break;
 
             case SpellCastMode.ChargeRelease:
+            case SpellCastMode.ChargeAuto:
                 if (reason == CastEndReason.Released)
                     ReleaseCharge(s);
                 else
                     s.Cancel?.Cancel(s.Ctx);
                 break;
-
-            case SpellCastMode.ChargeAuto:
-                // jeśli przerwane przed autocastem: sprzątnij
-                s.Cancel?.Cancel(s.Ctx);
-                break;
-
             default:
                 // HoldRepeatCooldown/Instant: nic specjalnego
                 break;
