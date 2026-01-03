@@ -1,0 +1,128 @@
+[gd_scene load_steps=36 format=3 uid="uid://df4a8gudyllgr"]
+
+[ext_resource type="Script" uid="uid://3hxsu4kxd37j" path="res://scripts/managers/EnemySpawnManager.cs" id="1_k3hja"]
+[ext_resource type="Texture2D" uid="uid://x0owjhftlf3r" path="res://Assets/textures/environment/terrain/SpawnTerrainMask.png" id="2_7m7bi"]
+[ext_resource type="PackedScene" uid="uid://dikn2lcwld56f" path="res://scenes/managers/chest_manager.tscn" id="3_n0sfc"]
+[ext_resource type="Resource" uid="uid://dfa0n676grhod" path="res://resources/items/item_definitions/apple.tres" id="5_o7m8d"]
+[ext_resource type="Resource" uid="uid://b3mr818psy3r" path="res://resources/items/item_definitions/flask.tres" id="6_sls11"]
+[ext_resource type="Resource" uid="uid://ql5rde4knmtk" path="res://resources/items/item_definitions/meat.tres" id="7_ab3l1"]
+[ext_resource type="Resource" uid="uid://dn36fymsbq6d1" path="res://resources/items/item_definitions/mirror.tres" id="8_gkufm"]
+[ext_resource type="PackedScene" uid="uid://b71x5gbfhsfxa" path="res://scenes/managers/level_up_manager.tscn" id="9_uwdjs"]
+[ext_resource type="Resource" uid="uid://ddwp04kdan4lv" path="res://resources/levelups/levelup_upgrades_definitions/damage_upgrade.tres" id="11_ymmxm"]
+[ext_resource type="Resource" uid="uid://pw4iet6dglm0" path="res://resources/levelups/levelup_upgrades_definitions/max_health_upgrade.tres" id="12_e4sns"]
+[ext_resource type="Script" uid="uid://cejmhmihsxepu" path="res://resources/levelups/LevelUpUpgradeDefinition.cs" id="13_o7m8d"]
+[ext_resource type="Resource" uid="uid://dg5w3nf3rbxm7" path="res://resources/levelups/levelup_upgrades_definitions/movement_speed_upgrade.tres" id="13_u4jf6"]
+[ext_resource type="Resource" uid="uid://di7cnh8gqfqny" path="res://resources/levelups/levelup_upgrades_definitions/cooldown_upgrade.tres" id="14_oyki1"]
+[ext_resource type="Resource" uid="uid://qv3nvimbrovo" path="res://resources/levelups/levelup_upgrades_definitions/health_regen_upgrade.tres" id="15_5cygh"]
+[ext_resource type="PackedScene" uid="uid://co6xss73lvr88" path="res://scenes/managers/ui_overlay_manager.tscn" id="16_txhky"]
+[ext_resource type="PackedScene" uid="uid://drxt24tqal6cm" path="res://scenes/ui/element_overlay.tscn" id="17_lsf3j"]
+[ext_resource type="PackedScene" uid="uid://dxm28jd1ja67h" path="res://scenes/ui/reward_overlay.tscn" id="18_n64aj"]
+[ext_resource type="PackedScene" uid="uid://co0twflvmb1as" path="res://scenes/ui/level_up_overlay.tscn" id="19_ypmkn"]
+[ext_resource type="PackedScene" uid="uid://b3gno6dkvx40u" path="res://scenes/ui/menu/game_menu.tscn" id="20_0wmv8"]
+[ext_resource type="Script" uid="uid://bmvahbi6otbad" path="res://scripts/items/ItemInventory.cs" id="20_b0s70"]
+[ext_resource type="Script" uid="uid://t072bsw1vix3" path="res://scripts/game/RunElementState.cs" id="21_o7m8d"]
+[ext_resource type="Resource" uid="uid://bwk8dmptw6036" path="res://resources/spells/ElementKitDatabase.tres" id="21_ojl0l"]
+[ext_resource type="Script" uid="uid://xdahrj3wt527" path="res://resources/items/ItemDefinition.cs" id="22_ab3l1"]
+[ext_resource type="Script" uid="uid://c2k3g32olfnjh" path="res://scripts/game/GameDirector.cs" id="22_gshc4"]
+[ext_resource type="Script" uid="uid://b0vqlhyer5y" path="res://scripts/managers/PauseManager.cs" id="22_sls11"]
+[ext_resource type="Script" uid="uid://bglow4niaajfl" path="res://scripts/managers/GoldManager.cs" id="23_ab3l1"]
+[ext_resource type="PackedScene" uid="uid://dsy504x2ofm0n" path="res://scenes/entities/enemies/Mech.tscn" id="23_yugxk"]
+[ext_resource type="Texture2D" uid="uid://dj8dl5e5bt87j" path="res://Assets/textures/environment/sky/night_sky.jpg" id="24_fc8rn"]
+[ext_resource type="Script" uid="uid://dyw6ofi0si22g" path="res://scripts/managers/ExperienceManager.cs" id="24_gkufm"]
+[ext_resource type="PackedScene" uid="uid://b32e4s8pjtxat" path="res://scenes/entities/player.tscn" id="25_y0d2r"]
+[ext_resource type="PackedScene" uid="uid://br85v6rjactsn" path="res://scenes/environment/terrain/terrain.tscn" id="27_dnteo"]
+[ext_resource type="PackedScene" uid="uid://b7w7abb7e6in2" path="res://scenes/ui/player_hud.tscn" id="28_h5g7l"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_mngbo"]
+panorama = ExtResource("24_fc8rn")
+
+[sub_resource type="Sky" id="Sky_4w45t"]
+sky_material = SubResource("PanoramaSkyMaterial_mngbo")
+
+[sub_resource type="Environment" id="Environment_r6p65"]
+background_mode = 2
+sky = SubResource("Sky_4w45t")
+fog_enabled = true
+fog_light_color = Color(0.0855954, 0.0971605, 0.115342, 1)
+fog_sky_affect = 0.85
+
+[node name="MainScene" type="Node"]
+
+[node name="UIOverlayManager" parent="." instance=ExtResource("16_txhky")]
+ElementOverlayScene = ExtResource("17_lsf3j")
+ChestRewardOverlayScene = ExtResource("18_n64aj")
+LevelUpOverlayScene = ExtResource("19_ypmkn")
+GameMenuScene = ExtResource("20_0wmv8")
+KitDatabase = ExtResource("21_ojl0l")
+
+[node name="ItemInventory" type="Node" parent="."]
+script = ExtResource("20_b0s70")
+
+[node name="RunElementState" type="Node" parent="."]
+script = ExtResource("21_o7m8d")
+
+[node name="PauseManager" type="Node" parent="."]
+script = ExtResource("22_sls11")
+
+[node name="GoldManager" type="Node" parent="."]
+script = ExtResource("23_ab3l1")
+
+[node name="ExperienceManager" type="Node" parent="."]
+script = ExtResource("24_gkufm")
+
+[node name="LevelUpManager" parent="." instance=ExtResource("9_uwdjs")]
+UpgradePool = Array[ExtResource("13_o7m8d")]([ExtResource("11_ymmxm"), ExtResource("12_e4sns"), ExtResource("13_u4jf6"), ExtResource("14_oyki1"), ExtResource("15_5cygh")])
+
+[node name="GameDirector" type="Node" parent="."]
+script = ExtResource("22_gshc4")
+EnemySpawnManagerPath = NodePath("../EnemySpawnManager")
+KitDatabase = ExtResource("21_ojl0l")
+IntroDimmerPath = NodePath("../IntroFadeLayer/ColorRect")
+BossScene = ExtResource("23_yugxk")
+BossSpawnPointPath = NodePath("../BossSpawnPoint")
+
+[node name="ChestManager" parent="." instance=ExtResource("3_n0sfc")]
+ChestCount = 100
+AvailableItems = Array[ExtResource("22_ab3l1")]([ExtResource("5_o7m8d"), ExtResource("6_sls11"), ExtResource("7_ab3l1"), ExtResource("8_gkufm")])
+
+[node name="EnemySpawnManager" type="Node3D" parent="."]
+script = ExtResource("1_k3hja")
+SpawnMaskTexture = ExtResource("2_7m7bi")
+
+[node name="IntroFadeLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="IntroFadeLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="PlayerHUD" parent="." instance=ExtResource("28_h5g7l")]
+
+[node name="DirectionalLight3DTEST" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+visible = false
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_r6p65")
+
+[node name="Player" parent="." instance=ExtResource("25_y0d2r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03149, -1.86347)
+
+[node name="Terrain" parent="." instance=ExtResource("27_dnteo")]
+
+[node name="EnemiesRoot" type="Node3D" parent="." groups=["enemies_root"]]
+
+[node name="MinionsRoot" type="Node3D" parent="."]
+
+[node name="BossSpawnPoint" type="Node3D" parent="."]
+
+[node name="DEBUG_CAMERA" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.545844, 2.5141, 13.8897)
+visible = false
+
+[editable path="Terrain"]
+[editable path="Terrain/NavigationRegion3D/Terrain"]

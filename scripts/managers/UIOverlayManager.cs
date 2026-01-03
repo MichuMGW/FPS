@@ -26,12 +26,12 @@ public partial class UIOverlayManager : Node
         ProcessMode = ProcessModeEnum.Always;
 
         _events = GetTree().Root.GetNodeOrNull<GameEvents>("GameEvents");
-        _pause = GetTree().Root.GetNodeOrNull<PauseManager>("PauseManager");
+        _pause = GetTree().CurrentScene.GetNodeOrNull<PauseManager>("PauseManager");
 
         if (_events == null)
             GD.PushError("[UIOverlayManager] Missing GameEvents autoload.");
         if (_pause == null)
-            GD.PushError("[UIOverlayManager] Missing PauseManager autoload.");
+            GD.PushError("[UIOverlayManager] PauseManager not assigned.");
         if (ElementOverlayScene == null)
             GD.PushError("[UIOverlayManager] ElementOverlayScene not assigned.");
         if (ChestRewardOverlayScene == null)

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b3gno6dkvx40u"]
+[gd_scene load_steps=3 format=3 uid="uid://b3gno6dkvx40u"]
 
-[ext_resource type="Script" uid="uid://bacf5wvv2cn0i" path="res://scripts/ui/GameMenuUI.cs" id="1_jfskg"]
+[ext_resource type="Script" uid="uid://bacf5wvv2cn0i" path="res://scripts/ui/menu/GameMenuUI.cs" id="1_jfskg"]
+[ext_resource type="Theme" uid="uid://csif8wnmjs1io" path="res://Assets/ui_theme.tres" id="2_tcns7"]
 
 [node name="GameMenu" type="CanvasLayer" node_paths=PackedStringArray("continueButton", "settingsButton", "exitButton") groups=["overlay"]]
 script = ExtResource("1_jfskg")
@@ -16,6 +17,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_tcns7")
 
 [node name="ColorRect" type="ColorRect" parent="Control"]
 layout_mode = 1
@@ -43,16 +45,16 @@ theme_override_constants/separation = 30
 alignment = 1
 
 [node name="ContinueButton" type="Button" parent="Control/VBoxContainer"]
-custom_minimum_size = Vector2(100, 50)
+custom_minimum_size = Vector2(100, 60)
 layout_mode = 2
 text = "Continue"
 
 [node name="SettingsButton" type="Button" parent="Control/VBoxContainer"]
-custom_minimum_size = Vector2(100, 50)
+custom_minimum_size = Vector2(100, 60)
 layout_mode = 2
 text = "Settings"
 
 [node name="QuitButton" type="Button" parent="Control/VBoxContainer"]
-custom_minimum_size = Vector2(100, 50)
+custom_minimum_size = Vector2(100, 60)
 layout_mode = 2
 text = "Exit"

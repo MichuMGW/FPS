@@ -9,8 +9,20 @@ public partial class GameDirector : Node
     [Export(PropertyHint.Range, "0.1,0.9,0.05")]
     public float SecondPickAtNormalizedTime = 0.5f;
 
+    [Export] public NodePath IntroDimmerPath = "IntroFadeLayer/IntroDimmer";
+    [Export(PropertyHint.Range, "0.1,10.0,0.1")]
+    public float IntroFadeSeconds = 3.0f;
+    private ColorRect _introDimmer;
+
+    [Export] public PackedScene BossScene { get; set; }
+    [Export] public NodePath BossSpawnPointPath { get; set; }
+    [Export] public bool StopEnemySpawnsDuringBoss = true;
+
     private EnemySpawnManager _enemySpawnManager;
     private readonly DifficultyManager _difficultyManager = new DifficultyManager();
+
+    private RunDifficulty _runDifficulty;
+    private RunConfig _runConfig;
 
     private GameEvents _events;
     private RunElementState _runState;
@@ -19,11 +31,16 @@ public partial class GameDirector : Node
     private ChestManager _chestManager = null;
 
     private float _elapsed;
+    private float _bossElapsed;
     private float _spawnTimer;
     private bool _isRunning;
 
     private bool _secondPickRequested;
     private bool _secondPickDone;
+
+    private bool _bossPhase;
+    private bool _bossSpawned;
+    private Node _bossInstance;
 
     private readonly List<EnemyUnlockConfig> _enemyUnlocks = new()
     {
@@ -48,13 +65,16 @@ public partial class GameDirector : Node
             return;
         }
 
+        _runConfig = GetTree().Root.GetNode<RunConfig>("RunConfig");
         _events = GetTree().Root.GetNodeOrNull<GameEvents>("GameEvents");
-        _runState = GetTree().Root.GetNodeOrNull<RunElementState>("RunElementState");
-        _inventory = GetTree().Root.GetNodeOrNull<ItemInventory>("ItemInventory");
-        _chestManager = GetTree().GetFirstNodeInGroup("chest_manager") as ChestManager;
+        _runState = GetTree().CurrentScene.GetNodeOrNull<RunElementState>("RunElementState");
+        _inventory = GetTree().CurrentScene.GetNodeOrNull<ItemInventory>("ItemInventory");
+        _chestManager = GetTree().CurrentScene.GetNodeOrNull<ChestManager>("ChestManager");
 
         var player = GetTree().GetFirstNodeInGroup("player") as Player;
         _spellController = player?.GetNodeOrNull<PlayerSpellController>("PlayerSpellController");
+
+        _introDimmer = GetNodeOrNull<ColorRect>(IntroDimmerPath);
 
         if (_events == null)
             GD.PushError("[GameDirector] Missing GameEvents autoload.");
@@ -66,15 +86,33 @@ public partial class GameDirector : Node
             GD.PushWarning("[GameDirector] KitDatabase not assigned.");
 
         if (_events != null)
+        {
             _events.ElementPicked += OnElementPicked;
+            _events.BossEnded += OnBossEnded;
+        }
+
+        _difficultyManager.RunDifficulty = _runConfig.Difficulty;
 
         CallDeferred(nameof(BootstrapRun));
     }
 
     private async void BootstrapRun()
     {
-        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+
+
+        var tree = GetTree();
+
+        // Daj scenie 1-2 klatki na poukładanie _Ready() gdzie trzeba
+        await ToSignal(tree, SceneTree.SignalName.ProcessFrame);
+        await ToSignal(tree, SceneTree.SignalName.ProcessFrame);
+
+        tree.Paused = true;
+
+        if (_introDimmer != null)
+            await FadeFromBlack();
+
+        tree.Paused = false;
+
         StartGame();
     }
 
@@ -83,6 +121,15 @@ public partial class GameDirector : Node
         if (!_isRunning)
             return;
 
+        // --- BOSS TIMER MODE: count up ---
+        if (_bossPhase)
+        {
+            _bossElapsed += (float)delta;
+            _events?.EmitRunTimeUpdated(_bossElapsed, 0f); // total nie ma znaczenia w boss mode
+            return; // nie spawnujemy normalnych fal w boss phase
+        }
+
+        // --- NORMAL MODE: countdown ---
         _elapsed += (float)delta;
         _events?.EmitRunTimeUpdated(_elapsed, MatchDurationSeconds);
 
@@ -90,7 +137,7 @@ public partial class GameDirector : Node
 
         if (_elapsed >= MatchDurationSeconds)
         {
-            EndMatch();
+            StartBossPhase();
             return;
         }
 
@@ -110,6 +157,26 @@ public partial class GameDirector : Node
         }
     }
 
+    private async System.Threading.Tasks.Task FadeFromBlack()
+    {
+        _introDimmer.Visible = true;
+
+        var tween = CreateTween();
+        tween.SetPauseMode(Tween.TweenPauseMode.Process);
+        tween.SetTrans(Tween.TransitionType.Sine);
+        tween.SetEase(Tween.EaseType.InOut);
+
+        var from = _introDimmer.Color; from.A = 1f;
+        var to = _introDimmer.Color; to.A = 0f;
+
+        _introDimmer.Color = from;
+        tween.TweenProperty(_introDimmer, "color", to, IntroFadeSeconds);
+
+        await ToSignal(tween, Tween.SignalName.Finished);
+
+        _introDimmer.QueueFree();
+    }
+
     private void StartGame()
     {
         GD.Print("[GameDirector] Match started.");
@@ -125,6 +192,7 @@ public partial class GameDirector : Node
         _chestManager?.SpawnChests();
 
         _events?.RequestElementPick(isSecondPick: false);
+        _events?.StartGame();
     }
 
     private void UnlockEnemiesIfNeeded(DifficultySnapshot diff)
@@ -161,8 +229,8 @@ public partial class GameDirector : Node
         if (_secondPickDone || _secondPickRequested) return;
         if (!_runState.HasFirst || _runState.HasSecond) return;
 
-        //float triggerTime = MatchDurationSeconds * Mathf.Clamp(SecondPickAtNormalizedTime, 0.1f, 0.9f);
-        float triggerTime = 1;
+        float triggerTime = MatchDurationSeconds * Mathf.Clamp(SecondPickAtNormalizedTime, 0.1f, 0.9f);
+        //float triggerTime = 1;
 
         if (_elapsed < triggerTime)
             return;
@@ -229,6 +297,76 @@ public partial class GameDirector : Node
             return;
 
         _events.RequestElementPick(isSecondPick: true);
+    }
+
+    private void StartBossPhase()
+    {
+        if (_bossPhase) return;
+
+        GD.Print("[GameDirector] Boss phase started.");
+
+        _bossPhase = true;
+        _bossElapsed = 0f;
+
+        // zatrzymaj zwykłe fale
+        if (StopEnemySpawnsDuringBoss)
+            _enemySpawnManager?.StopSpawning();
+
+        // opcjonalnie: tu możesz też zablokować skrzynie itd.
+
+        _events?.EmitBossFightStarted();
+        _events?.EmitRunTimeUpdated(0f, 0f);
+
+        SpawnBoss();
+    }
+
+    private void SpawnBoss()
+    {
+        if (_bossSpawned) return;
+        _bossSpawned = true;
+
+        if (BossScene == null)
+        {
+            GD.PushError("[GameDirector] BossScene is not assigned.");
+            return;
+        }
+
+        var boss = BossScene.Instantiate<Node>();
+        _bossInstance = boss;
+
+        // wrzuć do sceny gry
+        GetTree().CurrentScene.AddChild(boss);
+
+        // ustaw pozycję jeśli masz spawnpoint
+        if (BossSpawnPointPath != null && !BossSpawnPointPath.IsEmpty)
+        {
+            var sp = GetNodeOrNull<Node3D>(BossSpawnPointPath);
+            if (sp != null && boss is Node3D boss3D)
+            {
+                boss3D.GlobalTransform = sp.GlobalTransform;
+            }
+        }
+
+        // jeśli boss nie ma grupy, to mu ją dopnij (bez bólu)
+        if (!boss.IsInGroup("boss"))
+            boss.AddToGroup("boss");
+
+        // krótka informacja do HUD (opcjonalnie)
+        _events?.EmitShowInfo("Boss has arrived.", 2.0f);
+    }
+
+    private void OnBossEnded(Node boss)
+    {
+        // BossEnded emituje Mech, więc kończymy run dopiero wtedy
+        if (!_bossPhase) return;
+
+        // jeżeli masz więcej bossów, to tu możesz weryfikować instancję
+        // if (_bossInstance != null && GodotObject.IsInstanceValid(_bossInstance) && boss != _bossInstance) return;
+
+        GD.Print("[GameDirector] Boss phase ended.");
+        _events?.EmitBossFightEnded();
+
+        EndMatch();
     }
 
     private void EndMatch()

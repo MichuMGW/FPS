@@ -2,6 +2,8 @@ public enum StatId
 {
     MaxHealth,
     HealthRegen,
+    MaxMana,
+    ManaRegen,
     MoveSpeed,
     JumpForce,
     JumpCount,

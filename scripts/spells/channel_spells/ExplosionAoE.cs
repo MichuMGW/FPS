@@ -29,8 +29,7 @@ public partial class ExplosionAoE : Node3D
             var timer = GetTree().CreateTimer(LifeTime);
             timer.Timeout += () =>
             {
-                if (GodotObject.IsInstanceValid(this))
-                    QueueFree();
+                QueueFree();
             };
         }
     }

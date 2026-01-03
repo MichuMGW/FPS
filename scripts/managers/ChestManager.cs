@@ -53,7 +53,7 @@ public partial class ChestManager : Node3D
 		_player = GetTree().GetFirstNodeInGroup("player") as Node3D;
 
 		_events = GetTree().Root.GetNodeOrNull("GameEvents") as GameEvents;
-		_gold = GetTree().Root.GetNodeOrNull<GoldManager>("GoldManager");
+		_gold = GetTree().CurrentScene.GetNodeOrNull<GoldManager>("GoldManager");
 
 		InitMask();
 

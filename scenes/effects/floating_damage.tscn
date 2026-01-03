@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://otriyn1kjsvx"]
+[gd_scene load_steps=3 format=3 uid="uid://otriyn1kjsvx"]
 
 [ext_resource type="Script" uid="uid://bojjnj0kki4o7" path="res://scripts/ui/effects/FloatingDamage.cs" id="1_oeer6"]
+[ext_resource type="FontFile" uid="uid://d2vf3deu7a1b0" path="res://Assets/fonts/Kenney High.ttf" id="2_3sqw2"]
 
 [node name="FloatingDamage" type="Node3D"]
 script = ExtResource("1_oeer6")
@@ -12,4 +13,6 @@ billboard = 1
 no_depth_test = true
 fixed_size = true
 text = "10
+
 "
+font = ExtResource("2_3sqw2")

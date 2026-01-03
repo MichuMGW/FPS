@@ -38,7 +38,7 @@ public partial class ExperiencePickup : Node3D
 	{
 		if (area.Name == "PickupArea")
 		{
-			var Exp = GetTree().Root.GetNodeOrNull<ExperienceManager>("ExperienceManager");
+			var Exp = GetTree().CurrentScene.GetNodeOrNull<ExperienceManager>("ExperienceManager");
 			Exp.AddExp(Amount);
 			QueueFree();
 		}

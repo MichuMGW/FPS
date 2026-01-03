@@ -1,8 +1,10 @@
-[gd_resource type="Resource" script_class="ExplosionSpellDefinition" load_steps=4 format=3 uid="uid://cyxu5p3imwvxv"]
+[gd_resource type="Resource" script_class="ExplosionSpellDefinition" load_steps=6 format=3 uid="uid://cyxu5p3imwvxv"]
 
 [ext_resource type="PackedScene" uid="uid://bli4valuy8ui4" path="res://scenes/spells/basic_spells/special_spells/fire_explosion_aoe.tscn" id="1_2e2j6"]
 [ext_resource type="Script" uid="uid://d34h7mks6sosn" path="res://resources/spells/definitions/ExplosionSpellDefinition.cs" id="1_xarod"]
+[ext_resource type="Texture2D" uid="uid://cwnc88m7aqfr0" path="res://Assets/icons/fire_explosion.png" id="2_4k22u"]
 [ext_resource type="PackedScene" uid="uid://dsydo8l5shfc8" path="res://scenes/spells/basic_spells/special_spells/fire_explosion_indicator.tscn" id="2_ya0gv"]
+[ext_resource type="Resource" uid="uid://dauqpdr3hfvvb" path="res://resources/spells/status_profiles/fire_profile.tres" id="4_4k22u"]
 
 [resource]
 script = ExtResource("1_xarod")
@@ -17,17 +19,19 @@ PlacementMask = 17
 Id = "fire_explosion"
 DisplayName = "Fire Explosion"
 Description = ""
+Icon = ExtResource("2_4k22u")
 Element = 1
 CastMode = 3
 BehaviourType = 4
-DamageModifier = 1.0
+DamageModifier = 2.0
 BaseRange = 20.0
-BaseCooldown = 5.0
+BaseCooldown = 15.0
 BaseManaCost = 50.0
 EnableRehit = false
 RehitIntervalSeconds = 0.25
 RehitMaxDurationSeconds = 0.0
-BurningDotMultiplier = 1.0
+StatusProfile = ExtResource("4_4k22u")
+BurningDotMultiplier = 2.0
 SlowMultiplierBonus = 0.0
 BleedDotMultiplier = 1.0
 EarthBuildupPerHit = 0.0

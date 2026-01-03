@@ -2,6 +2,8 @@ using Godot;
 
 public partial class Rocket : CharacterBody3D
 {
+    [Export] public HitboxComponent Hitbox { get; set; }
+
     [Export] public float Speed { get; set; } = 30f;
     [Export] public float TurnSpeed { get; set; } = 3f;
     [Export] public float LifeTime { get; set; } = 6f;

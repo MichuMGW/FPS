@@ -29,6 +29,9 @@ public abstract partial class HurtboxComponent : Node
             return;
 
         var rootTarget = GetOwner<Node3D>();
+
+        GD.Print($"[Hurtbox] Checking Hit: Source={source.GetHashCode()}, Target={rootTarget?.GetHashCode()}");
+
         if (rootTarget == null)
             return;
 

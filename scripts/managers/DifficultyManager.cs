@@ -52,7 +52,7 @@ public sealed class DifficultyManager
 
     // Mikro-skoki “jak stage”, ale bez stage:
     // co N minut lekko dopalasz coeff (np. “fala elite” / “nowa pula wrogów”)
-    private const float PulseEveryMinutes = 3f;
+    private const float PulseEveryMinutes = 1f;
     private const float PulseStrength = 0.06f; // 6% przyspieszenia na oknie pulsu
     private const float PulseWidth = 0.9f;     // szerokość pulsu w minutach (miękko, nie schodek)
     public RunDifficulty RunDifficulty { get; set; }
@@ -69,7 +69,7 @@ public sealed class DifficultyManager
         {
             RunDifficulty.Casual   => 0.75f,
             RunDifficulty.Normal   => 1.00f,
-            RunDifficulty.Hardcore => 1.35f,
+            RunDifficulty.Hardcore => 1.50f,
             _ => 1.0f
         };
 

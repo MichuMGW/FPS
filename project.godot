@@ -11,18 +11,14 @@ config_version=5
 [application]
 
 config/name="FPS"
-run/main_scene="uid://df4a8gudyllgr"
+run/main_scene="uid://brlh274tvb4oi"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 GameEvents="*res://scripts/game/GameEvents.cs"
-ItemInventory="*res://scripts/items/ItemInventory.cs"
-RunElementState="*res://scripts/game/RunElementState.cs"
-PauseManager="*res://scripts/managers/PauseManager.cs"
-GoldManager="*res://scripts/managers/GoldManager.cs"
-ExperienceManager="*res://scripts/managers/ExperienceManager.cs"
+RunConfig="*res://scripts/game/RunConfig.cs"
 
 [display]
 

@@ -16,6 +16,8 @@ public partial class Mech : Enemy
     [Export] public PackedScene BulletScene { get; private set; }
     [Export] public PackedScene RocketScene { get; private set; }
     [Export] public PackedScene LandingDecalScene { get; set; }
+    [Export] public HitboxComponent LandingHitbox { get; set; }
+    [Export] public CollisionShape3D LandingHitboxCollisionShape { get; set; }
 
     private Node3D _leftBarrel;
     private Node3D _rightBarrel;
@@ -70,10 +72,13 @@ public partial class Mech : Enemy
     private StateSlot<MechAttackStateId> _attack;
 
     // ===================== Enemy hooks =====================
+    private GameEvents _events;
 
     protected override void FindNodes()
     {
         base.FindNodes();
+
+        _events = GetTree().Root.GetNode<GameEvents>("GameEvents");
 
         // Uwaga: bazowe komponenty (VelocityComp/Pathfind/Health/Hurtbox/Player/Target) masz już z Enemy
 
@@ -95,6 +100,7 @@ public partial class Mech : Enemy
     {
 
         LookAtActive = false;
+        LandingHitbox.Active = false;
 
         InitializeAnimationTree();
         SetupLookAtTargets();
@@ -105,6 +111,9 @@ public partial class Mech : Enemy
         ChangeMoveState(MechMoveStateId.ChasePlayer);
         ChangeAttackState(MechAttackStateId.None);
         ChangeSuperState(MechSuperStateId.Normal);
+
+        var health = Health as BossHealthComponent;
+        _events.EmitBossSpawned(this, health, "Mech");
     }
 
     protected override void TickBrain(float dt)
@@ -141,6 +150,7 @@ public partial class Mech : Enemy
         // - wyłączył movement
         // - zmienił kolizje dead
         // tu robisz bossową logikę
+        _events.EmitBossEnded(this);
         ChangeSuperState(MechSuperStateId.Dead);
     }
 
@@ -306,6 +316,8 @@ public partial class Mech : Enemy
         var bullet = BulletScene.Instantiate<Bullet>();
         GetTree().CurrentScene.AddChild(bullet);
 
+        bullet.Hitbox.Damage = Damage;
+
         bullet.GlobalTransform = barrel.GlobalTransform;
 
         Vector3 dir = barrel.GlobalTransform.Basis.Y;
@@ -325,12 +337,24 @@ public partial class Mech : Enemy
         var rocket = RocketScene.Instantiate<Rocket>();
         GetTree().CurrentScene.AddChild(rocket);
 
+        rocket.Hitbox.Damage = Damage;
+
         rocket.GlobalTransform = launcher.GlobalTransform;
 
         Vector3 dir = launcher.GlobalTransform.Basis.Y;
         rocket.LookAt(rocket.GlobalPosition + dir, Vector3.Up);
 
         rocket.Initialize(dir);
+    }
+
+
+    public void SetLandingHitboxRadius(float radius)
+    {
+        if (LandingHitboxCollisionShape.Shape is SphereShape3D sphere)
+        {
+            sphere.Radius = radius;
+            return;
+        }
     }
 
     // ===================== LookAt smoothing =====================

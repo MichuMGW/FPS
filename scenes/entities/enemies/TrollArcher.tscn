@@ -138,7 +138,7 @@ bones/37/rotation = Quaternion(0.840687, 0.119691, -0.14676, 0.507328)
 bones/38/rotation = Quaternion(-0.136903, -0.00838727, 0.00173252, 0.990548)
 
 [node name="UpperArmLeftAttachment" type="BoneAttachment3D" parent="troll_archer/TrollArcherRig/Skeleton3D" index="0"]
-transform = Transform3D(0.738256, 0.164153, -0.654241, -0.0412559, -0.95713, -0.286704, -0.673258, 0.238652, -0.699835, 0.168214, 1.74788, -0.0927202)
+transform = Transform3D(0.738257, 0.164153, -0.65424, -0.0412558, -0.95713, -0.286704, -0.673257, 0.238652, -0.699836, 0.168214, 1.74788, -0.0927198)
 bone_name = "upper_arm.L"
 bone_idx = 9
 
@@ -149,7 +149,7 @@ transform = Transform3D(0.171224, 2.96859e-08, -4.03652e-08, 0, 0.171218, 1.0244
 shape = SubResource("BoxShape3D_hgxrn")
 
 [node name="HeadAttachment" type="BoneAttachment3D" parent="troll_archer/TrollArcherRig/Skeleton3D" index="1"]
-transform = Transform3D(0.995517, -0.089175, -0.0315252, 0.0904322, 0.995058, 0.0409987, 0.0277134, -0.0436658, 0.998662, -0.0382084, 2.0076, -0.11146)
+transform = Transform3D(0.995517, -0.0891751, -0.0315251, 0.0904323, 0.995058, 0.0409975, 0.0277134, -0.0436647, 0.998662, -0.0382085, 2.0076, -0.111459)
 bone_name = "spine.006"
 bone_idx = 7
 
@@ -160,7 +160,7 @@ transform = Transform3D(0.28463, -9.31323e-10, 7.45058e-09, 0, 0.28463, 0, 7.450
 shape = SubResource("BoxShape3D_pkcri")
 
 [node name="ChestAttachment" type="BoneAttachment3D" parent="troll_archer/TrollArcherRig/Skeleton3D" index="2"]
-transform = Transform3D(0.997393, -0.0565053, -0.0448824, 0.0661643, 0.964342, 0.256256, 0.0288022, -0.258557, 0.965566, -0.00826778, 1.56603, -0.0314329)
+transform = Transform3D(0.997393, -0.0565055, -0.0448824, 0.0661644, 0.964342, 0.256255, 0.0288022, -0.258556, 0.965567, -0.00826779, 1.56603, -0.0314327)
 bone_name = "spine.003"
 bone_idx = 4
 
@@ -171,7 +171,7 @@ transform = Transform3D(0.300024, -5.58794e-09, -1.546e-07, -4.47035e-08, 0.3009
 shape = SubResource("BoxShape3D_411ac")
 
 [node name="LeftHandAttachment" type="BoneAttachment3D" parent="troll_archer/TrollArcherRig/Skeleton3D" index="3"]
-transform = Transform3D(-0.245472, -0.519612, 0.818381, 0.965284, -0.0532706, 0.255712, -0.0892752, 0.85274, 0.514649, 0.295221, 0.808905, 0.111417)
+transform = Transform3D(-0.245472, -0.519614, 0.81838, 0.965284, -0.0532718, 0.255711, -0.0892743, 0.852739, 0.514651, 0.29522, 0.808907, 0.111417)
 bone_name = "hand_slot.L"
 bone_idx = 18
 
@@ -209,7 +209,7 @@ bones/25/position = Vector3(0.0970799, -0.292154, -4.85748e-08)
 surface_material_override/0 = SubResource("StandardMaterial3D_411ac")
 
 [node name="RightHandAttachment" type="BoneAttachment3D" parent="troll_archer/TrollArcherRig/Skeleton3D" index="4"]
-transform = Transform3D(-0.236929, 0.391011, -0.889367, -0.969965, -0.0433155, 0.239357, 0.055068, 0.919366, 0.38953, -0.384663, 0.788614, 0.0854087)
+transform = Transform3D(-0.236927, 0.39101, -0.889368, -0.969965, -0.0433141, 0.239355, 0.0550682, 0.919366, 0.389528, -0.384661, 0.788615, 0.0854088)
 bone_name = "hand_slot.R"
 bone_idx = 30
 

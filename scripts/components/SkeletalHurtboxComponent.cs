@@ -51,17 +51,11 @@ public partial class SkeletalHurtboxComponent : HurtboxComponent
         foreach (var hurtbox in _hurtboxes)
         {
             var local = hurtbox;
-            local.BodyEntered += source => OnHurtboxBodyEntered(local, source);
             local.AreaEntered += source => OnHurtboxAreaEntered(local, source);
         }
     }
 
     private void OnHurtboxAreaEntered(HurtboxArea hurtbox, Area3D source)
-    {
-        ProcessHit(hurtbox, source);
-    }
-
-    private void OnHurtboxBodyEntered(HurtboxArea hurtbox, Node3D source)
     {
         ProcessHit(hurtbox, source);
     }

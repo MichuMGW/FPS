@@ -99,7 +99,6 @@ public partial class Projectile : CharacterBody3D
         }
 
         // bez lambd, jak prosiłeś
-        _hitbox.BodyEntered += OnHitboxBodyEntered;
         _hitbox.AreaEntered += OnHitboxAreaEntered;
 
         // hitbox ma sens tylko gdy monitoruje
@@ -302,11 +301,6 @@ public partial class Projectile : CharacterBody3D
         }
     }
 
-    private void OnHitboxBodyEntered(Node body)
-    {
-        // na razie ignoruję: większość twoich trafień idzie AreaEntered przez HurtboxArea
-    }
-
     private void OnHitboxAreaEntered(Area3D area)
     {
         if (_dead || _exploded)
@@ -324,40 +318,26 @@ public partial class Projectile : CharacterBody3D
             return;
 
         ulong id = target.GetInstanceId();
-
-        // Piercing liczymy per przeciwnik, nie per hurtbox area
         bool firstTimeThisTarget = _piercedTargets.Add(id);
 
-        // jeśli wybucha na enemy, to wybuch zawsze przy pierwszym kontakcie (inaczej będziesz miał “wybuch spam”)
         if (_explodeOnEnemy && firstTimeThisTarget)
         {
             ExplodeAt(hurtbox.GlobalPosition);
             return;
         }
 
-        // jeśli to pierwszy kontakt z tym targetem, zużyj pierce
         if (firstTimeThisTarget)
         {
             _remainingPierce -= 1;
-
             if (_remainingPierce < 0)
             {
                 QueueFree();
                 _dead = true;
+                return;
             }
         }
-
-        // Damage “on enter” nie jest wymagany, bo i tak:
-        // - możesz robić dmg przez rehit polling
-        // - albo przeciwnik sam sobie odpala reakcje w ReceiveHit (jeśli chcesz, odpal tu pierwszy hit)
-        // Jeśli chcesz pierwszy hit natychmiast:
-        if (_hitbox != null && _hitbox.CanHitAgain(target))
-        {
-            // _hitbox.RegisterHit(target);
-            ownerComp.ReceiveHit(hurtbox, _hitbox, hurtbox.GlobalPosition);
-
-        }
     }
+
 
     private void ExplodeAt(Vector3 pos)
     {

@@ -3,6 +3,8 @@ using System;
 
 public partial class Bullet : Node3D
 {
+    [Export] public HitboxComponent Hitbox { get; set; }
+
     private const float Speed = 100.0f;
     private const float MaxLifeTime = 2f;
     private float _lifeTime;

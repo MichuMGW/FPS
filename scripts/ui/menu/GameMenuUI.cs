@@ -9,7 +9,7 @@ public partial class GameMenuUI : CanvasLayer
 	public Button settingsButton;
 	[Export]
 	public Button exitButton;
-	public string SceneToLoad = "res://scenes/main_menu.tscn";
+	public string SceneToLoad = "res://scenes/ui/menu/main_menu.tscn";
 
 	public GameEvents gameEvents;
 

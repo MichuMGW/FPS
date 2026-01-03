@@ -1,0 +1,67 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckvxxc3cfmcij"]
+
+[ext_resource type="Theme" uid="uid://csif8wnmjs1io" path="res://Assets/ui_theme.tres" id="1_h73dv"]
+[ext_resource type="Script" uid="uid://b560bk8nnih58" path="res://scripts/ui/menu/DifficultySelectOverlay.cs" id="2_ge57h"]
+
+[node name="DifficultySelectOverlay" type="Control" node_paths=PackedStringArray("casualButton", "normalButton", "hardcoreButton", "backButton")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_h73dv")
+script = ExtResource("2_ge57h")
+casualButton = NodePath("VBoxContainer/HBoxContainer/CasualButton")
+normalButton = NodePath("VBoxContainer/HBoxContainer/NormalButton")
+hardcoreButton = NodePath("VBoxContainer/HBoxContainer/HardcoreButton")
+backButton = NodePath("VBoxContainer/Button")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="CasualButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 60)
+layout_mode = 2
+text = "Casual"
+
+[node name="NormalButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 60)
+layout_mode = 2
+text = "Normal"
+
+[node name="HardcoreButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 60)
+layout_mode = 2
+text = "Hardcore"
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(100, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Back to menu"

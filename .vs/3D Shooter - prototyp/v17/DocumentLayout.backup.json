@@ -3,8 +3,169 @@
   "WorkspaceRootPath": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\ui\\playerhud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\ui\\playerhud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\spells\\spellinstance.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\spells\\spellinstance.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\player\\playerspellcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\player\\playerspellcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\spells\\behaviours\\projectilespellbehaviour.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\spells\\behaviours\\projectilespellbehaviour.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\components\\hitboxcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\components\\hitboxcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\spells\\channel_spells\\explosionaoe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\spells\\channel_spells\\explosionaoe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\game\\gamedirector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\game\\gamedirector.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\ui\\menu\\difficultyselectoverlay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\ui\\menu\\difficultyselectoverlay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\ui\\menu\\mainmenuui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\ui\\menu\\mainmenuui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\managers\\difficultymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\managers\\difficultymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\components\\healthcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\components\\healthcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\game\\runconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\game\\runconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\game\\gameevents.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\game\\gameevents.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\managers\\chestmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\managers\\chestmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\ui\\menu\\gamemenuui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\ui\\menu\\gamemenuui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\entity\\experiencepickup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\entity\\experiencepickup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\components\\golddropcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\components\\golddropcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\managers\\levelupmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\managers\\levelupmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\managers\\uioverlaymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\managers\\uioverlaymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\ui\\elementoverlay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\ui\\elementoverlay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\ui\\menu\\loadingoverlay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\ui\\menu\\loadingoverlay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\player\\player_states\\primary_action_states\\playerprimaryactioncastingstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\player\\player_states\\primary_action_states\\playerprimaryactioncastingstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\player\\player_states\\primary_action_states\\playerprimaryactionnonestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\player\\player_states\\primary_action_states\\playerprimaryactionnonestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\components\\hurtboxcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\components\\hurtboxcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\entity\\enemy\\mech\\states\\superstates\\mechjumpspecialstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\entity\\enemy\\mech\\states\\superstates\\mechjumpspecialstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\components\\simplehurtboxcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\components\\simplehurtboxcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\iver3\\AppData\\Local\\Temp\\.vsdbgsrc\\68d35e6c4512959b32d6a6ac2690c0e434511e37b36d0e19a073b29939b47873\\GodotObject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\iver3\\AppData\\Local\\Temp\\.vsdbgsrc\\cb8c675024ec91b9a6fc10d7839520008a7238c081242c8bb2528415dcf2693e\\DelegateUtils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\components\\skeletalhurtboxcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\components\\skeletalhurtboxcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\components\\hurtboxarea.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\components\\hurtboxarea.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\iver3\\AppData\\Local\\Temp\\.vsdbgsrc\\2964164e77c9f03fac092d4231cdc8d7e5cf4ac1e309447d33617c87c14722b2\\Node.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\spells\\projectile_spells\\projectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\spells\\projectile_spells\\projectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\entity\\enemy\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\entity\\enemy\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\resources\\spells\\definitions\\projectilespelldefinition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:resources\\spells\\definitions\\projectilespelldefinition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\managers\\enemyspawnmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\managers\\enemyspawnmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\entity\\enemy\\mech\\mech.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\entity\\enemy\\mech\\mech.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\entity\\enemy\\mech\\rocket.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\entity\\enemy\\mech\\rocket.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\entity\\enemy\\mech\\bullet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\entity\\enemy\\mech\\bullet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\components\\bosshealthcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\components\\bosshealthcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\entity\\BossUiAnnouncer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:scripts\\entity\\BossUiAnnouncer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\game\\runelementstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\game\\runelementstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\helpers\\elementcombiner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\helpers\\elementcombiner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\resources\\spells\\definitions\\dashspelldefinition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -19,18 +180,6 @@
       "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\ui\\chestrewardoverlay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\ui\\playerhud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\ui\\playerhud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\managers\\chestmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\managers\\chestmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\game\\gameevents.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\game\\gameevents.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\ui\\chestinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\ui\\chestinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -41,10 +190,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\helpers\\chestrewardcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\helpers\\chestrewardcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\ui\\elementoverlay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\ui\\elementoverlay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\resources\\spells\\elementkitdefinition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -79,10 +224,6 @@
       "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\player\\player_states\\secondary_action_states\\playersecondaryactionnonestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\player\\player_states\\primary_action_states\\playerprimaryactionnonestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\player\\player_states\\primary_action_states\\playerprimaryactionnonestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\components\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\components\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -99,20 +240,12 @@
       "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\spells\\behaviours\\dashspellbehaviour.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\player\\playerspellcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\player\\playerspellcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\managers\\playerstatsmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\managers\\playerstatsmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\spells\\spellcastcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\spells\\spellcastcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\spells\\spellinstance.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\spells\\spellinstance.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\player\\player_states\\move_states\\playermovegroundedstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -123,71 +256,24 @@
       "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\player\\player_states\\playermovestateid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\components\\simplehurtboxcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\components\\simplehurtboxcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\components\\hurtboxcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\components\\hurtboxcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\spells\\spellcastsession.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\spells\\spellcastsession.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\spells\\behaviours\\projectilespellbehaviour.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\spells\\behaviours\\projectilespellbehaviour.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\spells\\projectile_spells\\projectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\spells\\projectile_spells\\projectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\helpers\\elementcombiner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\helpers\\elementcombiner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\spells\\channel_spells\\explosionaoe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\spells\\channel_spells\\explosionaoe.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\spells\\explosion_spells\\fire_explosion\\fireexplosion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\spells\\explosion_spells\\fire_explosion\\fireexplosion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\entity\\enemy\\mech\\rocket.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\entity\\enemy\\mech\\rocket.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\entity\\enemy\\mech\\mech.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\entity\\enemy\\mech\\mech.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\effects\\explosionvfx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\effects\\explosionvfx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\game\\runelementstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\game\\runelementstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\managers\\difficultymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\managers\\difficultymanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\helpers\\enemyunlockconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\helpers\\enemyunlockconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\managers\\enemyspawnmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\managers\\enemyspawnmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\fps\\scripts\\helpers\\difficultysnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F6096644-CE24-472E-B02C-0E0D49537C46}|3D Shooter - prototyp.csproj|solutionrelative:scripts\\helpers\\difficultysnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\iver3\\AppData\\Local\\Temp\\.vsdbgsrc\\68d35e6c4512959b32d6a6ac2690c0e434511e37b36d0e19a073b29939b47873\\GodotObject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5EF3F584-9DD2-4196-8F60-5F655A6E06E6}|..\\TestProject\\TestProject.csproj|e:\\programy\\godot\\moje projekty\\fps - nowe\\testproject\\testproject.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
@@ -200,565 +286,420 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 43,
+          "SelectedChildIndex": 1,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "ChestRewardContext.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\helpers\\ChestRewardContext.cs",
-              "RelativeDocumentMoniker": "scripts\\helpers\\ChestRewardContext.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\helpers\\ChestRewardContext.cs",
-              "RelativeToolTip": "scripts\\helpers\\ChestRewardContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T19:40:11.986Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:3:0:{34c7837f-3b3a-449c-bdf0-bdad86cbaf4a}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Chest.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\entity\\Chest.cs",
-              "RelativeDocumentMoniker": "scripts\\entity\\Chest.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\entity\\Chest.cs",
-              "RelativeToolTip": "scripts\\entity\\Chest.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAAwwEUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T19:40:07.266Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "ChestInfo.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\ui\\ChestInfo.cs",
-              "RelativeDocumentMoniker": "scripts\\ui\\ChestInfo.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\ui\\ChestInfo.cs",
-              "RelativeToolTip": "scripts\\ui\\ChestInfo.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T19:38:07.077Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ChestRewardOverlay.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\ui\\ChestRewardOverlay.cs",
-              "RelativeDocumentMoniker": "scripts\\ui\\ChestRewardOverlay.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\ui\\ChestRewardOverlay.cs",
-              "RelativeToolTip": "scripts\\ui\\ChestRewardOverlay.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T19:38:03.111Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "GameEvents.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\game\\GameEvents.cs",
-              "RelativeDocumentMoniker": "scripts\\game\\GameEvents.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\game\\GameEvents.cs",
-              "RelativeToolTip": "scripts\\game\\GameEvents.cs",
-              "ViewState": "AgIAACkAAAAAAAAAAADwv1AAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T19:11:01.582Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "PlayerHud.cs",
               "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\ui\\PlayerHud.cs",
               "RelativeDocumentMoniker": "scripts\\ui\\PlayerHud.cs",
               "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\ui\\PlayerHud.cs",
               "RelativeToolTip": "scripts\\ui\\PlayerHud.cs",
-              "ViewState": "AgIAAAECAAAAAAAAAAD4vx8CAAA0AAAAAAAAAA==",
+              "ViewState": "AgIAAMUAAAAAAAAAAAAhwNwAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-01T19:06:22.607Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "ElementOverlay.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\ui\\ElementOverlay.cs",
-              "RelativeDocumentMoniker": "scripts\\ui\\ElementOverlay.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\ui\\ElementOverlay.cs",
-              "RelativeToolTip": "scripts\\ui\\ElementOverlay.cs",
-              "ViewState": "AgIAANAAAAAAAAAAAAAmwN4AAAAvAAAAAAAAAA==",
+              "DocumentIndex": 5,
+              "Title": "ExplosionAoE.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\spells\\channel_spells\\ExplosionAoE.cs",
+              "RelativeDocumentMoniker": "scripts\\spells\\channel_spells\\ExplosionAoE.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\spells\\channel_spells\\ExplosionAoE.cs",
+              "RelativeToolTip": "scripts\\spells\\channel_spells\\ExplosionAoE.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAgwC4AAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-31T02:28:52.964Z",
+              "WhenOpened": "2025-12-31T18:26:05.9Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "SpellDefinition.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\resources\\spells\\definitions\\SpellDefinition.cs",
-              "RelativeDocumentMoniker": "resources\\spells\\definitions\\SpellDefinition.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\resources\\spells\\definitions\\SpellDefinition.cs",
-              "RelativeToolTip": "resources\\spells\\definitions\\SpellDefinition.cs",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAAwCgAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "HitboxComponent.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\components\\HitboxComponent.cs",
+              "RelativeDocumentMoniker": "scripts\\components\\HitboxComponent.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\components\\HitboxComponent.cs",
+              "RelativeToolTip": "scripts\\components\\HitboxComponent.cs",
+              "ViewState": "AgIAACoAAAAAAAAAAAAqwD4AAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T18:12:28.65Z",
+              "WhenOpened": "2026-01-01T20:16:02.194Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "ElementKitDefinition.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\resources\\spells\\ElementKitDefinition.cs",
-              "RelativeDocumentMoniker": "resources\\spells\\ElementKitDefinition.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\resources\\spells\\ElementKitDefinition.cs",
-              "RelativeToolTip": "resources\\spells\\ElementKitDefinition.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T18:12:08.686Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "ElementKitDatabase.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\resources\\spells\\ElementKitDatabase.cs",
-              "RelativeDocumentMoniker": "resources\\spells\\ElementKitDatabase.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\resources\\spells\\ElementKitDatabase.cs",
-              "RelativeToolTip": "resources\\spells\\ElementKitDatabase.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T18:12:02.392Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "PlayerSecondaryActionNoneState.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\player\\player_states\\secondary_action_states\\PlayerSecondaryActionNoneState.cs",
-              "RelativeDocumentMoniker": "scripts\\player\\player_states\\secondary_action_states\\PlayerSecondaryActionNoneState.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\player\\player_states\\secondary_action_states\\PlayerSecondaryActionNoneState.cs",
-              "RelativeToolTip": "scripts\\player\\player_states\\secondary_action_states\\PlayerSecondaryActionNoneState.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAA1AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T16:56:51.859Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "PlayerPrimaryActionNoneState.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\player\\player_states\\primary_action_states\\PlayerPrimaryActionNoneState.cs",
-              "RelativeDocumentMoniker": "scripts\\player\\player_states\\primary_action_states\\PlayerPrimaryActionNoneState.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\player\\player_states\\primary_action_states\\PlayerPrimaryActionNoneState.cs",
-              "RelativeToolTip": "scripts\\player\\player_states\\primary_action_states\\PlayerPrimaryActionNoneState.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T16:56:47.321Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "PlayerMoveDashState.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\player\\player_states\\move_states\\PlayerMoveDashState.cs",
-              "RelativeDocumentMoniker": "scripts\\player\\player_states\\move_states\\PlayerMoveDashState.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\player\\player_states\\move_states\\PlayerMoveDashState.cs",
-              "RelativeToolTip": "scripts\\player\\player_states\\move_states\\PlayerMoveDashState.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T16:06:26.963Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "DashSpellBehaviour.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\spells\\behaviours\\DashSpellBehaviour.cs",
-              "RelativeDocumentMoniker": "scripts\\spells\\behaviours\\DashSpellBehaviour.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\spells\\behaviours\\DashSpellBehaviour.cs",
-              "RelativeToolTip": "scripts\\spells\\behaviours\\DashSpellBehaviour.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T16:00:34.142Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "CameraMovement.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\components\\CameraMovement.cs",
-              "RelativeDocumentMoniker": "scripts\\components\\CameraMovement.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\components\\CameraMovement.cs",
-              "RelativeToolTip": "scripts\\components\\CameraMovement.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T16:45:26.351Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "PhysicsLayers.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\helpers\\PhysicsLayers.cs",
-              "RelativeDocumentMoniker": "scripts\\helpers\\PhysicsLayers.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\helpers\\PhysicsLayers.cs",
-              "RelativeToolTip": "scripts\\helpers\\PhysicsLayers.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T16:28:12.541Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "DashSpellDefinition.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\resources\\spells\\definitions\\DashSpellDefinition.cs",
-              "RelativeDocumentMoniker": "resources\\spells\\definitions\\DashSpellDefinition.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\resources\\spells\\definitions\\DashSpellDefinition.cs",
-              "RelativeToolTip": "resources\\spells\\definitions\\DashSpellDefinition.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T15:57:45.334Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "PlayerStatsManager.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\managers\\PlayerStatsManager.cs",
-              "RelativeDocumentMoniker": "scripts\\managers\\PlayerStatsManager.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\managers\\PlayerStatsManager.cs",
-              "RelativeToolTip": "scripts\\managers\\PlayerStatsManager.cs",
-              "ViewState": "AgIAABkAAAAAAAAAAIAwwC4AAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T16:26:07.578Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
-              "Title": "PlayerMoveStateId.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\player\\player_states\\PlayerMoveStateId.cs",
-              "RelativeDocumentMoniker": "scripts\\player\\player_states\\PlayerMoveStateId.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\player\\player_states\\PlayerMoveStateId.cs",
-              "RelativeToolTip": "scripts\\player\\player_states\\PlayerMoveStateId.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAQAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T16:21:26.523Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "PlayerMoveAirborneState.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\player\\player_states\\move_states\\PlayerMoveAirborneState.cs",
-              "RelativeDocumentMoniker": "scripts\\player\\player_states\\move_states\\PlayerMoveAirborneState.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\player\\player_states\\move_states\\PlayerMoveAirborneState.cs",
-              "RelativeToolTip": "scripts\\player\\player_states\\move_states\\PlayerMoveAirborneState.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAgwCUAAAAzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T16:20:50.057Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "PlayerMoveGroundedState.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\player\\player_states\\move_states\\PlayerMoveGroundedState.cs",
-              "RelativeDocumentMoniker": "scripts\\player\\player_states\\move_states\\PlayerMoveGroundedState.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\player\\player_states\\move_states\\PlayerMoveGroundedState.cs",
-              "RelativeToolTip": "scripts\\player\\player_states\\move_states\\PlayerMoveGroundedState.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAgwB8AAAAtAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T16:20:13.39Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 30,
-              "Title": "SimpleHurtboxComponent.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\components\\SimpleHurtboxComponent.cs",
-              "RelativeDocumentMoniker": "scripts\\components\\SimpleHurtboxComponent.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\components\\SimpleHurtboxComponent.cs",
-              "RelativeToolTip": "scripts\\components\\SimpleHurtboxComponent.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAIwDsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T16:11:50.084Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 31,
-              "Title": "HurtboxComponent.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\components\\HurtboxComponent.cs",
-              "RelativeDocumentMoniker": "scripts\\components\\HurtboxComponent.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\components\\HurtboxComponent.cs",
-              "RelativeToolTip": "scripts\\components\\HurtboxComponent.cs",
-              "ViewState": "AgIAACEAAAAAAAAAAAAcwE8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T16:11:40.456Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "Player.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\entity\\Player.cs",
-              "RelativeDocumentMoniker": "scripts\\entity\\Player.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\entity\\Player.cs",
-              "RelativeToolTip": "scripts\\entity\\Player.cs",
-              "ViewState": "AgIAAHkAAAAAAAAAAAAMwKAAAABMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T16:05:08.919Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "PlayerSecondaryActionCastingState.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\player\\player_states\\secondary_action_states\\PlayerSecondaryActionCastingState.cs",
-              "RelativeDocumentMoniker": "scripts\\player\\player_states\\secondary_action_states\\PlayerSecondaryActionCastingState.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\player\\player_states\\secondary_action_states\\PlayerSecondaryActionCastingState.cs",
-              "RelativeToolTip": "scripts\\player\\player_states\\secondary_action_states\\PlayerSecondaryActionCastingState.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAowBgAAAAzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T16:02:55.474Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "SpellCastContext.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\spells\\SpellCastContext.cs",
-              "RelativeDocumentMoniker": "scripts\\spells\\SpellCastContext.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\spells\\SpellCastContext.cs",
-              "RelativeToolTip": "scripts\\spells\\SpellCastContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T16:02:03.639Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 32,
-              "Title": "SpellCastSession.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\spells\\SpellCastSession.cs",
-              "RelativeDocumentMoniker": "scripts\\spells\\SpellCastSession.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\spells\\SpellCastSession.cs",
-              "RelativeToolTip": "scripts\\spells\\SpellCastSession.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T16:01:14.855Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "SpellInstance.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\spells\\SpellInstance.cs",
-              "RelativeDocumentMoniker": "scripts\\spells\\SpellInstance.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\spells\\SpellInstance.cs",
-              "RelativeToolTip": "scripts\\spells\\SpellInstance.cs",
-              "ViewState": "AgIAADwAAAAAAAAAAAAQwFUAAAAxAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T16:01:00.114Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "PlayerSpellController.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\player\\PlayerSpellController.cs",
-              "RelativeDocumentMoniker": "scripts\\player\\PlayerSpellController.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\player\\PlayerSpellController.cs",
-              "RelativeToolTip": "scripts\\player\\PlayerSpellController.cs",
-              "ViewState": "AgIAAIsAAAAAAAAAAAAnwKQAAAAeAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T16:00:21.447Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "PlayerMovement.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\components\\PlayerMovement.cs",
-              "RelativeDocumentMoniker": "scripts\\components\\PlayerMovement.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\components\\PlayerMovement.cs",
-              "RelativeToolTip": "scripts\\components\\PlayerMovement.cs",
-              "ViewState": "AgIAAFoAAAAAAAAAAAAMwI8AAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-01T15:58:24.747Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 3,
               "Title": "ProjectileSpellBehaviour.cs",
               "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\spells\\behaviours\\ProjectileSpellBehaviour.cs",
               "RelativeDocumentMoniker": "scripts\\spells\\behaviours\\ProjectileSpellBehaviour.cs",
               "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\spells\\behaviours\\ProjectileSpellBehaviour.cs",
               "RelativeToolTip": "scripts\\spells\\behaviours\\ProjectileSpellBehaviour.cs",
-              "ViewState": "AgIAADYAAAAAAAAAAAAjwEUAAAA/AAAAAAAAAA==",
+              "ViewState": "AgIAADEAAAAAAAAAAAAuwEwAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-01T15:30:01.088Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
-              "Title": "Projectile.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\spells\\projectile_spells\\Projectile.cs",
-              "RelativeDocumentMoniker": "scripts\\spells\\projectile_spells\\Projectile.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\spells\\projectile_spells\\Projectile.cs",
-              "RelativeToolTip": "scripts\\spells\\projectile_spells\\Projectile.cs",
-              "ViewState": "AgIAAD8AAAAAAAAAAAAAAEcAAAAJAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "SpellInstance.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\spells\\SpellInstance.cs",
+              "RelativeDocumentMoniker": "scripts\\spells\\SpellInstance.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\spells\\SpellInstance.cs",
+              "RelativeToolTip": "scripts\\spells\\SpellInstance.cs",
+              "ViewState": "AgIAADUAAAAAAAAAAAAqwGkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-31T18:44:24.711Z",
+              "WhenOpened": "2026-01-01T16:01:00.114Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
-              "Title": "ExplosionAoE.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\spells\\channel_spells\\ExplosionAoE.cs",
-              "RelativeDocumentMoniker": "scripts\\spells\\channel_spells\\ExplosionAoE.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\spells\\channel_spells\\ExplosionAoE.cs",
-              "RelativeToolTip": "scripts\\spells\\channel_spells\\ExplosionAoE.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAA4AAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "PlayerSpellController.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\player\\PlayerSpellController.cs",
+              "RelativeDocumentMoniker": "scripts\\player\\PlayerSpellController.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\player\\PlayerSpellController.cs",
+              "RelativeToolTip": "scripts\\player\\PlayerSpellController.cs",
+              "ViewState": "AgIAAF4BAAAAAAAAAAAswI8BAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-31T18:26:05.9Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 37,
-              "Title": "FireExplosion.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\spells\\explosion_spells\\fire_explosion\\FireExplosion.cs",
-              "RelativeDocumentMoniker": "scripts\\spells\\explosion_spells\\fire_explosion\\FireExplosion.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\spells\\explosion_spells\\fire_explosion\\FireExplosion.cs",
-              "RelativeToolTip": "scripts\\spells\\explosion_spells\\fire_explosion\\FireExplosion.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-31T18:25:59.633Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 38,
-              "Title": "Rocket.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\entity\\enemy\\Mech\\Rocket.cs",
-              "RelativeDocumentMoniker": "scripts\\entity\\enemy\\Mech\\Rocket.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\entity\\enemy\\Mech\\Rocket.cs",
-              "RelativeToolTip": "scripts\\entity\\enemy\\Mech\\Rocket.cs",
-              "ViewState": "AgIAAFEAAAAAAAAAAAAQwG4AAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-31T16:34:51.749Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 40,
-              "Title": "ExplosionVFX.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\effects\\ExplosionVFX.cs",
-              "RelativeDocumentMoniker": "scripts\\effects\\ExplosionVFX.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\effects\\ExplosionVFX.cs",
-              "RelativeToolTip": "scripts\\effects\\ExplosionVFX.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAoAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-31T16:32:15.69Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 35,
-              "Title": "ElementCombiner.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\helpers\\ElementCombiner.cs",
-              "RelativeDocumentMoniker": "scripts\\helpers\\ElementCombiner.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\helpers\\ElementCombiner.cs",
-              "RelativeToolTip": "scripts\\helpers\\ElementCombiner.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-31T02:45:54.356Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 41,
-              "Title": "RunElementState.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\game\\RunElementState.cs",
-              "RelativeDocumentMoniker": "scripts\\game\\RunElementState.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\game\\RunElementState.cs",
-              "RelativeToolTip": "scripts\\game\\RunElementState.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAIAAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-31T02:28:26.719Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ChestManager.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\managers\\ChestManager.cs",
-              "RelativeDocumentMoniker": "scripts\\managers\\ChestManager.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\managers\\ChestManager.cs",
-              "RelativeToolTip": "scripts\\managers\\ChestManager.cs",
-              "ViewState": "AgIAAHYAAAAAAAAAAAAlwKgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-31T02:25:58.044Z",
+              "WhenOpened": "2026-01-01T16:00:21.447Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
-              "Title": "EnemyUnlockConfig.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\helpers\\EnemyUnlockConfig.cs",
-              "RelativeDocumentMoniker": "scripts\\helpers\\EnemyUnlockConfig.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\helpers\\EnemyUnlockConfig.cs",
-              "RelativeToolTip": "scripts\\helpers\\EnemyUnlockConfig.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-31T01:59:34.615Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 45,
-              "Title": "DifficultySnapshot.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\helpers\\DifficultySnapshot.cs",
-              "RelativeDocumentMoniker": "scripts\\helpers\\DifficultySnapshot.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\helpers\\DifficultySnapshot.cs",
-              "RelativeToolTip": "scripts\\helpers\\DifficultySnapshot.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-31T01:55:11.985Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 42,
-              "Title": "DifficultyManager.cs",
-              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\managers\\DifficultyManager.cs",
-              "RelativeDocumentMoniker": "scripts\\managers\\DifficultyManager.cs",
-              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\managers\\DifficultyManager.cs",
-              "RelativeToolTip": "scripts\\managers\\DifficultyManager.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAgwCsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-31T01:55:07.382Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 6,
               "Title": "GameDirector.cs",
               "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\game\\GameDirector.cs",
               "RelativeDocumentMoniker": "scripts\\game\\GameDirector.cs",
               "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\game\\GameDirector.cs",
               "RelativeToolTip": "scripts\\game\\GameDirector.cs",
-              "ViewState": "AgIAAIUAAAAAAAAAAAD4v6QAAAAdAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-31T01:51:47.973Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 7,
+              "Title": "DifficultySelectOverlay.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\ui\\menu\\DifficultySelectOverlay.cs",
+              "RelativeDocumentMoniker": "scripts\\ui\\menu\\DifficultySelectOverlay.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\ui\\menu\\DifficultySelectOverlay.cs",
+              "RelativeToolTip": "scripts\\ui\\menu\\DifficultySelectOverlay.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-02T03:14:35.753Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "MainMenuUi.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\ui\\menu\\MainMenuUi.cs",
+              "RelativeDocumentMoniker": "scripts\\ui\\menu\\MainMenuUi.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\ui\\menu\\MainMenuUi.cs",
+              "RelativeToolTip": "scripts\\ui\\menu\\MainMenuUi.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-02T01:53:03.176Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "DifficultyManager.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\managers\\DifficultyManager.cs",
+              "RelativeDocumentMoniker": "scripts\\managers\\DifficultyManager.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\managers\\DifficultyManager.cs",
+              "RelativeToolTip": "scripts\\managers\\DifficultyManager.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAAAawDYAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-31T01:55:07.382Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "RunConfig.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\game\\RunConfig.cs",
+              "RelativeDocumentMoniker": "scripts\\game\\RunConfig.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\game\\RunConfig.cs",
+              "RelativeToolTip": "scripts\\game\\RunConfig.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-02T03:08:47.759Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "LevelUpManager.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\managers\\LevelUpManager.cs",
+              "RelativeDocumentMoniker": "scripts\\managers\\LevelUpManager.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\managers\\LevelUpManager.cs",
+              "RelativeToolTip": "scripts\\managers\\LevelUpManager.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAhwBgAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-02T02:08:23.877Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "GameMenuUI.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\ui\\menu\\GameMenuUI.cs",
+              "RelativeDocumentMoniker": "scripts\\ui\\menu\\GameMenuUI.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\ui\\menu\\GameMenuUI.cs",
+              "RelativeToolTip": "scripts\\ui\\menu\\GameMenuUI.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAQwBgAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-02T01:53:01.849Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "GameEvents.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\game\\GameEvents.cs",
+              "RelativeDocumentMoniker": "scripts\\game\\GameEvents.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\game\\GameEvents.cs",
+              "RelativeToolTip": "scripts\\game\\GameEvents.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAxwCEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T19:11:01.582Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "GoldDropComponent.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\components\\GoldDropComponent.cs",
+              "RelativeDocumentMoniker": "scripts\\components\\GoldDropComponent.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\components\\GoldDropComponent.cs",
+              "RelativeToolTip": "scripts\\components\\GoldDropComponent.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-02T02:12:06.63Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "ExperiencePickup.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\entity\\ExperiencePickup.cs",
+              "RelativeDocumentMoniker": "scripts\\entity\\ExperiencePickup.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\entity\\ExperiencePickup.cs",
+              "RelativeToolTip": "scripts\\entity\\ExperiencePickup.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAAAQwC0AAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-02T02:18:57.218Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "ChestManager.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\managers\\ChestManager.cs",
+              "RelativeDocumentMoniker": "scripts\\managers\\ChestManager.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\managers\\ChestManager.cs",
+              "RelativeToolTip": "scripts\\managers\\ChestManager.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAApwC4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-31T02:25:58.044Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "UIOverlayManager.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\managers\\UIOverlayManager.cs",
+              "RelativeDocumentMoniker": "scripts\\managers\\UIOverlayManager.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\managers\\UIOverlayManager.cs",
+              "RelativeToolTip": "scripts\\managers\\UIOverlayManager.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAhwBcAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-02T02:11:26.02Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "ElementOverlay.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\ui\\ElementOverlay.cs",
+              "RelativeDocumentMoniker": "scripts\\ui\\ElementOverlay.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\ui\\ElementOverlay.cs",
+              "RelativeToolTip": "scripts\\ui\\ElementOverlay.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAApwC4AAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-31T02:28:52.964Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "LoadingOverlay.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\ui\\menu\\LoadingOverlay.cs",
+              "RelativeDocumentMoniker": "scripts\\ui\\menu\\LoadingOverlay.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\ui\\menu\\LoadingOverlay.cs",
+              "RelativeToolTip": "scripts\\ui\\menu\\LoadingOverlay.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-02T01:53:31.581Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "PlayerPrimaryActionCastingState.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\player\\player_states\\primary_action_states\\PlayerPrimaryActionCastingState.cs",
+              "RelativeDocumentMoniker": "scripts\\player\\player_states\\primary_action_states\\PlayerPrimaryActionCastingState.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\player\\player_states\\primary_action_states\\PlayerPrimaryActionCastingState.cs",
+              "RelativeToolTip": "scripts\\player\\player_states\\primary_action_states\\PlayerPrimaryActionCastingState.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAQwBsAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-02T01:03:18.93Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "PlayerPrimaryActionNoneState.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\player\\player_states\\primary_action_states\\PlayerPrimaryActionNoneState.cs",
+              "RelativeDocumentMoniker": "scripts\\player\\player_states\\primary_action_states\\PlayerPrimaryActionNoneState.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\player\\player_states\\primary_action_states\\PlayerPrimaryActionNoneState.cs",
+              "RelativeToolTip": "scripts\\player\\player_states\\primary_action_states\\PlayerPrimaryActionNoneState.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T16:56:47.321Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "MechJumpSpecialState.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\entity\\enemy\\Mech\\States\\SuperStates\\MechJumpSpecialState.cs",
+              "RelativeDocumentMoniker": "scripts\\entity\\enemy\\Mech\\States\\SuperStates\\MechJumpSpecialState.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\entity\\enemy\\Mech\\States\\SuperStates\\MechJumpSpecialState.cs",
+              "RelativeToolTip": "scripts\\entity\\enemy\\Mech\\States\\SuperStates\\MechJumpSpecialState.cs",
+              "ViewState": "AgIAAHMAAAAAAAAAAAAcwIwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T22:22:21.283Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "GodotObject.cs",
+              "DocumentMoniker": "C:\\Users\\iver3\\AppData\\Local\\Temp\\.vsdbgsrc\\68d35e6c4512959b32d6a6ac2690c0e434511e37b36d0e19a073b29939b47873\\GodotObject.cs",
+              "ToolTip": "C:\\Users\\iver3\\AppData\\Local\\Temp\\.vsdbgsrc\\68d35e6c4512959b32d6a6ac2690c0e434511e37b36d0e19a073b29939b47873\\GodotObject.cs",
+              "ViewState": "AgIAAD4DAAAAAAAAAAAhwFkDAAACAAAAAQAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-30T23:04:39.804Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "HurtboxComponent.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\components\\HurtboxComponent.cs",
+              "RelativeDocumentMoniker": "scripts\\components\\HurtboxComponent.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\components\\HurtboxComponent.cs",
+              "RelativeToolTip": "scripts\\components\\HurtboxComponent.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAkwDMAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T16:11:40.456Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "SimpleHurtboxComponent.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\components\\SimpleHurtboxComponent.cs",
+              "RelativeDocumentMoniker": "scripts\\components\\SimpleHurtboxComponent.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\components\\SimpleHurtboxComponent.cs",
+              "RelativeToolTip": "scripts\\components\\SimpleHurtboxComponent.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAUwCEAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T16:11:50.084Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "DelegateUtils.cs",
+              "DocumentMoniker": "C:\\Users\\iver3\\AppData\\Local\\Temp\\.vsdbgsrc\\cb8c675024ec91b9a6fc10d7839520008a7238c081242c8bb2528415dcf2693e\\DelegateUtils.cs",
+              "ToolTip": "C:\\Users\\iver3\\AppData\\Local\\Temp\\.vsdbgsrc\\cb8c675024ec91b9a6fc10d7839520008a7238c081242c8bb2528415dcf2693e\\DelegateUtils.cs [Read Only]",
+              "ViewState": "AgIAAFECAAAAAAAAAAAhwHICAAACAAAAAQAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-02T00:18:05.04Z",
+              "EditorCaption": " [Read Only]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "SkeletalHurtboxComponent.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\components\\SkeletalHurtboxComponent.cs",
+              "RelativeDocumentMoniker": "scripts\\components\\SkeletalHurtboxComponent.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\components\\SkeletalHurtboxComponent.cs",
+              "RelativeToolTip": "scripts\\components\\SkeletalHurtboxComponent.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAiwDUAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T23:22:15.494Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "HurtboxArea.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\components\\HurtboxArea.cs",
+              "RelativeDocumentMoniker": "scripts\\components\\HurtboxArea.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\components\\HurtboxArea.cs",
+              "RelativeToolTip": "scripts\\components\\HurtboxArea.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T23:49:22.502Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "Node.cs",
+              "DocumentMoniker": "C:\\Users\\iver3\\AppData\\Local\\Temp\\.vsdbgsrc\\2964164e77c9f03fac092d4231cdc8d7e5cf4ac1e309447d33617c87c14722b2\\Node.cs",
+              "ToolTip": "C:\\Users\\iver3\\AppData\\Local\\Temp\\.vsdbgsrc\\2964164e77c9f03fac092d4231cdc8d7e5cf4ac1e309447d33617c87c14722b2\\Node.cs [Read Only]",
+              "ViewState": "AgIAALIEAAAAAAAAAAAhwM4EAAACAAAAAQAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T23:45:14.993Z",
+              "EditorCaption": " [Read Only]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "Projectile.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\spells\\projectile_spells\\Projectile.cs",
+              "RelativeDocumentMoniker": "scripts\\spells\\projectile_spells\\Projectile.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\spells\\projectile_spells\\Projectile.cs",
+              "RelativeToolTip": "scripts\\spells\\projectile_spells\\Projectile.cs",
+              "ViewState": "AgIAACoBAAAAAAAAAAAmwEoBAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-31T18:44:24.711Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "Enemy.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\entity\\enemy\\Enemy.cs",
+              "RelativeDocumentMoniker": "scripts\\entity\\enemy\\Enemy.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\entity\\enemy\\Enemy.cs",
+              "RelativeToolTip": "scripts\\entity\\enemy\\Enemy.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAuwAoAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T21:46:01.655Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "ProjectileSpellDefinition.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\resources\\spells\\definitions\\ProjectileSpellDefinition.cs",
+              "RelativeDocumentMoniker": "resources\\spells\\definitions\\ProjectileSpellDefinition.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\resources\\spells\\definitions\\ProjectileSpellDefinition.cs",
+              "RelativeToolTip": "resources\\spells\\definitions\\ProjectileSpellDefinition.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T23:29:33.156Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
               "Title": "EnemySpawnManager.cs",
               "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\managers\\EnemySpawnManager.cs",
               "RelativeDocumentMoniker": "scripts\\managers\\EnemySpawnManager.cs",
@@ -770,30 +711,391 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
-              "Title": "GodotObject.cs",
-              "DocumentMoniker": "C:\\Users\\iver3\\AppData\\Local\\Temp\\.vsdbgsrc\\68d35e6c4512959b32d6a6ac2690c0e434511e37b36d0e19a073b29939b47873\\GodotObject.cs",
-              "ToolTip": "C:\\Users\\iver3\\AppData\\Local\\Temp\\.vsdbgsrc\\68d35e6c4512959b32d6a6ac2690c0e434511e37b36d0e19a073b29939b47873\\GodotObject.cs [Read Only]",
-              "ViewState": "AgIAACQCAAAAAAAAAAApwD4CAAABAAAAAQAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-30T23:04:39.804Z",
-              "EditorCaption": " [Read Only]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 35,
               "Title": "Mech.cs",
               "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\entity\\enemy\\Mech\\Mech.cs",
               "RelativeDocumentMoniker": "scripts\\entity\\enemy\\Mech\\Mech.cs",
               "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\entity\\enemy\\Mech\\Mech.cs",
               "RelativeToolTip": "scripts\\entity\\enemy\\Mech\\Mech.cs",
-              "ViewState": "AgIAAEgAAAAAAAAAAAAAAF4AAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAACoBAAAAAAAAAAAmwEgBAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-05T02:45:57.118Z"
             },
             {
               "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "Rocket.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\entity\\enemy\\Mech\\Rocket.cs",
+              "RelativeDocumentMoniker": "scripts\\entity\\enemy\\Mech\\Rocket.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\entity\\enemy\\Mech\\Rocket.cs",
+              "RelativeToolTip": "scripts\\entity\\enemy\\Mech\\Rocket.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-31T16:34:51.749Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "Bullet.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\entity\\enemy\\Mech\\Bullet.cs",
+              "RelativeDocumentMoniker": "scripts\\entity\\enemy\\Mech\\Bullet.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\entity\\enemy\\Mech\\Bullet.cs",
+              "RelativeToolTip": "scripts\\entity\\enemy\\Mech\\Bullet.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T22:53:00.516Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "BossUiAnnouncer.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\entity\\BossUiAnnouncer.cs",
+              "RelativeDocumentMoniker": "scripts\\entity\\BossUiAnnouncer.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\entity\\BossUiAnnouncer.cs",
+              "RelativeToolTip": "scripts\\entity\\BossUiAnnouncer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC0AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T21:24:28.466Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 44,
+              "Title": "ChestRewardOverlay.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\ui\\ChestRewardOverlay.cs",
+              "RelativeDocumentMoniker": "scripts\\ui\\ChestRewardOverlay.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\ui\\ChestRewardOverlay.cs",
+              "RelativeToolTip": "scripts\\ui\\ChestRewardOverlay.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T19:38:03.111Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 45,
+              "Title": "ChestInfo.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\ui\\ChestInfo.cs",
+              "RelativeDocumentMoniker": "scripts\\ui\\ChestInfo.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\ui\\ChestInfo.cs",
+              "RelativeToolTip": "scripts\\ui\\ChestInfo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T19:38:07.077Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 46,
+              "Title": "Chest.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\entity\\Chest.cs",
+              "RelativeDocumentMoniker": "scripts\\entity\\Chest.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\entity\\Chest.cs",
+              "RelativeToolTip": "scripts\\entity\\Chest.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAAwwEUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T19:40:07.266Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 47,
+              "Title": "ChestRewardContext.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\helpers\\ChestRewardContext.cs",
+              "RelativeDocumentMoniker": "scripts\\helpers\\ChestRewardContext.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\helpers\\ChestRewardContext.cs",
+              "RelativeToolTip": "scripts\\helpers\\ChestRewardContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T19:40:11.986Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 49,
+              "Title": "SpellDefinition.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\resources\\spells\\definitions\\SpellDefinition.cs",
+              "RelativeDocumentMoniker": "resources\\spells\\definitions\\SpellDefinition.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\resources\\spells\\definitions\\SpellDefinition.cs",
+              "RelativeToolTip": "resources\\spells\\definitions\\SpellDefinition.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAAwCgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T18:12:28.65Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 48,
+              "Title": "ElementKitDefinition.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\resources\\spells\\ElementKitDefinition.cs",
+              "RelativeDocumentMoniker": "resources\\spells\\ElementKitDefinition.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\resources\\spells\\ElementKitDefinition.cs",
+              "RelativeToolTip": "resources\\spells\\ElementKitDefinition.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T18:12:08.686Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 50,
+              "Title": "ElementKitDatabase.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\resources\\spells\\ElementKitDatabase.cs",
+              "RelativeDocumentMoniker": "resources\\spells\\ElementKitDatabase.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\resources\\spells\\ElementKitDatabase.cs",
+              "RelativeToolTip": "resources\\spells\\ElementKitDatabase.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T18:12:02.392Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 55,
+              "Title": "PlayerSecondaryActionNoneState.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\player\\player_states\\secondary_action_states\\PlayerSecondaryActionNoneState.cs",
+              "RelativeDocumentMoniker": "scripts\\player\\player_states\\secondary_action_states\\PlayerSecondaryActionNoneState.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\player\\player_states\\secondary_action_states\\PlayerSecondaryActionNoneState.cs",
+              "RelativeToolTip": "scripts\\player\\player_states\\secondary_action_states\\PlayerSecondaryActionNoneState.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T16:56:51.859Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 51,
+              "Title": "PlayerMoveDashState.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\player\\player_states\\move_states\\PlayerMoveDashState.cs",
+              "RelativeDocumentMoniker": "scripts\\player\\player_states\\move_states\\PlayerMoveDashState.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\player\\player_states\\move_states\\PlayerMoveDashState.cs",
+              "RelativeToolTip": "scripts\\player\\player_states\\move_states\\PlayerMoveDashState.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T16:06:26.963Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 59,
+              "Title": "DashSpellBehaviour.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\spells\\behaviours\\DashSpellBehaviour.cs",
+              "RelativeDocumentMoniker": "scripts\\spells\\behaviours\\DashSpellBehaviour.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\spells\\behaviours\\DashSpellBehaviour.cs",
+              "RelativeToolTip": "scripts\\spells\\behaviours\\DashSpellBehaviour.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T16:00:34.142Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 58,
+              "Title": "CameraMovement.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\components\\CameraMovement.cs",
+              "RelativeDocumentMoniker": "scripts\\components\\CameraMovement.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\components\\CameraMovement.cs",
+              "RelativeToolTip": "scripts\\components\\CameraMovement.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T16:45:26.351Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 43,
+              "Title": "PhysicsLayers.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\helpers\\PhysicsLayers.cs",
+              "RelativeDocumentMoniker": "scripts\\helpers\\PhysicsLayers.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\helpers\\PhysicsLayers.cs",
+              "RelativeToolTip": "scripts\\helpers\\PhysicsLayers.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T16:28:12.541Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
+              "Title": "DashSpellDefinition.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\resources\\spells\\definitions\\DashSpellDefinition.cs",
+              "RelativeDocumentMoniker": "resources\\spells\\definitions\\DashSpellDefinition.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\resources\\spells\\definitions\\DashSpellDefinition.cs",
+              "RelativeToolTip": "resources\\spells\\definitions\\DashSpellDefinition.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T15:57:45.334Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 60,
+              "Title": "PlayerStatsManager.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\managers\\PlayerStatsManager.cs",
+              "RelativeDocumentMoniker": "scripts\\managers\\PlayerStatsManager.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\managers\\PlayerStatsManager.cs",
+              "RelativeToolTip": "scripts\\managers\\PlayerStatsManager.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAIAwwC4AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T16:26:07.578Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 63,
+              "Title": "PlayerMoveStateId.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\player\\player_states\\PlayerMoveStateId.cs",
+              "RelativeDocumentMoniker": "scripts\\player\\player_states\\PlayerMoveStateId.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\player\\player_states\\PlayerMoveStateId.cs",
+              "RelativeToolTip": "scripts\\player\\player_states\\PlayerMoveStateId.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAQAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T16:21:26.523Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 57,
+              "Title": "PlayerMoveAirborneState.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\player\\player_states\\move_states\\PlayerMoveAirborneState.cs",
+              "RelativeDocumentMoniker": "scripts\\player\\player_states\\move_states\\PlayerMoveAirborneState.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\player\\player_states\\move_states\\PlayerMoveAirborneState.cs",
+              "RelativeToolTip": "scripts\\player\\player_states\\move_states\\PlayerMoveAirborneState.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAgwCUAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T16:20:50.057Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 62,
+              "Title": "PlayerMoveGroundedState.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\player\\player_states\\move_states\\PlayerMoveGroundedState.cs",
+              "RelativeDocumentMoniker": "scripts\\player\\player_states\\move_states\\PlayerMoveGroundedState.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\player\\player_states\\move_states\\PlayerMoveGroundedState.cs",
+              "RelativeToolTip": "scripts\\player\\player_states\\move_states\\PlayerMoveGroundedState.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAgwB8AAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T16:20:13.39Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 52,
+              "Title": "Player.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\entity\\Player.cs",
+              "RelativeDocumentMoniker": "scripts\\entity\\Player.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\entity\\Player.cs",
+              "RelativeToolTip": "scripts\\entity\\Player.cs",
+              "ViewState": "AgIAAHkAAAAAAAAAAAAMwKAAAABMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T16:05:08.919Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 54,
+              "Title": "PlayerSecondaryActionCastingState.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\player\\player_states\\secondary_action_states\\PlayerSecondaryActionCastingState.cs",
+              "RelativeDocumentMoniker": "scripts\\player\\player_states\\secondary_action_states\\PlayerSecondaryActionCastingState.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\player\\player_states\\secondary_action_states\\PlayerSecondaryActionCastingState.cs",
+              "RelativeToolTip": "scripts\\player\\player_states\\secondary_action_states\\PlayerSecondaryActionCastingState.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAowBgAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T16:02:55.474Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 61,
+              "Title": "SpellCastContext.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\spells\\SpellCastContext.cs",
+              "RelativeDocumentMoniker": "scripts\\spells\\SpellCastContext.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\spells\\SpellCastContext.cs",
+              "RelativeToolTip": "scripts\\spells\\SpellCastContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T16:02:03.639Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 64,
+              "Title": "SpellCastSession.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\spells\\SpellCastSession.cs",
+              "RelativeDocumentMoniker": "scripts\\spells\\SpellCastSession.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\spells\\SpellCastSession.cs",
+              "RelativeToolTip": "scripts\\spells\\SpellCastSession.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T16:01:14.855Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 56,
+              "Title": "PlayerMovement.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\components\\PlayerMovement.cs",
+              "RelativeDocumentMoniker": "scripts\\components\\PlayerMovement.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\components\\PlayerMovement.cs",
+              "RelativeToolTip": "scripts\\components\\PlayerMovement.cs",
+              "ViewState": "AgIAAFoAAAAAAAAAAAAMwI8AAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T15:58:24.747Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 65,
+              "Title": "FireExplosion.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\spells\\explosion_spells\\fire_explosion\\FireExplosion.cs",
+              "RelativeDocumentMoniker": "scripts\\spells\\explosion_spells\\fire_explosion\\FireExplosion.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\spells\\explosion_spells\\fire_explosion\\FireExplosion.cs",
+              "RelativeToolTip": "scripts\\spells\\explosion_spells\\fire_explosion\\FireExplosion.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-31T18:25:59.633Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 66,
+              "Title": "ExplosionVFX.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\effects\\ExplosionVFX.cs",
+              "RelativeDocumentMoniker": "scripts\\effects\\ExplosionVFX.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\effects\\ExplosionVFX.cs",
+              "RelativeToolTip": "scripts\\effects\\ExplosionVFX.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAoAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-31T16:32:15.69Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "ElementCombiner.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\helpers\\ElementCombiner.cs",
+              "RelativeDocumentMoniker": "scripts\\helpers\\ElementCombiner.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\helpers\\ElementCombiner.cs",
+              "RelativeToolTip": "scripts\\helpers\\ElementCombiner.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-31T02:45:54.356Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "RunElementState.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\game\\RunElementState.cs",
+              "RelativeDocumentMoniker": "scripts\\game\\RunElementState.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\game\\RunElementState.cs",
+              "RelativeToolTip": "scripts\\game\\RunElementState.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAwAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-31T02:28:26.719Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 67,
+              "Title": "EnemyUnlockConfig.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\helpers\\EnemyUnlockConfig.cs",
+              "RelativeDocumentMoniker": "scripts\\helpers\\EnemyUnlockConfig.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\helpers\\EnemyUnlockConfig.cs",
+              "RelativeToolTip": "scripts\\helpers\\EnemyUnlockConfig.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-31T01:59:34.615Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 68,
+              "Title": "DifficultySnapshot.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\helpers\\DifficultySnapshot.cs",
+              "RelativeDocumentMoniker": "scripts\\helpers\\DifficultySnapshot.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\helpers\\DifficultySnapshot.cs",
+              "RelativeToolTip": "scripts\\helpers\\DifficultySnapshot.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-31T01:55:11.985Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 69,
               "Title": "TestProject.csproj",
               "DocumentMoniker": "E:\\PROGRAMY\\GODOT\\MOJE PROJEKTY\\FPS - NOWE\\TestProject\\TestProject.csproj",
               "RelativeDocumentMoniker": "..\\TestProject\\TestProject.csproj",
@@ -805,7 +1107,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 53,
               "Title": "3D Shooter - prototyp.csproj",
               "DocumentMoniker": "E:\\PROGRAMY\\GODOT\\MOJE PROJEKTY\\FPS - NOWE\\FPS\\3D Shooter - prototyp.csproj",
               "RelativeDocumentMoniker": "3D Shooter - prototyp.csproj",
@@ -813,8 +1115,38 @@
               "RelativeToolTip": "3D Shooter - prototyp.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-12-05T07:54:45.636Z",
+              "WhenOpened": "2025-12-05T07:54:45.636Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "HealthComponent.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\components\\HealthComponent.cs",
+              "RelativeDocumentMoniker": "scripts\\components\\HealthComponent.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\components\\HealthComponent.cs",
+              "RelativeToolTip": "scripts\\components\\HealthComponent.cs",
+              "ViewState": "AgIAAFgAAAAAAAAAAAAEwHEAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T20:57:02.402Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "BossHealthComponent.cs",
+              "DocumentMoniker": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\components\\BossHealthComponent.cs",
+              "RelativeDocumentMoniker": "scripts\\components\\BossHealthComponent.cs",
+              "ToolTip": "E:\\Programy\\Godot\\Moje projekty\\FPS - NOWE\\FPS\\scripts\\components\\BossHealthComponent.cs",
+              "RelativeToolTip": "scripts\\components\\BossHealthComponent.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-01T21:29:45.976Z"
             }
           ]
         }

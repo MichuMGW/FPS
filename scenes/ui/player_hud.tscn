@@ -35,15 +35,20 @@ ExpBarPath = NodePath("HBoxContainer/MarginContainer/VBoxContainer/ExpBar")
 HealthLabelPath = NodePath("HBoxContainer/MarginContainer/VBoxContainer/HealthBar/HealthBarLabel")
 ManaLabelPath = NodePath("HBoxContainer/MarginContainer/VBoxContainer/ManaBar/ManaBarLabel")
 ExpLabelPath = NodePath("HBoxContainer/MarginContainer/VBoxContainer/ExpBar/ExpBarLabel")
-GoldLabelPath = NodePath("GoldPanel/MarginContainer/HBoxContainer/GoldLabel")
+GoldLabelPath = NodePath("GoldPanel/GoldInfoMarginContainer/HBoxContainer/GoldLabel")
 TimeLabelPath = NodePath("GameInfoMarginContainer/GameInfoVBoxContainer/TimeLabel")
 InfoLabelPath = NodePath("GameInfoMarginContainer/GameInfoVBoxContainer/InfoLabel")
 LeftSpellIconPath = NodePath("HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer/TextureRect")
 RightSpellIconPath = NodePath("HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer2/TextureRect")
 DashSpellIconPath = NodePath("HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer3/TextureRect")
+LeftSpellCooldownLabelPath = NodePath("HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer/TextureRect/CooldownLabel")
+RightSpellCooldownLabelPath = NodePath("HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer2/TextureRect/CooldownLabel")
+DashSpellCooldownLabelPath = NodePath("HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer3/TextureRect/CooldownLabel")
 LeftSpellShortcutPath = NodePath("HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer/Label")
 RightSpellShortcutPath = NodePath("HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer2/Label")
 DashSpellShortcutPath = NodePath("HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer3/Label")
+BossHealthBarPath = NodePath("GameInfoMarginContainer/GameInfoVBoxContainer/BossHealthBar")
+BossNameLabelPath = NodePath("GameInfoMarginContainer/GameInfoVBoxContainer/BossHealthBar/BossHealtBarLabel")
 LeftSpellAction = "CastLeftSpell"
 RightSpellAction = "CastRightSpell"
 DashSpellAction = "CastDash"
@@ -53,23 +58,23 @@ layout_mode = 1
 anchors_preset = 0
 offset_bottom = 134.0
 
-[node name="MarginContainer" type="MarginContainer" parent="GoldPanel"]
+[node name="GoldInfoMarginContainer" type="MarginContainer" parent="GoldPanel"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 
-[node name="HBoxContainer" type="HBoxContainer" parent="GoldPanel/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="GoldPanel/GoldInfoMarginContainer"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="GoldPanel/MarginContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="GoldPanel/GoldInfoMarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 texture = ExtResource("4_c78lu")
 
-[node name="GoldLabel" type="Label" parent="GoldPanel/MarginContainer/HBoxContainer"]
+[node name="GoldLabel" type="Label" parent="GoldPanel/GoldInfoMarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(64, 32)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -82,8 +87,8 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 134.0
 grow_horizontal = 2
-theme_override_constants/margin_left = 100
-theme_override_constants/margin_right = 100
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_right = 200
 
 [node name="GameInfoVBoxContainer" type="VBoxContainer" parent="GameInfoMarginContainer"]
 clip_contents = true
@@ -97,7 +102,7 @@ text = "10:00"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HealthBar" type="TextureProgressBar" parent="GameInfoMarginContainer/GameInfoVBoxContainer"]
+[node name="BossHealthBar" type="TextureProgressBar" parent="GameInfoMarginContainer/GameInfoVBoxContainer"]
 texture_filter = 1
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
@@ -108,7 +113,7 @@ texture_under = ExtResource("2_u7a8l")
 texture_over = ExtResource("3_hbwp2")
 texture_progress = ExtResource("4_tfw32")
 
-[node name="HealthBarLabel" type="Label" parent="GameInfoMarginContainer/GameInfoVBoxContainer/HealthBar"]
+[node name="BossHealtBarLabel" type="Label" parent="GameInfoMarginContainer/GameInfoVBoxContainer/BossHealthBar"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -132,6 +137,7 @@ text = "Insufficient FundS"
 label_settings = SubResource("LabelSettings_c78lu")
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="ItemPanel" type="Control" parent="."]
 layout_mode = 1
@@ -280,6 +286,20 @@ layout_mode = 2
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
+[node name="CooldownLabel" type="Label" parent="HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer/TextureRect"]
+z_index = 100
+y_sort_enabled = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "A"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Label" type="Label" parent="HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Left Spell"
@@ -291,6 +311,24 @@ layout_mode = 2
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 
+[node name="CooldownLabel" type="Label" parent="HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer2/TextureRect"]
+z_index = 1
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -13.5
+offset_right = 20.0
+offset_bottom = 13.5
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Label" type="Label" parent="HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 text = "RightSpell"
@@ -301,6 +339,24 @@ layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer3"]
 layout_mode = 2
+
+[node name="CooldownLabel" type="Label" parent="HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer3/TextureRect"]
+visible = false
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -13.5
+offset_right = 20.0
+offset_bottom = 13.5
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Label" type="Label" parent="HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer3"]
 layout_mode = 2

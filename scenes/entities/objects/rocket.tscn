@@ -28,12 +28,13 @@ radius = 2.0
 radius = 0.0746362
 height = 0.622832
 
-[node name="Rocket" type="CharacterBody3D" node_paths=PackedStringArray("_rocketMesh", "_flame1", "_flame2", "_flame3")]
+[node name="Rocket" type="CharacterBody3D" node_paths=PackedStringArray("Hitbox", "_rocketMesh", "_flame1", "_flame2", "_flame3")]
 collision_layer = 64
 collision_mask = 3
 script = ExtResource("1_fgcts")
-Speed = 15.0
-TurnSpeed = 2.0
+Hitbox = NodePath("HitboxComponent")
+Speed = 10.0
+TurnSpeed = 1.0
 LifeTime = 2.0
 _rocketMesh = NodePath("RocketMesh")
 _flame1 = NodePath("Flame1")

@@ -5,6 +5,8 @@ public partial class PlayerStatsResource : Resource
 {
     [Export] public float MaxHealth = 100f;
     [Export] public float HealthRegen = 0f; // HP na sekundę
+    [Export] public float MaxMana = 100f;
+    [Export] public float ManaRegen = 2f;
     [Export] public float MoveSpeed = 5f;
     [Export] public float JumpForce = 10f;
     [Export] public float BaseDamage = 10f;

@@ -1,4 +1,5 @@
 using Godot;
+using System.Reflection;
 
 public partial class GoldDropComponent : Node
 {
@@ -12,13 +13,18 @@ public partial class GoldDropComponent : Node
     {
         _owner = GetParent() as Enemy;
         _health = _owner.GetNodeOrNull<HealthComponent>("HealthComponent");
-        _gold = GetTree().Root.GetNodeOrNull<GoldManager>("GoldManager");
+        _gold = GetTree().CurrentScene.GetNodeOrNull<GoldManager>("GoldManager");
 
-        if (_health == null || _gold == null)
+        if (_health == null)
+        {
+            GD.PushWarning("[HealthComponent] Missing dependencies.");
+        }
+        if (_gold == null)
         {
             GD.PushWarning("[GoldDropComponent] Missing dependencies.");
             return;
         }
+
 
         _health.EntityDied += OnDied;
     }

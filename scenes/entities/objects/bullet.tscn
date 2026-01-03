@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://xfch3j1ascui"]
+[gd_scene load_steps=6 format=3 uid="uid://xfch3j1ascui"]
 
 [ext_resource type="Script" uid="uid://h6ot4rd00oaf" path="res://scripts/entity/enemy/Mech/Bullet.cs" id="1_4elk3"]
+[ext_resource type="PackedScene" uid="uid://c2wcxah80nn20" path="res://scenes/components/hitbox_component.tscn" id="2_xp3mp"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_xp3mp"]
 size = Vector3(0.04, 0.04, 1)
@@ -11,8 +12,13 @@ emission_enabled = true
 emission = Color(1, 1, 0, 1)
 emission_energy_multiplier = 10.0
 
-[node name="Bullet" type="Node3D"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_30sjk"]
+radius = 0.052826
+height = 0.994077
+
+[node name="Bullet" type="Node3D" node_paths=PackedStringArray("Hitbox")]
 script = ExtResource("1_4elk3")
+Hitbox = NodePath("HitboxComponent")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_xp3mp")
@@ -20,4 +26,12 @@ surface_material_override/0 = SubResource("StandardMaterial3D_30sjk")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 target_position = Vector3(0, 0, -2)
-collision_mask = 5
+hit_from_inside = true
+
+[node name="HitboxComponent" parent="." instance=ExtResource("2_xp3mp")]
+collision_layer = 64
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_30sjk")

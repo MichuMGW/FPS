@@ -1,8 +1,7 @@
-[gd_scene load_steps=97 format=3 uid="uid://dsy504x2ofm0n"]
+[gd_scene load_steps=99 format=3 uid="uid://dsy504x2ofm0n"]
 
 [ext_resource type="Script" uid="uid://b3dqbkjkxa0yx" path="res://scripts/entity/enemy/Mech/Mech.cs" id="1_4egvb"]
 [ext_resource type="PackedScene" uid="uid://b63shw0jao7f1" path="res://Assets/models/enemies/mech.glb" id="1_l00so"]
-[ext_resource type="PackedScene" uid="uid://cih3o4ppqnupc" path="res://scenes/components/health_component.tscn" id="2_7s435"]
 [ext_resource type="Texture2D" uid="uid://i73qawyt65f6" path="res://Assets/textures/entities/enemies/mech/Mech Color.png" id="2_54jsq"]
 [ext_resource type="PackedScene" uid="uid://xfch3j1ascui" path="res://scenes/entities/objects/bullet.tscn" id="2_pw1ia"]
 [ext_resource type="Texture2D" uid="uid://c32aucm2oxamy" path="res://Assets/textures/entities/enemies/mech/Mech Displacement.png" id="3_bklu3"]
@@ -11,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bj8pn6skhllmg" path="res://Assets/textures/entities/enemies/mech/Mech Normal.png" id="4_qptip"]
 [ext_resource type="PackedScene" uid="uid://dhvc0370yavkg" path="res://scenes/components/pathfind_component.tscn" id="4_xainl"]
 [ext_resource type="Resource" uid="uid://2ysv4n4o60su" path="res://resources/stats/enemy_stats/MechStats.tres" id="5_aivtk"]
+[ext_resource type="Script" uid="uid://r43xq4rxkhhj" path="res://scripts/components/BossHealthComponent.cs" id="6_aivtk"]
 [ext_resource type="PackedScene" uid="uid://dasekhirly362" path="res://scenes/components/skeletal_hurtbox_component.tscn" id="6_n5ocl"]
 [ext_resource type="PackedScene" uid="uid://hvw6gscvm54u" path="res://scenes/components/velocity_component.tscn" id="7_ll0vx"]
 [ext_resource type="Animation" uid="uid://dqwesx2ykr236" path="res://Assets/Animations/Enemies/Mech/Mech_CrouchBeforeJump.res" id="11_n87kn"]
@@ -32,6 +32,7 @@
 [ext_resource type="Animation" uid="uid://di87ypeadvscc" path="res://Assets/Animations/Enemies/Mech/Mech_SpinLeft.res" id="26_4tj1r"]
 [ext_resource type="Animation" uid="uid://cfnap6727go6e" path="res://Assets/Animations/Enemies/Mech/Mech_SpinRight.res" id="27_pw1ia"]
 [ext_resource type="ArrayMesh" uid="uid://dnjoxfwhwulqs" path="res://Assets/models/objects/sm_debree1.obj" id="29_5aooi"]
+[ext_resource type="PackedScene" uid="uid://c2wcxah80nn20" path="res://scenes/components/hitbox_component.tscn" id="33_dogrm"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_blpuc"]
 albedo_texture = ExtResource("2_54jsq")
@@ -299,11 +300,15 @@ collision_mode = 1
 collision_friction = 0.8
 collision_bounce = 0.3
 
-[node name="Mech" type="CharacterBody3D" node_paths=PackedStringArray("LeftArmLookAt", "RightArmLookAt", "HeadLookAt")]
+[sub_resource type="SphereShape3D" id="SphereShape3D_dogrm"]
+
+[node name="Mech" type="CharacterBody3D" node_paths=PackedStringArray("LandingHitbox", "LandingHitboxCollisionShape", "LeftArmLookAt", "RightArmLookAt", "HeadLookAt")]
 script = ExtResource("1_4egvb")
 BulletScene = ExtResource("2_pw1ia")
 RocketScene = ExtResource("3_n5ocl")
 LandingDecalScene = ExtResource("3_kqfwb")
+LandingHitbox = NodePath("LandingHitbox")
+LandingHitboxCollisionShape = NodePath("LandingHitbox/CollisionShape3D")
 LeftArmLookAt = NodePath("Mech/MechArmature/Skeleton3D/ArmLeftLookAt")
 RightArmLookAt = NodePath("Mech/MechArmature/Skeleton3D/ArmRightLookAt")
 HeadLookAt = NodePath("Mech/MechArmature/Skeleton3D/HeadLookAt")
@@ -311,7 +316,9 @@ StatsResource = ExtResource("5_aivtk")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
-[node name="HealthComponent" parent="." node_paths=PackedStringArray("Hurtbox") instance=ExtResource("2_7s435")]
+[node name="HealthComponent" type="Node" parent="." node_paths=PackedStringArray("Hurtbox")]
+script = ExtResource("6_aivtk")
+BossDisplayName = "Mech"
 Hurtbox = NodePath("../SkeletalHurtboxComponent")
 
 [node name="SkeletalHurtboxComponent" parent="." instance=ExtResource("6_n5ocl")]
@@ -508,5 +515,12 @@ draw_pass_1 = ExtResource("29_5aooi")
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 size = Vector3(30, 2, 30)
+
+[node name="LandingHitbox" parent="." instance=ExtResource("33_dogrm")]
+collision_layer = 64
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LandingHitbox"]
+shape = SubResource("SphereShape3D_dogrm")
 
 [editable path="Mech"]

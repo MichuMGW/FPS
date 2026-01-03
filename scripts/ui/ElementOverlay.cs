@@ -44,7 +44,7 @@ public partial class ElementOverlay : CanvasLayer
     public override void _Ready()
     {
         _events = GetTree().Root.GetNodeOrNull<GameEvents>("GameEvents");
-        _runState = GetTree().Root.GetNodeOrNull<RunElementState>("RunElementState");
+        _runState = GetTree().CurrentScene.GetNodeOrNull<RunElementState>("RunElementState");
 
         _headerLabel = GetNodeOrNull<Label>(HeaderLabelPath);
         _subHeaderLabel = GetNodeOrNull<Label>(SubHeaderLabelPath);

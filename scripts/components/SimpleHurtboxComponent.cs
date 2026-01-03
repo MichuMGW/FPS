@@ -26,14 +26,7 @@ public partial class SimpleHurtboxComponent : HurtboxComponent
         }
 
         SetHurtboxAreaOwner(_hurtbox);
-        _hurtbox.BodyEntered += OnBodyEntered;
         _hurtbox.AreaEntered += OnAreaEntered;
-    }
-
-
-    private void OnBodyEntered(Node3D source)
-    {
-        ProcessHit(_hurtbox, source);
     }
 
     private void OnAreaEntered(Area3D source)

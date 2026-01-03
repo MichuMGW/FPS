@@ -22,7 +22,7 @@ public partial class LevelUpManager : Node
         ProcessMode = ProcessModeEnum.Always;
 
         _events = GetTree().Root.GetNodeOrNull<GameEvents>("GameEvents");
-        _exp = GetTree().Root.GetNodeOrNull<ExperienceManager>("ExperienceManager");
+        _exp = GetTree().CurrentScene.GetNodeOrNull<ExperienceManager>("ExperienceManager");
         _stats = GetTree().GetFirstNodeInGroup("player_stats_manager") as PlayerStatsManager;
 
         if (_events == null) GD.PushError("[LevelUpManager] Missing GameEvents autoload.");

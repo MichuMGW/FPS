@@ -26,6 +26,12 @@ public partial class GameEvents : Node
     [Signal] public delegate void HideInfoEventHandler();
     [Signal] public delegate void ShowErrorEventHandler(string message, float durationSeconds);
 
+    [Signal] public delegate void BossFightStartedEventHandler();
+    [Signal] public delegate void BossFightEndedEventHandler();
+
+    [Signal] public delegate void BossSpawnedEventHandler(Node boss, BossHealthComponent bossHealth, string displayName);
+    [Signal] public delegate void BossEndedEventHandler(Node boss);
+
     public override void _Ready()
     {
         ProcessMode = ProcessModeEnum.Always;
@@ -76,5 +82,16 @@ public partial class GameEvents : Node
 
     public void EmitShowError(string message, float durationSeconds = 3f)
         => EmitSignal(nameof(ShowError), message, durationSeconds);
+
+    public void EmitBossFightStarted()
+        => EmitSignal(nameof(BossFightStarted));
+    public void EmitBossFightEnded()
+        => EmitSignal(nameof(BossFightEnded));
+
+    public void EmitBossSpawned(Node boss, BossHealthComponent bossHealth, string displayName)
+    => EmitSignal(nameof(BossSpawned), boss, bossHealth, displayName);
+
+    public void EmitBossEnded(Node boss)
+        => EmitSignal(nameof(BossEnded), boss);
 
 }

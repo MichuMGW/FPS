@@ -93,6 +93,8 @@ public partial class PlayerStatsManager : Node
         // Base
         _base[StatId.MaxHealth] = res.MaxHealth;
         _base[StatId.HealthRegen] = res.HealthRegen;
+        _base[StatId.MaxMana] = res.MaxMana;
+        _base[StatId.ManaRegen] = res.MaxMana;
         _base[StatId.MoveSpeed] = res.MoveSpeed;
         _base[StatId.JumpForce] = res.JumpForce;
         _base[StatId.JumpCount] = res.JumpCount;
@@ -153,6 +155,8 @@ public partial class PlayerStatsManager : Node
     {
         return id switch
         {
+            StatId.MaxMana => 100f,
+            StatId.ManaRegen => 2f,
             StatId.BaseDamage => 10f,
 
             StatId.DamageMultiplier => 1f,
@@ -177,11 +181,16 @@ public partial class PlayerStatsManager : Node
         // baza, gdy nie ustawiono base
         return id switch
         {
+            StatId.MaxMana => 100f,
+            StatId.ManaRegen => 2f,
             StatId.BaseDamage => 10f,
+
             StatId.DamageMultiplier => 1f,
             StatId.RangeMultiplier => 1f,
             StatId.ProjectileSpeedMultiplier => 1f,
+
             StatId.CritMultiplier => 1.5f,
+
             StatId.ManaCostMultiplier => 1f,
             StatId.RehitIntervalMultiplier => 1f,
             StatId.KnockbackMultiplier => 1f,

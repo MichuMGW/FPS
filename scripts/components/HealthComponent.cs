@@ -31,9 +31,8 @@ public partial class HealthComponent : Node
             else _currentHealth = value;
         }
     }
-	public Timer FireDamageTimer;
 	private float fireDamage = 0f;
-	private Node3D _owner;
+	protected Node3D _owner;
 
 	public override void _Ready()
 	{
@@ -41,8 +40,6 @@ public partial class HealthComponent : Node
 
 		CurrentHealth = MaxHealth;
 		floatingDamageScene = GD.Load<PackedScene>("res://scenes/effects/floating_damage.tscn");
-
-		FireDamageTimer = GetNode<Timer>("FireDamageTimer");
 
         SubscribeEvents();
 	}
@@ -109,12 +106,12 @@ public partial class HealthComponent : Node
 		ShowDamage(_owner.GlobalPosition, damage, ElementColors.GetStatusEffectColor(element));
 	}
 
-	public void TakeDamage(float damage)
+	public virtual void TakeDamage(float damage)
 	{
 		CurrentHealth -= damage;
 	}
 
-    public void Die()
+    public virtual void Die()
     {
 		Active = false;
 		UnsubscribeEvents();

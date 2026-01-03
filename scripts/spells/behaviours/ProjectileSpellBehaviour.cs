@@ -63,6 +63,9 @@ public class ProjectileSpellBehaviour : ISpellBehaviour
         var hitbox = projectile.GetNodeOrNull<HitboxComponent>("HitboxComponent");
         if (hitbox != null)
         {
+            hitbox.OneShot = !ctx.Stats.EnableRehit;
+            hitbox.RehitCooldownSeconds = ctx.Stats.RehitIntervalSeconds;
+
             hitbox.CritChance = ctx.Stats.CritChance;
             hitbox.CritMultiplier = ctx.Stats.CritMultiplier;
             hitbox.StatusProfile = def.StatusProfile;          // dopnij do SpellDefinition
@@ -70,6 +73,10 @@ public class ProjectileSpellBehaviour : ISpellBehaviour
             hitbox.BleedDotMultiplier = def.BleedDotMultiplier;
             hitbox.SlowBonus = def.SlowMultiplierBonus;                // dopnij do SpellDefinition
             hitbox.EarthBuildupPerHit = def.EarthBuildupPerHit;        // dopnij do SpellDefinition
+
+            hitbox.RehitCooldownSeconds = ctx.Stats.EnableRehit
+                ? Mathf.Max(0.05f, ctx.Stats.RehitIntervalSeconds)
+                : 0f;
         }
 
 

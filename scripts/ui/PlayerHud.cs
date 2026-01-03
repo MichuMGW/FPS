@@ -7,6 +7,9 @@ public partial class PlayerHud : Control
     private static readonly Color InfoColor = new Color(1f, 1f, 1f, 1f);
     private static readonly Color ErrorColor = new Color(1f, 0.2f, 0.2f, 1f);
 
+    private static readonly Color NormalTimeColor = new Color(1f, 1f, 1f, 1f);
+    private static readonly Color BossTimeColor = new Color(1f, 0.2f, 0.2f, 1f);
+
     [Export] public ElementKitDatabase KitDatabase;
 
     [Export] public NodePath HealthBarPath = "VBoxContainer/HealthBar";
@@ -24,9 +27,16 @@ public partial class PlayerHud : Control
     [Export] public NodePath RightSpellIconPath = "Spells/Right/SpellIcon";
     [Export] public NodePath DashSpellIconPath = "Spells/Dash/SpellIcon";
 
+    [Export] public NodePath LeftSpellCooldownLabelPath = "Spells/Left/Cooldown";
+    [Export] public NodePath RightSpellCooldownLabelPath = "Spells/Right/Cooldown";
+    [Export] public NodePath DashSpellCooldownLabelPath = "Spells/Dash/Cooldown";
+
     [Export] public NodePath LeftSpellShortcutPath = "Spells/Left/Shortcut";
     [Export] public NodePath RightSpellShortcutPath = "Spells/Right/Shortcut";
     [Export] public NodePath DashSpellShortcutPath = "Spells/Dash/Shortcut";
+
+    [Export] public NodePath BossHealthBarPath = "BossPanel/BossHealthBar";
+    [Export] public NodePath BossNameLabelPath = "BossPanel/BossName";
 
     // Nazwy akcji z InputMap (USTAW w Inspectorze pod swoje actiony)
     [Export] public string LeftSpellAction = "cast_left";
@@ -48,12 +58,18 @@ public partial class PlayerHud : Control
     private ExperienceManager _experience;
 
     private TextureProgressBar _bossHealthBar;
+    private Label _bossNameLabel;
+
+    private Node _activeBoss;
+    private BossHealthComponent _activeBossHealth;
 
     private Label _infoLabel;
     private Tween _infoTween;
 
     private Label _leftSpellShortcut, _rightSpellShortcut, _DashShortcut;
+    private Label _leftCdLabel, _rightCdLabel, _dashCdLabel;
     private TextureRect _leftSpellIcon, _rightSpellIcon, _DashIcon;
+    private PlayerSpellController _spellController;
 
     private GoldManager _gold;
     private Label _goldLabel;
@@ -62,9 +78,23 @@ public partial class PlayerHud : Control
 
     private bool _errorActive = false;
 
+    private HealthComponent _bossHealth;
+    private Node _bossNode;
+    private float _bossPollAcc = 0f;
+    private const float BossPollInterval = 0.1f;
+    private float _lastBossHp = -1f;
+    private bool _bossTimerMode = false;
+
+
     public override void _Ready()
     {
+        Visible = false;
+
         FindNodes();
+
+        if (_leftCdLabel != null) _leftCdLabel.Visible = false;
+        if (_rightCdLabel != null) _rightCdLabel.Visible = false;
+        if (_dashCdLabel != null) _dashCdLabel.Visible = false;
 
         if (_infoLabel != null)
         {
@@ -122,8 +152,14 @@ public partial class PlayerHud : Control
             RefreshGoldUI();
         }
 
+        if (_bossHealthBar != null)
+            _bossHealthBar.Visible = false;
+        if (_bossNameLabel != null)
+            _bossNameLabel.Visible = false;
+
         if (_events != null)
         {
+            _events.GameStarted += OnGameStarted;
             _events.RunTimeUpdated += RefreshTimeUI;
             _events.ElementPicked += OnElementPicked;
 
@@ -131,17 +167,86 @@ public partial class PlayerHud : Control
             _events.HideInfo += OnHideInfo;
             _events.ShowError += OnShowError;
 
+            _events.BossSpawned += OnBossSpawned;
+            _events.BossEnded += OnBossEnded;
+
+            _events.BossFightStarted += OnBossFightStarted;
+            _events.BossFightEnded += OnBossFightEnded;
+
             // ustaw skróty od razu (nie zależą od kitu)
             RefreshSpellShortcuts();
         }
     }
 
+    public override void _Process(double delta)
+    {
+        if (!Visible) return;
+        UpdateSpellCooldownUI();
+    }
+
+    private void UpdateSpellCooldownUI()
+    {
+        if (_spellController == null)
+            return;
+
+        UpdateSlotCooldown(SpellSlot.LeftHand, _leftSpellIcon, _leftCdLabel);
+        UpdateSlotCooldown(SpellSlot.RightHand, _rightSpellIcon, _rightCdLabel);
+        UpdateSlotCooldown(SpellSlot.Dash, _DashIcon, _dashCdLabel);
+    }
+
+    private void UpdateSlotCooldown(SpellSlot slot, TextureRect icon, Label cdLabel)
+    {
+        var inst = _spellController.GetInstance(slot);
+
+        if (inst == null || inst.Definition == null)
+        {
+            if (cdLabel != null) cdLabel.Visible = false;
+            if (icon != null) icon.Modulate = new Color(1, 1, 1, 1);
+            return;
+        }
+
+        float cd = inst.CurrentCooldown;
+
+        if (cd > 0.01f)
+        {
+            // Tekst: np. 2.4s albo 3s
+            // Ja wolę 1 miejsce po przecinku, bo "2.9" daje feeling responsywności.
+            if (cdLabel != null)
+            {
+                cdLabel.Visible = true;
+                cdLabel.Text = cd >= 10f ? $"{Mathf.CeilToInt(cd)}" : $"{cd:0.0}";
+            }
+
+            // Przyciemnij ikonę na cooldownie (czytelne i tanie)
+            if (icon != null) icon.Modulate = new Color(1, 1, 1, 0.45f);
+        }
+        else
+        {
+            if (cdLabel != null) cdLabel.Visible = false;
+            if (icon != null) icon.Modulate = new Color(1, 1, 1, 1);
+        }
+    }
+
     private void RefreshTimeUI(float elapsed, float total)
     {
+        if (_timeLabel == null) return;
+
+        if (_bossTimerMode)
+        {
+            // count up: elapsed = czas walki z bossem
+            var minutes = Mathf.FloorToInt(elapsed / 60f);
+            var seconds = Mathf.FloorToInt(elapsed % 60f);
+            _timeLabel.Text = $"{minutes:00}:{seconds:00}";
+            return;
+        }
+
+        // normal: countdown
         var remaining = total - elapsed;
-        var minutes = Mathf.FloorToInt(remaining / 60);
-        var seconds = Mathf.FloorToInt(remaining % 60);
-        _timeLabel.Text = $"{minutes:00}:{seconds:00}";
+        if (remaining < 0f) remaining = 0f;
+
+        var m = Mathf.FloorToInt(remaining / 60f);
+        var s = Mathf.FloorToInt(remaining % 60f);
+        _timeLabel.Text = $"{m:00}:{s:00}";
     }
 
 
@@ -168,6 +273,12 @@ public partial class PlayerHud : Control
             _events.ShowInfo -= OnShowInfo;
             _events.HideInfo -= OnHideInfo;
             _events.ShowError -= OnShowError;
+
+            _events.BossSpawned -= OnBossSpawned;
+            _events.BossEnded -= OnBossEnded;
+
+            _events.BossFightStarted -= OnBossFightStarted;
+            _events.BossFightEnded -= OnBossFightEnded;
         }
     }
 
@@ -217,6 +328,11 @@ public partial class PlayerHud : Control
 
             _itemWidgets.Remove(id);
         }
+    }
+
+    private void OnGameStarted()
+    {
+        Visible = true;
     }
 
     private void OnStatChanged(int statId, float newValue, float oldValue)
@@ -345,17 +461,21 @@ public partial class PlayerHud : Control
         _rightSpellIcon = GetNodeOrNull<TextureRect>(RightSpellIconPath);
         _DashIcon = GetNodeOrNull<TextureRect>(DashSpellIconPath);
 
+        _leftCdLabel = GetNodeOrNull<Label>(LeftSpellCooldownLabelPath);
+        _rightCdLabel = GetNodeOrNull<Label>(RightSpellCooldownLabelPath);
+        _dashCdLabel = GetNodeOrNull<Label>(DashSpellCooldownLabelPath);
+
         _leftSpellShortcut = GetNodeOrNull<Label>(LeftSpellShortcutPath);
         _rightSpellShortcut = GetNodeOrNull<Label>(RightSpellShortcutPath);
         _DashShortcut = GetNodeOrNull<Label>(DashSpellShortcutPath);
 
-        _runElementState = GetTree().Root.GetNodeOrNull<RunElementState>("RunElementState");
+        _runElementState = GetTree().CurrentScene.GetNodeOrNull<RunElementState>("RunElementState");
 
         _itemContainer = GetNodeOrNull<FlowContainer>(ItemContainerPath);
 
-        _inventory = GetTree().Root.GetNodeOrNull<ItemInventory>("ItemInventory");
-        _experience = GetTree().Root.GetNodeOrNull<ExperienceManager>("ExperienceManager");
-        _gold = GetTree().Root.GetNodeOrNull<GoldManager>("GoldManager");
+        _inventory = GetTree().CurrentScene.GetNodeOrNull<ItemInventory>("ItemInventory");
+        _experience = GetTree().CurrentScene.GetNodeOrNull<ExperienceManager>("ExperienceManager");
+        _gold = GetTree().CurrentScene.GetNodeOrNull<GoldManager>("GoldManager");
 
         _events = GetTree().Root.GetNodeOrNull<GameEvents>("GameEvents");
         _timeLabel = GetNodeOrNull<Label>(TimeLabelPath);
@@ -363,6 +483,13 @@ public partial class PlayerHud : Control
         _infoLabel = GetNodeOrNull<Label>(InfoLabelPath);
 
         _player = GetTree().GetFirstNodeInGroup("player") as Player;
+
+        _spellController = _player?.Spells;
+        if (_spellController == null && _player != null)
+            _spellController = _player.GetNodeOrNull<PlayerSpellController>("PlayerSpellController");
+
+        _bossHealthBar = GetNodeOrNull<TextureProgressBar>(BossHealthBarPath);
+        _bossNameLabel = GetNodeOrNull<Label>(BossNameLabelPath);
 
         if (_healthBar == null) GD.PrintErr("PlayerHud: HealthBar not found at VBoxContainer/HealthBar");
         if (_manaBar == null) GD.PrintErr("PlayerHud: ManaBar not found at VBoxContainer/ManaBar");
@@ -564,5 +691,94 @@ public partial class PlayerHud : Control
             _errorActive = false;
         };
     }
+
+    private void OnBossSpawned(Node boss, BossHealthComponent bossHealth, string displayName)
+    {
+        if (_bossHealthBar == null) return;
+        if (bossHealth == null) return;
+
+        // jeśli coś już było, wyczyść
+        UnbindBoss();
+
+        _activeBoss = boss;
+        _activeBossHealth = bossHealth;
+
+        // UI ON
+        _bossHealthBar.Visible = true;
+        _bossHealthBar.MaxValue = bossHealth.MaxHealth;
+        _bossHealthBar.Value = bossHealth.CurrentHealth;
+
+        if (_bossNameLabel != null)
+        {
+            _bossNameLabel.Visible = true;
+            _bossNameLabel.Text = string.IsNullOrWhiteSpace(displayName) ? bossHealth.BossDisplayName : displayName;
+        }
+
+        // Subskrypcja sygnałów komponentu
+        bossHealth.BossHealthChanged += OnBossHealthChanged;
+        bossHealth.BossDied += OnBossDied;
+    }
+
+    private void OnBossFightStarted()
+    {
+        _bossTimerMode = true;
+
+        if (_timeLabel != null)
+        {
+            _timeLabel.Modulate = BossTimeColor;
+            _timeLabel.Text = "00:00";
+        }
+    }
+
+    private void OnBossFightEnded()
+    {
+        _bossTimerMode = false;
+
+        if (_timeLabel != null)
+            _timeLabel.Modulate = NormalTimeColor;
+    }
+
+
+    private void OnBossHealthChanged(float current, float max)
+    {
+        if (_bossHealthBar == null) return;
+        _bossHealthBar.MaxValue = max;
+        _bossHealthBar.Value = current;
+    }
+
+    private void OnBossDied()
+    {
+        // BossDied = HP spadło do 0, ale encounter może jeszcze grać animacje.
+        // Nie chowam paska tutaj. Schowamy na BossEnded z Mecha.
+    }
+
+    private void OnBossEnded(Node boss)
+    {
+        // chowamy tylko jeśli to ten aktywny boss
+        if (_activeBoss == null) return;
+        if (!GodotObject.IsInstanceValid(_activeBoss)) { UnbindBoss(); return; }
+
+        if (boss == _activeBoss)
+            UnbindBoss();
+    }
+
+    private void UnbindBoss()
+    {
+        if (_activeBossHealth != null && GodotObject.IsInstanceValid(_activeBossHealth))
+        {
+            _activeBossHealth.BossHealthChanged -= OnBossHealthChanged;
+            _activeBossHealth.BossDied -= OnBossDied;
+        }
+
+        _activeBoss = null;
+        _activeBossHealth = null;
+
+        if (_bossHealthBar != null)
+            _bossHealthBar.Visible = false;
+
+        if (_bossNameLabel != null)
+            _bossNameLabel.Visible = false;
+    }
+
 
 }

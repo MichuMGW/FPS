@@ -109,7 +109,7 @@ lod_bias = 0.5
 surface_material_override/0 = SubResource("StandardMaterial3D_h8410")
 
 [node name="HeadAttachment" type="BoneAttachment3D" parent="skeleton/SkeletonRig/Skeleton3D" index="1"]
-transform = Transform3D(0.964813, -0.25448, 0.0661473, 0.231758, 0.704237, -0.671073, 0.124191, 0.66279, 0.738435, -0.140287, 1.40333, 0.575927)
+transform = Transform3D(0.964813, -0.25448, 0.0661474, 0.231759, 0.704237, -0.671072, 0.124191, 0.66279, 0.738436, -0.140287, 1.40333, 0.575927)
 bone_name = "spine.006"
 bone_idx = 7
 
@@ -121,7 +121,7 @@ transform = Transform3D(1, -1.20846e-24, -1.16322e-25, 1.0986e-25, 0.999997, 1.4
 shape = SubResource("BoxShape3D_e38pm")
 
 [node name="BodyAttachment" type="BoneAttachment3D" parent="skeleton/SkeletonRig/Skeleton3D" index="2"]
-transform = Transform3D(0.975089, -0.219584, 0.0313741, 0.155868, 0.577671, -0.80125, 0.157817, 0.78618, 0.597507, -0.0623643, 1.22183, 0.278119)
+transform = Transform3D(0.975089, -0.219584, 0.0313739, 0.155868, 0.577672, -0.801249, 0.157817, 0.786179, 0.597509, -0.0623643, 1.22183, 0.278119)
 bone_name = "spine.003"
 bone_idx = 4
 

@@ -32,7 +32,7 @@ public partial class HitboxComponent : Area3D, IDamageSource
         }
     }
 
-    private readonly Dictionary<Node3D, double> _alreadyHit = new();
+    private Dictionary<Node3D, double> _alreadyHit = new();
     private double _timeAlive;
 
     public override void _Ready() => Active = true;
@@ -66,6 +66,11 @@ public partial class HitboxComponent : Area3D, IDamageSource
     public void RegisterHit(Node3D target)
     {
         _alreadyHit[target] = _timeAlive;
+    }
+
+    public void ResetHitMemory()
+    {
+        _alreadyHit.Clear();
     }
 
     
