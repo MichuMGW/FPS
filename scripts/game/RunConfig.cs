@@ -11,4 +11,7 @@ public partial class RunConfig : Node
     {
         Difficulty = RunDifficulty.Normal;
     }
+
+    public string GetDifficultyName() => Difficulty.ToString();
+
 }

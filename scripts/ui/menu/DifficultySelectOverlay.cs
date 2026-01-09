@@ -18,6 +18,10 @@ public partial class DifficultySelectOverlay : Control
         hardcoreButton.Pressed += () => EmitSignal(nameof(DifficultyChosen), (int)RunDifficulty.Hardcore);
 
         if (backButton != null)
-            backButton.Pressed += () => QueueFree();
+            backButton.Pressed += () =>
+            {
+                EmitSignal(nameof(Canceled));
+                QueueFree();
+            };
     }
 }

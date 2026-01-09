@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://e3eacmqdr1qa"
-path.s3tc="res://.godot/imported/Body Normal.png-01ec8ed2c6977c595ff3bd12302d0af3.s3tc.ctex"
+path.s3tc="res://.godot/imported/Body Normal.png-516e33906019007775fedc9da6d2116d.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/textures/entities/enemies/troll_archer/Body Normal.png"
-dest_files=["res://.godot/imported/Body Normal.png-01ec8ed2c6977c595ff3bd12302d0af3.s3tc.ctex"]
+source_file="res://assets/textures/entities/enemies/troll_archer/Body Normal.png"
+dest_files=["res://.godot/imported/Body Normal.png-516e33906019007775fedc9da6d2116d.s3tc.ctex"]
 
 [params]
 

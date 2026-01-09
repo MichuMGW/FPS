@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dg50frt6cbuje"
-path="res://.godot/imported/arrow(old).glb-101ebabdf8a9e840f20ccc866f8ed7de.scn"
+path="res://.godot/imported/arrow(old).glb-7aeb222871b6f67288ce93a55bee1231.scn"
 
 [deps]
 
-source_file="res://Assets/models/enemies/TrollArcher/arrow(old).glb"
-dest_files=["res://.godot/imported/arrow(old).glb-101ebabdf8a9e840f20ccc866f8ed7de.scn"]
+source_file="res://assets/models/enemies/TrollArcher/arrow(old).glb"
+dest_files=["res://.godot/imported/arrow(old).glb-7aeb222871b6f67288ce93a55bee1231.scn"]
 
 [params]
 

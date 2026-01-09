@@ -148,35 +148,39 @@ public partial class LevelUpOverlay : CanvasLayer
         var up = offer.Upgrade;
         float rm = offer.RarityMult;
 
-        // Jeśli masz sensowny opis w definicji, pokaż go + efekty poniżej
-        string baseDesc = string.IsNullOrWhiteSpace(up.Description) ? "" : (up.Description.Trim() + "\n");
+        // bazowy opis (jeśli jest)
+        string baseDesc = string.IsNullOrWhiteSpace(up.Description)
+            ? ""
+            : up.Description.Trim();
 
-        // Efekty z BaseStatMods przeliczone przez rarity
-        // Add: * rm
-        // Mult: 1 + (baseMult - 1) * rm
         if (up.StatMods == null || up.StatMods.Count == 0)
-            return baseDesc.TrimEnd();
+            return baseDesc;
 
-        string effects = "";
+        var parts = new System.Collections.Generic.List<string>();
+
         foreach (var m in up.StatMods)
         {
             float add = m.Add * rm;
             float mult = ScaleMult(m.Mult, rm);
 
-            // Składamy jedną linijkę per stat
-            // Pokazujemy tylko to, co ma sens (nie spamuj 0 i 1)
-            string line = BuildEffectLine(m.Stat, add, mult);
-            if (!string.IsNullOrEmpty(line))
-                effects += (effects.Length == 0 ? "" : "\n") + line;
+            string part = BuildEffectPair(m.Stat, add, mult); // <-- nowa funkcja
+            if (!string.IsNullOrEmpty(part))
+                parts.Add(part);
         }
 
-        if (string.IsNullOrEmpty(effects))
-            return baseDesc.TrimEnd();
+        string effects = string.Join(", ", parts);
 
-        return (baseDesc + effects).TrimEnd();
+        if (string.IsNullOrWhiteSpace(baseDesc))
+            return effects;
+
+        if (string.IsNullOrWhiteSpace(effects))
+            return baseDesc;
+
+        // Jedna linia: opis + efekty (bez '\n')
+        return $"{baseDesc} {effects}";
     }
 
-    private string BuildEffectLine(StatId stat, float add, float mult)
+    private string BuildEffectPair(StatId stat, float add, float mult)
     {
         bool hasAdd = !Mathf.IsEqualApprox(add, 0f);
         bool hasMult = !Mathf.IsEqualApprox(mult, 1f);
@@ -184,19 +188,18 @@ public partial class LevelUpOverlay : CanvasLayer
         if (!hasAdd && !hasMult)
             return "";
 
-        // Formatowanie “ludzkie”
-        // Add pokazujemy jako +X
-        // Mult pokazujemy jako x1.15
-        string statName = stat.ToString();
+        string statName = stat.ToString(); // jak chcesz ładne nazwy, zmapujesz sobie enum -> string
 
+        // "opis: wartość"
         if (hasAdd && hasMult)
-            return $"{statName}: +{FormatNumber(add)}  |  x{FormatNumber(mult)}";
+            return $": +{FormatNumber(add)} / x{FormatNumber(mult)}";
 
         if (hasAdd)
-            return $"{statName}: +{FormatNumber(add)}";
+            return $"+{FormatNumber(add)}";
 
-        return $"{statName}: x{FormatNumber(mult)}";
+        return $": x{FormatNumber(mult)}";
     }
+
 
     private string FormatNumber(float v)
     {

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dw62o74mctrgc"
-path="res://.godot/imported/Arms Displacement.png-9485ac281f4e2a1a93725618117ddcc5.ctex"
+path="res://.godot/imported/Arms Displacement.png-e3b8d622f76ee6678c3ba338428cd8c9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/models/arms/Arms Displacement.png"
-dest_files=["res://.godot/imported/Arms Displacement.png-9485ac281f4e2a1a93725618117ddcc5.ctex"]
+source_file="res://assets/models/arms/Arms Displacement.png"
+dest_files=["res://.godot/imported/Arms Displacement.png-e3b8d622f76ee6678c3ba338428cd8c9.ctex"]
 
 [params]
 

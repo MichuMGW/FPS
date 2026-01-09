@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://vvpqy1jvworq"
-path.s3tc="res://.godot/imported/mirror_Ucupaint Plane Metallic-Ucupaint Plane Roughness.png-c4bee20a11be064f680e93d22addf264.s3tc.ctex"
+path.s3tc="res://.godot/imported/mirror_Ucupaint Plane Metallic-Ucupaint Plane Roughness.png-67e1fce30da1d43d255ba8030fcb1946.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://Assets/models/items/mirror/mirror_Ucupaint Plane Metallic-Ucupaint Plane Roughness.png"
-dest_files=["res://.godot/imported/mirror_Ucupaint Plane Metallic-Ucupaint Plane Roughness.png-c4bee20a11be064f680e93d22addf264.s3tc.ctex"]
+source_file="res://assets/models/items/mirror/mirror_Ucupaint Plane Metallic-Ucupaint Plane Roughness.png"
+dest_files=["res://.godot/imported/mirror_Ucupaint Plane Metallic-Ucupaint Plane Roughness.png-67e1fce30da1d43d255ba8030fcb1946.s3tc.ctex"]
 
 [params]
 

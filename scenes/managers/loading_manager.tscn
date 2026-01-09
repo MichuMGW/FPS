@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://blbr8fpfspffk"]
+
+[ext_resource type="Script" uid="uid://bbhamqjupqd7y" path="res://scripts/managers/LoadingManager.cs" id="1_q6c8i"]
+[ext_resource type="PackedScene" uid="uid://pnw6hbt3ltrg" path="res://scenes/ui/menu/loading_overlay.tscn" id="2_qxvwi"]
+
+[node name="LoadingManager" type="Node"]
+script = ExtResource("1_q6c8i")
+DefaultLoadingOverlay = ExtResource("2_qxvwi")
+TimeoutSeconds = 10.0

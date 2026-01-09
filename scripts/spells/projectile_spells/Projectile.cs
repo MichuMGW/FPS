@@ -7,7 +7,7 @@ public partial class Projectile : CharacterBody3D
     [Export] public NodePath CollisionShapePath = "CollisionShape3D";
     [Export] public NodePath VisualPath = "Visual"; // jeśli nie masz, zostaw puste i będzie skalował root
 
-    [Export] public float LifeTime = 5f;
+    [Export] public float LifeTime = 10f;
 
     private HitboxComponent _hitbox;
     private CollisionShape3D _collisionShape;

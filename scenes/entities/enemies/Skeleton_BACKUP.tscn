@@ -10,9 +10,9 @@
 [ext_resource type="PackedScene" uid="uid://bur6hmvbxstyd" path="res://scenes/components/experience_drop_component.tscn" id="8_vuh1r"]
 [ext_resource type="PackedScene" uid="uid://dn7510hvebguv" path="res://scenes/entities/objects/experience_pickup.tscn" id="9_2g8cv"]
 [ext_resource type="PackedScene" uid="uid://c3kpxgsb3y4yi" path="res://scenes/components/gold_drop_component.tscn" id="10_km0vd"]
-[ext_resource type="PackedScene" uid="uid://drtc68o87at8y" path="res://Assets/models/enemies/skeleton.glb" id="11_b1h5e"]
-[ext_resource type="Texture2D" uid="uid://bhw310feyqim5" path="res://Assets/textures/entities/enemies/skeleton/Skeleton Color.png" id="12_uvj7l"]
-[ext_resource type="Texture2D" uid="uid://bnttvdhore2fv" path="res://Assets/textures/entities/enemies/skeleton/Skeleton Normal.png" id="13_t3csu"]
+[ext_resource type="PackedScene" uid="uid://drtc68o87at8y" path="res://assets/models/enemies/skeleton.glb" id="11_b1h5e"]
+[ext_resource type="Texture2D" uid="uid://bhw310feyqim5" path="res://assets/textures/entities/enemies/skeleton/Skeleton Color.png" id="12_uvj7l"]
+[ext_resource type="Texture2D" uid="uid://bnttvdhore2fv" path="res://assets/textures/entities/enemies/skeleton/Skeleton Normal.png" id="13_t3csu"]
 [ext_resource type="PackedScene" uid="uid://gwkhn3v3fswg" path="res://scenes/components/hurtbox_area.tscn" id="14_j24gk"]
 [ext_resource type="PackedScene" uid="uid://c2wcxah80nn20" path="res://scenes/components/hitbox_component.tscn" id="15_3kwmu"]
 

@@ -1,0 +1,43 @@
+[gd_resource type="ArrayMesh" load_steps=4 format=4 uid="uid://ch7e78pq3llnf"]
+
+[ext_resource type="Texture2D" uid="uid://bi8yggtixxrjq" path="res://assets/models/environment/foliage/plants/grass_grass1_64x64.png" id="1_dxqno"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hqquc"]
+resource_name = "grass1"
+transparency = 4
+cull_mode = 2
+albedo_texture = ExtResource("1_dxqno")
+texture_filter = 2
+texture_repeat = false
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_jr8do"]
+_surfaces = [{
+"aabb": AABB(-0.25, 0, -0.25, 0.5, 0.5, 0.5),
+"format": 34896613377,
+"index_count": 12,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUA"),
+"name": "grass1",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AAAAAP9/AAD//////38AAP//AAD/fwAAAAD///9/AAD/fwAAAAAAAP9//////wAA/38AAP//AAD/f///AAAAAA==")
+}]
+blend_shape_mode = 0
+
+[resource]
+resource_name = "grass_Plane_027"
+_surfaces = [{
+"aabb": AABB(-0.25, 0, -0.25, 0.5, 0.5, 0.5),
+"attribute_data": PackedByteArray("AAD/////AAD/////AAAAAAAA/////wAA/////wAAAAA="),
+"format": 34896613399,
+"index_count": 12,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUA"),
+"material": SubResource("StandardMaterial3D_hqquc"),
+"name": "grass1",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AAAAAP9/AID//////38AgP//AAD/fwCAAAD///9/AID/fwAAAAD/v/9///////+//38AAP///7//f///AAD/v/9/////f////3////9/////f////3////9/////f///")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_jr8do")

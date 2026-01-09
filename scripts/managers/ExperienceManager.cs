@@ -8,10 +8,7 @@ public partial class ExperienceManager : Node
     public int CurrentExp { get; private set; }
     public int CurrentLevel { get; private set; } = 1;
 
-    // Progi: przykład (krzywa rosnąca)
     private int GetExpForLevel(int level) => 20 + (level - 1) * 30 + (level - 1) * (level - 1) * 10;
-        //ZMIENIĆ NA KRZYWĄ
-    // private int GetExpForLevel(int level) => 1;
 
     public int ExpToNext => GetExpForLevel(CurrentLevel);
 

@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="ItemDefinition" load_steps=6 format=3 uid="uid://ql5rde4knmtk"]
 
-[ext_resource type="Texture2D" uid="uid://dica1wctvifqd" path="res://Assets/icons/meat.png" id="1_ef3ft"]
-[ext_resource type="PackedScene" uid="uid://cwcxyff4cyqif" path="res://Assets/models/items/meat/meat.glb" id="1_v0nnv"]
+[ext_resource type="Texture2D" uid="uid://dica1wctvifqd" path="res://assets/icons/meat.png" id="1_ef3ft"]
+[ext_resource type="PackedScene" uid="uid://cwcxyff4cyqif" path="res://assets/models/items/meat/meat.glb" id="1_v0nnv"]
 [ext_resource type="Script" uid="uid://d1og76mbf6sdm" path="res://resources/items/StatModDefinition.cs" id="1_y5dbm"]
 [ext_resource type="Script" uid="uid://xdahrj3wt527" path="res://resources/items/ItemDefinition.cs" id="2_v0nnv"]
 
 [sub_resource type="Resource" id="Resource_ef3ft"]
 script = ExtResource("1_y5dbm")
-Stat = 9
+Stat = 11
 Add = 0.1
 Mult = 1.0
 metadata/_custom_type_script = "uid://d1og76mbf6sdm"

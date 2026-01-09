@@ -27,14 +27,14 @@ public partial class Orc : StateMachineEnemy<OrcStateId>
     [Export] public uint ObstacleMask { get; set; } = PhysicsLayers.TERRAIN;
 
     public AnimationPlayer Animation { get; private set; }
-    public Area3D ChargeHitbox { get; private set; }
+    public HitboxComponent ChargeHitbox { get; private set; }
 
     protected override void FindNodes()
     {
         base.FindNodes();
 
         Animation = GetNodeOrNull<AnimationPlayer>("orc/AnimationPlayer");
-        ChargeHitbox = GetNodeOrNull<Area3D>("ChargeHitbox");
+        ChargeHitbox = GetNodeOrNull<HitboxComponent>("HitboxComponent");
     }
 
     protected override void OnAfterReady()
@@ -43,7 +43,13 @@ public partial class Orc : StateMachineEnemy<OrcStateId>
             BaseAcceleration = VelocityComp.Acceleration;
 
         if (ChargeHitbox != null)
+        {
             ChargeHitbox.BodyEntered += OnChargeHitboxBodyEntered;
+            ChargeHitbox.Damage = Damage;
+        }
+
+        ChaseSpeed = MoveSpeed;
+        ChargeSpeed = MoveSpeed * 1.5f;
 
         States = new Dictionary<OrcStateId, IState>
         {
@@ -74,14 +80,23 @@ public partial class Orc : StateMachineEnemy<OrcStateId>
         if (body is not Player player)
             return;
 
-        Vector3 dir = player.GlobalPosition - GlobalPosition;
-        dir.Y = 0.01f;
+        // Bez komponentu knockback nie ma co udawa 
+        if (player.Knockback == null)
+            return;
+
+        // Kierunek: od orka do gracza (po ziemi)
+        Vector3 dir = (player.GlobalPosition - GlobalPosition);
+        dir.Y = 0f;
+
+        if (dir.LengthSquared() < 0.0001f)
+            dir = -GlobalTransform.Basis.Z;
+
         dir = dir.Normalized();
 
-        // Damage: albo HitboxComponent/Health gracza, albo jak masz inny system
-        // player.Health.TakeDamage(ChargeDamage);
+        Vector3 impulse = dir * ChargeKnockbackForce;
+        impulse.Y = Mathf.Max(impulse.Y, 1.5f);
 
-        player.Knockback.ApplyKnockback(dir * ChargeKnockbackForce);
+        player.StartKnockback(impulse);
 
         ChangeState(OrcStateId.Stop);
     }

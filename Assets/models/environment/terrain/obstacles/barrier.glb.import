@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://blev4f2gfetjo"
-path="res://.godot/imported/barrier.glb-05b0bf9b6228d4d918255a66b2466ada.scn"
+path="res://.godot/imported/barrier.glb-6288fa4b94310c8b58ae44b69d5aaff8.scn"
 
 [deps]
 
-source_file="res://Assets/models/environment/terrain/obstacles/barrier.glb"
-dest_files=["res://.godot/imported/barrier.glb-05b0bf9b6228d4d918255a66b2466ada.scn"]
+source_file="res://assets/models/environment/terrain/obstacles/barrier.glb"
+dest_files=["res://.godot/imported/barrier.glb-6288fa4b94310c8b58ae44b69d5aaff8.scn"]
 
 [params]
 

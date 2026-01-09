@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cq3f7nvxqnqsa"]
 
 [ext_resource type="Script" uid="uid://tcmlvmhebq6h" path="res://scripts/spells/projectile_spells/Projectile.cs" id="1_mxvt5"]
-[ext_resource type="ArrayMesh" uid="uid://b2j16dnhg6ar3" path="res://Assets/effects/meshes/nature_leaf.obj" id="2_hf54b"]
+[ext_resource type="ArrayMesh" uid="uid://b2j16dnhg6ar3" path="res://assets/effects/meshes/nature_leaf.obj" id="2_hf54b"]
 [ext_resource type="PackedScene" uid="uid://c2wcxah80nn20" path="res://scenes/components/hitbox_component.tscn" id="3_8luex"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_coagh"]

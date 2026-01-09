@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://goh3vkv8vodf"]
 
 [ext_resource type="Script" uid="uid://bwvaebh43ere6" path="res://scripts/effects/ExplosionVFX.cs" id="1_1pcfh"]
-[ext_resource type="Material" uid="uid://cxhaa6i7bto07" path="res://Assets/effects/vfx/explosion/ExplosionMaterial.tres" id="1_an4hs"]
+[ext_resource type="Material" uid="uid://cxhaa6i7bto07" path="res://assets/effects/vfx/explosion/ExplosionMaterial.tres" id="1_an4hs"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rva4e"]
 angle_max = 1.0

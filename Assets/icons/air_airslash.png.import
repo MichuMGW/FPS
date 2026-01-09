@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://chte52ti35qg4"
-path="res://.godot/imported/air_airslash.png-db25086138c7ec48520d008265211aa1.ctex"
+path="res://.godot/imported/air_airslash.png-a96ad063b5b1f9ba4b12d493bb63160d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/icons/air_airslash.png"
-dest_files=["res://.godot/imported/air_airslash.png-db25086138c7ec48520d008265211aa1.ctex"]
+source_file="res://assets/icons/air_airslash.png"
+dest_files=["res://.godot/imported/air_airslash.png-a96ad063b5b1f9ba4b12d493bb63160d.ctex"]
 
 [params]
 

@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://cjr5yxr13skm1"
-path="res://.godot/imported/flask.glb-cea0e61e484a7734c8e1b5fcafeb858d.scn"
+path="res://.godot/imported/flask.glb-bbf69d456f45c3ce684bba7e4c7c4375.scn"
 
 [deps]
 
-source_file="res://Assets/models/items/flask/flask.glb"
-dest_files=["res://.godot/imported/flask.glb-cea0e61e484a7734c8e1b5fcafeb858d.scn"]
+source_file="res://assets/models/items/flask/flask.glb"
+dest_files=["res://.godot/imported/flask.glb-bbf69d456f45c3ce684bba7e4c7c4375.scn"]
 
 [params]
 

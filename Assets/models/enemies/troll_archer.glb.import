@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://kssvu80euykd"
-path="res://.godot/imported/troll_archer.glb-7dd2407b895b1a3a7fe671bd636470ed.scn"
+path="res://.godot/imported/troll_archer.glb-7f78a0f798d36c152fe304c9b0d7bbde.scn"
 
 [deps]
 
-source_file="res://Assets/models/enemies/troll_archer.glb"
-dest_files=["res://.godot/imported/troll_archer.glb-7dd2407b895b1a3a7fe671bd636470ed.scn"]
+source_file="res://assets/models/enemies/troll_archer.glb"
+dest_files=["res://.godot/imported/troll_archer.glb-7f78a0f798d36c152fe304c9b0d7bbde.scn"]
 
 [params]
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://m0clp7eyimja"
-path.s3tc="res://.godot/imported/Rocket Color.png-89258fcfff8249df0d3f6ad39ed761f7.s3tc.ctex"
+path.s3tc="res://.godot/imported/Rocket Color.png-862a71b43ed77c6c109b7afb5d1fcdb3.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/textures/entities/enemies/mech/rocket/Rocket Color.png"
-dest_files=["res://.godot/imported/Rocket Color.png-89258fcfff8249df0d3f6ad39ed761f7.s3tc.ctex"]
+source_file="res://assets/textures/entities/enemies/mech/rocket/Rocket Color.png"
+dest_files=["res://.godot/imported/Rocket Color.png-862a71b43ed77c6c109b7afb5d1fcdb3.s3tc.ctex"]
 
 [params]
 

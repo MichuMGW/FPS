@@ -22,6 +22,10 @@ public class PlayerSecondaryActionNoneState : IState, IUpdateState
 
     private bool TryGetSecondaryPressedSlot(out SpellSlot slot)
     {
+        slot = SpellSlot.RightHand;
+
+        if (player.CurrentMoveStateId == PlayerMoveStateId.Knockback) return false;
+
         if (Input.IsActionPressed("CastDash"))
         {
             slot = SpellSlot.Dash;
@@ -30,11 +34,9 @@ public class PlayerSecondaryActionNoneState : IState, IUpdateState
 
         if (Input.IsActionPressed("CastRightSpell"))
         {
-            slot = SpellSlot.RightHand;
             return true;
         }
 
-        slot = SpellSlot.RightHand;
         return false;
     }
 }

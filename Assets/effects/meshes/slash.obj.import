@@ -4,14 +4,14 @@ importer="wavefront_obj"
 importer_version=1
 type="Mesh"
 uid="uid://cqwmqdwxcdqhb"
-path="res://.godot/imported/slash.obj-81997232e61b36b315c2afb6c62bbed2.mesh"
+path="res://.godot/imported/slash.obj-7bafd719a0518f79bc86d7653e1627ef.mesh"
 
 [deps]
 
-files=["res://.godot/imported/slash.obj-81997232e61b36b315c2afb6c62bbed2.mesh"]
+files=["res://.godot/imported/slash.obj-7bafd719a0518f79bc86d7653e1627ef.mesh"]
 
-source_file="res://Assets/effects/meshes/slash.obj"
-dest_files=["res://.godot/imported/slash.obj-81997232e61b36b315c2afb6c62bbed2.mesh", "res://.godot/imported/slash.obj-81997232e61b36b315c2afb6c62bbed2.mesh"]
+source_file="res://assets/effects/meshes/slash.obj"
+dest_files=["res://.godot/imported/slash.obj-7bafd719a0518f79bc86d7653e1627ef.mesh", "res://.godot/imported/slash.obj-7bafd719a0518f79bc86d7653e1627ef.mesh"]
 
 [params]
 

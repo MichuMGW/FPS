@@ -1,12 +1,12 @@
 [gd_scene load_steps=13 format=3 uid="uid://drxt24tqal6cm"]
 
 [ext_resource type="Script" uid="uid://dwvxt7ia7j6td" path="res://scripts/ui/ElementOverlay.cs" id="1_as5dx"]
-[ext_resource type="PackedScene" uid="uid://dpy0gna6v45dl" path="res://Assets/models/crystals/crystal_fire.glb" id="2_5cdle"]
+[ext_resource type="PackedScene" uid="uid://dpy0gna6v45dl" path="res://assets/models/crystals/crystal_fire.glb" id="2_5cdle"]
 [ext_resource type="Resource" uid="uid://bwk8dmptw6036" path="res://resources/spells/ElementKitDatabase.tres" id="2_bkulj"]
-[ext_resource type="Theme" uid="uid://csif8wnmjs1io" path="res://Assets/ui_theme.tres" id="3_0s288"]
-[ext_resource type="PackedScene" uid="uid://dxrmkqnipjh5w" path="res://Assets/models/crystals/crystal_water.glb" id="3_bkulj"]
-[ext_resource type="PackedScene" uid="uid://chctlq832mufm" path="res://Assets/models/crystals/crystal_air.glb" id="4_0s288"]
-[ext_resource type="PackedScene" uid="uid://1cpi31gjnrev" path="res://Assets/models/crystals/crystal_nature.glb" id="7_bkulj"]
+[ext_resource type="Theme" uid="uid://csif8wnmjs1io" path="res://assets/themes/ui_theme.tres" id="3_0s288"]
+[ext_resource type="PackedScene" uid="uid://dxrmkqnipjh5w" path="res://assets/models/crystals/crystal_water.glb" id="3_bkulj"]
+[ext_resource type="PackedScene" uid="uid://chctlq832mufm" path="res://assets/models/crystals/crystal_air.glb" id="4_0s288"]
+[ext_resource type="PackedScene" uid="uid://1cpi31gjnrev" path="res://assets/models/crystals/crystal_nature.glb" id="7_bkulj"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_fen1v"]
 viewport_path = NodePath("ElementView/SubViewport")

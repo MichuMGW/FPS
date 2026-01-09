@@ -78,6 +78,8 @@ public partial class PlayerHud : Control
 
     private bool _errorActive = false;
 
+    private PlayerManaComponent _mana;
+
     private HealthComponent _bossHealth;
     private Node _bossNode;
     private float _bossPollAcc = 0f;
@@ -120,6 +122,13 @@ public partial class PlayerHud : Control
             _player.Stats.StatChanged += OnStatChanged;
 
             RefreshHealthMaxUI();
+        }
+
+        if (_mana != null && _manaBar != null)
+        {
+            _mana.ManaChanged += OnManaChanged;
+            RefreshManaUI();
+            RefreshManaMaxUI();
         }
 
         if (_inventory != null)
@@ -262,11 +271,15 @@ public partial class PlayerHud : Control
             // _player.Stats.StatsChanged -= OnStatsChanged;
         }
 
+        if (_mana != null)
+            _mana.ManaChanged -= OnManaChanged;
+
         if (_inventory != null)
             _inventory.InventoryChanged -= OnInventoryChanged;
 
         if (_events != null)
         {
+            _events.GameStarted -= OnGameStarted;
             _events.RunTimeUpdated -= RefreshTimeUI;
             _events.ElementPicked -= OnElementPicked;
 
@@ -379,21 +392,28 @@ public partial class PlayerHud : Control
         RefreshHealthText();
     }
 
-    // private void RefreshManaUI()
-    // {
-    //     if (_player?.Stats == null || _manaBar == null) return;
+    private void OnManaChanged(float current, float max)
+    {
+        RefreshManaMaxUI();
+        RefreshManaUI();
+    }
 
-    //     float currentMana = _player.Stats.GetStat(StatId.CurrentMana);
-    //     _manaBar.Value = currentMana;
-    // }
+    private void RefreshManaUI()
+    {
+        if (_mana == null || _manaBar == null) return;
 
-    // private void RefreshManaMaxUI()
-    // {
-    //     if (_player?.Stats == null || _manaBar == null) return;
+        _manaBar.Value = _mana.CurrentMana;
 
-    //     float maxMana = _player.Stats.GetStat(StatId.MaxMana);
-    //     _manaBar.MaxValue = maxMana;
-    // }
+        if (_manaLabel != null)
+            _manaLabel.Text = $"{Mathf.FloorToInt(_mana.CurrentMana)} / {Mathf.FloorToInt(_mana.MaxMana)}";
+    }
+
+    private void RefreshManaMaxUI()
+    {
+        if (_mana == null || _manaBar == null) return;
+
+        _manaBar.MaxValue = _mana.MaxMana;
+    }
 
     private void RefreshExpUI()
     {
@@ -487,6 +507,8 @@ public partial class PlayerHud : Control
         _spellController = _player?.Spells;
         if (_spellController == null && _player != null)
             _spellController = _player.GetNodeOrNull<PlayerSpellController>("PlayerSpellController");
+
+        _mana = _player?.GetNodeOrNull<PlayerManaComponent>("PlayerManaComponent");
 
         _bossHealthBar = GetNodeOrNull<TextureProgressBar>(BossHealthBarPath);
         _bossNameLabel = GetNodeOrNull<Label>(BossNameLabelPath);

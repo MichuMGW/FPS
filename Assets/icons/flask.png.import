@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bv4r6ay2yfy2p"
-path="res://.godot/imported/flask.png-4c8abf6ee1b1fcedd38ff8164c1ab7f8.ctex"
+path="res://.godot/imported/flask.png-5a61d3c326a467b433fa6ed9aaf932c5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/icons/flask.png"
-dest_files=["res://.godot/imported/flask.png-4c8abf6ee1b1fcedd38ff8164c1ab7f8.ctex"]
+source_file="res://assets/icons/flask.png"
+dest_files=["res://.godot/imported/flask.png-5a61d3c326a467b433fa6ed9aaf932c5.ctex"]
 
 [params]
 

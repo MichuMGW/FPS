@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dq6cg5pe3am5k"]
 
-[ext_resource type="PackedScene" uid="uid://jjcniyhtwkxs" path="res://Assets/models/enemies/TrollArcher/bow.glb" id="1_fed3y"]
-[ext_resource type="Texture2D" uid="uid://c2qxqki4dhxgx" path="res://Assets/textures/entities/enemies/troll_archer/BowAndArrow Color.png" id="2_6uo1q"]
+[ext_resource type="PackedScene" uid="uid://jjcniyhtwkxs" path="res://assets/models/enemies/TrollArcher/bow.glb" id="1_fed3y"]
+[ext_resource type="Texture2D" uid="uid://c2qxqki4dhxgx" path="res://assets/textures/entities/enemies/troll_archer/BowAndArrow Color.png" id="2_6uo1q"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b02pc"]
 albedo_texture = ExtResource("2_6uo1q")

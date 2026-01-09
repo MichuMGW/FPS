@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://2532s3mxhgc6"
-path="res://.godot/imported/orc.glb-76f92c78167b41f5e6a31462f11cb974.scn"
+path="res://.godot/imported/orc.glb-e5727de18bc7aca518aeafaa2f378512.scn"
 
 [deps]
 
-source_file="res://Assets/models/enemies/orc.glb"
-dest_files=["res://.godot/imported/orc.glb-76f92c78167b41f5e6a31462f11cb974.scn"]
+source_file="res://assets/models/enemies/orc.glb"
+dest_files=["res://.godot/imported/orc.glb-e5727de18bc7aca518aeafaa2f378512.scn"]
 
 [params]
 

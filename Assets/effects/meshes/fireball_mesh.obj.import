@@ -4,14 +4,14 @@ importer="wavefront_obj"
 importer_version=1
 type="Mesh"
 uid="uid://dk2p2p1mcqyhw"
-path="res://.godot/imported/fireball_mesh.obj-ba9ed89ee40a8bff639656e4bb4a73ca.mesh"
+path="res://.godot/imported/fireball_mesh.obj-234218acf84ca765b4c8b93e8f116649.mesh"
 
 [deps]
 
-files=["res://.godot/imported/fireball_mesh.obj-ba9ed89ee40a8bff639656e4bb4a73ca.mesh"]
+files=["res://.godot/imported/fireball_mesh.obj-234218acf84ca765b4c8b93e8f116649.mesh"]
 
-source_file="res://Assets/effects/meshes/fireball_mesh.obj"
-dest_files=["res://.godot/imported/fireball_mesh.obj-ba9ed89ee40a8bff639656e4bb4a73ca.mesh", "res://.godot/imported/fireball_mesh.obj-ba9ed89ee40a8bff639656e4bb4a73ca.mesh"]
+source_file="res://assets/effects/meshes/fireball_mesh.obj"
+dest_files=["res://.godot/imported/fireball_mesh.obj-234218acf84ca765b4c8b93e8f116649.mesh", "res://.godot/imported/fireball_mesh.obj-234218acf84ca765b4c8b93e8f116649.mesh"]
 
 [params]
 

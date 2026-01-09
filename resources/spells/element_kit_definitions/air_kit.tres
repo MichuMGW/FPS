@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="ElementKitDefinition" load_steps=4 format=3 uid="uid://bwkrk38dgxhfd"]
+[gd_resource type="Resource" script_class="ElementKitDefinition" load_steps=5 format=3 uid="uid://bwkrk38dgxhfd"]
 
+[ext_resource type="Resource" uid="uid://dn0micki6xl1g" path="res://resources/spells/spell_definitions/dash.tres" id="1_cphw5"]
 [ext_resource type="Resource" uid="uid://kyhmi5m5bumq" path="res://resources/spells/spell_definitions/air_airslash.tres" id="1_jqh6y"]
 [ext_resource type="Script" uid="uid://b3lgib24dqmon" path="res://resources/spells/ElementKitDefinition.cs" id="1_puthy"]
 [ext_resource type="Resource" uid="uid://cy0q8qc47rjvt" path="res://resources/spells/spell_definitions/air_airslashscaling.tres" id="2_23fkg"]
@@ -9,4 +10,5 @@ script = ExtResource("1_puthy")
 Element = 4
 LeftHandSpell = ExtResource("1_jqh6y")
 RightHandSpell = ExtResource("2_23fkg")
+DashSpell = ExtResource("1_cphw5")
 metadata/_custom_type_script = "uid://b3lgib24dqmon"

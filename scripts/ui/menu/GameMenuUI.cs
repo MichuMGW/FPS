@@ -41,8 +41,9 @@ public partial class GameMenuUI : CanvasLayer
 	{
 		GetTree().Paused = false;
 		gameEvents.EmitMenuEnabled(false);
-		GetTree().ChangeSceneToFile(SceneToLoad);
 		QueueFree();
+		//GetTree().ChangeSceneToFile(SceneToLoad);
+		GetTree().CallDeferred(SceneTree.MethodName.ChangeSceneToFile, SceneToLoad);
 	}
 
 

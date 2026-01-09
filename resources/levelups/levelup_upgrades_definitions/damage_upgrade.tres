@@ -5,7 +5,7 @@
 
 [sub_resource type="Resource" id="Resource_r1vnb"]
 script = ExtResource("1_8l21d")
-Stat = 7
+Stat = 10
 Add = 4.0
 Mult = 1.0
 metadata/_custom_type_script = "uid://d1og76mbf6sdm"
@@ -14,7 +14,7 @@ metadata/_custom_type_script = "uid://d1og76mbf6sdm"
 script = ExtResource("2_jrnk8")
 Id = "damage"
 DisplayName = "Damage"
-Description = "Increase damage by 4"
+Description = "Increase damage by"
 StatMods = Array[ExtResource("1_8l21d")]([SubResource("Resource_r1vnb")])
 CanStack = true
 MaxStacks = 99

@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="ProjectileSpellDefinition" load_steps=6 format=3 uid="uid://cty43clrmv80p"]
 
-[ext_resource type="Texture2D" uid="uid://dcsfn88nrykjf" path="res://Assets/icons/nature_volley_of_leaves.png" id="1_0810o"]
+[ext_resource type="Texture2D" uid="uid://dcsfn88nrykjf" path="res://assets/icons/nature_volley_of_leaves.png" id="1_0810o"]
 [ext_resource type="PackedScene" uid="uid://cq3f7nvxqnqsa" path="res://scenes/spells/basic_spells/projectile_spells/nature_leaf.tscn" id="1_vsfj3"]
 [ext_resource type="Script" uid="uid://y2naeclibxt3" path="res://resources/spells/definitions/ProjectileSpellDefinition.cs" id="1_wt62d"]
 [ext_resource type="Script" uid="uid://dqdjhp8c7xw30" path="res://resources/spells/ElementStatusProfile.cs" id="2_0810o"]
 
 [sub_resource type="Resource" id="Resource_xhvro"]
 script = ExtResource("2_0810o")
-Element = 0
+Element = 3
 EnableBurning = false
 BurningDuration = 3.0
 BurningTickRate = 0.25
@@ -18,7 +18,7 @@ SlowDuration = 2.5
 EnableBleed = true
 BleedDuration = 4.0
 BleedTickRate = 0.5
-BleedDotPerTick = 1.0
+BleedDotPerTick = 0.5
 EnableEarthBuildup = false
 EarthStunThreshold = 100.0
 EarthBuildupDecayPerSecond = 10.0
@@ -29,7 +29,7 @@ metadata/_custom_type_script = "uid://dqdjhp8c7xw30"
 script = ExtResource("1_wt62d")
 ProjectileScene = ExtResource("1_vsfj3")
 ProjectileSpeed = 30.0
-ProjectileSpread = 5.0
+ProjectileSpread = 3.0
 ProjectilePierce = 0
 DieOnWorldHit = true
 ScaleOverTime = true

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dhygdvswvx07x"
-path.s3tc="res://.godot/imported/meat_Meat Roughness.png-8a37ea60992cb9ff43f7aba0b0656d88.s3tc.ctex"
+path.s3tc="res://.godot/imported/meat_Meat Roughness.png-8d6896056cf671da587641b103bc14c9.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://Assets/models/items/meat/meat_Meat Roughness.png"
-dest_files=["res://.godot/imported/meat_Meat Roughness.png-8a37ea60992cb9ff43f7aba0b0656d88.s3tc.ctex"]
+source_file="res://assets/models/items/meat/meat_Meat Roughness.png"
+dest_files=["res://.godot/imported/meat_Meat Roughness.png-8d6896056cf671da587641b103bc14c9.s3tc.ctex"]
 
 [params]
 

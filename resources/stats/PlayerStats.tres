@@ -5,13 +5,16 @@
 [resource]
 script = ExtResource("1_0awl1")
 MaxHealth = 100.0
+HealthRegen = 0.0
+MaxMana = 100.0
+ManaRegen = 2.0
 MoveSpeed = 8.0
-JumpForce = 10.0
-SpellDamageMultiplier = 1.0
-SpellRangeMultiplier = 1.0
-ProjectileSpeedMultiplier = 1.0
+JumpForce = 4.0
+BaseDamage = 10.0
+CritChance = 0.0
+CritMultiplier = 1.5
 CooldownReduction = 0.0
-JumpCount = 2
+JumpCount = 1
 KnockbackResistance = 0.0
 KnockbackMultiplier = 1.0
 metadata/_custom_type_script = "uid://cuunlsiuuxq70"

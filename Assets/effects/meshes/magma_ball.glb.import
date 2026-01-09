@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://nmntdg0d5fue"
-path="res://.godot/imported/magma_ball.glb-abd445d555c4787dbd715d5af6c83b2c.scn"
+path="res://.godot/imported/magma_ball.glb-4bbc9ce7848f5a3258ce1f7ca913c391.scn"
 
 [deps]
 
-source_file="res://Assets/effects/meshes/magma_ball.glb"
-dest_files=["res://.godot/imported/magma_ball.glb-abd445d555c4787dbd715d5af6c83b2c.scn"]
+source_file="res://assets/effects/meshes/magma_ball.glb"
+dest_files=["res://.godot/imported/magma_ball.glb-4bbc9ce7848f5a3258ce1f7ca913c391.scn"]
 
 [params]
 

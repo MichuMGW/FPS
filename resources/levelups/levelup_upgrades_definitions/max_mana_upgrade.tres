@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="LevelUpUpgradeDefinition" load_steps=4 format=3 uid="uid://csd1qm7rl6b52"]
+
+[ext_resource type="Script" uid="uid://d1og76mbf6sdm" path="res://resources/items/StatModDefinition.cs" id="1_ngmxd"]
+[ext_resource type="Script" uid="uid://cejmhmihsxepu" path="res://resources/levelups/LevelUpUpgradeDefinition.cs" id="2_hixco"]
+
+[sub_resource type="Resource" id="Resource_e62ob"]
+script = ExtResource("1_ngmxd")
+Stat = 2
+Add = 8.0
+Mult = 1.0
+metadata/_custom_type_script = "uid://d1og76mbf6sdm"
+
+[resource]
+script = ExtResource("2_hixco")
+Id = "max_mana"
+DisplayName = "Max Mana"
+Description = "Increase max mana by"
+StatMods = Array[ExtResource("1_ngmxd")]([SubResource("Resource_e62ob")])
+CanStack = true
+MaxStacks = 99
+metadata/_custom_type_script = "uid://cejmhmihsxepu"

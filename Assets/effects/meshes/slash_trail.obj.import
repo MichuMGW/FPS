@@ -4,14 +4,14 @@ importer="wavefront_obj"
 importer_version=1
 type="Mesh"
 uid="uid://dyff68qu7obpv"
-path="res://.godot/imported/slash_trail.obj-31e08f75ad32d0fdd855927750a95498.mesh"
+path="res://.godot/imported/slash_trail.obj-4ab9919de1967cb2ef8c5fbd47af99f2.mesh"
 
 [deps]
 
-files=["res://.godot/imported/slash_trail.obj-31e08f75ad32d0fdd855927750a95498.mesh"]
+files=["res://.godot/imported/slash_trail.obj-4ab9919de1967cb2ef8c5fbd47af99f2.mesh"]
 
-source_file="res://Assets/effects/meshes/slash_trail.obj"
-dest_files=["res://.godot/imported/slash_trail.obj-31e08f75ad32d0fdd855927750a95498.mesh", "res://.godot/imported/slash_trail.obj-31e08f75ad32d0fdd855927750a95498.mesh"]
+source_file="res://assets/effects/meshes/slash_trail.obj"
+dest_files=["res://.godot/imported/slash_trail.obj-4ab9919de1967cb2ef8c5fbd47af99f2.mesh", "res://.godot/imported/slash_trail.obj-4ab9919de1967cb2ef8c5fbd47af99f2.mesh"]
 
 [params]
 

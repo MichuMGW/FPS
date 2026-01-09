@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=7 format=3 uid="uid://5jrr036xde8e"]
 
-[ext_resource type="Shader" uid="uid://b0ldqykxci21d" path="res://Assets/effects/shaders/engine_flame.gdshader" id="1_piuth"]
+[ext_resource type="Shader" uid="uid://b0ldqykxci21d" path="res://assets/effects/shaders/engine_flame.gdshader" id="1_piuth"]
 
 [sub_resource type="Gradient" id="Gradient_6ughi"]
 offsets = PackedFloat32Array(0, 0.174603, 0.563492, 1)

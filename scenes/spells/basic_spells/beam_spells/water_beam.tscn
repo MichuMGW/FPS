@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://cugid01x1bs1t"]
 
 [ext_resource type="Script" uid="uid://sgi4c8467k8v" path="res://scripts/spells/channel_spells/BeamEmitter.cs" id="1_xt26n"]
-[ext_resource type="Shader" uid="uid://bsvfhw1pjio08" path="res://Assets/effects/shaders/water_beam/water_beam.tres" id="2_n3lfq"]
-[ext_resource type="ArrayMesh" uid="uid://dfsgh7jpiruu7" path="res://Assets/effects/meshes/beam.obj" id="3_qmif7"]
+[ext_resource type="Shader" uid="uid://bsvfhw1pjio08" path="res://assets/effects/shaders/water_beam/water_beam.tres" id="2_n3lfq"]
+[ext_resource type="ArrayMesh" uid="uid://dfsgh7jpiruu7" path="res://assets/effects/meshes/beam.obj" id="3_qmif7"]
 [ext_resource type="PackedScene" uid="uid://c2wcxah80nn20" path="res://scenes/components/hitbox_component.tscn" id="4_n3lfq"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_n3lfq"]

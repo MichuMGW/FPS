@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://co0twflvmb1as"]
 
 [ext_resource type="Script" uid="uid://0k8osrwg8a7u" path="res://scripts/ui/LevelUpOverlay.cs" id="1_bw8lv"]
-[ext_resource type="Theme" uid="uid://csif8wnmjs1io" path="res://Assets/ui_theme.tres" id="2_2tids"]
-[ext_resource type="FontFile" uid="uid://d2vf3deu7a1b0" path="res://Assets/fonts/Kenney High.ttf" id="2_pbip8"]
+[ext_resource type="Theme" uid="uid://csif8wnmjs1io" path="res://assets/themes/ui_theme.tres" id="2_2tids"]
+[ext_resource type="FontFile" uid="uid://d2vf3deu7a1b0" path="res://assets/fonts/Kenney High.ttf" id="2_pbip8"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_2tids"]
 font = ExtResource("2_pbip8")

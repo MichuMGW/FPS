@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://chm725r72rhva"]
-
-[ext_resource type="Script" uid="uid://kjsb7pyqni8w" path="res://scripts/components/EnemyHealthComponent.cs" id="1_a1tyf"]
-
-[node name="EnemyHealthComponent" type="Node"]
-script = ExtResource("1_a1tyf")

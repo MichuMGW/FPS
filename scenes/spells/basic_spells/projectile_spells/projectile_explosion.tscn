@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dj4vku1212nte"]
 
-[ext_resource type="PackedScene" uid="uid://xng3w0ck0x1s" path="res://scenes/hitbox_component_OLD.tscn" id="1_fxio1"]
+[ext_resource type="PackedScene" uid="uid://c2wcxah80nn20" path="res://scenes/components/hitbox_component.tscn" id="1_fxio1"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_38b0s"]
 radius = 2.0
@@ -52,7 +52,7 @@ _data = {
 &"RESET": SubResource("Animation_wmftq")
 }
 
-[node name="FireExplosion" type="Node3D"]
+[node name="ProjectileExplosion" type="Node3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_38b0s")
@@ -61,6 +61,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_ku4ay")
 [node name="HitboxComponent" parent="." instance=ExtResource("1_fxio1")]
 collision_layer = 8
 collision_mask = 32
+RehitCooldownSeconds = 20.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent"]
 shape = SubResource("SphereShape3D_wv6q1")

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c2qxqki4dhxgx"
-path.s3tc="res://.godot/imported/BowAndArrow Color.png-f013b8be67b5803e7bd62a25cbaba72a.s3tc.ctex"
+path.s3tc="res://.godot/imported/BowAndArrow Color.png-67ee145287e077293676033a5bbe4d7e.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/textures/entities/enemies/troll_archer/BowAndArrow Color.png"
-dest_files=["res://.godot/imported/BowAndArrow Color.png-f013b8be67b5803e7bd62a25cbaba72a.s3tc.ctex"]
+source_file="res://assets/textures/entities/enemies/troll_archer/BowAndArrow Color.png"
+dest_files=["res://.godot/imported/BowAndArrow Color.png-67ee145287e077293676033a5bbe4d7e.s3tc.ctex"]
 
 [params]
 

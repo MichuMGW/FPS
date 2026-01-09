@@ -18,7 +18,7 @@ public class OrcChargeState : IState, IPhysicsUpdateState
         _timeElapsed = 0f;
         _speedLerp = 0f;
 
-        _owner.ChargeHitbox.Monitoring = true;
+        _owner.ChargeHitbox.Active = true;
 
         _owner.Pathfind.Active = false;
         _owner.Pathfind.SetPhysicsProcess(false);
@@ -55,7 +55,7 @@ public class OrcChargeState : IState, IPhysicsUpdateState
     {
         _owner.VelocityComp.Acceleration = _prevAcceleration;
 
-        _owner.ChargeHitbox.SetDeferred("monitoring", false);
+        _owner.ChargeHitbox.Active = false;
 
         _owner.VelocityComp.SetDesiredDirection(Vector3.Zero);
         _owner.Pathfind.SetPhysicsProcess(true);

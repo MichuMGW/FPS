@@ -7,12 +7,8 @@ public partial class PlayerStatsManager : Node
     [Signal] public delegate void StatChangedEventHandler(int statId, float newValue, float oldValue);
     [Signal] public delegate void StatsChangedEventHandler();
 
-    // Base staty
     private readonly Dictionary<StatId, float> _base = new();
-
     private readonly Dictionary<string, Dictionary<StatId, StatContribution>> _sources = new();
-
-    // wynik końcowy
     private readonly Dictionary<StatId, float> _final = new();
 
     private struct StatContribution
@@ -21,8 +17,7 @@ public partial class PlayerStatsManager : Node
         public float Mult;
     }
 
-    public float GetStat(StatId id)
-        => _final.TryGetValue(id, out var v) ? v : GetDefault(id);
+    public float GetStat(StatId id) => _final.TryGetValue(id, out var v) ? v : GetDefault(id);
 
     public void SetBaseStat(StatId id, float baseValue)
     {
@@ -30,10 +25,6 @@ public partial class PlayerStatsManager : Node
         RecomputeAll();
     }
 
-    /// <summary>
-    /// Ustaw wkład źródła (item/buff) dla konkretnego statId.
-    /// Nadpisuje wcześniejszy wkład tego samego źródła.
-    /// </summary>
     public void SetModifier(string sourceId, StatId stat, float add, float mult)
     {
         if (!_sources.TryGetValue(sourceId, out var dict))
@@ -94,7 +85,7 @@ public partial class PlayerStatsManager : Node
         _base[StatId.MaxHealth] = res.MaxHealth;
         _base[StatId.HealthRegen] = res.HealthRegen;
         _base[StatId.MaxMana] = res.MaxMana;
-        _base[StatId.ManaRegen] = res.MaxMana;
+        _base[StatId.ManaRegen] = res.ManaRegen;
         _base[StatId.MoveSpeed] = res.MoveSpeed;
         _base[StatId.JumpForce] = res.JumpForce;
         _base[StatId.JumpCount] = res.JumpCount;

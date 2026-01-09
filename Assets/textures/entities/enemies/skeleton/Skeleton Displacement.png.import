@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b5jqf01dvbdxn"
-path="res://.godot/imported/Skeleton Displacement.png-362f1d68508a23c1c643fbaac36bc72f.ctex"
+path="res://.godot/imported/Skeleton Displacement.png-8aa8e8db47cd82c4042725705a70e7e8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/textures/entities/enemies/skeleton/Skeleton Displacement.png"
-dest_files=["res://.godot/imported/Skeleton Displacement.png-362f1d68508a23c1c643fbaac36bc72f.ctex"]
+source_file="res://assets/textures/entities/enemies/skeleton/Skeleton Displacement.png"
+dest_files=["res://.godot/imported/Skeleton Displacement.png-8aa8e8db47cd82c4042725705a70e7e8.ctex"]
 
 [params]
 

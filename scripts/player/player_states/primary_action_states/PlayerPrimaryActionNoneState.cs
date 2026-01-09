@@ -17,7 +17,7 @@ public class PlayerPrimaryActionNoneState : IState, IUpdateState
 
     public void Update(double delta)
     {
-        if (Input.IsActionPressed("CastLeftSpell"))
+        if (Input.IsActionPressed("CastLeftSpell") && player.CurrentMoveStateId != PlayerMoveStateId.Knockback)
         {
             player.CurrentPrimaryCastingSlot = SpellSlot.LeftHand;
             player.ChangePrimaryActionState(PlayerPrimaryActionStateId.Casting);

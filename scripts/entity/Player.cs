@@ -53,8 +53,6 @@ public partial class Player : CharacterBody3D
 
     public float StunTimeLeft { get; set; }
 
-
-
     public override void _Ready()
     {
         FindNodes();
@@ -73,9 +71,14 @@ public partial class Player : CharacterBody3D
         ChangePrimaryActionState(PlayerPrimaryActionStateId.None);
         ChangeSecondaryActionState(PlayerSecondaryActionStateId.None);
 
-        Health.EntityDied += OnDied;
+        Health.PlayerDied += OnDied;
     }
 
+
+    public override void _ExitTree()
+    {
+        Health.PlayerDied -= OnDied;
+    }
     private void InitializeComponents()
     {
         Movement.Initialize();
@@ -177,7 +180,8 @@ public partial class Player : CharacterBody3D
         {
             { PlayerMoveStateId.Grounded, new PlayerMoveGroundedState(this) },
             { PlayerMoveStateId.Airborne, new PlayerMoveAirborneState(this) },
-            { PlayerMoveStateId.Dash, new PlayerMoveDashState(this) }
+            { PlayerMoveStateId.Dash, new PlayerMoveDashState(this) },
+            { PlayerMoveStateId.Knockback, new PlayerMoveKnockbackState(this) }
         };
     }
 
@@ -261,7 +265,6 @@ public partial class Player : CharacterBody3D
     {
         ChangePrimaryActionState(PlayerPrimaryActionStateId.None);
         ChangeSecondaryActionState(PlayerSecondaryActionStateId.None);
-
         ChangeSuperState(PlayerSuperStateId.Dead);
     }
 
@@ -278,6 +281,19 @@ public partial class Player : CharacterBody3D
             dashState.Setup(def, direction);
             ChangeMoveState(PlayerMoveStateId.Dash);
         }
+    }
+
+    public void StartKnockback(Vector3 impulse)
+    {
+        if (Knockback == null)
+            return;
+
+        Knockback.ApplyKnockback(impulse);
+
+        if (CurrentMoveStateId == PlayerMoveStateId.Dash)
+            return;
+
+        ChangeMoveState(PlayerMoveStateId.Knockback);
     }
 
 }

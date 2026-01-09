@@ -36,6 +36,15 @@ public partial class LevelUpManager : Node
             _events.LevelUpChoiceResolved += OnChoiceResolved;
     }
 
+    public override void _ExitTree()
+    {
+        if (_exp != null)
+            _exp.LevelUp -= OnLevelUp;
+
+        if (_events != null)
+            _events.LevelUpChoiceResolved -= OnChoiceResolved;
+    }
+
     public void ResetRun()
     {
         _stacks.Clear();

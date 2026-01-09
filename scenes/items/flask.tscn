@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dduip5wb6b8li"]
 
-[ext_resource type="PackedScene" uid="uid://cjr5yxr13skm1" path="res://Assets/models/items/flask/flask.glb" id="1_802je"]
+[ext_resource type="PackedScene" uid="uid://cjr5yxr13skm1" path="res://assets/models/items/flask/flask.glb" id="1_802je"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ovp6"]
 transparency = 1

@@ -1,9 +1,9 @@
 [gd_resource type="VisualShader" load_steps=10 format=3 uid="uid://k30q3217nhto"]
 
-[ext_resource type="Texture2D" uid="uid://bixs2ci1vdm50" path="res://Assets/effects/textures/fireball_tail.jpg" id="1_y3kvd"]
+[ext_resource type="Texture2D" uid="uid://bixs2ci1vdm50" path="res://assets/effects/textures/fireball_tail.jpg" id="1_vg5fd"]
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_0y7m2"]
-texture = ExtResource("1_y3kvd")
+texture = ExtResource("1_vg5fd")
 
 [sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_ottom"]
 input_name = "time"

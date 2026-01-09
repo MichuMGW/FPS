@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dj8dl5e5bt87j"
-path.s3tc="res://.godot/imported/night_sky.jpg-e5f5cd54ab8662671c7a05331aa38f11.s3tc.ctex"
+path.s3tc="res://.godot/imported/night_sky.jpg-35bb5cfa3b6c34bf4017ded17abe04d9.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/textures/environment/sky/night_sky.jpg"
-dest_files=["res://.godot/imported/night_sky.jpg-e5f5cd54ab8662671c7a05331aa38f11.s3tc.ctex"]
+source_file="res://assets/textures/environment/sky/night_sky.jpg"
+dest_files=["res://.godot/imported/night_sky.jpg-35bb5cfa3b6c34bf4017ded17abe04d9.s3tc.ctex"]
 
 [params]
 

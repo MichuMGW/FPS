@@ -1,9 +1,9 @@
 [gd_resource type="MeshLibrary" load_steps=25 format=4 uid="uid://cdq7qcwv0bkci"]
 
-[ext_resource type="Texture2D" uid="uid://fdpk8r5jw1yj" path="res://Assets/models/environment/foliage/trees/tree_2_vegetation_tree_bark_64x64_80.png" id="1_fc2ol"]
-[ext_resource type="Texture2D" uid="uid://cw278bli3wc6k" path="res://Assets/models/environment/foliage/trees/tree_2_tree_branch_2_128x128.png" id="2_ofljo"]
-[ext_resource type="Texture2D" uid="uid://civr5vhhsxn8m" path="res://Assets/models/environment/foliage/trees/tree_4_vegetation_tree_bark_64x64.png" id="3_n06gv"]
-[ext_resource type="Texture2D" uid="uid://6g5jjgnqmsw" path="res://Assets/models/environment/foliage/trees/tree_4_tree_branch_128x128.png" id="4_srt46"]
+[ext_resource type="Texture2D" uid="uid://fdpk8r5jw1yj" path="res://assets/models/environment/foliage/trees/tree_2_vegetation_tree_bark_64x64_80.png" id="1_fc2ol"]
+[ext_resource type="Texture2D" uid="uid://cw278bli3wc6k" path="res://assets/models/environment/foliage/trees/tree_2_tree_branch_2_128x128.png" id="2_ofljo"]
+[ext_resource type="Texture2D" uid="uid://civr5vhhsxn8m" path="res://assets/models/environment/foliage/trees/tree_4_vegetation_tree_bark_64x64.png" id="3_n06gv"]
+[ext_resource type="Texture2D" uid="uid://6g5jjgnqmsw" path="res://assets/models/environment/foliage/trees/tree_4_tree_branch_128x128.png" id="4_srt46"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1hm03"]
 resource_name = "Material.004"

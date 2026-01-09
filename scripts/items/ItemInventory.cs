@@ -8,8 +8,6 @@ public partial class ItemInventory : Node
 
     private readonly Dictionary<string, ItemStack> _stacks = new();
 
-    [Export] public NodePath PlayerStatsManagerPath;
-
     private PlayerStatsManager _stats;
     private GameEvents _events;
 
@@ -30,6 +28,11 @@ public partial class ItemInventory : Node
             _events.ChestRewardResolved += OnChestRewardResolved;
         // na start runa: pusto
         ClearRun();
+    }
+
+    public override void _ExitTree()
+    {
+        _events.ChestRewardResolved -= OnChestRewardResolved;
     }
 
     private void OnChestRewardResolved(ChestRewardContext ctx, bool claimed)
@@ -72,10 +75,6 @@ public partial class ItemInventory : Node
         stack.Count += 1;
 
         RebuildStatSources();
-        GD.Print($"RunInventory: added item {item.Id}, new count: {stack.Count}");
-        GD.Print($"BaseDamage now: {_stats.GetStat(StatId.BaseDamage)}");
-        GD.Print($"CritChance now: {_stats.GetStat(StatId.CritChance)}");
-        GD.Print($"HealthRegen now: {_stats.GetStat(StatId.HealthRegen)}");
         EmitSignal(SignalName.InventoryChanged);
         return true;
     }

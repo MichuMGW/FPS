@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="BeamSpellDefinition" load_steps=4 format=3 uid="uid://ba16jdlioycrd"]
+[gd_resource type="Resource" script_class="BeamSpellDefinition" load_steps=5 format=3 uid="uid://ba16jdlioycrd"]
 
 [ext_resource type="Script" uid="uid://by0m4qn4gyrvi" path="res://resources/spells/definitions/BeamSpellDefinition.cs" id="1_qf7em"]
 [ext_resource type="PackedScene" uid="uid://cugid01x1bs1t" path="res://scenes/spells/basic_spells/beam_spells/water_beam.tscn" id="1_xnp8b"]
-[ext_resource type="Texture2D" uid="uid://4xkubqrkouwv" path="res://Assets/icons/water_water_beam.png" id="2_y35bk"]
+[ext_resource type="Texture2D" uid="uid://4xkubqrkouwv" path="res://assets/icons/water_water_beam.png" id="2_y35bk"]
+[ext_resource type="Resource" uid="uid://ddlifbvb1pxy7" path="res://resources/spells/status_profiles/water_profile.tres" id="3_h6ymt"]
 
 [resource]
 script = ExtResource("1_qf7em")
@@ -18,13 +19,14 @@ Icon = ExtResource("2_y35bk")
 Element = 2
 CastMode = 2
 BehaviourType = 1
-DamageModifier = 1.0
+DamageModifier = 0.5
 BaseRange = 30.0
 BaseCooldown = 0.2
-BaseManaCost = 0.0
+BaseManaCost = 0.1
 EnableRehit = false
 RehitIntervalSeconds = 0.25
 RehitMaxDurationSeconds = 0.0
+StatusProfile = ExtResource("3_h6ymt")
 BurningDotMultiplier = 1.0
 SlowMultiplierBonus = 0.0
 BleedDotMultiplier = 1.0

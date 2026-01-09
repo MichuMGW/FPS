@@ -22,19 +22,8 @@ public static class ElementColors
 
     public static Color GetStatusEffectColor(Element element)
     {
-        return element switch
-        {
-            Element.Fire => new Color(1, 0.5f, 0),
-            Element.Water => new Color(0, 0.5f, 1),
-            Element.Nature => new Color(0, 1, 0),
-            Element.Air => new Color(0.8f, 0.8f, 0.8f),
-            Element.Magma => new Color(1, 0.3f, 0),
-            Element.Storm => new Color(0, 0.7f, 1),
-            Element.Dark => new Color(0.6f, 0, 0.6f),
-            Element.Poison => new Color(0, 0.6f, 0),
-            Element.Ice => new Color(0.5f, 0.8f, 1),
-            Element.Earth => new Color(0.6f, 0.4f, 0.2f),
-            _ => Colors.White,
-        };
+        Color c = GetColor(element);
+        c = c.Lightened(0.35f);
+        return c;
     }
 }

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://6g5jjgnqmsw"
-path.s3tc="res://.godot/imported/tree_4_tree_branch_128x128.png-76337dbff8a4941cecbd6d3bb59447ba.s3tc.ctex"
+path.s3tc="res://.godot/imported/tree_4_tree_branch_128x128.png-f7923977a4526f52542a9e7c09068ce1.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://Assets/models/environment/foliage/trees/tree_4_tree_branch_128x128.png"
-dest_files=["res://.godot/imported/tree_4_tree_branch_128x128.png-76337dbff8a4941cecbd6d3bb59447ba.s3tc.ctex"]
+source_file="res://assets/models/environment/foliage/trees/tree_4_tree_branch_128x128.png"
+dest_files=["res://.godot/imported/tree_4_tree_branch_128x128.png-f7923977a4526f52542a9e7c09068ce1.s3tc.ctex"]
 
 [params]
 

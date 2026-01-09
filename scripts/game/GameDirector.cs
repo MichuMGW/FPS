@@ -89,6 +89,7 @@ public partial class GameDirector : Node
         {
             _events.ElementPicked += OnElementPicked;
             _events.BossEnded += OnBossEnded;
+            _events.RunEnded += OnRunEnded;
         }
 
         _difficultyManager.RunDifficulty = _runConfig.Difficulty;
@@ -374,6 +375,28 @@ public partial class GameDirector : Node
         _isRunning = false;
         _enemySpawnManager.StopSpawning();
         GD.Print("[GameDirector] Match ended.");
-        _events?.EndRun();
+        _events?.EndRun(RunEndReason.RunFinished);
     }
+
+    private void OnRunEnded(int reason)
+    {
+        // już zatrzymane? to nie drąż
+        if (!_isRunning && !_bossPhase)
+            return;
+
+        _isRunning = false;
+
+        // niezależnie czy boss phase czy nie, stopujemy systemy
+        _enemySpawnManager?.StopSpawning();
+
+        // jeśli był boss phase, możesz to uznać za zakończenie boss fight UI
+        if (_bossPhase)
+        {
+            _bossPhase = false;
+            _events?.EmitBossFightEnded();
+        }
+
+        GD.Print("[GameDirector] Run stopped by RunEnded signal.");
+    }
+
 }

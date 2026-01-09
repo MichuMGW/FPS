@@ -1,5 +1,6 @@
 using Godot;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public partial class UIOverlayManager : Node
 {
@@ -7,35 +8,34 @@ public partial class UIOverlayManager : Node
     [Export] public PackedScene ChestRewardOverlayScene;
     [Export] public PackedScene LevelUpOverlayScene;
     [Export] public PackedScene GameMenuScene;
+
+    // ✅ NOWE: End game overlay
+    [Export] public PackedScene EndGameOverlayScene;
+
     [Export] public ElementKitDatabase KitDatabase;
 
     private GameEvents _events;
     private PauseManager _pause;
 
-    // ==== Overlay queue (na raz pokazujemy jeden) ====
     private bool _overlayOpen = false;
-
-    // Level-upy potrafią przyjść “hurtem”, więc je kolejkujemy
     private readonly Queue<Godot.Collections.Array<LevelUpOffer>> _levelUpQueue = new();
-
-    // (Opcjonalnie) trzymaj referencję do aktualnego overlay, jak chcesz blokować inne requesty
     private CanvasLayer _activeOverlay;
+
+    // ✅ NOWE: żeby nie odpalić end overlay 2 razy
+    private bool _endGameScheduled = false;
 
     public override void _Ready()
     {
         ProcessMode = ProcessModeEnum.Always;
+        _overlayOpen = false;
 
         _events = GetTree().Root.GetNodeOrNull<GameEvents>("GameEvents");
-        _pause = GetTree().CurrentScene.GetNodeOrNull<PauseManager>("PauseManager");
+        EnsurePause();
 
         if (_events == null)
             GD.PushError("[UIOverlayManager] Missing GameEvents autoload.");
-        if (_pause == null)
-            GD.PushError("[UIOverlayManager] PauseManager not assigned.");
         if (ElementOverlayScene == null)
             GD.PushError("[UIOverlayManager] ElementOverlayScene not assigned.");
-        if (ChestRewardOverlayScene == null)
-            GD.PushWarning("[UIOverlayManager] ChestRewardOverlayScene not assigned.");
         if (KitDatabase == null)
             GD.PushWarning("[UIOverlayManager] KitDatabase not assigned (you can still assign it in ElementOverlay scene).");
 
@@ -45,13 +45,130 @@ public partial class UIOverlayManager : Node
             _events.ChestRewardRequested += OnChestRewardRequested;
             _events.GameMenuRequested += OnGameMenuRequested;
             _events.LevelUpChoiceRequested += OnLevelUpChoiceRequested;
+
+            _events.BossEnded += OnBossEnded;
+            _events.RunEnded += OnRunEnded;
         }
     }
 
+    public override void _ExitTree()
+    {
+        if (_events != null)
+        {
+            _events.ElementPickRequested -= OnElementPickRequested;
+            _events.ChestRewardRequested -= OnChestRewardRequested;
+            _events.GameMenuRequested -= OnGameMenuRequested;
+            _events.LevelUpChoiceRequested -= OnLevelUpChoiceRequested;
+
+            _events.BossEnded -= OnBossEnded;
+            _events.RunEnded -= OnRunEnded;
+        }
+    }
+
+    private void EnsurePause()
+    {
+        // Uwaga: przy ChangeScene CurrentScene bywa null przez moment
+        if (_pause != null && GodotObject.IsInstanceValid(_pause) && _pause.IsInsideTree())
+            return;
+
+        var tree = GetTree();
+        if (tree == null) return;
+
+        _pause = tree.CurrentScene?.GetNodeOrNull<PauseManager>("PauseManager");
+    }
+
+    private bool PauseIsValid()
+        => _pause != null && GodotObject.IsInstanceValid(_pause) && _pause.IsInsideTree();
+
+    // =========================
+    // ✅ END GAME FLOW (BOSS)
+    // =========================
+
+    private async void OnBossEnded(Node boss)
+    {
+        if (_endGameScheduled) return;
+        _endGameScheduled = true;
+
+        // Poczekaj 3 sekundy po “boss ended”
+        var tree = GetTree();
+        if (tree == null) return;
+
+        // Timer ma działać nawet gdybyś gdzieś miał pause / timescale
+        var t = tree.CreateTimer(10.0, processAlways: true, processInPhysics: false, ignoreTimeScale: true);
+        await ToSignal(t, SceneTreeTimer.SignalName.Timeout);
+
+        // Jeśli w międzyczasie node wyleciał z drzewa (zmiana sceny), to nie rób nic
+        if (!IsInsideTree()) return;
+
+        ShowEndGameOverlayForce();
+    }
+
+    private async void OnRunEnded(int reason)
+    {
+        if (_endGameScheduled) return;
+        _endGameScheduled = true;
+
+        var tree = GetTree();
+        if (tree == null) return;
+
+        if (!IsInsideTree()) return;
+
+        ShowEndGameOverlayForce();
+    }
+
+
+    private void ShowEndGameOverlayForce()
+    {
+        if (EndGameOverlayScene == null)
+        {
+            GD.PushWarning("[UIOverlayManager] EndGameOverlayScene not assigned.");
+            return;
+        }
+
+        // Wyczyść kolejki i zamknij aktywny overlay bez zabawy w “czekaj aż łaskawie zniknie”
+        _levelUpQueue.Clear();
+        ForceCloseActiveOverlay();
+
+        var overlay = EndGameOverlayScene.Instantiate() as CanvasLayer;
+        if (overlay == null)
+        {
+            GD.PushError("[UIOverlayManager] EndGameOverlayScene is not a CanvasLayer.");
+            return;
+        }
+
+        overlay.ProcessMode = ProcessModeEnum.Always;
+
+        ShowOverlay(overlay);
+        overlay.TreeExited += OnOverlayTreeExited;
+    }
+
+    private void ForceCloseActiveOverlay()
+    {
+        // Jeśli coś było otwarte (menu/levelup/chest), to ubijamy to bez odpalania OnOverlayTreeExited,
+        // bo tam byś próbował dotykać PauseManagera w trakcie ChangeScene i lecą ObjectDisposedException.
+        if (_activeOverlay != null && GodotObject.IsInstanceValid(_activeOverlay))
+        {
+            _activeOverlay.TreeExited -= OnOverlayTreeExited;
+            _activeOverlay.QueueFree();
+        }
+
+        _activeOverlay = null;
+        _overlayOpen = false;
+
+        EnsurePause();
+        if (PauseIsValid())
+        {
+            // Spróbuj zdjąć pauzę, jeśli coś zostało po poprzednim overlayu
+            _pause.ReleasePause();
+        }
+    }
+
+    // =========================
+    // Twoje istniejące overlaye
+    // =========================
+
     private void OnElementPickRequested(bool isSecondPick)
     {
-        // Jeśli coś już jest otwarte, ignoruj albo kolejkuj (Twoja decyzja).
-        // Tu: ignorujemy, bo element pick raczej nie powinien wpadać w trakcie innych overlayów.
         if (_overlayOpen)
         {
             GD.PushWarning("[UIOverlayManager] ElementPickRequested while overlay open. Ignored.");
@@ -80,7 +197,6 @@ public partial class UIOverlayManager : Node
 
     private void OnChestRewardRequested(ChestRewardContext ctx)
     {
-        // chesty też możesz kolejować, ale na razie blokujemy jak coś jest otwarte
         if (_overlayOpen)
         {
             GD.PushWarning("[UIOverlayManager] ChestRewardRequested while overlay open. Ignored.");
@@ -122,20 +238,14 @@ public partial class UIOverlayManager : Node
             return;
         }
 
-        // Zawsze kolejkuj level-upy
         _levelUpQueue.Enqueue(options);
-
-        // Jeśli nic nie jest otwarte, pokaż od razu
         TryShowNextLevelUp();
     }
 
     private void TryShowNextLevelUp()
     {
-        if (_overlayOpen)
-            return;
-
-        if (_levelUpQueue.Count <= 0)
-            return;
+        if (_overlayOpen) return;
+        if (_levelUpQueue.Count <= 0) return;
 
         var next = _levelUpQueue.Dequeue();
         ShowLevelUpOverlay(next);
@@ -151,7 +261,6 @@ public partial class UIOverlayManager : Node
         }
 
         overlay.ProcessMode = ProcessModeEnum.Always;
-
         ShowOverlay(overlay);
 
         overlay.SetOptions(options);
@@ -184,20 +293,29 @@ public partial class UIOverlayManager : Node
         }
 
         menu.ProcessMode = ProcessModeEnum.Always;
-
         ShowOverlay(menu);
         menu.TreeExited += OnOverlayTreeExited;
     }
 
-    // ===== Common overlay open/close =====
+    // =========================
+    // Common open/close
+    // =========================
 
     private void ShowOverlay(CanvasLayer overlay)
     {
         _overlayOpen = true;
         _activeOverlay = overlay;
 
-        _pause?.RequestPause();
-        GetTree().Root.AddChild(overlay);
+        EnsurePause();
+        if (PauseIsValid())
+            _pause.RequestPause();
+
+        var scene = GetTree().CurrentScene;
+        if (scene != null)
+            scene.AddChild(overlay);
+        else
+            GetTree().Root.AddChild(overlay);
+
         Input.MouseMode = Input.MouseModeEnum.Visible;
     }
 
@@ -206,18 +324,12 @@ public partial class UIOverlayManager : Node
         _activeOverlay = null;
         _overlayOpen = false;
 
-        _pause?.ReleasePause();
+        EnsurePause();
+        if (PauseIsValid())
+            _pause.ReleasePause();
 
         bool hasNextLevelUp = _levelUpQueue.Count > 0;
-
-        if (!hasNextLevelUp)
-        {
-            Input.MouseMode = Input.MouseModeEnum.Captured;
-        }
-        else
-        {
-            Input.MouseMode = Input.MouseModeEnum.Visible;
-        }
+        Input.MouseMode = hasNextLevelUp ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured;
 
         TryShowNextLevelUp();
     }

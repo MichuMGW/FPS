@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://tcmlvmhebq6h" path="res://scripts/spells/projectile_spells/Projectile.cs" id="1_ap1wb"]
 [ext_resource type="PackedScene" uid="uid://c2wcxah80nn20" path="res://scenes/components/hitbox_component.tscn" id="2_8oegm"]
-[ext_resource type="Shader" uid="uid://cjo668gjt5k6t" path="res://Assets/effects/shaders/fireball/fireball_trail1_shader.tres" id="3_tbxvf"]
-[ext_resource type="ArrayMesh" uid="uid://cqwmqdwxcdqhb" path="res://Assets/effects/meshes/slash.obj" id="4_glmkj"]
-[ext_resource type="ArrayMesh" uid="uid://dyff68qu7obpv" path="res://Assets/effects/meshes/slash_trail.obj" id="5_48dc4"]
+[ext_resource type="Shader" uid="uid://cjo668gjt5k6t" path="res://assets/effects/shaders/fireball/fireball_trail1_shader.tres" id="3_tbxvf"]
+[ext_resource type="ArrayMesh" uid="uid://cqwmqdwxcdqhb" path="res://assets/effects/meshes/slash.obj" id="4_glmkj"]
+[ext_resource type="ArrayMesh" uid="uid://dyff68qu7obpv" path="res://assets/effects/meshes/slash_trail.obj" id="5_48dc4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5543r"]
 size = Vector3(2, 0.133, 0.895191)

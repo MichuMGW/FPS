@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c6ta0rwedfyw5"
-path.s3tc="res://.godot/imported/water_Water2.jpg-130b1471ef81b899a7d5b65bcf93bce4.s3tc.ctex"
+path.s3tc="res://.godot/imported/water_Water2.jpg-56b74b8ef8f387d8ce2000e4f1b32877.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://Assets/models/environment/terrain/water_Water2.jpg"
-dest_files=["res://.godot/imported/water_Water2.jpg-130b1471ef81b899a7d5b65bcf93bce4.s3tc.ctex"]
+source_file="res://assets/models/environment/terrain/water_Water2.jpg"
+dest_files=["res://.godot/imported/water_Water2.jpg-56b74b8ef8f387d8ce2000e4f1b32877.s3tc.ctex"]
 
 [params]
 

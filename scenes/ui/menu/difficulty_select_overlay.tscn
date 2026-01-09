@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ckvxxc3cfmcij"]
 
-[ext_resource type="Theme" uid="uid://csif8wnmjs1io" path="res://Assets/ui_theme.tres" id="1_h73dv"]
+[ext_resource type="Theme" uid="uid://csif8wnmjs1io" path="res://assets/themes/ui_theme.tres" id="1_h73dv"]
 [ext_resource type="Script" uid="uid://b560bk8nnih58" path="res://scripts/ui/menu/DifficultySelectOverlay.cs" id="2_ge57h"]
 
 [node name="DifficultySelectOverlay" type="Control" node_paths=PackedStringArray("casualButton", "normalButton", "hardcoreButton", "backButton")]

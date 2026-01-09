@@ -4,7 +4,7 @@ using System.Collections.Generic;
 [GlobalClass]
 public partial class ElementKitDatabase : Resource
 {
-    [Export] public Godot.Collections.Array<ElementKitDefinition> Kits { get; set; } = new();
+    [Export] public Godot.Collections.Array<ElementKitDefinition> Kits { get; set; }
 
     private Dictionary<Element, ElementKitDefinition> _map;
 

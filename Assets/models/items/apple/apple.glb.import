@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://pe884i75m4kv"
-path="res://.godot/imported/apple.glb-90244035045f95da9a4c5a53c81b1256.scn"
+path="res://.godot/imported/apple.glb-a317a741dc64fc2370e0bc7f18bb0962.scn"
 
 [deps]
 
-source_file="res://Assets/models/items/apple/apple.glb"
-dest_files=["res://.godot/imported/apple.glb-90244035045f95da9a4c5a53c81b1256.scn"]
+source_file="res://assets/models/items/apple/apple.glb"
+dest_files=["res://.godot/imported/apple.glb-a317a741dc64fc2370e0bc7f18bb0962.scn"]
 
 [params]
 

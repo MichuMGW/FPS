@@ -19,34 +19,28 @@ public partial class HealthComponent : Node
         }
         set
         {
-            if (value <= 0)
+			_currentHealth = Mathf.Clamp(value, 0, MaxHealth);
+            if (_currentHealth <= 0)
             {
-                _currentHealth = 0;
                 Die();
             }
-            else if (value > MaxHealth)
-            {
-                _currentHealth = MaxHealth;
-            }
-            else _currentHealth = value;
         }
     }
 	private float fireDamage = 0f;
 	protected Node3D _owner;
 
+    floatingDamageScene = GD.Load<PackedScene>("res://scenes/effects/floating_damage.tscn");
+
 	public override void _Ready()
 	{
 		_owner = GetOwner<Node3D>();
-
 		CurrentHealth = MaxHealth;
-		floatingDamageScene = GD.Load<PackedScene>("res://scenes/effects/floating_damage.tscn");
-
-        SubscribeEvents();
+        Hurtbox.Hit += OnHit;
 	}
 
 	private void SubscribeEvents()
     {
-        Hurtbox.Hit += OnHit;
+        
     }
 
 	private void UnsubscribeEvents()
@@ -64,11 +58,8 @@ public partial class HealthComponent : Node
 
 		Element damageType = damageSource.GetDamageType();
 
-		//TUTAJ MOGĘ DODAĆ RESISTY
-		//np. damage = ApplyResistance(damage, damageType);
-
 		TakeDamage(damage);
-		ShowDamage(hitInfo.HitPosition, damage, ElementColors.GetColor(damageType)); //KOLOR MOŻNA UZALEŻNIĆ OD ELEMENTU
+		ShowDamage(hitInfo.HitPosition, damage, ElementColors.GetColor(damageType));
     }
 
 	public void ApplyStatusDamage(float damage, Element element)
@@ -114,7 +105,6 @@ public partial class HealthComponent : Node
     public virtual void Die()
     {
 		Active = false;
-		UnsubscribeEvents();
         EmitSignal(nameof(EntityDied));
     }
 
@@ -122,10 +112,13 @@ public partial class HealthComponent : Node
 		CurrentHealth += amount;
 	}
 
-	public void ShowDamage(Vector3 position, float damage, Color color){
+	public void ShowDamage(Vector3 position, float damage, Color color)
+	{
 		var damageInt = Mathf.CeilToInt(damage);
 		var floatingDamage = (FloatingDamage)floatingDamageScene.Instantiate();
+
 		GetTree().CurrentScene.AddChild(floatingDamage);
+
 		floatingDamage.GlobalPosition = position;
 		floatingDamage.ShowDamage(damageInt, color);
 	}

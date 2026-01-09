@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="ProjectileSpellDefinition" load_steps=4 format=3 uid="uid://celltpaevqwvi"]
+[gd_resource type="Resource" script_class="ProjectileSpellDefinition" load_steps=5 format=3 uid="uid://celltpaevqwvi"]
 
+[ext_resource type="Texture2D" uid="uid://xm4djggk6amk" path="res://assets/icons/water_waterball.png" id="1_fr7fs"]
 [ext_resource type="PackedScene" uid="uid://b2nlpbqvxdupp" path="res://scenes/spells/basic_spells/projectile_spells/water_waterball.tscn" id="1_uj4lf"]
 [ext_resource type="Script" uid="uid://y2naeclibxt3" path="res://resources/spells/definitions/ProjectileSpellDefinition.cs" id="1_xp8r4"]
 [ext_resource type="Resource" uid="uid://ddlifbvb1pxy7" path="res://resources/spells/status_profiles/water_profile.tres" id="2_beslx"]
@@ -7,7 +8,7 @@
 [resource]
 script = ExtResource("1_xp8r4")
 ProjectileScene = ExtResource("1_uj4lf")
-ProjectileSpeed = 8.0
+ProjectileSpeed = 5.0
 ProjectileSpread = 0.0
 ProjectilePierce = 100
 DieOnWorldHit = true
@@ -22,13 +23,14 @@ ExplosionLifetimeSeconds = 0.0
 Id = "water_waterball"
 DisplayName = "Water Orb"
 Description = ""
+Icon = ExtResource("1_fr7fs")
 Element = 2
 CastMode = 0
 BehaviourType = 0
 DamageModifier = 1.0
-BaseRange = 20.0
-BaseCooldown = 1.0
-BaseManaCost = 0.0
+BaseRange = 40.0
+BaseCooldown = 20.0
+BaseManaCost = 30.0
 EnableRehit = false
 RehitIntervalSeconds = 0.25
 RehitMaxDurationSeconds = 0.0

@@ -34,12 +34,15 @@ public partial class PauseManager : Node
     public void RequestPause()
     {
         _pauseRequests++;
+        if (!IsInsideTree()) return;
         GetTree().Paused = true;
     }
 
     public void ReleasePause()
     {
         _pauseRequests = Math.Max(0, _pauseRequests - 1);
+        if (!IsInsideTree()) return;
+
         if (_pauseRequests == 0)
             GetTree().Paused = false;
     }

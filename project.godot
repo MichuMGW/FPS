@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 GameEvents="*res://scripts/game/GameEvents.cs"
 RunConfig="*res://scripts/game/RunConfig.cs"
+LoadingManager="*res://scenes/managers/loading_manager.tscn"
 
 [display]
 

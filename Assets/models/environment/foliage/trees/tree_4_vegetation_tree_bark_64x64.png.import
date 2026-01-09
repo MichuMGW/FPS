@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://civr5vhhsxn8m"
-path.s3tc="res://.godot/imported/tree_4_vegetation_tree_bark_64x64.png-28cd935ce90475835d8e8987fee6c38d.s3tc.ctex"
+path.s3tc="res://.godot/imported/tree_4_vegetation_tree_bark_64x64.png-ad943e104f95ff8bca747f82e8a48d5e.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://Assets/models/environment/foliage/trees/tree_4_vegetation_tree_bark_64x64.png"
-dest_files=["res://.godot/imported/tree_4_vegetation_tree_bark_64x64.png-28cd935ce90475835d8e8987fee6c38d.s3tc.ctex"]
+source_file="res://assets/models/environment/foliage/trees/tree_4_vegetation_tree_bark_64x64.png"
+dest_files=["res://.godot/imported/tree_4_vegetation_tree_bark_64x64.png-ad943e104f95ff8bca747f82e8a48d5e.s3tc.ctex"]
 
 [params]
 

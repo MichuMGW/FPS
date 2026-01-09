@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=3 uid="uid://dxm28jd1ja67h"]
 
 [ext_resource type="Script" uid="uid://bx3vge47jjbhb" path="res://scripts/ui/ChestRewardOverlay.cs" id="1_0lvow"]
-[ext_resource type="PackedScene" uid="uid://bcqubio3oirlf" path="res://Assets/models/objects/chest/chest.glb" id="1_ian6i"]
-[ext_resource type="Theme" uid="uid://csif8wnmjs1io" path="res://Assets/ui_theme.tres" id="3_bcr2i"]
-[ext_resource type="FontFile" uid="uid://d2vf3deu7a1b0" path="res://Assets/fonts/Kenney High.ttf" id="3_hdvmu"]
+[ext_resource type="PackedScene" uid="uid://bcqubio3oirlf" path="res://assets/models/objects/chest/chest.glb" id="1_ian6i"]
+[ext_resource type="Theme" uid="uid://csif8wnmjs1io" path="res://assets/themes/ui_theme.tres" id="3_bcr2i"]
+[ext_resource type="FontFile" uid="uid://d2vf3deu7a1b0" path="res://assets/fonts/Kenney High.ttf" id="3_hdvmu"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_0lvow"]
 

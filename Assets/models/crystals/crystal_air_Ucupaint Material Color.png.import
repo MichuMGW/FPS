@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c7kytqql3ymls"
-path.s3tc="res://.godot/imported/crystal_air_Ucupaint Material Color.png-6a3fad604436fe6bf2f02107810e0b12.s3tc.ctex"
+path.s3tc="res://.godot/imported/crystal_air_Ucupaint Material Color.png-b06d7b1bba4ef330cf55ad0b8800bdf9.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://Assets/models/crystals/crystal_air_Ucupaint Material Color.png"
-dest_files=["res://.godot/imported/crystal_air_Ucupaint Material Color.png-6a3fad604436fe6bf2f02107810e0b12.s3tc.ctex"]
+source_file="res://assets/models/crystals/crystal_air_Ucupaint Material Color.png"
+dest_files=["res://.godot/imported/crystal_air_Ucupaint Material Color.png-b06d7b1bba4ef330cf55ad0b8800bdf9.s3tc.ctex"]
 
 [params]
 

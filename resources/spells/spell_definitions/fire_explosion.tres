@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bli4valuy8ui4" path="res://scenes/spells/basic_spells/special_spells/fire_explosion_aoe.tscn" id="1_2e2j6"]
 [ext_resource type="Script" uid="uid://d34h7mks6sosn" path="res://resources/spells/definitions/ExplosionSpellDefinition.cs" id="1_xarod"]
-[ext_resource type="Texture2D" uid="uid://cwnc88m7aqfr0" path="res://Assets/icons/fire_explosion.png" id="2_4k22u"]
+[ext_resource type="Texture2D" uid="uid://cwnc88m7aqfr0" path="res://assets/icons/fire_explosion.png" id="2_4k22u"]
 [ext_resource type="PackedScene" uid="uid://dsydo8l5shfc8" path="res://scenes/spells/basic_spells/special_spells/fire_explosion_indicator.tscn" id="2_ya0gv"]
 [ext_resource type="Resource" uid="uid://dauqpdr3hfvvb" path="res://resources/spells/status_profiles/fire_profile.tres" id="4_4k22u"]
 
@@ -18,7 +18,7 @@ MaxPlacementDistance = 25.0
 PlacementMask = 17
 Id = "fire_explosion"
 DisplayName = "Fire Explosion"
-Description = ""
+Description = "Creates an explosion at the location specified by the player."
 Icon = ExtResource("2_4k22u")
 Element = 1
 CastMode = 3
@@ -26,7 +26,7 @@ BehaviourType = 4
 DamageModifier = 2.0
 BaseRange = 20.0
 BaseCooldown = 15.0
-BaseManaCost = 50.0
+BaseManaCost = 30.0
 EnableRehit = false
 RehitIntervalSeconds = 0.25
 RehitMaxDurationSeconds = 0.0

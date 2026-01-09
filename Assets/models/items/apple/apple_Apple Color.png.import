@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://caswgrl46y6jw"
-path.s3tc="res://.godot/imported/apple_Apple Color.png-851a05acd765fb95fadfc4b7bb44bbe2.s3tc.ctex"
+path.s3tc="res://.godot/imported/apple_Apple Color.png-ad63a04986a3a6ce1a4b96137da227bc.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://Assets/models/items/apple/apple_Apple Color.png"
-dest_files=["res://.godot/imported/apple_Apple Color.png-851a05acd765fb95fadfc4b7bb44bbe2.s3tc.ctex"]
+source_file="res://assets/models/items/apple/apple_Apple Color.png"
+dest_files=["res://.godot/imported/apple_Apple Color.png-ad63a04986a3a6ce1a4b96137da227bc.s3tc.ctex"]
 
 [params]
 

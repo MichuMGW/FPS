@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://brwwcslh3lai1"
-path.s3tc="res://.godot/imported/crystal_fire_Ucupaint Material Color.png-2aabef01859e21a2a4c62a75fc6377a5.s3tc.ctex"
+path.s3tc="res://.godot/imported/crystal_fire_Ucupaint Material Color.png-9097bfe4e21cd61505a3ba2a34d58fec.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://Assets/models/crystals/crystal_fire_Ucupaint Material Color.png"
-dest_files=["res://.godot/imported/crystal_fire_Ucupaint Material Color.png-2aabef01859e21a2a4c62a75fc6377a5.s3tc.ctex"]
+source_file="res://assets/models/crystals/crystal_fire_Ucupaint Material Color.png"
+dest_files=["res://.godot/imported/crystal_fire_Ucupaint Material Color.png-9097bfe4e21cd61505a3ba2a34d58fec.s3tc.ctex"]
 
 [params]
 

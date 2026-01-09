@@ -3,6 +3,7 @@ using Godot;
 public partial class Skeleton : StateMachineEnemy<SkeletonStateId>
 {
     public float AttackDistance { get; private set; } = 2f;
+    public HitboxComponent Hitbox { get; private set; }
 
     public AnimationPlayer Animation { get; private set; }
     private RandomNumberGenerator _rng = new();
@@ -11,6 +12,7 @@ public partial class Skeleton : StateMachineEnemy<SkeletonStateId>
     {
         base.FindNodes();
         Animation = GetNodeOrNull<AnimationPlayer>("skeleton/AnimationPlayer");
+        Hitbox = GetNodeOrNull<HitboxComponent>("HitboxComponent");
     }
 
     protected override void OnAfterReady()

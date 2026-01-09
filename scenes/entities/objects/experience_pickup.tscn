@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://dn7510hvebguv"]
 
-[ext_resource type="Shader" uid="uid://dv2thjj428ocd" path="res://Assets/effects/shaders/experience_point/experience_point_coat.tres" id="1_a2ca6"]
+[ext_resource type="Shader" uid="uid://dv2thjj428ocd" path="res://assets/effects/shaders/experience_point/experience_point_coat.tres" id="1_a2ca6"]
 [ext_resource type="Script" uid="uid://cmdnpxmrud1by" path="res://scripts/entity/ExperiencePickup.cs" id="1_h6ktf"]
-[ext_resource type="Shader" uid="uid://cuy6vvxshsgv8" path="res://Assets/effects/shaders/experience_point/experience_point_core.tres" id="2_h6ktf"]
+[ext_resource type="Shader" uid="uid://cuy6vvxshsgv8" path="res://assets/effects/shaders/experience_point/experience_point_core.tres" id="2_h6ktf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_etale"]
 render_priority = 0

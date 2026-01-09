@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c8r74nran3kwn"
-path.s3tc="res://.godot/imported/Arms Color.png-b25e1ac333062106f952a4ed1c861a12.s3tc.ctex"
+path.s3tc="res://.godot/imported/Arms Color.png-48bf823f5da0eb0cf2d14d62a33601a9.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/models/arms/Arms Color.png"
-dest_files=["res://.godot/imported/Arms Color.png-b25e1ac333062106f952a4ed1c861a12.s3tc.ctex"]
+source_file="res://assets/models/arms/Arms Color.png"
+dest_files=["res://.godot/imported/Arms Color.png-48bf823f5da0eb0cf2d14d62a33601a9.s3tc.ctex"]
 
 [params]
 

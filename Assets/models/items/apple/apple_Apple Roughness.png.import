@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dtau6j8labvma"
-path.s3tc="res://.godot/imported/apple_Apple Roughness.png-00c4e2459791beeb739a8837430a3173.s3tc.ctex"
+path.s3tc="res://.godot/imported/apple_Apple Roughness.png-824eed4e5657e64a6aa78c018d92a2ab.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://Assets/models/items/apple/apple_Apple Roughness.png"
-dest_files=["res://.godot/imported/apple_Apple Roughness.png-00c4e2459791beeb739a8837430a3173.s3tc.ctex"]
+source_file="res://assets/models/items/apple/apple_Apple Roughness.png"
+dest_files=["res://.godot/imported/apple_Apple Roughness.png-824eed4e5657e64a6aa78c018d92a2ab.s3tc.ctex"]
 
 [params]
 

@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="ProjectileSpellDefinition" load_steps=6 format=3 uid="uid://cvdiefxdwpgti"]
 
-[ext_resource type="PackedScene" uid="uid://dheos2yhqkm8v" path="res://scenes/spells/basic_spells/projectile_spells/magma_magmaball.tscn" id="1_5a3bv"]
+[ext_resource type="PackedScene" uid="uid://dheos2yhqkm8v" path="res://scenes/components/magma_magmaball.tscn" id="1_5a3bv"]
 [ext_resource type="Script" uid="uid://y2naeclibxt3" path="res://resources/spells/definitions/ProjectileSpellDefinition.cs" id="1_ducu7"]
-[ext_resource type="Texture2D" uid="uid://c8a0fx0xj6xpc" path="res://Assets/icons/magma_magmaball.png" id="1_lpk0i"]
+[ext_resource type="Texture2D" uid="uid://c8a0fx0xj6xpc" path="res://assets/icons/magma_magmaball.png" id="1_lpk0i"]
 [ext_resource type="Script" uid="uid://dqdjhp8c7xw30" path="res://resources/spells/ElementStatusProfile.cs" id="1_tkonr"]
 
 [sub_resource type="Resource" id="Resource_5a3bv"]
@@ -30,7 +30,7 @@ script = ExtResource("1_ducu7")
 ProjectileScene = ExtResource("1_5a3bv")
 ProjectileSpeed = 15.0
 ProjectileSpread = 0.0
-ProjectilePierce = 5
+ProjectilePierce = 0
 DieOnWorldHit = true
 ScaleOverTime = true
 StartScale = 0.05
@@ -42,7 +42,7 @@ ExplosionDamageMultiplier = 1.0
 ExplosionLifetimeSeconds = 0.0
 Id = "magma_magmaball"
 DisplayName = "Magma Ball"
-Description = "Shoots slow, but powerfull magma ball"
+Description = "Shoots a slow but powerful magma ball."
 Icon = ExtResource("1_lpk0i")
 Element = 5
 CastMode = 1
@@ -50,7 +50,7 @@ BehaviourType = 0
 DamageModifier = 3.0
 BaseRange = 30.0
 BaseCooldown = 1.0
-BaseManaCost = 5.0
+BaseManaCost = 1.0
 EnableRehit = false
 RehitIntervalSeconds = 0.25
 RehitMaxDurationSeconds = 0.0

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c8a0fx0xj6xpc"
-path="res://.godot/imported/magma_magmaball.png-08da9dd8f9add0103722f33396b540da.ctex"
+path="res://.godot/imported/magma_magmaball.png-687b57882367f33446b8eb99308f5596.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/icons/magma_magmaball.png"
-dest_files=["res://.godot/imported/magma_magmaball.png-08da9dd8f9add0103722f33396b540da.ctex"]
+source_file="res://assets/icons/magma_magmaball.png"
+dest_files=["res://.godot/imported/magma_magmaball.png-687b57882367f33446b8eb99308f5596.ctex"]
 
 [params]
 

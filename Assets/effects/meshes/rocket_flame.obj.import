@@ -4,14 +4,14 @@ importer="wavefront_obj"
 importer_version=1
 type="Mesh"
 uid="uid://ch27bigf78ck"
-path="res://.godot/imported/rocket_flame.obj-3aba910db3e143ea557568d904ca0602.mesh"
+path="res://.godot/imported/rocket_flame.obj-c555bae3c1ba93555fd0ee03523e6a74.mesh"
 
 [deps]
 
-files=["res://.godot/imported/rocket_flame.obj-3aba910db3e143ea557568d904ca0602.mesh"]
+files=["res://.godot/imported/rocket_flame.obj-c555bae3c1ba93555fd0ee03523e6a74.mesh"]
 
-source_file="res://Assets/effects/meshes/rocket_flame.obj"
-dest_files=["res://.godot/imported/rocket_flame.obj-3aba910db3e143ea557568d904ca0602.mesh", "res://.godot/imported/rocket_flame.obj-3aba910db3e143ea557568d904ca0602.mesh"]
+source_file="res://assets/effects/meshes/rocket_flame.obj"
+dest_files=["res://.godot/imported/rocket_flame.obj-c555bae3c1ba93555fd0ee03523e6a74.mesh", "res://.godot/imported/rocket_flame.obj-c555bae3c1ba93555fd0ee03523e6a74.mesh"]
 
 [params]
 

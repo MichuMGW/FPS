@@ -1,9 +1,9 @@
 [gd_scene load_steps=12 format=3 uid="uid://b2tk82srnjwut"]
 
 [ext_resource type="Script" uid="uid://tcmlvmhebq6h" path="res://scripts/spells/projectile_spells/Projectile.cs" id="1_cixsg"]
-[ext_resource type="ArrayMesh" uid="uid://d0p0w2s6y6btu" path="res://Assets/effects/meshes/small_shard.obj" id="2_2rgkv"]
+[ext_resource type="ArrayMesh" uid="uid://d0p0w2s6y6btu" path="res://assets/effects/meshes/small_shard.obj" id="2_2rgkv"]
 [ext_resource type="PackedScene" uid="uid://c2wcxah80nn20" path="res://scenes/components/hitbox_component.tscn" id="3_84oue"]
-[ext_resource type="Texture2D" uid="uid://oueapoone5qq" path="res://Assets/effects/textures/T_VFX_basic1.PNG" id="4_5hpkw"]
+[ext_resource type="Texture2D" uid="uid://oueapoone5qq" path="res://assets/effects/textures/T_VFX_basic1.PNG" id="4_5hpkw"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yxps6"]
 albedo_color = Color(0.138553, 0.0640653, 0.00413853, 1)

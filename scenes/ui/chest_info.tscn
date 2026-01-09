@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://cdqxkk2mc0007"]
 
 [ext_resource type="Script" uid="uid://c3ad36kbeld6w" path="res://scripts/ui/ChestInfo.cs" id="1_r67s2"]
-[ext_resource type="Theme" uid="uid://csif8wnmjs1io" path="res://Assets/ui_theme.tres" id="2_76ylb"]
-[ext_resource type="Texture2D" uid="uid://di3blninj87dm" path="res://Assets/icons/coins.png" id="2_ltd0y"]
+[ext_resource type="Theme" uid="uid://csif8wnmjs1io" path="res://assets/themes/ui_theme.tres" id="2_76ylb"]
+[ext_resource type="Texture2D" uid="uid://di3blninj87dm" path="res://assets/icons/coins.png" id="2_ltd0y"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_nqib5"]
 viewport_path = NodePath("Sprite3D/SubViewport")

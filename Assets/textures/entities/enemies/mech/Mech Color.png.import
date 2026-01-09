@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://i73qawyt65f6"
-path.s3tc="res://.godot/imported/Mech Color.png-cb5ae7b96ed64fc34571b90168a2fc2b.s3tc.ctex"
+path.s3tc="res://.godot/imported/Mech Color.png-6ae18e8cc188c124f98d9f03c4f9ca78.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/textures/entities/enemies/mech/Mech Color.png"
-dest_files=["res://.godot/imported/Mech Color.png-cb5ae7b96ed64fc34571b90168a2fc2b.s3tc.ctex"]
+source_file="res://assets/textures/entities/enemies/mech/Mech Color.png"
+dest_files=["res://.godot/imported/Mech Color.png-6ae18e8cc188c124f98d9f03c4f9ca78.s3tc.ctex"]
 
 [params]
 

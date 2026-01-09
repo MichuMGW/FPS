@@ -2,20 +2,17 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cobo5x0cwh4gl"
-path.s3tc="res://.godot/imported/chest_metal_9.png-ae3d89c8f23f4135e84d7fff815b420e.s3tc.ctex"
+uid="uid://baqydpffb138p"
+path.s3tc="res://.godot/imported/chest_metal_9.png-f9693562d891eb0992093d0fe4e7eda6.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
-generator_parameters={
-"md5": "e52d5635096f8c36ac0804f028865156"
-}
 
 [deps]
 
-source_file="res://Assets/models/objects/chest/chest_metal_9.png"
-dest_files=["res://.godot/imported/chest_metal_9.png-ae3d89c8f23f4135e84d7fff815b420e.s3tc.ctex"]
+source_file="res://assets/models/objects/chest/chest_metal_9.png"
+dest_files=["res://.godot/imported/chest_metal_9.png-f9693562d891eb0992093d0fe4e7eda6.s3tc.ctex"]
 
 [params]
 

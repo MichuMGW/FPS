@@ -16,6 +16,10 @@ public partial class PlayerSpellController : Node
     [Export] public PlayerStatsManager StatsManager;
     [Export] public ElementKitDefinition StartingKit;
 
+    private PlayerManaComponent _mana;
+    private GameEvents _events;
+
+
     private Node3D _leftHand;
     private Node3D _rightHand;
     private Camera3D _camera;
@@ -41,6 +45,9 @@ public partial class PlayerSpellController : Node
 
         _caster = GetOwner<Node3D>();
         _raycast = GetTree().GetFirstNodeInGroup("player_ray") as RayCast3D;
+
+        _events = GetTree().Root.GetNodeOrNull<GameEvents>("GameEvents");
+        _mana = _caster.GetNodeOrNull<PlayerManaComponent>("PlayerManaComponent");
 
         RegisterDefaultBehaviours();
         EquipKit(StartingKit);
@@ -138,6 +145,7 @@ public partial class PlayerSpellController : Node
 
         var def = inst.Definition;
 
+        
         // Charge: jeśli na cooldownie, nie startuj (żadnych indicatorów)
         if ((def.CastMode == SpellCastMode.ChargeRelease || def.CastMode == SpellCastMode.ChargeAuto) && !inst.CanCast)
             return false;
@@ -145,6 +153,16 @@ public partial class PlayerSpellController : Node
         // Dla reszty: jeśli ma cooldown i tryb wymaga instant castu od razu, po prostu fail
         if (!inst.CanCast && def.CastMode == SpellCastMode.Instant)
             return false;
+
+        if (_mana != null)
+        {
+            float manaCost = GetManaCost(def);
+            if (!_mana.CanAfford(manaCost))
+            {
+                _mana.ShowNotEnoughMana();
+                return false;
+            }
+        }
 
         var behaviour = GetBehaviourFor(def);
         if (behaviour == null) return false;
@@ -293,9 +311,19 @@ public partial class PlayerSpellController : Node
         if (s.Release == null)
             return false;
 
+        float manaCost = GetManaCost(s.Def);
+        if (!_mana.TrySpend(manaCost, showError: true))
+            return false;
+
         bool didCast = s.Release.OnReleased(s.Ctx);
         if (didCast)
+        {
             ApplyCooldown(s.Instance);
+        }
+        else
+        {
+            _mana.Restore(GetManaCost(s.Def));
+        }
 
         return didCast;
     }
@@ -304,6 +332,17 @@ public partial class PlayerSpellController : Node
     {
         if (!s.Instance.CanCast)
             return false;
+
+        if (_mana != null)
+        {
+            float manaCost = GetManaCost(s.Def);
+            if (!_mana.TrySpend(manaCost, showError: true))
+            {
+                _mana.ShowNotEnoughMana();
+                return false;
+            }
+
+        }
 
         s.Behaviour.PerformCast(s.Ctx);
 
@@ -396,4 +435,17 @@ public partial class PlayerSpellController : Node
         var instance = GetInstance(slot);
         return instance != null && instance.Definition.BaseCooldown < 0.4f;
     }
+
+    private float GetManaCost(SpellDefinition def)
+    {
+        if (def == null) return 0f;
+
+        float mult = StatsManager != null ? StatsManager.GetStat(StatId.ManaCostMultiplier) : 1f;
+        if (mult <= 0f) mult = 0f;
+
+        return Mathf.Max(0f, def.BaseManaCost * mult);
+    }
+
+
+
 }

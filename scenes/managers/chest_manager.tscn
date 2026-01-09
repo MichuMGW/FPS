@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://es1376ag1wcy" path="res://scripts/managers/ChestManager.cs" id="1_1woix"]
 [ext_resource type="PackedScene" uid="uid://cinn40j5cbixq" path="res://scenes/entities/objects/chest.tscn" id="2_hyw8q"]
-[ext_resource type="Texture2D" uid="uid://x0owjhftlf3r" path="res://Assets/textures/environment/terrain/SpawnTerrainMask.png" id="3_anrhf"]
+[ext_resource type="Texture2D" uid="uid://x0owjhftlf3r" path="res://assets/textures/environment/terrain/SpawnTerrainMask.png" id="3_anrhf"]
 
 [node name="ChestManager" type="Node3D" groups=["chest_manager"]]
 script = ExtResource("1_1woix")

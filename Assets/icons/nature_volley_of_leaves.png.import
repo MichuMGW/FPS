@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dcsfn88nrykjf"
-path="res://.godot/imported/nature_volley_of_leaves.png-fa5dfc1fdaed8c4e1aa4efc885dcf457.ctex"
+path="res://.godot/imported/nature_volley_of_leaves.png-9425356a888481e95f41f43d2c926edd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/icons/nature_volley_of_leaves.png"
-dest_files=["res://.godot/imported/nature_volley_of_leaves.png-fa5dfc1fdaed8c4e1aa4efc885dcf457.ctex"]
+source_file="res://assets/icons/nature_volley_of_leaves.png"
+dest_files=["res://.godot/imported/nature_volley_of_leaves.png-9425356a888481e95f41f43d2c926edd.ctex"]
 
 [params]
 

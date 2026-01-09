@@ -1,11 +1,11 @@
 [gd_scene load_steps=17 format=3 uid="uid://mympbdtdffqg"]
 
 [ext_resource type="Script" uid="uid://tcmlvmhebq6h" path="res://scripts/spells/projectile_spells/Projectile.cs" id="1_ckf0t"]
-[ext_resource type="PackedScene" uid="uid://xng3w0ck0x1s" path="res://scenes/hitbox_component_OLD.tscn" id="2_5ele2"]
-[ext_resource type="ArrayMesh" uid="uid://dk2p2p1mcqyhw" path="res://Assets/effects/meshes/fireball_mesh.obj" id="3_5ele2"]
-[ext_resource type="Shader" uid="uid://cjo668gjt5k6t" path="res://Assets/effects/shaders/fireball/fireball_trail1_shader.tres" id="3_oydsb"]
-[ext_resource type="Shader" uid="uid://ciq4p4fmcjhsf" path="res://Assets/effects/shaders/fireball/fireball_head_shader.tres" id="5_tt53c"]
-[ext_resource type="Texture2D" uid="uid://oueapoone5qq" path="res://Assets/effects/textures/T_VFX_basic1.PNG" id="7_i0cao"]
+[ext_resource type="PackedScene" uid="uid://c2wcxah80nn20" path="res://scenes/components/hitbox_component.tscn" id="2_8th6s"]
+[ext_resource type="ArrayMesh" uid="uid://dk2p2p1mcqyhw" path="res://assets/effects/meshes/fireball_mesh.obj" id="3_5ele2"]
+[ext_resource type="Shader" uid="uid://cjo668gjt5k6t" path="res://assets/effects/shaders/fireball/fireball_trail1_shader.tres" id="3_oydsb"]
+[ext_resource type="Shader" uid="uid://ciq4p4fmcjhsf" path="res://assets/effects/shaders/fireball/fireball_head_shader.tres" id="5_tt53c"]
+[ext_resource type="Texture2D" uid="uid://oueapoone5qq" path="res://assets/effects/textures/T_VFX_basic1.PNG" id="7_i0cao"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_q3m7n"]
 radius = 0.3
@@ -66,14 +66,15 @@ color = Color(1, 0.67451, 0.172549, 1)
 size = Vector2(0.1, 0.5)
 
 [node name="Projectile" type="CharacterBody3D"]
-collision_layer = 0
-script = ExtResource("1_ckf0t")
-HitboxPath = NodePath("HitboxComponent")
-
-[node name="HitboxComponent" parent="." instance=ExtResource("2_5ele2")]
 collision_layer = 8
 collision_mask = 32
-DamageType = 1
+script = ExtResource("1_ckf0t")
+HitboxPath = NodePath("HitboxComponent")
+VisualPath = NodePath("VFXFireball")
+
+[node name="HitboxComponent" parent="." instance=ExtResource("2_8th6s")]
+collision_layer = 8
+collision_mask = 32
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent"]
 shape = SubResource("SphereShape3D_q3m7n")

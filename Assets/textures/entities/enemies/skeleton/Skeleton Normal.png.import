@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bnttvdhore2fv"
-path.s3tc="res://.godot/imported/Skeleton Normal.png-8e7bd07b1f87f9a89cb69536b6a2abeb.s3tc.ctex"
+path.s3tc="res://.godot/imported/Skeleton Normal.png-5b7f0ab98b47f427529a3e7dcf402d99.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/textures/entities/enemies/skeleton/Skeleton Normal.png"
-dest_files=["res://.godot/imported/Skeleton Normal.png-8e7bd07b1f87f9a89cb69536b6a2abeb.s3tc.ctex"]
+source_file="res://assets/textures/entities/enemies/skeleton/Skeleton Normal.png"
+dest_files=["res://.godot/imported/Skeleton Normal.png-5b7f0ab98b47f427529a3e7dcf402d99.s3tc.ctex"]
 
 [params]
 

@@ -11,11 +11,11 @@
 [ext_resource type="PackedScene" uid="uid://bur6hmvbxstyd" path="res://scenes/components/experience_drop_component.tscn" id="9_8tnoe"]
 [ext_resource type="PackedScene" uid="uid://dn7510hvebguv" path="res://scenes/entities/objects/experience_pickup.tscn" id="10_soida"]
 [ext_resource type="PackedScene" uid="uid://c3kpxgsb3y4yi" path="res://scenes/components/gold_drop_component.tscn" id="11_68jr2"]
-[ext_resource type="PackedScene" uid="uid://drtc68o87at8y" path="res://Assets/models/enemies/skeleton.glb" id="12_gp6sm"]
-[ext_resource type="Texture2D" uid="uid://bhw310feyqim5" path="res://Assets/textures/entities/enemies/skeleton/Skeleton Color.png" id="13_7etyo"]
-[ext_resource type="Texture2D" uid="uid://bnttvdhore2fv" path="res://Assets/textures/entities/enemies/skeleton/Skeleton Normal.png" id="14_3tf85"]
+[ext_resource type="PackedScene" uid="uid://drtc68o87at8y" path="res://assets/models/enemies/skeleton.glb" id="12_gp6sm"]
+[ext_resource type="Texture2D" uid="uid://bhw310feyqim5" path="res://assets/textures/entities/enemies/skeleton/Skeleton Color.png" id="13_7etyo"]
+[ext_resource type="Texture2D" uid="uid://bnttvdhore2fv" path="res://assets/textures/entities/enemies/skeleton/Skeleton Normal.png" id="14_3tf85"]
 [ext_resource type="PackedScene" uid="uid://gwkhn3v3fswg" path="res://scenes/components/hurtbox_area.tscn" id="15_mopxn"]
-[ext_resource type="Texture2D" uid="uid://va48fqhvj3qf" path="res://Assets/textures/entities/enemies/skeleton/drewno_tekstura.png" id="16_p6mef"]
+[ext_resource type="Texture2D" uid="uid://va48fqhvj3qf" path="res://assets/textures/entities/enemies/skeleton/drewno_tekstura.png" id="16_p6mef"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h8410"]
 albedo_texture = ExtResource("13_7etyo")

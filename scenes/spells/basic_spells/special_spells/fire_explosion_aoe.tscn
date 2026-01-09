@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://c2wcxah80nn20" path="res://scenes/components/hitbox_component.tscn" id="2_v0xbs"]
 [ext_resource type="PackedScene" uid="uid://goh3vkv8vodf" path="res://scenes/effects/vfx/explosion.tscn" id="2_wdg67"]
 [ext_resource type="Script" uid="uid://bwvaebh43ere6" path="res://scripts/effects/ExplosionVFX.cs" id="4_c4xrp"]
-[ext_resource type="Material" uid="uid://cxhaa6i7bto07" path="res://Assets/effects/vfx/explosion/ExplosionMaterial.tres" id="5_mgehf"]
+[ext_resource type="Material" uid="uid://cxhaa6i7bto07" path="res://assets/effects/vfx/explosion/ExplosionMaterial.tres" id="5_mgehf"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_v0xbs"]
 

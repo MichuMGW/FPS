@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://y2naeclibxt3" path="res://resources/spells/definitions/ProjectileSpellDefinition.cs" id="1_1b5q3"]
 [ext_resource type="PackedScene" uid="uid://dj4vku1212nte" path="res://scenes/spells/basic_spells/projectile_spells/projectile_explosion.tscn" id="1_1fuhn"]
 [ext_resource type="PackedScene" uid="uid://mympbdtdffqg" path="res://scenes/spells/basic_spells/projectile_spells/fire_fireball.tscn" id="1_h0hcc"]
-[ext_resource type="Texture2D" uid="uid://b6eyuyy5c631v" path="res://Assets/icons/fire_fireball.png" id="2_7avi8"]
+[ext_resource type="Texture2D" uid="uid://b6eyuyy5c631v" path="res://assets/icons/fire_fireball.png" id="2_7avi8"]
 [ext_resource type="Resource" uid="uid://dauqpdr3hfvvb" path="res://resources/spells/status_profiles/fire_profile.tres" id="3_j5rlt"]
 
 [resource]
@@ -24,7 +24,7 @@ ExplosionDamageMultiplier = 2.0
 ExplosionLifetimeSeconds = 2.0
 Id = "fire_fireball"
 DisplayName = "Fireball"
-Description = ""
+Description = "Shoots a fireball with high damage"
 Icon = ExtResource("2_7avi8")
 Element = 1
 CastMode = 1
@@ -32,7 +32,7 @@ BehaviourType = 0
 DamageModifier = 2.0
 BaseRange = 50.0
 BaseCooldown = 1.2
-BaseManaCost = 0.0
+BaseManaCost = 1.0
 EnableRehit = false
 RehitIntervalSeconds = 2.0
 RehitMaxDurationSeconds = 0.0

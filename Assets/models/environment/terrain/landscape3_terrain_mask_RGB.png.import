@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://caw1m5isy7lwk"
-path.s3tc="res://.godot/imported/landscape3_terrain_mask_RGB.png-793f0200c8c3523c907ae5df294c7ccf.s3tc.ctex"
+path.s3tc="res://.godot/imported/landscape3_terrain_mask_RGB.png-7880c60b0d69d8cbd987b1624587c537.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://Assets/models/environment/terrain/landscape3_terrain_mask_RGB.png"
-dest_files=["res://.godot/imported/landscape3_terrain_mask_RGB.png-793f0200c8c3523c907ae5df294c7ccf.s3tc.ctex"]
+source_file="res://assets/models/environment/terrain/landscape3_terrain_mask_RGB.png"
+dest_files=["res://.godot/imported/landscape3_terrain_mask_RGB.png-7880c60b0d69d8cbd987b1624587c537.s3tc.ctex"]
 
 [params]
 

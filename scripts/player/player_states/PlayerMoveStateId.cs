@@ -2,5 +2,6 @@ public enum PlayerMoveStateId
 {
     Grounded,
     Airborne,
-    Dash
+    Dash,
+    Knockback
 }

@@ -1,4 +1,5 @@
 using Godot;
+using System;
 
 public partial class StatusComponent : Node
 {
@@ -28,6 +29,14 @@ public partial class StatusComponent : Node
     private float _bleedTickRate;
     private float _bleedTickAcc;
     private float _bleedDotPerTick;
+
+    [ExportGroup("Bleed Stacking")]
+    [Export] public int BleedMaxStacks { get; set; } = 10;
+    [Export] public bool BleedRefreshDurationOnStack { get; set; } = true;
+    [Export] public bool BleedUseFastestTickRate { get; set; } = true;
+
+    private int _bleedStacks;
+    private float _bleedBaseDotPerTick;
 
     // ---------------- Earth runtime ----------------
     private float _earthBuildup;
@@ -173,7 +182,7 @@ public partial class StatusComponent : Node
             _burning = false;
             _burningTickAcc = 0f;
             _burningDotPerTick = 0f;
-            SetProcess(false);
+            TryDisableProcessIfNoActiveStatuses();
             return;
         }
 
@@ -193,24 +202,57 @@ public partial class StatusComponent : Node
             return;
 
         SetProcess(true);
-        _bleeding = true;
-        _bleedTimeLeft = Mathf.Max(_bleedTimeLeft, duration);
-        _bleedTickRate = tickRate;
 
-        _bleedDotPerTick = Mathf.Max(_bleedDotPerTick, dotPerTick);
+        // start bleeding jeśli nie było
+        if (!_bleeding)
+        {
+            _bleeding = true;
+            _bleedTickAcc = 0f;
+            _bleedStacks = 0;
+            _bleedBaseDotPerTick = 0f;
+            _bleedTickRate = tickRate;
+        }
+
+        // + stack
+        _bleedStacks = Mathf.Clamp(_bleedStacks + 1, 1, BleedMaxStacks);
+
+        // bazowy dot dla 1 stacka:
+        // 1) jeśli chcesz żeby “mocniejszy bleed” podmieniał bazę -> max
+        _bleedBaseDotPerTick = Mathf.Max(_bleedBaseDotPerTick, dotPerTick);
+
+        // tick rate: opcjonalnie bierzemy najszybszy
+        if (BleedUseFastestTickRate)
+            _bleedTickRate = Mathf.Min(_bleedTickRate, tickRate);
+        else
+            _bleedTickRate = tickRate;
+
+        // czas: refresh albo max
+        if (BleedRefreshDurationOnStack)
+            _bleedTimeLeft = duration;
+        else
+            _bleedTimeLeft = Mathf.Max(_bleedTimeLeft, duration);
+
+        // wynikowy dot per tick = baza * stacki
+        _bleedDotPerTick = _bleedBaseDotPerTick * _bleedStacks;
     }
+
 
     private void TickBleed(float dt)
     {
         if (!_bleeding)
             return;
-        
+
         _bleedTimeLeft -= dt;
         if (_bleedTimeLeft <= 0f)
         {
             _bleeding = false;
             _bleedTickAcc = 0f;
             _bleedDotPerTick = 0f;
+            _bleedBaseDotPerTick = 0f;
+            _bleedStacks = 0;
+
+            // nie wyłączaj process “w ciemno”, bo mogą działać inne statusy
+            TryDisableProcessIfNoActiveStatuses();
             return;
         }
 
@@ -218,10 +260,10 @@ public partial class StatusComponent : Node
         while (_bleedTickAcc >= _bleedTickRate)
         {
             _bleedTickAcc -= _bleedTickRate;
-            SetProcess(false);
             DealStatusDamage(_bleedDotPerTick, Element.Nature);
         }
     }
+
 
     // ====================== Slow ======================
 
@@ -253,7 +295,7 @@ public partial class StatusComponent : Node
             _slowed = false;
             _slowPercent = 0f;
             _speedMultiplier = 1f;
-            SetProcess(false);
+            TryDisableProcessIfNoActiveStatuses();
             ApplyMoveSpeedMultiplier(1f);
         }
     }
@@ -294,7 +336,7 @@ public partial class StatusComponent : Node
         if (_earthBuildup <= 0f)
         {
             _earthDecayPerSecond = 0f;
-            SetProcess(false);
+            TryDisableProcessIfNoActiveStatuses();
         }
     }
 
@@ -317,8 +359,21 @@ public partial class StatusComponent : Node
         {
             _stunned = false;
             ApplyStunState(false);
-            SetProcess(false);
+            TryDisableProcessIfNoActiveStatuses();
         }
+    }
+
+    private void TryDisableProcessIfNoActiveStatuses()
+    {
+        bool any =
+            _burning ||
+            _bleeding ||
+            _slowed ||
+            _stunned ||
+            _earthBuildup > 0f;
+
+        if (!any)
+            SetProcess(false);
     }
 
     // ====================== Integration hooks ======================

@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="ElementKitDefinition" load_steps=4 format=3 uid="uid://8clhc2nk3ltk"]
+[gd_resource type="Resource" script_class="ElementKitDefinition" load_steps=5 format=3 uid="uid://8clhc2nk3ltk"]
 
+[ext_resource type="Resource" uid="uid://dn0micki6xl1g" path="res://resources/spells/spell_definitions/dash.tres" id="1_0pbtw"]
 [ext_resource type="Resource" uid="uid://ba16jdlioycrd" path="res://resources/spells/spell_definitions/water_beam.tres" id="1_wn70w"]
 [ext_resource type="Script" uid="uid://b3lgib24dqmon" path="res://resources/spells/ElementKitDefinition.cs" id="1_y2unw"]
 [ext_resource type="Resource" uid="uid://celltpaevqwvi" path="res://resources/spells/spell_definitions/water_waterball.tres" id="2_vc8ch"]
@@ -9,4 +10,5 @@ script = ExtResource("1_y2unw")
 Element = 2
 LeftHandSpell = ExtResource("1_wn70w")
 RightHandSpell = ExtResource("2_vc8ch")
+DashSpell = ExtResource("1_0pbtw")
 metadata/_custom_type_script = "uid://b3lgib24dqmon"

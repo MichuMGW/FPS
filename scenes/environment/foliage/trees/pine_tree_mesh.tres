@@ -1,7 +1,7 @@
 [gd_resource type="MeshLibrary" load_steps=13 format=4 uid="uid://bygu5a38g1axl"]
 
-[ext_resource type="Texture2D" uid="uid://de1gwd16hjr3l" path="res://Assets/models/environment/foliage/trees/pine_tree_1K-bark_14_Dif.png" id="1_qyko3"]
-[ext_resource type="Texture2D" uid="uid://txxtmhbio6kn" path="res://Assets/models/environment/foliage/trees/pine_tree_pine_needle.png" id="2_8l2uk"]
+[ext_resource type="Texture2D" uid="uid://de1gwd16hjr3l" path="res://assets/models/environment/foliage/trees/pine_tree_1K-bark_14_Dif.png" id="1_qyko3"]
+[ext_resource type="Texture2D" uid="uid://txxtmhbio6kn" path="res://assets/models/environment/foliage/trees/pine_tree_pine_needle.png" id="2_8l2uk"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r2vje"]
 resource_name = "bark_1"

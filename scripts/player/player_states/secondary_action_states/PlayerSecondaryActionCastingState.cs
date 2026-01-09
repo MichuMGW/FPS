@@ -18,6 +18,12 @@ public class PlayerSecondaryActionCastingState : IState, IUpdateState
         slot = player.CurrentSecondaryCastingSlot;
 
         // Dash: jeśli dash jest osobnym slotem i stanem, to możesz go w ogóle nie wrzucać w tę maszynę
+        if (!player.Spells.BeginCast(slot))
+        {
+            player.ChangeSecondaryActionState(PlayerSecondaryActionStateId.None);
+            return;
+        }
+
         if (slot == SpellSlot.Dash)
         {
             _ended = false;
@@ -27,11 +33,6 @@ public class PlayerSecondaryActionCastingState : IState, IUpdateState
             return;
         }
 
-        if (!player.Spells.BeginCast(slot))
-        {
-            player.ChangeSecondaryActionState(PlayerSecondaryActionStateId.None);
-            return;
-        }
 
         var def = player.Spells.GetInstance(slot)?.Definition;
         if (def == null) return;

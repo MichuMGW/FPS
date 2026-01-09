@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cym1fjyih08l1"
-path="res://.godot/imported/Groundmark.png-a9df1a8526f6135565d7c9e6eea68eed.ctex"
+path="res://.godot/imported/Groundmark.png-cfeb630244a87a254162dff4ca65f0c6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/textures/decals/Groundmark.png"
-dest_files=["res://.godot/imported/Groundmark.png-a9df1a8526f6135565d7c9e6eea68eed.ctex"]
+source_file="res://assets/textures/decals/Groundmark.png"
+dest_files=["res://.godot/imported/Groundmark.png-cfeb630244a87a254162dff4ca65f0c6.ctex"]
 
 [params]
 

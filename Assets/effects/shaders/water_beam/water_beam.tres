@@ -1,15 +1,16 @@
 [gd_resource type="VisualShader" load_steps=10 format=3 uid="uid://bsvfhw1pjio08"]
 
-[ext_resource type="Texture2D" uid="uid://jqxs2ing4i2g" path="res://models/melee_spells/water_whip/water_noise.png" id="1_ag1hw"]
-
 [sub_resource type="VisualShaderNodeUVFunc" id="VisualShaderNodeUVFunc_q6lyf"]
 function = 1
 
 [sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_0smtv"]
 parameter_name = "ColorParameter"
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ac4lx"]
+load_path = "res://.godot/imported/water_noise.png-42a3515ad49f26f65fb7f40e12eb421e.s3tc.ctex"
+
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_rrgkm"]
-texture = ExtResource("1_ag1hw")
+texture = SubResource("CompressedTexture2D_ac4lx")
 
 [sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_86ftw"]
 input_name = "time"

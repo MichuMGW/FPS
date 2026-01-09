@@ -1,12 +1,12 @@
 [gd_scene load_steps=21 format=3 uid="uid://crf3ekm0kijwl"]
 
-[ext_resource type="PackedScene" uid="uid://drtc68o87at8y" path="res://Assets/models/enemies/skeleton.glb" id="1_15cp8"]
+[ext_resource type="PackedScene" uid="uid://drtc68o87at8y" path="res://assets/models/enemies/skeleton.glb" id="1_15cp8"]
 [ext_resource type="Script" uid="uid://bf4risfyy0n5o" path="res://scripts/entity/enemy/Skeleton/Skeleton.cs" id="1_nlrb0"]
-[ext_resource type="Texture2D" uid="uid://bhw310feyqim5" path="res://Assets/textures/entities/enemies/skeleton/Skeleton Color.png" id="2_pibiy"]
+[ext_resource type="Texture2D" uid="uid://bhw310feyqim5" path="res://assets/textures/entities/enemies/skeleton/Skeleton Color.png" id="2_pibiy"]
 [ext_resource type="PackedScene" uid="uid://cih3o4ppqnupc" path="res://scenes/components/health_component.tscn" id="2_v6i2b"]
 [ext_resource type="Resource" uid="uid://trpisahm6l2w" path="res://resources/stats/enemy_stats/SkeletonStats.tres" id="2_yypc3"]
 [ext_resource type="PackedScene" uid="uid://dasekhirly362" path="res://scenes/components/skeletal_hurtbox_component.tscn" id="3_ktnt5"]
-[ext_resource type="Texture2D" uid="uid://bnttvdhore2fv" path="res://Assets/textures/entities/enemies/skeleton/Skeleton Normal.png" id="3_pwvnv"]
+[ext_resource type="Texture2D" uid="uid://bnttvdhore2fv" path="res://assets/textures/entities/enemies/skeleton/Skeleton Normal.png" id="3_pwvnv"]
 [ext_resource type="PackedScene" uid="uid://dhvc0370yavkg" path="res://scenes/components/pathfind_component.tscn" id="4_ktnt5"]
 [ext_resource type="PackedScene" uid="uid://hvd2uy3wofl8" path="res://scenes/components/status_component.tscn" id="5_e38pm"]
 [ext_resource type="PackedScene" uid="uid://hvw6gscvm54u" path="res://scenes/components/velocity_component.tscn" id="6_yypc3"]
@@ -44,14 +44,14 @@ StatsResource = ExtResource("2_yypc3")
 
 [node name="VelocityComponent" parent="." instance=ExtResource("6_yypc3")]
 
+[node name="PathfindComponent" parent="." node_paths=PackedStringArray("Agent") instance=ExtResource("4_ktnt5")]
+Agent = NodePath("../NavigationAgent3D")
+
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("Hurtbox") instance=ExtResource("2_v6i2b")]
 Hurtbox = NodePath("../SkeletalHurtboxComponent")
 
 [node name="SkeletalHurtboxComponent" parent="." groups=["hurtbox_component"] instance=ExtResource("3_ktnt5")]
 _armaturePath = "skeleton/SkeletonRig/Skeleton3D"
-
-[node name="PathfindComponent" parent="." node_paths=PackedStringArray("Agent") instance=ExtResource("4_ktnt5")]
-Agent = NodePath("../NavigationAgent3D")
 
 [node name="StatusComponent" parent="." instance=ExtResource("5_e38pm")]
 HurtboxComponentPath = NodePath("../SkeletalHurtboxComponent")

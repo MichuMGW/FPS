@@ -1,6 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://co6xss73lvr88"]
+[gd_scene load_steps=5 format=3 uid="uid://co6xss73lvr88"]
 
 [ext_resource type="Script" uid="uid://c7ek1xn2e58cl" path="res://scripts/managers/UIOverlayManager.cs" id="1_p10pb"]
+[ext_resource type="PackedScene" uid="uid://b3gno6dkvx40u" path="res://scenes/ui/menu/game_menu.tscn" id="2_v3jlx"]
+[ext_resource type="PackedScene" uid="uid://b1ocyv0nx4bs3" path="res://scenes/ui/end_game_overlay.tscn" id="3_gaaci"]
+[ext_resource type="Resource" uid="uid://bwk8dmptw6036" path="res://resources/spells/ElementKitDatabase.tres" id="3_j5hcc"]
 
 [node name="UIOverlayManager" type="Node"]
 script = ExtResource("1_p10pb")
+ElementOverlayScene = ExtResource("2_v3jlx")
+ChestRewardOverlayScene = ExtResource("2_v3jlx")
+LevelUpOverlayScene = ExtResource("2_v3jlx")
+GameMenuScene = ExtResource("2_v3jlx")
+EndGameOverlayScene = ExtResource("3_gaaci")
+KitDatabase = ExtResource("3_j5hcc")

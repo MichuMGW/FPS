@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://diac5qu0irare"
-path="res://.godot/imported/map_barrier_collisions.glb-bc2140fe818514bc7f2e3ce24d24ea3c.scn"
+path="res://.godot/imported/map_barrier_collisions.glb-8f2236a2cf263992f98ab02c6be609cb.scn"
 
 [deps]
 
-source_file="res://Assets/models/environment/terrain/obstacles/map_barrier_collisions.glb"
-dest_files=["res://.godot/imported/map_barrier_collisions.glb-bc2140fe818514bc7f2e3ce24d24ea3c.scn"]
+source_file="res://assets/models/environment/terrain/obstacles/map_barrier_collisions.glb"
+dest_files=["res://.godot/imported/map_barrier_collisions.glb-8f2236a2cf263992f98ab02c6be609cb.scn"]
 
 [params]
 

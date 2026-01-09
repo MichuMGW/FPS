@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://qa77uowc8eor"
-path.s3tc="res://.godot/imported/water_diff.png-fecb7122395bab028fad840db8d0693b.s3tc.ctex"
+path.s3tc="res://.godot/imported/water_diff.png-bb08f32e9345cceb90bb17808cdea3ad.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/models/melee_spells/water_whip/water_diff.png"
-dest_files=["res://.godot/imported/water_diff.png-fecb7122395bab028fad840db8d0693b.s3tc.ctex"]
+source_file="res://assets/models/melee_spells/water_whip/water_diff.png"
+dest_files=["res://.godot/imported/water_diff.png-bb08f32e9345cceb90bb17808cdea3ad.s3tc.ctex"]
 
 [params]
 

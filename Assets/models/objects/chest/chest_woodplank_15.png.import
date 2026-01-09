@@ -2,20 +2,17 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cr7k2luy224nm"
-path.s3tc="res://.godot/imported/chest_woodplank_15.png-aff8da5d283b2b6e54b4d91a8957e59b.s3tc.ctex"
+uid="uid://c0lx5qd3pkbti"
+path.s3tc="res://.godot/imported/chest_woodplank_15.png-18f488d90ba5680a6f41cf3a4a883bb2.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
-generator_parameters={
-"md5": "964cc6a039cb9beb39d2b074210d1159"
-}
 
 [deps]
 
-source_file="res://Assets/models/objects/chest/chest_woodplank_15.png"
-dest_files=["res://.godot/imported/chest_woodplank_15.png-aff8da5d283b2b6e54b4d91a8957e59b.s3tc.ctex"]
+source_file="res://assets/models/objects/chest/chest_woodplank_15.png"
+dest_files=["res://.godot/imported/chest_woodplank_15.png-18f488d90ba5680a6f41cf3a4a883bb2.s3tc.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bkf7ajiqg4bsi"
-path.s3tc="res://.godot/imported/mirror_Plane Color.png-84d457de2e23818e4da7e378df19e217.s3tc.ctex"
+path.s3tc="res://.godot/imported/mirror_Plane Color.png-d5d5eae8b4b683167cbc7141ea1f1925.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://Assets/models/items/mirror/mirror_Plane Color.png"
-dest_files=["res://.godot/imported/mirror_Plane Color.png-84d457de2e23818e4da7e378df19e217.s3tc.ctex"]
+source_file="res://assets/models/items/mirror/mirror_Plane Color.png"
+dest_files=["res://.godot/imported/mirror_Plane Color.png-d5d5eae8b4b683167cbc7141ea1f1925.s3tc.ctex"]
 
 [params]
 

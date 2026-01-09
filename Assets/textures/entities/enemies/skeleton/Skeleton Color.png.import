@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bhw310feyqim5"
-path.s3tc="res://.godot/imported/Skeleton Color.png-32dfd9b5ff440062c8edd9e2159d2147.s3tc.ctex"
+path.s3tc="res://.godot/imported/Skeleton Color.png-ad1f76d61470d622d80d7c175ac75c64.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/textures/entities/enemies/skeleton/Skeleton Color.png"
-dest_files=["res://.godot/imported/Skeleton Color.png-32dfd9b5ff440062c8edd9e2159d2147.s3tc.ctex"]
+source_file="res://assets/textures/entities/enemies/skeleton/Skeleton Color.png"
+dest_files=["res://.godot/imported/Skeleton Color.png-ad1f76d61470d622d80d7c175ac75c64.s3tc.ctex"]
 
 [params]
 

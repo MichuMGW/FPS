@@ -3,7 +3,7 @@ using Godot;
 public partial class GameEvents : Node
 {
     [Signal] public delegate void GameStartedEventHandler();
-    [Signal] public delegate void RunEndedEventHandler();
+    [Signal] public delegate void RunEndedEventHandler(int reason);
 
     [Signal] public delegate void GameMenuRequestedEventHandler();
 
@@ -32,6 +32,8 @@ public partial class GameEvents : Node
     [Signal] public delegate void BossSpawnedEventHandler(Node boss, BossHealthComponent bossHealth, string displayName);
     [Signal] public delegate void BossEndedEventHandler(Node boss);
 
+    [Signal] public delegate void EnemyDiedEventHandler();
+
     public override void _Ready()
     {
         ProcessMode = ProcessModeEnum.Always;
@@ -39,7 +41,8 @@ public partial class GameEvents : Node
 
     // ===== Emittery / Requests =====
     public void StartGame() => EmitSignal(nameof(GameStarted));
-    public void EndRun() => EmitSignal(nameof(RunEnded));
+    public void EndRun(RunEndReason reason = RunEndReason.RunFinished)
+        => EmitSignal(nameof(RunEnded), (int)reason);
     public void RequestGameMenu()
         => EmitSignal(nameof(GameMenuRequested));
 
@@ -93,5 +96,8 @@ public partial class GameEvents : Node
 
     public void EmitBossEnded(Node boss)
         => EmitSignal(nameof(BossEnded), boss);
+
+    public void EmitEnemyDied()
+        => EmitSignal(nameof(EnemyDied));
 
 }

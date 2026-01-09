@@ -4,14 +4,14 @@ importer="wavefront_obj"
 importer_version=1
 type="Mesh"
 uid="uid://d0p0w2s6y6btu"
-path="res://.godot/imported/small_shard.obj-f1d07937cb79707d81f8b8c3a52f6602.mesh"
+path="res://.godot/imported/small_shard.obj-916ebaec37f2a111b9dd5bae68145b51.mesh"
 
 [deps]
 
-files=["res://.godot/imported/small_shard.obj-f1d07937cb79707d81f8b8c3a52f6602.mesh"]
+files=["res://.godot/imported/small_shard.obj-916ebaec37f2a111b9dd5bae68145b51.mesh"]
 
-source_file="res://Assets/effects/meshes/small_shard.obj"
-dest_files=["res://.godot/imported/small_shard.obj-f1d07937cb79707d81f8b8c3a52f6602.mesh", "res://.godot/imported/small_shard.obj-f1d07937cb79707d81f8b8c3a52f6602.mesh"]
+source_file="res://assets/effects/meshes/small_shard.obj"
+dest_files=["res://.godot/imported/small_shard.obj-916ebaec37f2a111b9dd5bae68145b51.mesh", "res://.godot/imported/small_shard.obj-916ebaec37f2a111b9dd5bae68145b51.mesh"]
 
 [params]
 

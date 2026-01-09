@@ -2,20 +2,17 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bixi5aby7qxok"
-path.s3tc="res://.godot/imported/flask_Flask Color-Flask Alpha.png-0777075a1e61b680608a6714c8d877a8.s3tc.ctex"
+uid="uid://724kntyas18"
+path.s3tc="res://.godot/imported/flask_Flask Color-Flask Alpha.png-c0824c35d39fd1f61541c7dd3fa5da8f.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
-generator_parameters={
-"md5": "b4d5c0ab3e216deef0a84ffc6a06c840"
-}
 
 [deps]
 
-source_file="res://Assets/models/items/flask/flask_Flask Color-Flask Alpha.png"
-dest_files=["res://.godot/imported/flask_Flask Color-Flask Alpha.png-0777075a1e61b680608a6714c8d877a8.s3tc.ctex"]
+source_file="res://assets/models/items/flask/flask_Flask Color-Flask Alpha.png"
+dest_files=["res://.godot/imported/flask_Flask Color-Flask Alpha.png-c0824c35d39fd1f61541c7dd3fa5da8f.s3tc.ctex"]
 
 [params]
 

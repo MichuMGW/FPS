@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b2o1v2fdaufy8"
-path.s3tc="res://.godot/imported/smokesprite.png-7df52d2e7102e8632924bce633483a89.s3tc.ctex"
+path.s3tc="res://.godot/imported/smokesprite.png-66e6258ff44d27f3c77b713e251fd80d.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/effects/vfx/explosion/smokesprite.png"
-dest_files=["res://.godot/imported/smokesprite.png-7df52d2e7102e8632924bce633483a89.s3tc.ctex"]
+source_file="res://assets/effects/vfx/explosion/smokesprite.png"
+dest_files=["res://.godot/imported/smokesprite.png-66e6258ff44d27f3c77b713e251fd80d.s3tc.ctex"]
 
 [params]
 

@@ -20,12 +20,12 @@ public partial class ChestManager : Node3D
 	[Export] public int MaxTriesPerChest = 80;
 
 	[Export] public float InteractDistance = 4.5f;
-	[Export] public int BaseOpenCost = 30; //DO ZMIANY NA 30/20
+	[Export] public int BaseOpenCost = 20; //DO ZMIANY NA 30/20
 	[Export] public float SqrtScaleForCost = 30f;
 
     [Export] public string InteractAction = "Interact";
 
-    [Export] public Godot.Collections.Array<ItemDefinition> AvailableItems = new();
+    [Export] public Godot.Collections.Array<ItemDefinition> AvailableItems;
 
 	public int CurrentOpenCost { get; private set; } = 1;
 	private int _openedChests = 0;
@@ -61,6 +61,11 @@ public partial class ChestManager : Node3D
 
 		_events.ChestRewardResolved += OnChestRewardResolved;
 	}
+
+    public override void _ExitTree()
+    {
+        _events.ChestRewardResolved -= OnChestRewardResolved;
+    }
 
 	public override void _Process(double delta)
 	{

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dmwawq71pkotd"
-path.s3tc="res://.godot/imported/grass_rocky_d_256x256.jpg-2607fdc56b546d639ce8e5a0ebb9bbff.s3tc.ctex"
+path.s3tc="res://.godot/imported/grass_rocky_d_256x256.jpg-7276c8e1655026bf54621ebc9eb50cc5.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/textures/environment/terrain/grass_rocky_d_256x256.jpg"
-dest_files=["res://.godot/imported/grass_rocky_d_256x256.jpg-2607fdc56b546d639ce8e5a0ebb9bbff.s3tc.ctex"]
+source_file="res://assets/textures/environment/terrain/grass_rocky_d_256x256.jpg"
+dest_files=["res://.godot/imported/grass_rocky_d_256x256.jpg-7276c8e1655026bf54621ebc9eb50cc5.s3tc.ctex"]
 
 [params]
 

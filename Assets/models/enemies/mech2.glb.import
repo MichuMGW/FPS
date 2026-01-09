@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://b4bdjbfjec8xn"
-path="res://.godot/imported/mech2.glb-e1ee52903d0b468882e1a5f8f67e4f04.scn"
+path="res://.godot/imported/mech2.glb-7218f8ecbb49a0e1a58f1b1db075c675.scn"
 
 [deps]
 
-source_file="res://Assets/models/enemies/mech2.glb"
-dest_files=["res://.godot/imported/mech2.glb-e1ee52903d0b468882e1a5f8f67e4f04.scn"]
+source_file="res://assets/models/enemies/mech2.glb"
+dest_files=["res://.godot/imported/mech2.glb-7218f8ecbb49a0e1a58f1b1db075c675.scn"]
 
 [params]
 

@@ -8,14 +8,14 @@
 [ext_resource type="PackedScene" uid="uid://dhvc0370yavkg" path="res://scenes/components/pathfind_component.tscn" id="4_lmkll"]
 [ext_resource type="PackedScene" uid="uid://hvd2uy3wofl8" path="res://scenes/components/status_component.tscn" id="5_kf023"]
 [ext_resource type="PackedScene" uid="uid://hvw6gscvm54u" path="res://scenes/components/velocity_component.tscn" id="6_vy38q"]
-[ext_resource type="PackedScene" uid="uid://drtc68o87at8y" path="res://Assets/models/enemies/skeleton.glb" id="7_oyq7a"]
-[ext_resource type="Texture2D" uid="uid://bhw310feyqim5" path="res://Assets/textures/entities/enemies/skeleton/Skeleton Color.png" id="8_u8cmf"]
+[ext_resource type="PackedScene" uid="uid://drtc68o87at8y" path="res://assets/models/enemies/skeleton.glb" id="7_oyq7a"]
+[ext_resource type="Texture2D" uid="uid://bhw310feyqim5" path="res://assets/textures/entities/enemies/skeleton/Skeleton Color.png" id="8_u8cmf"]
 [ext_resource type="PackedScene" uid="uid://bur6hmvbxstyd" path="res://scenes/components/experience_drop_component.tscn" id="9_kf023"]
-[ext_resource type="Texture2D" uid="uid://bnttvdhore2fv" path="res://Assets/textures/entities/enemies/skeleton/Skeleton Normal.png" id="9_nps7c"]
+[ext_resource type="Texture2D" uid="uid://bnttvdhore2fv" path="res://assets/textures/entities/enemies/skeleton/Skeleton Normal.png" id="9_nps7c"]
 [ext_resource type="PackedScene" uid="uid://gwkhn3v3fswg" path="res://scenes/components/hurtbox_area.tscn" id="10_ihjql"]
 [ext_resource type="PackedScene" uid="uid://dn7510hvebguv" path="res://scenes/entities/objects/experience_pickup.tscn" id="10_oyq7a"]
 [ext_resource type="PackedScene" uid="uid://c3kpxgsb3y4yi" path="res://scenes/components/gold_drop_component.tscn" id="11_u8cmf"]
-[ext_resource type="Texture2D" uid="uid://va48fqhvj3qf" path="res://Assets/textures/entities/enemies/skeleton/drewno_tekstura.png" id="12_kf023"]
+[ext_resource type="Texture2D" uid="uid://va48fqhvj3qf" path="res://assets/textures/entities/enemies/skeleton/drewno_tekstura.png" id="12_kf023"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h8410"]
 albedo_texture = ExtResource("8_u8cmf")

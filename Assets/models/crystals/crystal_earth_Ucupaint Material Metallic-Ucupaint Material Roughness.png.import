@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://jnq0ftvne82e"
-path.s3tc="res://.godot/imported/crystal_earth_Ucupaint Material Metallic-Ucupaint Material Roughness.png-4aa4a0bc59d0a32a13a6b6d1f8f84aab.s3tc.ctex"
+path.s3tc="res://.godot/imported/crystal_earth_Ucupaint Material Metallic-Ucupaint Material Roughness.png-d313a32a84a709b5c50e25b1f2eed802.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://Assets/models/crystals/crystal_earth_Ucupaint Material Metallic-Ucupaint Material Roughness.png"
-dest_files=["res://.godot/imported/crystal_earth_Ucupaint Material Metallic-Ucupaint Material Roughness.png-4aa4a0bc59d0a32a13a6b6d1f8f84aab.s3tc.ctex"]
+source_file="res://assets/models/crystals/crystal_earth_Ucupaint Material Metallic-Ucupaint Material Roughness.png"
+dest_files=["res://.godot/imported/crystal_earth_Ucupaint Material Metallic-Ucupaint Material Roughness.png-d313a32a84a709b5c50e25b1f2eed802.s3tc.ctex"]
 
 [params]
 

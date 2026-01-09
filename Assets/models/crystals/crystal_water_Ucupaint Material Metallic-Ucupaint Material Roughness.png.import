@@ -2,20 +2,17 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bk3lnjx7rsmoo"
-path.s3tc="res://.godot/imported/crystal_water_Ucupaint Material Metallic-Ucupaint Material Roughness.png-97624407d0c2b9740b9cd9ee84a2c8b8.s3tc.ctex"
+uid="uid://i2hmgoamgu7u"
+path.s3tc="res://.godot/imported/crystal_water_Ucupaint Material Metallic-Ucupaint Material Roughness.png-68e01a8479e4aa3694e61338906e1c0d.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
-generator_parameters={
-"md5": "c823b00a8a1bd22d9e08eb925560a90e"
-}
 
 [deps]
 
-source_file="res://Assets/models/crystals/crystal_water_Ucupaint Material Metallic-Ucupaint Material Roughness.png"
-dest_files=["res://.godot/imported/crystal_water_Ucupaint Material Metallic-Ucupaint Material Roughness.png-97624407d0c2b9740b9cd9ee84a2c8b8.s3tc.ctex"]
+source_file="res://assets/models/crystals/crystal_water_Ucupaint Material Metallic-Ucupaint Material Roughness.png"
+dest_files=["res://.godot/imported/crystal_water_Ucupaint Material Metallic-Ucupaint Material Roughness.png-68e01a8479e4aa3694e61338906e1c0d.s3tc.ctex"]
 
 [params]
 

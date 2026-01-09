@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="LevelUpUpgradeDefinition" load_steps=4 format=3 uid="uid://bh0yju4e7dghm"]
+
+[ext_resource type="Script" uid="uid://d1og76mbf6sdm" path="res://resources/items/StatModDefinition.cs" id="1_lb8a7"]
+[ext_resource type="Script" uid="uid://cejmhmihsxepu" path="res://resources/levelups/LevelUpUpgradeDefinition.cs" id="2_ojuef"]
+
+[sub_resource type="Resource" id="Resource_e62ob"]
+script = ExtResource("1_lb8a7")
+Stat = 13
+Add = 1.0
+Mult = 1.0
+metadata/_custom_type_script = "uid://d1og76mbf6sdm"
+
+[resource]
+script = ExtResource("2_ojuef")
+Id = "pierce"
+DisplayName = "Pierce"
+Description = "Increase spell pierce by"
+StatMods = Array[ExtResource("1_lb8a7")]([SubResource("Resource_e62ob")])
+CanStack = true
+MaxStacks = 99
+metadata/_custom_type_script = "uid://cejmhmihsxepu"

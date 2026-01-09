@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dhc060w0n1r78"
-path="res://.godot/imported/landscape4_grass-colision.glb-2ba6d375f2ded6310ca8c80e3f339b73.scn"
+path="res://.godot/imported/landscape4_grass-colision.glb-4f563b52e6168ee69a7b060d73931e02.scn"
 
 [deps]
 
-source_file="res://Assets/models/environment/foliage/trees/landscape4_grass-colision.glb"
-dest_files=["res://.godot/imported/landscape4_grass-colision.glb-2ba6d375f2ded6310ca8c80e3f339b73.scn"]
+source_file="res://assets/models/environment/foliage/trees/landscape4_grass-colision.glb"
+dest_files=["res://.godot/imported/landscape4_grass-colision.glb-4f563b52e6168ee69a7b060d73931e02.scn"]
 
 [params]
 

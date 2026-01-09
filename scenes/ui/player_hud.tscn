@@ -1,15 +1,15 @@
 [gd_scene load_steps=13 format=3 uid="uid://b7w7abb7e6in2"]
 
-[ext_resource type="Theme" uid="uid://csif8wnmjs1io" path="res://Assets/ui_theme.tres" id="1_3cn05"]
+[ext_resource type="Theme" uid="uid://csif8wnmjs1io" path="res://assets/themes/ui_theme.tres" id="1_3cn05"]
 [ext_resource type="Script" uid="uid://qx1ynm0lrtap" path="res://scripts/ui/PlayerHud.cs" id="1_e6e0b"]
-[ext_resource type="Texture2D" uid="uid://bfttqwkw4tfn0" path="res://Assets/textures/ui/bars/Under.png" id="2_u7a8l"]
+[ext_resource type="Texture2D" uid="uid://bfttqwkw4tfn0" path="res://assets/textures/ui/bars/Under.png" id="2_u7a8l"]
 [ext_resource type="Resource" uid="uid://bwk8dmptw6036" path="res://resources/spells/ElementKitDatabase.tres" id="3_bhaj2"]
-[ext_resource type="Texture2D" uid="uid://duikv8kjlpj14" path="res://Assets/textures/ui/bars/Over.png" id="3_hbwp2"]
-[ext_resource type="Texture2D" uid="uid://di3blninj87dm" path="res://Assets/icons/coins.png" id="4_c78lu"]
-[ext_resource type="Texture2D" uid="uid://d0wbsu4h4actu" path="res://Assets/textures/ui/bars/HPProgress.png" id="4_tfw32"]
-[ext_resource type="FontFile" uid="uid://d2vf3deu7a1b0" path="res://Assets/fonts/Kenney High.ttf" id="5_3cn05"]
-[ext_resource type="Texture2D" uid="uid://cjfpsvm5holen" path="res://Assets/textures/ui/bars/ManaProgress.png" id="5_nh6vl"]
-[ext_resource type="Texture2D" uid="uid://dmhrpwp4al77i" path="res://Assets/textures/ui/bars/ExpBar.png" id="6_3cn05"]
+[ext_resource type="Texture2D" uid="uid://duikv8kjlpj14" path="res://assets/textures/ui/bars/Over.png" id="3_hbwp2"]
+[ext_resource type="Texture2D" uid="uid://di3blninj87dm" path="res://assets/icons/coins.png" id="4_c78lu"]
+[ext_resource type="Texture2D" uid="uid://d0wbsu4h4actu" path="res://assets/textures/ui/bars/HPProgress.png" id="4_tfw32"]
+[ext_resource type="FontFile" uid="uid://d2vf3deu7a1b0" path="res://assets/fonts/Kenney High.ttf" id="5_3cn05"]
+[ext_resource type="Texture2D" uid="uid://cjfpsvm5holen" path="res://assets/textures/ui/bars/ManaProgress.png" id="5_nh6vl"]
+[ext_resource type="Texture2D" uid="uid://dmhrpwp4al77i" path="res://assets/textures/ui/bars/ExpBar.png" id="6_3cn05"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_bhaj2"]
 font = ExtResource("5_3cn05")
@@ -38,15 +38,15 @@ ExpLabelPath = NodePath("HBoxContainer/MarginContainer/VBoxContainer/ExpBar/ExpB
 GoldLabelPath = NodePath("GoldPanel/GoldInfoMarginContainer/HBoxContainer/GoldLabel")
 TimeLabelPath = NodePath("GameInfoMarginContainer/GameInfoVBoxContainer/TimeLabel")
 InfoLabelPath = NodePath("GameInfoMarginContainer/GameInfoVBoxContainer/InfoLabel")
-LeftSpellIconPath = NodePath("HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer/TextureRect")
-RightSpellIconPath = NodePath("HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer2/TextureRect")
-DashSpellIconPath = NodePath("HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer3/TextureRect")
-LeftSpellCooldownLabelPath = NodePath("HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer/TextureRect/CooldownLabel")
-RightSpellCooldownLabelPath = NodePath("HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer2/TextureRect/CooldownLabel")
-DashSpellCooldownLabelPath = NodePath("HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer3/TextureRect/CooldownLabel")
-LeftSpellShortcutPath = NodePath("HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer/Label")
-RightSpellShortcutPath = NodePath("HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer2/Label")
-DashSpellShortcutPath = NodePath("HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer3/Label")
+LeftSpellIconPath = NodePath("HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/TextureRect")
+RightSpellIconPath = NodePath("HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/TextureRect")
+DashSpellIconPath = NodePath("HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer3/TextureRect")
+LeftSpellCooldownLabelPath = NodePath("HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/TextureRect/CooldownLabel")
+RightSpellCooldownLabelPath = NodePath("HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/TextureRect/CooldownLabel")
+DashSpellCooldownLabelPath = NodePath("HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer3/TextureRect/CooldownLabel")
+LeftSpellShortcutPath = NodePath("HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/Label")
+RightSpellShortcutPath = NodePath("HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/Label")
+DashSpellShortcutPath = NodePath("HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer3/Label")
 BossHealthBarPath = NodePath("GameInfoMarginContainer/GameInfoVBoxContainer/BossHealthBar")
 BossNameLabelPath = NodePath("GameInfoMarginContainer/GameInfoVBoxContainer/BossHealthBar/BossHealtBarLabel")
 LeftSpellAction = "CastLeftSpell"
@@ -243,7 +243,6 @@ texture_filter = 1
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 step = 0.01
-value = 100.0
 nine_patch_stretch = true
 texture_under = ExtResource("2_u7a8l")
 texture_over = ExtResource("3_hbwp2")
@@ -270,23 +269,33 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 10
 
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/MarginContainer2"]
+[node name="PanelContainer" type="Panel" parent="HBoxContainer/MarginContainer2"]
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
+theme = ExtResource("1_3cn05")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/MarginContainer2/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/MarginContainer2/PanelContainer"]
+layout_mode = 2
+offset_right = 500.0
+offset_bottom = 150.0
+theme_override_constants/margin_left = 17
+theme_override_constants/margin_top = 17
+theme_override_constants/margin_right = 17
+theme_override_constants/margin_bottom = 17
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/MarginContainer2/PanelContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="CooldownLabel" type="Label" parent="HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer/TextureRect"]
+[node name="CooldownLabel" type="Label" parent="HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/TextureRect"]
 z_index = 100
 y_sort_enabled = true
 custom_minimum_size = Vector2(64, 64)
@@ -300,18 +309,18 @@ text = "A"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label" type="Label" parent="HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Left Spell"
 horizontal_alignment = 1
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer2"]
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 
-[node name="CooldownLabel" type="Label" parent="HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer2/TextureRect"]
+[node name="CooldownLabel" type="Label" parent="HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/TextureRect"]
 z_index = 1
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 1
@@ -329,18 +338,18 @@ grow_vertical = 2
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label" type="Label" parent="HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer2"]
+[node name="Label" type="Label" parent="HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 text = "RightSpell"
 horizontal_alignment = 1
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer"]
+[node name="VBoxContainer3" type="VBoxContainer" parent="HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer3"]
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer3"]
 layout_mode = 2
 
-[node name="CooldownLabel" type="Label" parent="HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer3/TextureRect"]
+[node name="CooldownLabel" type="Label" parent="HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer3/TextureRect"]
 visible = false
 z_index = 1
 layout_mode = 1
@@ -358,7 +367,7 @@ grow_vertical = 2
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label" type="Label" parent="HBoxContainer/MarginContainer2/PanelContainer/HBoxContainer/VBoxContainer3"]
+[node name="Label" type="Label" parent="HBoxContainer/MarginContainer2/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer3"]
 layout_mode = 2
 text = "Dash"
 horizontal_alignment = 1

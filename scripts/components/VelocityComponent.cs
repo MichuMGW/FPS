@@ -86,11 +86,6 @@ public partial class VelocityComponent : Node
             if (verticalVelocity < TerminalVelocity)
                 verticalVelocity = TerminalVelocity;
         }
-        else
-        {
-            // Opcjonalnie: jeśli masz “pływanie” po spadaniu, to to stabilizuje (nie zmienia zachowania ruchu poziomego).
-            // verticalVelocity = 0f;
-        }
     }
 
     public void RotateTowardsMovement(float delta)
@@ -147,19 +142,18 @@ public partial class VelocityComponent : Node
         if (_body != null)
             _body.Velocity = Vector3.Zero;
     }
+    public void SetBaseStats()
+    {
+        _baseMaxSpeed = MaxSpeed;
+        _baseAcceleration = Acceleration;
+        _baseDeceleration = Deceleration;
+    }
 
     private void RecalculateStats()
     {
         MaxSpeed = _baseMaxSpeed * _slowMultiplier;
         Acceleration = _baseAcceleration * _slowMultiplier;
         Deceleration = _baseDeceleration * _slowMultiplier;
-    }
-
-    public void SetBaseStats()
-    {
-        _baseMaxSpeed = MaxSpeed;
-        _baseAcceleration = Acceleration;
-        _baseDeceleration = Deceleration;
     }
 
     public void SetMoveSpeedMultiplier(float mult)

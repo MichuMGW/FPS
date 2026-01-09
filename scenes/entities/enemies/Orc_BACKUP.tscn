@@ -10,9 +10,9 @@
 [ext_resource type="PackedScene" uid="uid://bur6hmvbxstyd" path="res://scenes/components/experience_drop_component.tscn" id="8_rb6k7"]
 [ext_resource type="PackedScene" uid="uid://dn7510hvebguv" path="res://scenes/entities/objects/experience_pickup.tscn" id="9_2rpnj"]
 [ext_resource type="PackedScene" uid="uid://c3kpxgsb3y4yi" path="res://scenes/components/gold_drop_component.tscn" id="10_jhc7l"]
-[ext_resource type="PackedScene" uid="uid://2532s3mxhgc6" path="res://Assets/models/enemies/orc.glb" id="11_fpe5d"]
-[ext_resource type="Texture2D" uid="uid://d0t06ciif66w5" path="res://Assets/textures/entities/enemies/orc/OrcMaterial Color.png" id="12_n3h7w"]
-[ext_resource type="Texture2D" uid="uid://bjt6tulrexon6" path="res://Assets/textures/entities/enemies/orc/OrcMaterial Normal.png" id="13_k0eic"]
+[ext_resource type="PackedScene" uid="uid://2532s3mxhgc6" path="res://assets/models/enemies/orc.glb" id="11_fpe5d"]
+[ext_resource type="Texture2D" uid="uid://d0t06ciif66w5" path="res://assets/textures/entities/enemies/orc/OrcMaterial Color.png" id="12_n3h7w"]
+[ext_resource type="Texture2D" uid="uid://bjt6tulrexon6" path="res://assets/textures/entities/enemies/orc/OrcMaterial Normal.png" id="13_k0eic"]
 [ext_resource type="PackedScene" uid="uid://gwkhn3v3fswg" path="res://scenes/components/hurtbox_area.tscn" id="14_x7fqs"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wxk4a"]

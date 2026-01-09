@@ -5,11 +5,18 @@ public partial class GoldManager : Node
     [Signal] public delegate void GoldChangedEventHandler(int currentGold);
 
     public int CurrentGold { get; private set; }
+    public int GoldGained { get; private set; }
+
+    public override void _Ready()
+    {
+        ResetRun();
+    }
 
     public void ResetRun()
     {
         CurrentGold = 0;
-        EmitSignal(SignalName.GoldChanged, CurrentGold);
+        GoldGained = 0;
+        EmitSignal(nameof(GoldChanged), CurrentGold);
     }
 
     public void AddGold(int amount)
@@ -17,7 +24,8 @@ public partial class GoldManager : Node
         if (amount <= 0) return;
 
         CurrentGold += amount;
-        EmitSignal(SignalName.GoldChanged, CurrentGold);
+        GoldGained += amount;
+        EmitSignal(nameof(GoldChanged), CurrentGold);
     }
 
     public bool TrySpendGold(int amount)
@@ -26,7 +34,7 @@ public partial class GoldManager : Node
         if (CurrentGold < amount) return false;
 
         CurrentGold -= amount;
-        EmitSignal(SignalName.GoldChanged, CurrentGold);
+        EmitSignal(nameof(GoldChanged), CurrentGold);
         return true;
     }
 }

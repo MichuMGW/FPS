@@ -5,7 +5,7 @@
 
 [sub_resource type="Resource" id="Resource_imv5h"]
 script = ExtResource("1_xdj78")
-Stat = 15
+Stat = 17
 Add = 0.05
 Mult = 1.0
 metadata/_custom_type_script = "uid://d1og76mbf6sdm"
@@ -14,7 +14,7 @@ metadata/_custom_type_script = "uid://d1og76mbf6sdm"
 script = ExtResource("2_1ucmx")
 Id = "cooldown"
 DisplayName = "Cooldown Reduction"
-Description = "Reduces spell cooldowns by 5%"
+Description = "Reduces spell cooldowns by"
 StatMods = Array[ExtResource("1_xdj78")]([SubResource("Resource_imv5h")])
 CanStack = true
 MaxStacks = 99

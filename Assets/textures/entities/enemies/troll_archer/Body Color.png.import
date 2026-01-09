@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bknb2fo6qwle6"
-path.s3tc="res://.godot/imported/Body Color.png-277e9d8cd596a6dc8833fd85c923fb50.s3tc.ctex"
+path.s3tc="res://.godot/imported/Body Color.png-4636941e67488fd7de4f0b44c854c6b4.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/textures/entities/enemies/troll_archer/Body Color.png"
-dest_files=["res://.godot/imported/Body Color.png-277e9d8cd596a6dc8833fd85c923fb50.s3tc.ctex"]
+source_file="res://assets/textures/entities/enemies/troll_archer/Body Color.png"
+dest_files=["res://.godot/imported/Body Color.png-4636941e67488fd7de4f0b44c854c6b4.s3tc.ctex"]
 
 [params]
 

@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="ProjectileSpellDefinition" load_steps=6 format=3 uid="uid://dawgx466veeyn"]
+[gd_resource type="Resource" script_class="ProjectileSpellDefinition" load_steps=7 format=3 uid="uid://dawgx466veeyn"]
 
 [ext_resource type="PackedScene" uid="uid://dj4vku1212nte" path="res://scenes/spells/basic_spells/projectile_spells/projectile_explosion.tscn" id="1_2p1p6"]
-[ext_resource type="PackedScene" uid="uid://dheos2yhqkm8v" path="res://scenes/spells/basic_spells/projectile_spells/magma_magmaball.tscn" id="1_beahl"]
+[ext_resource type="PackedScene" uid="uid://dheos2yhqkm8v" path="res://scenes/components/magma_magmaball.tscn" id="1_beahl"]
 [ext_resource type="Script" uid="uid://y2naeclibxt3" path="res://resources/spells/definitions/ProjectileSpellDefinition.cs" id="1_uc3yv"]
 [ext_resource type="Script" uid="uid://dqdjhp8c7xw30" path="res://resources/spells/ElementStatusProfile.cs" id="2_2p1p6"]
+[ext_resource type="Texture2D" uid="uid://c5jd56y4vtjab" path="res://assets/icons/magma_magmaball_exploding.png" id="2_ckuvb"]
 
 [sub_resource type="Resource" id="Resource_5a3bv"]
 script = ExtResource("2_2p1p6")
@@ -28,14 +29,14 @@ metadata/_custom_type_script = "uid://dqdjhp8c7xw30"
 [resource]
 script = ExtResource("1_uc3yv")
 ProjectileScene = ExtResource("1_beahl")
-ProjectileSpeed = 15.0
+ProjectileSpeed = 10.0
 ProjectileSpread = 0.0
 ProjectilePierce = 0
 DieOnWorldHit = true
 ScaleOverTime = true
 StartScale = 0.05
-EndScale = 2.0
-ScaleDurationSeconds = 0.2
+EndScale = 3.0
+ScaleDurationSeconds = 0.5
 ExplodeOnEnemyHit = true
 ExplodeOnWorldHit = true
 ExplosionScene = ExtResource("1_2p1p6")
@@ -43,14 +44,15 @@ ExplosionDamageMultiplier = 4.0
 ExplosionLifetimeSeconds = 0.0
 Id = "magma_magmaball"
 DisplayName = "Magma Ball"
-Description = "Shoots powerfull magma ball, which explodes on impact"
+Description = "Shoots a powerful magma ball that explodes on impact."
+Icon = ExtResource("2_ckuvb")
 Element = 5
 CastMode = 0
 BehaviourType = 0
 DamageModifier = 3.0
 BaseRange = 30.0
-BaseCooldown = 1.0
-BaseManaCost = 5.0
+BaseCooldown = 20.0
+BaseManaCost = 50.0
 EnableRehit = false
 RehitIntervalSeconds = 0.25
 RehitMaxDurationSeconds = 0.0
